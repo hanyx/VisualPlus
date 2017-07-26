@@ -602,6 +602,11 @@
             _textBox.Size = GetInternalControlSize(Size, ControlBorder);
         }
 
+        private static string RemoveLineBreaks(string text)
+        {
+            return text.Replace(Environment.NewLine, " ");
+        }
+
         private void DrawWaterMark()
         {
             if ((waterMarkContainer == null) && (_textBox.TextLength <= 0))
@@ -655,11 +660,6 @@
             {
                 MouseState = MouseStates.Normal;
             }
-        }
-
-        private string RemoveLineBreaks(string text)
-        {
-            return text.Replace(Environment.NewLine, " ");
         }
 
         private void RemoveWaterMark()

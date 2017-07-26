@@ -5,9 +5,11 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Linq;
     using System.Windows.Forms;
 
     using VisualPlus.Extensibility;
+    using VisualPlus.Toolkit.Controls;
 
     #endregion
 
@@ -133,6 +135,14 @@
         #endregion
 
         #region Events
+
+        /// <summary>Gets the checked VisualRadioButton.</summary>
+        /// <param name="control">The container control.</param>
+        /// <returns>The checked VisualRadioButton.</returns>
+        public static VisualRadioButton GetCheckedFromContainer(Control control)
+        {
+            return control.Controls.OfType<VisualRadioButton>().FirstOrDefault(r => r.Checked);
+        }
 
         /// <summary>Gets the namespace location from the control.</summary>
         /// <param name="controlName">The control Name.</param>

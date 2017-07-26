@@ -17,13 +17,43 @@
     [ComVisible(true)]
     public abstract class RadioButtonBase : ToggleButtonBase
     {
+        #region Properties
+
+        [DefaultValue(false)]
+        [Category(Localize.PropertiesCategory.Behavior)]
+        [Description(Localize.Description.Checkmark.Checked)]
+        public bool Checked
+        {
+            get
+            {
+                return Toggle;
+            }
+
+            set
+            {
+                if (Toggle != value)
+                {
+                    // Store new values
+                    Toggle = value;
+
+                    // Generate events
+                    OnToggleChanged(EventArgs.Empty);
+
+                    // Repaint
+                    Invalidate();
+                }
+            }
+        }
+
+        #endregion
+
         #region Events
 
         protected override void OnClick(EventArgs e)
         {
-            if (!Toggle)
+            if (!Checked)
             {
-                Toggle = true;
+                Checked = true;
             }
 
             base.OnClick(e);
@@ -39,7 +69,7 @@
         private void AutoUpdateOthers()
         {
             // Only un-check others if they are checked
-            if (Toggle)
+            if (Checked)
             {
                 Control parent = Parent;
                 if (parent != null)
@@ -54,10 +84,10 @@
                             VisualRadioButton radioButton = (VisualRadioButton)control;
 
                             // If target allows auto check changed and is currently checked
-                            if (radioButton.Toggle)
+                            if (radioButton.Checked)
                             {
                                 // Set back to not checked
-                                radioButton.Toggle = false;
+                                radioButton.Checked = false;
                             }
                         }
                     }

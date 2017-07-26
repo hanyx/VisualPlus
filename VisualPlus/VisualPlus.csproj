@@ -86,7 +86,6 @@
     <Compile Include="Toolkit\VisualBase\CheckBoxBase.cs" />
     <Compile Include="Toolkit\VisualBase\ContainedControlBase.cs" />
     <Compile Include="Toolkit\VisualBase\VisualControlBase.cs" />
-    <Compile Include="Toolkit\VisualBase\InputFieldBase.cs" />
     <Compile Include="Enumerators\MouseStates.cs" />
     <Compile Include="Toolkit\VisualBase\ProgressBase.cs" />
     <Compile Include="Toolkit\VisualBase\RadioButtonBase.cs" />

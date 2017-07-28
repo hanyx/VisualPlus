@@ -45,7 +45,7 @@ namespace VisualPlus
             public const bool WatermarkVisible = false;
 
             public static readonly string WatermarkText = "Watermark text";
-            public static TextRenderingHint TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
+            public static TextRenderingHint TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
 
             public struct Rounding
             {

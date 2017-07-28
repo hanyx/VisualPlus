@@ -251,7 +251,7 @@
         {
             get
             {
-                return new FontFamily("Verdana");
+                return new FontFamily("Segoe UI");
             }
         }
 

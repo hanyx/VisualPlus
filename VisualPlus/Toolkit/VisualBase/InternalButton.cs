@@ -35,8 +35,10 @@ namespace VisualPlus.Toolkit.VisualBase
         {
             visualBitmap = new VisualBitmap(Resources.Icon, new Size(24, 24))
                 {
-                    Visible = false
+                    Visible = false,
+                    Image = Resources.Icon
                 };
+
             visualBitmap.Point = new Point(0, (Height / 2) - (visualBitmap.Size.Height / 2));
 
             textImageRelation = TextImageRelation.Overlay;
@@ -45,6 +47,39 @@ namespace VisualPlus.Toolkit.VisualBase
         #endregion
 
         #region Properties
+
+        [TypeConverter(typeof(VisualBitmapConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(Localize.PropertiesCategory.Appearance)]
+        public VisualBitmap Image
+        {
+            get
+            {
+                return visualBitmap;
+            }
+
+            set
+            {
+                visualBitmap = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Localize.PropertiesCategory.Behavior)]
+        [Description(Localize.Description.Common.TextImageRelation)]
+        public TextImageRelation TextImageRelation
+        {
+            get
+            {
+                return textImageRelation;
+            }
+
+            set
+            {
+                textImageRelation = value;
+                Invalidate();
+            }
+        }
 
         internal bool ColorGradientToggle { get; set; }
 
@@ -77,7 +112,7 @@ namespace VisualPlus.Toolkit.VisualBase
             {
                 graphics.Clear(Parent.BackColor);
                 graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
-                
+
                 LinearGradientBrush controlGraphicsBrush = GDI.GetControlBrush(graphics, Enabled, MouseState, ControlBrushCollection, ClientRectangle);
                 GDI.FillBackground(graphics, ControlGraphicsPath, controlGraphicsBrush);
                 Border.DrawBorderStyle(graphics, ControlBorder, MouseState, ControlGraphicsPath);

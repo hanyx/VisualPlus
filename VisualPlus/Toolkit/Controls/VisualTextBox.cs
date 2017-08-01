@@ -68,13 +68,13 @@
                     Multiline = false
                 };
 
-            buttonWidth = 19;
+            buttonWidth = 35;
             buttonImage = Resources.Icon;
             iconSize = new Size(13, 13);
 
             watermark = new Watermark();
 
-            buttonColor = StyleManager.ControlStyle.FlatButtonEnabled;
+            buttonColor = StyleManager.ControlStyle.Background(0);
 
             buttonBorder = new Border();
 

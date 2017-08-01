@@ -6,6 +6,7 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Globalization;
+    using System.Runtime.InteropServices;
 
     using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
@@ -13,8 +14,12 @@
 
     #endregion
 
-    [Description("The shape.")]
     [TypeConverter(typeof(ShapeConverter))]
+    [ToolboxItem(false)]
+    [DesignerCategory("code")]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [Description("The shape.")]
     public class Shape
     {
         #region Variables

@@ -21,6 +21,7 @@
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
+    [Description("The border.")]
     public class Border : Shape, IBorder
     {
         #region Variables

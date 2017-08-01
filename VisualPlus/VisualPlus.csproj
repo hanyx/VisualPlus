@@ -89,7 +89,6 @@
     <Compile Include="Enumerators\MouseStates.cs" />
     <Compile Include="Toolkit\VisualBase\ProgressBase.cs" />
     <Compile Include="Toolkit\VisualBase\RadioButtonBase.cs" />
-    <Compile Include="Toolkit\VisualBase\RepeatButton.cs" />
     <Compile Include="Toolkit\VisualBase\ToggleButtonBase.cs" />
     <Compile Include="Toolkit\VisualBase\ButtonContentBase.cs" />
     <Compile Include="Delegates\ControlDelegate.cs" />

@@ -9,7 +9,6 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Managers;
-    using VisualPlus.Properties;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -21,16 +20,13 @@
     [DefaultProperty("Text")]
     [Description("The Visual Button")]
     [Designer(ControlManager.FilterProperties.VisualButton)]
-    public class VisualButton : ButtonContentBase, IAnimate, IControlStates
+    public class VisualButton : ButtonContentBase, IAnimate
     {
         #region Variables
 
         private bool animation;
         private VFXManager effectsManager;
         private VFXManager hoverEffectsManager;
-        private TextImageRelation textImageRelation;
-        private Point textPoint = new Point(0, 0);
-        private VisualBitmap visualBitmap;
 
         #endregion
 
@@ -38,26 +34,7 @@
 
         public VisualButton()
         {
-            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-
-            AutoSize = false;
-            BackColor = Color.Transparent;
-            Margin = new Padding(4, 6, 4, 6);
-            Padding = new Padding(0);
             Size = new Size(140, 45);
-            MinimumSize = new Size(90, 25);
-            DoubleBuffered = true;
-
-            animation = true;
-
-            visualBitmap = new VisualBitmap(Resources.Icon, new Size(24, 24))
-                {
-                    Visible = false
-                };
-            visualBitmap.Point = new Point(0, (Height / 2) - (visualBitmap.Size.Height / 2));
-
-            textImageRelation = TextImageRelation.Overlay;
-
             animation = Settings.DefaultValue.Animation;
             ConfigureAnimation();
         }
@@ -103,99 +80,6 @@
             set
             {
                 ControlBorder = value;
-                Invalidate();
-            }
-        }
-
-        [Description(Localize.Description.Common.ColorGradient)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        public Gradient DisabledGradient
-        {
-            get
-            {
-                return ControlBrushCollection[3];
-            }
-
-            set
-            {
-                ControlBrushCollection[3] = value;
-            }
-        }
-
-        [Description(Localize.Description.Common.ColorGradient)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        public Gradient EnabledGradient
-        {
-            get
-            {
-                return ControlBrushCollection[0];
-            }
-
-            set
-            {
-                ControlBrushCollection[0] = value;
-            }
-        }
-
-        [Description(Localize.Description.Common.ColorGradient)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        public Gradient HoverGradient
-        {
-            get
-            {
-                return ControlBrushCollection[1];
-            }
-
-            set
-            {
-                ControlBrushCollection[1] = value;
-            }
-        }
-
-        [TypeConverter(typeof(VisualBitmapConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        public VisualBitmap Image
-        {
-            get
-            {
-                return visualBitmap;
-            }
-
-            set
-            {
-                visualBitmap = value;
-                Invalidate();
-            }
-        }
-
-        [Description(Localize.Description.Common.ColorGradient)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        public Gradient PressedGradient
-        {
-            get
-            {
-                return ControlBrushCollection[2];
-            }
-
-            set
-            {
-                ControlBrushCollection[2] = value;
-            }
-        }
-
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.TextImageRelation)]
-        public TextImageRelation TextImageRelation
-        {
-            get
-            {
-                return textImageRelation;
-            }
-
-            set
-            {
-                textImageRelation = value;
                 Invalidate();
             }
         }
@@ -283,28 +167,7 @@
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-
-            Graphics graphics = e.Graphics;
-            ConfigureComponents(graphics);
-
-            DrawBackground(e.Graphics);
-            VisualBitmap.DrawImage(graphics, visualBitmap.Border, visualBitmap.Point, visualBitmap.Image, visualBitmap.Size, visualBitmap.Visible);
-            graphics.DrawString(Text, Font, new SolidBrush(ForeColor), textPoint);
-            DrawAnimation(graphics);
-        }
-
-        private void ConfigureComponents(Graphics graphics)
-        {
-            ControlGraphicsPath = Border.GetBorderShape(ClientRectangle, Border.Type, Border.Rounding);
-            visualBitmap.Point = GDI.ApplyTextImageRelation(graphics, textImageRelation, new Rectangle(visualBitmap.Point, visualBitmap.Size), Text, Font, ClientRectangle, true);
-            textPoint = GDI.ApplyTextImageRelation(graphics, textImageRelation, new Rectangle(visualBitmap.Point, visualBitmap.Size), Text, Font, ClientRectangle, false);
-        }
-
-        private void DrawBackground(Graphics graphics)
-        {
-            LinearGradientBrush controlGraphicsBrush = GDI.GetControlBrush(graphics, Enabled, MouseState, ControlBrushCollection, ClientRectangle);
-            GDI.FillBackground(graphics, ControlGraphicsPath, controlGraphicsBrush);
-            Border.DrawBorderStyle(graphics, Border, MouseState, ControlGraphicsPath);
+            DrawAnimation(e.Graphics);
         }
 
         #endregion

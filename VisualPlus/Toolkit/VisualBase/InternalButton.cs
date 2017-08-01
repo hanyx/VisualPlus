@@ -19,7 +19,7 @@ namespace VisualPlus.Toolkit.VisualBase
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    public abstract class ButtonContentBase : VisualControlBase, IControlStates
+    public abstract class InternalButton : SimpleBase
     {
         #region Variables
 
@@ -31,12 +31,8 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Constructors
 
-        protected ButtonContentBase()
+        protected InternalButton()
         {
-            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-
-            BackColor = Color.Transparent;
-
             visualBitmap = new VisualBitmap(Resources.Icon, new Size(24, 24))
                 {
                     Visible = false
@@ -50,65 +46,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Properties
 
-        [Description(Localize.Description.Common.ColorGradient)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        public Gradient DisabledGradient
-        {
-            get
-            {
-                return ControlBrushCollection[3];
-            }
-
-            set
-            {
-                ControlBrushCollection[3] = value;
-            }
-        }
-
-        [Description(Localize.Description.Common.ColorGradient)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        public Gradient EnabledGradient
-        {
-            get
-            {
-                return ControlBrushCollection[0];
-            }
-
-            set
-            {
-                ControlBrushCollection[0] = value;
-            }
-        }
-
-        [Description(Localize.Description.Common.ColorGradient)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        public Gradient HoverGradient
-        {
-            get
-            {
-                return ControlBrushCollection[1];
-            }
-
-            set
-            {
-                ControlBrushCollection[1] = value;
-            }
-        }
-
-        [Description(Localize.Description.Common.ColorGradient)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        public Gradient PressedGradient
-        {
-            get
-            {
-                return ControlBrushCollection[2];
-            }
-
-            set
-            {
-                ControlBrushCollection[2] = value;
-            }
-        }
+        internal bool ColorGradientToggle { get; set; }
 
         #endregion
 
@@ -134,23 +72,25 @@ namespace VisualPlus.Toolkit.VisualBase
 
             Graphics graphics = e.Graphics;
             ConfigureComponents(graphics);
-            DrawBackground(graphics);
+
+            if (ColorGradientToggle)
+            {
+                graphics.Clear(Parent.BackColor);
+                graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
+                
+                LinearGradientBrush controlGraphicsBrush = GDI.GetControlBrush(graphics, Enabled, MouseState, ControlBrushCollection, ClientRectangle);
+                GDI.FillBackground(graphics, ControlGraphicsPath, controlGraphicsBrush);
+                Border.DrawBorderStyle(graphics, ControlBorder, MouseState, ControlGraphicsPath);
+            }
+
             VisualBitmap.DrawImage(graphics, visualBitmap.Border, visualBitmap.Point, visualBitmap.Image, visualBitmap.Size, visualBitmap.Visible);
             graphics.DrawString(Text, Font, new SolidBrush(ForeColor), textPoint);
         }
 
         private void ConfigureComponents(Graphics graphics)
         {
-            ControlGraphicsPath = Border.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
             visualBitmap.Point = GDI.ApplyTextImageRelation(graphics, textImageRelation, new Rectangle(visualBitmap.Point, visualBitmap.Size), Text, Font, ClientRectangle, true);
             textPoint = GDI.ApplyTextImageRelation(graphics, textImageRelation, new Rectangle(visualBitmap.Point, visualBitmap.Size), Text, Font, ClientRectangle, false);
-        }
-
-        private void DrawBackground(Graphics graphics)
-        {
-            LinearGradientBrush controlGraphicsBrush = GDI.GetControlBrush(graphics, Enabled, MouseState, ControlBrushCollection, ClientRectangle);
-            GDI.FillBackground(graphics, ControlGraphicsPath, controlGraphicsBrush);
-            Border.DrawBorderStyle(graphics, ControlBorder, MouseState, ControlGraphicsPath);
         }
 
         #endregion

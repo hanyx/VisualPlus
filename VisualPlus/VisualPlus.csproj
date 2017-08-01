@@ -90,7 +90,7 @@
     <Compile Include="Toolkit\VisualBase\ProgressBase.cs" />
     <Compile Include="Toolkit\VisualBase\RadioButtonBase.cs" />
     <Compile Include="Toolkit\VisualBase\ToggleButtonBase.cs" />
-    <Compile Include="Toolkit\VisualBase\ButtonContentBase.cs" />
+    <Compile Include="Toolkit\VisualBase\InternalButton.cs" />
     <Compile Include="Delegates\ControlDelegate.cs" />
     <Compile Include="Delegates\ControlDragDelegate.cs" />
     <Compile Include="EventArgs\DragControlEventArgs.cs" />

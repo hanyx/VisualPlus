@@ -20,7 +20,7 @@
     [DefaultProperty("Text")]
     [Description("The Visual Button")]
     [Designer(ControlManager.FilterProperties.VisualButton)]
-    public class VisualButton : ButtonContentBase, IAnimate
+    public class VisualButton : InternalButton, IAnimate, IControlStates
     {
         #region Variables
 
@@ -36,6 +36,7 @@
         {
             Size = new Size(140, 45);
             animation = Settings.DefaultValue.Animation;
+            ColorGradientToggle = true;
             ConfigureAnimation();
         }
 
@@ -67,20 +68,80 @@
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Description(Localize.Description.Common.ColorGradient)]
         [Category(Localize.PropertiesCategory.Appearance)]
-        public Border Border
+        public Gradient DisabledGradient
         {
             get
             {
-                return ControlBorder;
+                return ControlBrushCollection[3];
             }
 
             set
             {
-                ControlBorder = value;
+                ControlBrushCollection[3] = value;
+            }
+        }
+
+        [Description(Localize.Description.Common.ColorGradient)]
+        [Category(Localize.PropertiesCategory.Appearance)]
+        public Gradient EnabledGradient
+        {
+            get
+            {
+                return ControlBrushCollection[0];
+            }
+
+            set
+            {
+                ControlBrushCollection[0] = value;
+            }
+        }
+
+        [DefaultValue(true)]
+        [Category(Localize.PropertiesCategory.Behavior)]
+        [Description("Gets or sets the color gradient toggle.")]
+        public bool GradientToggle
+        {
+            get
+            {
+                return ColorGradientToggle;
+            }
+
+            set
+            {
+                ColorGradientToggle = value;
                 Invalidate();
+            }
+        }
+
+        [Description(Localize.Description.Common.ColorGradient)]
+        [Category(Localize.PropertiesCategory.Appearance)]
+        public Gradient HoverGradient
+        {
+            get
+            {
+                return ControlBrushCollection[1];
+            }
+
+            set
+            {
+                ControlBrushCollection[1] = value;
+            }
+        }
+
+        [Description(Localize.Description.Common.ColorGradient)]
+        [Category(Localize.PropertiesCategory.Appearance)]
+        public Gradient PressedGradient
+        {
+            get
+            {
+                return ControlBrushCollection[2];
+            }
+
+            set
+            {
+                ControlBrushCollection[2] = value;
             }
         }
 

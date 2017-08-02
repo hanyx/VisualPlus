@@ -97,7 +97,7 @@
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(Localize.PropertiesCategory.Appearance)]
-        public Gradient Background
+        public Gradient BackgroundGradient
         {
             get
             {

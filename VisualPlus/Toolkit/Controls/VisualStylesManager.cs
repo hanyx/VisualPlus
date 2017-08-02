@@ -87,8 +87,6 @@
 
         public delegate void StyleChangedEventHandler(Styles style);
 
-        public event StyleChangedEventHandler StyleChanged;
-
         #endregion
 
         #region Properties
@@ -367,5 +365,7 @@
         }
 
         #endregion
+
+        // public event StyleChangedEventHandler StyleChanged;
     }
 }

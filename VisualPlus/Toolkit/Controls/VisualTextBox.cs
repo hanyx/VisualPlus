@@ -10,7 +10,6 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
-    using VisualPlus.Properties;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
     using VisualPlus.Toolkit.VisualBase;
@@ -27,15 +26,18 @@
     {
         #region Variables
 
+        private Font _buttonFont;
+        private string _buttontext;
+        private ControlColorState _controlColorState;
+        private Image _image;
+        private Size _imageSize;
         private TextBox _textBox;
         private Border buttonBorder;
-        private Color buttonColor;
-        private Image buttonImage;
         private GraphicsPath buttonPath;
         private Rectangle buttonRectangle;
         private bool buttonVisible;
         private int buttonWidth;
-        private Size iconSize;
+        private Rectangle imageRectangle;
         private Watermark watermark;
         private Panel waterMarkContainer;
         private int xValue;
@@ -69,12 +71,17 @@
                 };
 
             buttonWidth = 35;
-            buttonImage = Resources.Icon;
-            iconSize = new Size(13, 13);
+            _buttonFont = Font;
+
+            _buttontext = "visualButton";
+
+            _image = null;
+
+            ImageSize = new Size(13, 13);
 
             watermark = new Watermark();
 
-            buttonColor = StyleManager.ControlStyle.Background(0);
+            _controlColorState = new ControlColorState();
 
             buttonBorder = new Border();
 
@@ -124,34 +131,49 @@
             }
         }
 
+        [TypeConverter(typeof(ControlColorStateConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
-        public Color ButtonColor
+        public ControlColorState ButtonColor
         {
             get
             {
-                return buttonColor;
+                return _controlColorState;
             }
 
             set
             {
-                buttonColor = value;
+                _controlColorState = value;
                 Invalidate();
             }
         }
 
+        [Description(Localize.Description.Strings.Font)]
         [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Image)]
-        public Image ButtonImage
+        public Font ButtonFont
         {
             get
             {
-                return buttonImage;
+                return _buttonFont;
             }
 
             set
             {
-                buttonImage = value;
+                _buttonFont = value;
+                Invalidate();
+            }
+        }
+
+        public string ButtonText
+        {
+            get
+            {
+                return _buttontext;
+            }
+
+            set
+            {
+                _buttontext = value;
                 Invalidate();
             }
         }
@@ -228,18 +250,34 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Size)]
-        public Size IconSize
+        [Category(Localize.PropertiesCategory.Appearance)]
+        [Description(Localize.Description.Common.Image)]
+        public Image Image
         {
             get
             {
-                return iconSize;
+                return _image;
             }
 
             set
             {
-                iconSize = value;
+                _image = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Localize.PropertiesCategory.Layout)]
+        [Description(Localize.Description.Common.Size)]
+        public Size ImageSize
+        {
+            get
+            {
+                return _imageSize;
+            }
+
+            set
+            {
+                _imageSize = value;
                 Invalidate();
             }
         }
@@ -501,6 +539,9 @@
         protected override void OnMouseDown(MouseEventArgs e)
         {
             OnMouseClick(e);
+
+            MouseState = MouseStates.Down;
+
             if (buttonVisible)
             {
                 // Check if mouse in X position.
@@ -522,6 +563,9 @@
             base.OnMouseMove(e);
             xValue = e.Location.X;
             yValue = e.Location.Y;
+
+            MouseState = MouseStates.Hover;
+
             Invalidate();
 
             // IBeam cursor toggle
@@ -557,23 +601,63 @@
 
             _textBox.ForeColor = ForeColor;
 
+            // TODO: Draw the _image before the textbox only when it's not null.
             // Setup button
             if (!_textBox.Multiline && buttonVisible)
             {
                 buttonPath = new GraphicsPath();
                 buttonPath.AddRectangle(buttonRectangle);
-                buttonPath.CloseAllFigures();
 
-                // Buttons background
-                graphics.FillPath(new SolidBrush(buttonColor), buttonPath);
+                Color _buttonColor = _controlColorState.Color;
 
-                Size imageSize = new Size(iconSize.Width, iconSize.Height);
-                Point imagePoint = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (imageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - (imageSize.Height / 2));
+                if (Enabled)
+                {
+                    switch (MouseState)
+                    {
+                        case MouseStates.Normal:
+                            {
+                                _buttonColor = _controlColorState.Color;
+                                break;
+                            }
 
-                Rectangle imageRectangle = new Rectangle(imagePoint, imageSize);
+                        case MouseStates.Hover:
+                            {
+                                _buttonColor = _controlColorState.Hover;
+                                break;
+                            }
 
+                        case MouseStates.Down:
+                            {
+                                _buttonColor = _controlColorState.Pressed;
+                                break;
+                            }
+
+                        default:
+                            {
+                                throw new ArgumentOutOfRangeException();
+                            }
+                    }
+                }
+                else
+                {
+                    _buttonColor = Enabled ? _controlColorState.Color : _controlColorState.Disabled;
+                }
+
+                graphics.FillPath(new SolidBrush(_buttonColor), buttonPath);
+
+                // Size imageSize = new Size(ImageSize.Width, ImageSize.Height);
+                // Point imagePoint = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (imageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - (imageSize.Height / 2));
+                // Point imagePoint = new Point(Location.X, Location.Y);
+                // Rectangle imageRectangle = new Rectangle(imagePoint, imageSize);
                 graphics.SetClip(buttonPath);
-                graphics.DrawImage(buttonImage, imageRectangle);
+
+                if (_image != null)
+                {
+                    // graphics.DrawImage(_image, imageRectangle);
+                }
+
+                Size textSize = GDI.MeasureText(graphics, _buttontext, _buttonFont);
+                graphics.DrawString(_buttontext, Font, new SolidBrush(ForeColor), new PointF((buttonRectangle.X + (buttonRectangle.Width / 2)) - (textSize.Width / 2), (Height / 2) - (textSize.Height / 2)));
                 graphics.SetClip(ControlGraphicsPath);
 
                 Border.DrawBorderStyle(graphics, buttonBorder, MouseState, buttonPath);

@@ -1,6 +1,12 @@
 ﻿namespace VisualPlus.Delegates
 {
-    public delegate void BorderColorChangedEventHandler();
+    #region Namespace
+
+    using VisualPlus.EventArgs;
+
+    #endregion
+
+    public delegate void BorderColorChangedEventHandler(ColorEventArgs e);
 
     public delegate void BorderRoundingChangedEventHandler();
 
@@ -12,5 +18,5 @@
 
     public delegate void BorderHoverVisibleChangedEventHandler();
 
-    public delegate void BorderHoverColorChangedEventHandler();
+    public delegate void BorderHoverColorChangedEventHandler(ColorEventArgs e);
 }

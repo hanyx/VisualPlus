@@ -102,6 +102,21 @@ namespace VisualPlus
         #endregion
     }
 
+    public interface IControlStateColor
+    {
+        #region Properties
+
+        Color Background { get; set; }
+
+        Color BackgroundDisabled { get; set; }
+
+        Color BackgroundHover { get; set; }
+
+        Color BackgroundPressed { get; set; }
+
+        #endregion
+    }
+
     public interface IControlState
     {
         #region Properties

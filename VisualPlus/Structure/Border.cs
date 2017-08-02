@@ -11,6 +11,7 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Managers;
     using VisualPlus.Styles;
 
@@ -67,7 +68,7 @@
             set
             {
                 hoverColor = value;
-                HoverColorChanged?.Invoke();
+                HoverColorChanged?.Invoke(new ColorEventArgs(hoverColor));
             }
         }
 

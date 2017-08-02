@@ -21,7 +21,7 @@
     [DefaultProperty("Toggled")]
     [Description("The Visual Toggle")]
     [Designer(ControlManager.FilterProperties.VisualToggle)]
-    public class VisualToggle : VisualControlBase
+    public class VisualToggle : VisualStyleBase
     {
         #region Variables
 

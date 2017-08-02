@@ -11,7 +11,7 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
-    using VisualPlus.Managers;
+    using VisualPlus.EventArgs;
     using VisualPlus.Structure;
 
     #endregion
@@ -25,9 +25,7 @@
     {
         #region Variables
 
-        private Color _foreColorDisabled;
         private MouseStates _mouseState;
-        private StyleManager _styleManager;
         private TextRenderingHint _textRendererHint;
 
         #endregion
@@ -47,27 +45,11 @@
             ResizeRedraw = true;
 
             _mouseState = MouseStates.Normal;
-            _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
 
-            Font = _styleManager.Font;
-            ForeColor = _styleManager.FontStyle.ForeColor;
-            ForeColorDisabled = _styleManager.FontStyle.ForeColorDisabled;
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
 
             ControlBorder = new Border();
-
-            ControlBrushCollection = new[]
-                {
-                    _styleManager.ControlStatesStyle.ControlEnabled,
-                    _styleManager.ControlStatesStyle.ControlHover,
-                    _styleManager.ControlStatesStyle.ControlPressed,
-                    _styleManager.ControlStatesStyle.ControlDisabled
-                };
         }
-
-        [Category(Localize.EventsCategory.PropertyChanged)]
-        [Description("Occours when the ForeColorDisabled property for the control has changed.")]
-        public event ForeColorDisabledChangedEventHandler ForeColorDisabledChanged;
 
         [Category(Localize.EventsCategory.Mouse)]
         [Description("Occours when the MouseState of the control has changed.")]
@@ -86,23 +68,6 @@
         public new bool AutoSize { get; set; }
 
         [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
-        public Color ForeColorDisabled
-        {
-            get
-            {
-                return _foreColorDisabled;
-            }
-
-            set
-            {
-                _foreColorDisabled = value;
-                OnForeColorDisabledChanged();
-                Invalidate();
-            }
-        }
-
-        [Category(Localize.PropertiesCategory.Appearance)]
         [Description(Localize.Description.Common.MouseState)]
         public MouseStates MouseState
         {
@@ -114,7 +79,7 @@
             set
             {
                 _mouseState = value;
-                OnMouseStateChanged();
+                OnMouseStateChanged(new MouseStateEventArgs(_mouseState));
             }
         }
 
@@ -130,7 +95,7 @@
             set
             {
                 _textRendererHint = value;
-                OnTextRenderingHintChanged();
+                OnTextRenderingHintChanged(new TextRenderingEventArgs(_textRendererHint));
                 Invalidate();
             }
         }
@@ -141,67 +106,30 @@
 
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        internal Gradient[] ControlBrushCollection { get; set; }
-
-        [Browsable(false)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
         internal GraphicsPath ControlGraphicsPath { get; set; }
 
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         internal Point LastPosition { get; set; }
 
-        [Browsable(false)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        internal StyleManager StyleManager
-        {
-            get
-            {
-                return _styleManager;
-            }
-
-            set
-            {
-                _styleManager = value;
-            }
-        }
-
         #endregion
 
         #region Events
 
-        /// <summary>Update the internal style manager and invalidate.</summary>
-        /// <param name="style">The style.</param>
-        public void UpdateTheme(Styles style)
+        protected virtual void OnMouseStateChanged(MouseStateEventArgs e)
         {
-            _styleManager.UpdateStyle(style);
-            Invalidate();
-        }
-
-        protected virtual void OnForeColorDisabledChanged()
-        {
-            ForeColorDisabledChanged?.Invoke();
-        }
-
-        protected virtual void OnMouseStateChanged()
-        {
-            MouseStateChanged?.Invoke();
+            MouseStateChanged?.Invoke(e);
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
-            graphics.Clear(Parent.BackColor);
-            graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
             graphics.TextRenderingHint = _textRendererHint;
-
-            ForeColor = Enabled ? ForeColor : ForeColorDisabled;
         }
 
-        protected virtual void OnTextRenderingHintChanged()
+        protected virtual void OnTextRenderingHintChanged(TextRenderingEventArgs e)
         {
-            TextRenderingHintChanged?.Invoke();
+            TextRenderingHintChanged?.Invoke(e);
         }
 
         #endregion

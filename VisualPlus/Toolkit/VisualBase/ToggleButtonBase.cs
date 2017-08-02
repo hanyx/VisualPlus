@@ -20,7 +20,7 @@ namespace VisualPlus.Toolkit.VisualBase
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    public abstract class ToggleButtonBase : VisualControlBase, IAnimate, IControlStates
+    public abstract class ToggleButtonBase : VisualStyleBase, IAnimate, IControlStates
     {
         #region Variables
 

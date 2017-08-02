@@ -21,7 +21,7 @@
     [DefaultProperty("Value")]
     [Description("The Visual NumericUpDown")]
     [Designer(ControlManager.FilterProperties.VisualNumericUpDown)]
-    public class VisualNumericUpDown : VisualControlBase
+    public class VisualNumericUpDown : VisualStyleBase
     {
         #region Variables
 

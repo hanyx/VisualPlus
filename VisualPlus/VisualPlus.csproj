@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventArgs\TextRenderingEventArgs.cs" />
+    <Compile Include="EventArgs\MouseStateEventArgs.cs" />
     <Compile Include="EventArgs\ColorEventArgs.cs" />
     <Compile Include="Extensibility\StringExtension.cs" />
     <Compile Include="Toolkit\ActionList\BackupDesigner.cs" />
@@ -81,7 +83,7 @@
     <Compile Include="Toolkit\Controls\VisualListView.cs" />
     <Compile Include="Toolkit\Controls\VisualScrollBar.cs" />
     <Compile Include="Toolkit\VisualBase\FixedContentValues.cs" />
-    <Compile Include="Toolkit\VisualBase\SimpleBase.cs" />
+    <Compile Include="Toolkit\VisualBase\VisualStyleBase.cs" />
     <Compile Include="Toolkit\VisualBase\NestedControlsBase.cs" />
     <Compile Include="Toolkit\VisualBase\CheckBoxBase.cs" />
     <Compile Include="Toolkit\VisualBase\ContainedControlBase.cs" />

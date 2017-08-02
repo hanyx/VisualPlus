@@ -19,7 +19,7 @@ namespace VisualPlus.Toolkit.VisualBase
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    public abstract class InternalButton : SimpleBase
+    public abstract class InternalButton : VisualStyleBase
     {
         #region Variables
 
@@ -106,7 +106,9 @@ namespace VisualPlus.Toolkit.VisualBase
             base.OnPaint(e);
 
             Graphics graphics = e.Graphics;
-            ConfigureComponents(graphics);
+            
+            visualBitmap.Point = GDI.ApplyTextImageRelation(graphics, textImageRelation, new Rectangle(visualBitmap.Point, visualBitmap.Size), Text, Font, ClientRectangle, true);
+            textPoint = GDI.ApplyTextImageRelation(graphics, textImageRelation, new Rectangle(visualBitmap.Point, visualBitmap.Size), Text, Font, ClientRectangle, false);
 
             if (ColorGradientToggle)
             {
@@ -120,12 +122,6 @@ namespace VisualPlus.Toolkit.VisualBase
 
             VisualBitmap.DrawImage(graphics, visualBitmap.Border, visualBitmap.Point, visualBitmap.Image, visualBitmap.Size, visualBitmap.Visible);
             graphics.DrawString(Text, Font, new SolidBrush(ForeColor), textPoint);
-        }
-
-        private void ConfigureComponents(Graphics graphics)
-        {
-            visualBitmap.Point = GDI.ApplyTextImageRelation(graphics, textImageRelation, new Rectangle(visualBitmap.Point, visualBitmap.Size), Text, Font, ClientRectangle, true);
-            textPoint = GDI.ApplyTextImageRelation(graphics, textImageRelation, new Rectangle(visualBitmap.Point, visualBitmap.Size), Text, Font, ClientRectangle, false);
         }
 
         #endregion

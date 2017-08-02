@@ -16,13 +16,34 @@
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    public abstract class ContainedControlBase : SimpleBase
+    public abstract class ContainedControlBase : VisualStyleBase
     {
         #region Constructors
 
         protected ContainedControlBase()
         {
             Background = StyleManager.ControlStyle.Background(3);
+        }
+
+        #endregion
+
+        #region Properties
+
+        [TypeConverter(typeof(BorderConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(Localize.PropertiesCategory.Appearance)]
+        public Border Border
+        {
+            get
+            {
+                return ControlBorder;
+            }
+
+            set
+            {
+                ControlBorder = value;
+                Invalidate();
+            }
         }
 
         #endregion

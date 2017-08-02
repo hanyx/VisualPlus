@@ -10,6 +10,7 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Managers;
 
     #endregion
@@ -83,7 +84,7 @@
             set
             {
                 color = value;
-                ColorChanged?.Invoke();
+                ColorChanged?.Invoke(new ColorEventArgs(color));
             }
         }
 

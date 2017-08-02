@@ -21,7 +21,7 @@
     [DefaultEvent("Click")]
     [DefaultProperty("ShapeForm")]
     [Description("The Visual Shape")]
-    public class VisualShape : VisualControlBase
+    public class VisualShape : VisualStyleBase
     {
         #region Variables
 

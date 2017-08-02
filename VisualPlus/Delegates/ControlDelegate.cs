@@ -6,13 +6,13 @@
 
     #endregion
 
-    public delegate void ForeColorDisabledChangedEventHandler();
+    public delegate void ForeColorDisabledChangedEventHandler(ColorEventArgs e);
 
-    public delegate void MouseStateChangedEventHandler();
+    public delegate void MouseStateChangedEventHandler(MouseStateEventArgs e);
 
     public delegate void StyleManagerChangedEventHandler();
 
-    public delegate void TextRenderingChangedEventHandler();
+    public delegate void TextRenderingChangedEventHandler(TextRenderingEventArgs e);
 
     public delegate void BackgroundChangedEventHandler(ColorEventArgs e);
 }

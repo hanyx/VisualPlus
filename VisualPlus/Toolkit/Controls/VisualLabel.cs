@@ -21,7 +21,7 @@
     [DefaultProperty("Text")]
     [Description("The Visual Label")]
     [Designer(ControlManager.FilterProperties.VisualLabel)]
-    public class VisualLabel : VisualControlBase
+    public class VisualLabel : VisualStyleBase
     {
         #region Variables
 

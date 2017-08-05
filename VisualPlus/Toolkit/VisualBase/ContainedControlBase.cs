@@ -80,6 +80,14 @@
         {
         }
 
+        /// <summary>Gets the distance from the border.</summary>
+        /// <param name="shape">The shape of the container control.</param>
+        /// <returns>The internal control distance.</returns>
+        internal int GetBorderDistance(Shape shape)
+        {
+            return (shape.Rounding / 2) + shape.Thickness + 1;
+        }
+
         /// <summary>Gets the internal control location.</summary>
         /// <param name="shape">The shape of the container control.</param>
         /// <returns>The internal control location.</returns>

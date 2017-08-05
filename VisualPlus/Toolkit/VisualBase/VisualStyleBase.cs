@@ -187,7 +187,7 @@
         {
             base.OnPaint(e);
 
-            Color stateColor = Enabled ? BackColor : _backgroundDisabledColor;
+            Color stateColor = Enabled ? _backgroundColor : _backgroundDisabledColor;
             ControlGraphicsPath = Border.GetBorderShape(ClientRectangle, ControlBorder);
 
             Graphics graphics = e.Graphics;

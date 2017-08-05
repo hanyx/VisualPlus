@@ -16,6 +16,7 @@
 
     #endregion
 
+    // TODO: Clear Button
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(TextBox))]
     [DefaultEvent("TextChanged")]
@@ -26,22 +27,24 @@
     {
         #region Variables
 
+        private Border _buttonBorder;
+        private Color _buttonColor;
         private Font _buttonFont;
+        private Rectangle _buttonRectangle;
         private string _buttontext;
+        private bool _buttonVisible;
+        private int _buttonWidth;
         private ControlColorState _controlColorState;
         private Image _image;
-        private Size _imageSize;
+        private Rectangle _imageRectangle;
+        private bool _imageVisible;
+        private int _imageWidth;
         private TextBox _textBox;
-        private Border buttonBorder;
-        private GraphicsPath buttonPath;
-        private Rectangle buttonRectangle;
-        private bool buttonVisible;
-        private int buttonWidth;
-        private Rectangle imageRectangle;
-        private Watermark watermark;
-        private Panel waterMarkContainer;
-        private int xValue;
-        private int yValue;
+        private int _textWidth;
+        private Watermark _watermark;
+        private Panel _waterMarkContainer;
+        private int _xValue;
+        private int _yValue;
 
         #endregion
 
@@ -57,10 +60,12 @@
             // Cannot select this control, only the child and does not generate a click event
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
 
+            _textWidth = 125;
+
             _textBox = new TextBox
                 {
-                    Size = GetInternalControlSize(Size, Border),
-                    Location = GetInternalControlLocation(Border),
+                    Size = new Size(_textWidth, 25),
+                    Location = new Point(GetBorderDistance(ControlBorder), GetBorderDistance(ControlBorder)),
                     Text = string.Empty,
                     BorderStyle = BorderStyle.None,
                     TextAlign = HorizontalAlignment.Left,
@@ -70,37 +75,38 @@
                     Multiline = false
                 };
 
-            buttonWidth = 35;
+            _buttonWidth = 45;
+            _imageWidth = 35;
             _buttonFont = Font;
 
             _buttontext = "visualButton";
 
             _image = null;
 
-            ImageSize = new Size(13, 13);
-
-            watermark = new Watermark();
+            _watermark = new Watermark();
 
             _controlColorState = new ControlColorState();
-
-            buttonBorder = new Border();
+            _buttonBorder = new Border();
 
             BackColor = Color.Transparent;
-            AutoSize = false;
+
+            AutoSize = true;
             Size = new Size(135, 25);
 
-            _textBox.KeyDown += OnKeyDown;
+            _textBox.KeyDown += TextBox_KeyDown;
             _textBox.Leave += OnLeave;
             _textBox.Enter += OnEnter;
             _textBox.GotFocus += OnEnter;
             _textBox.LostFocus += OnLeave;
             _textBox.MouseLeave += OnLeave;
+            _textBox.TextChanged += TextBox_TextChanged;
+            _textBox.SizeChanged += TextBox_SizeChanged;
 
             Controls.Add(_textBox);
 
-            waterMarkContainer = null;
+            _waterMarkContainer = null;
 
-            if (watermark.Visible)
+            if (_watermark.Visible)
             {
                 DrawWaterMark();
             }
@@ -121,12 +127,12 @@
         {
             get
             {
-                return buttonBorder;
+                return _buttonBorder;
             }
 
             set
             {
-                buttonBorder = value;
+                _buttonBorder = value;
                 Invalidate();
             }
         }
@@ -184,13 +190,16 @@
         {
             get
             {
-                return buttonVisible;
+                return _buttonVisible;
             }
 
             set
             {
-                buttonVisible = value;
-                Invalidate();
+                if (_buttonVisible != value)
+                {
+                    _buttonVisible = value;
+                    Invalidate();
+                }
             }
         }
 
@@ -200,12 +209,12 @@
         {
             get
             {
-                return buttonWidth;
+                return _buttonWidth;
             }
 
             set
             {
-                buttonWidth = value;
+                _buttonWidth = value;
                 Invalidate();
             }
         }
@@ -266,21 +275,45 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Size)]
-        public Size ImageSize
+        [Category(Localize.PropertiesCategory.Appearance)]
+        [Description(Localize.Description.Common.Image)]
+        public bool ImageVisible
         {
             get
             {
-                return _imageSize;
+                return _imageVisible;
             }
 
             set
             {
-                _imageSize = value;
+                if (_imageVisible != value)
+                {
+                    _imageVisible = value;
+                    Invalidate();
+                }
+            }
+        }
+
+        [Category(Localize.PropertiesCategory.Layout)]
+        [Description(Localize.Description.Common.Size)]
+        public int ImageWidth
+        {
+            get
+            {
+                return _imageWidth;
+            }
+
+            set
+            {
+                _imageWidth = value;
                 Invalidate();
             }
         }
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(false)]
+        [Description("Gets whether the mouse is on the button.")]
+        public bool MouseOnButton { get; private set; }
 
         [Category("Behaviour")]
         [Description("Gets or sets a value indicating whether this is a multiline TextBox control.")]
@@ -295,7 +328,6 @@
             set
             {
                 _textBox.Multiline = value;
-                _textBox.Invalidate();
                 Invalidate();
             }
         }
@@ -323,7 +355,7 @@
                     base.Text = value;
                 }
 
-                if (watermark.Visible)
+                if (_watermark.Visible)
                 {
                     // If the text of the text box is not empty.
                     if (_textBox.TextLength > 0)
@@ -340,6 +372,24 @@
             }
         }
 
+        [DefaultValue(125)]
+        [Category(Localize.PropertiesCategory.Layout)]
+        [Description(Localize.Description.Common.Size)]
+        public int TextBoxWidth
+        {
+            get
+            {
+                return _textWidth;
+            }
+
+            set
+            {
+                _textBox.Width = value;
+                _textWidth = value;
+                Invalidate();
+            }
+        }
+
         [TypeConverter(typeof(WatermarkConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(Localize.PropertiesCategory.Behavior)]
@@ -347,12 +397,12 @@
         {
             get
             {
-                return watermark;
+                return _watermark;
             }
 
             set
             {
-                watermark = value;
+                _watermark = value;
                 Invalidate();
             }
         }
@@ -484,10 +534,10 @@
         {
             base.OnEnter(e);
 
-            if (watermark.Visible)
+            if (_watermark.Visible)
             {
                 // If focused use focus color
-                watermark.Brush = new SolidBrush(watermark.ActiveColor);
+                _watermark.Brush = new SolidBrush(_watermark.ActiveColor);
 
                 // Don't draw watermark if contains text.
                 if (_textBox.TextLength <= 0)
@@ -509,10 +559,10 @@
             base.OnInvalidated(e);
 
             // Check if there is a watermark
-            if (waterMarkContainer != null)
+            if (_waterMarkContainer != null)
             {
                 // if there is a watermark it should also be invalidated();
-                waterMarkContainer.Invalidate();
+                _waterMarkContainer.Invalidate();
             }
         }
 
@@ -520,7 +570,9 @@
         {
             base.OnLeave(e);
 
-            if (watermark.Visible)
+            MouseState = MouseStates.Normal;
+
+            if (_watermark.Visible)
             {
                 // If the user has written something and left the control
                 if (_textBox.TextLength > 0)
@@ -540,15 +592,22 @@
         {
             OnMouseClick(e);
 
-            MouseState = MouseStates.Down;
+            if (MouseOnButton)
+            {
+                MouseState = MouseStates.Down;
+            }
+            else
+            {
+                MouseState = MouseStates.Hover;
+            }
 
-            if (buttonVisible)
+            if (_buttonVisible)
             {
                 // Check if mouse in X position.
-                if ((xValue > buttonRectangle.X) && (xValue < Width))
+                if ((_xValue > _buttonRectangle.X) && (_xValue < Width))
                 {
                     // Determine the button middle separator by checking for the Y position.
-                    if ((yValue > buttonRectangle.Y) && (yValue < Height))
+                    if ((_yValue > _buttonRectangle.Y) && (_yValue < Height))
                     {
                         ButtonClicked?.Invoke();
                     }
@@ -558,18 +617,28 @@
             Invalidate();
         }
 
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            base.OnMouseLeave(e);
+
+            if (!_textBox.Focused)
+            {
+                MouseState = MouseStates.Normal;
+                Invalidate();
+            }
+        }
+
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
-            xValue = e.Location.X;
-            yValue = e.Location.Y;
-
-            MouseState = MouseStates.Hover;
+            _xValue = e.Location.X;
+            _yValue = e.Location.Y;
+            MouseOnButton = GDI.IsMouseInBounds(e.Location, _buttonRectangle);
 
             Invalidate();
 
             // IBeam cursor toggle
-            if (e.X < buttonRectangle.X)
+            if ((e.X > _textBox.Location.X) && (e.X < _textBox.Right))
             {
                 Cursor = Cursors.IBeam;
             }
@@ -579,95 +648,54 @@
             }
         }
 
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            base.OnMouseUp(e);
+            MouseState = MouseStates.Hover;
+            Invalidate();
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
 
             Graphics graphics = e.Graphics;
 
-            if (!_textBox.Multiline)
-            {
-                Height = GetTextBoxHeight();
-            }
-
-            buttonRectangle = new Rectangle(Width - buttonWidth, 0, buttonWidth, Height);
-
-            graphics.SetClip(ControlGraphicsPath);
-
             if (_textBox.BackColor != Background)
             {
                 _textBox.BackColor = Background;
             }
 
-            _textBox.ForeColor = ForeColor;
+            _buttonRectangle = new Rectangle(_textBox.Right, 0, Width, Height);
+            _imageRectangle = new Rectangle(0, 0, _imageWidth, Height - 1);
 
-            // TODO: Draw the _image before the textbox only when it's not null.
-            // Setup button
-            if (!_textBox.Multiline && buttonVisible)
+            if (!_textBox.Multiline)
             {
-                buttonPath = new GraphicsPath();
-                buttonPath.AddRectangle(buttonRectangle);
-
-                Color _buttonColor = _controlColorState.Color;
-
-                if (Enabled)
+                if (_imageVisible)
                 {
-                    switch (MouseState)
+                    _textBox.Location = new Point(GetBorderDistance(ControlBorder) + _imageRectangle.Width, _textBox.Location.Y);
+
+                    DrawImage(graphics);
+
+                    if (_buttonVisible)
                     {
-                        case MouseStates.Normal:
-                            {
-                                _buttonColor = _controlColorState.Color;
-                                break;
-                            }
-
-                        case MouseStates.Hover:
-                            {
-                                _buttonColor = _controlColorState.Hover;
-                                break;
-                            }
-
-                        case MouseStates.Down:
-                            {
-                                _buttonColor = _controlColorState.Pressed;
-                                break;
-                            }
-
-                        default:
-                            {
-                                throw new ArgumentOutOfRangeException();
-                            }
+                        DrawButton(graphics);
                     }
                 }
                 else
                 {
-                    _buttonColor = Enabled ? _controlColorState.Color : _controlColorState.Disabled;
+                    _textBox.Location = new Point(GetBorderDistance(ControlBorder), _textBox.Location.Y);
+
+                    if (_buttonVisible)
+                    {
+                        DrawButton(graphics);
+                    }
                 }
-
-                graphics.FillPath(new SolidBrush(_buttonColor), buttonPath);
-
-                // Size imageSize = new Size(ImageSize.Width, ImageSize.Height);
-                // Point imagePoint = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (imageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - (imageSize.Height / 2));
-                // Point imagePoint = new Point(Location.X, Location.Y);
-                // Rectangle imageRectangle = new Rectangle(imagePoint, imageSize);
-                graphics.SetClip(buttonPath);
-
-                if (_image != null)
-                {
-                    // graphics.DrawImage(_image, imageRectangle);
-                }
-
-                Size textSize = GDI.MeasureText(graphics, _buttontext, _buttonFont);
-                graphics.DrawString(_buttontext, Font, new SolidBrush(ForeColor), new PointF((buttonRectangle.X + (buttonRectangle.Width / 2)) - (textSize.Width / 2), (Height / 2) - (textSize.Height / 2)));
-                graphics.SetClip(ControlGraphicsPath);
-
-                Border.DrawBorderStyle(graphics, buttonBorder, MouseState, buttonPath);
-
-                _textBox.Width = buttonRectangle.X - 10;
             }
 
             graphics.ResetClip();
 
-            if (watermark.Visible)
+            if (_watermark.Visible)
             {
                 DrawWaterMark();
             }
@@ -679,11 +707,30 @@
 
             if (!_textBox.Multiline)
             {
-                Height = GetTextBoxHeight();
+                if (_imageVisible)
+                {
+                    _textBox.Location = new Point(GetBorderDistance(ControlBorder) + _imageWidth, _textBox.Location.Y);
+                }
+                else
+                {
+                    _textBox.Location = new Point(GetBorderDistance(ControlBorder), _textBox.Location.Y);
+                }
+
+                if ((!_imageVisible & !_buttonVisible) && AutoSize)
+                {
+                    _textBox.Width = GetInternalControlSize(Size, ControlBorder).Width;
+                }
+
+                _textBox.Height = GetTextBoxHeight();
+                Size = new Size(Width, GetBorderDistance(ControlBorder) + _textBox.Height + GetBorderDistance(ControlBorder));
+            }
+            else
+            {
+                _textBox.Location = GetInternalControlLocation(ControlBorder);
+                _textBox.Size = GetInternalControlSize(Size, ControlBorder);
             }
 
-            _textBox.Location = GetInternalControlLocation(ControlBorder);
-            _textBox.Size = GetInternalControlSize(Size, ControlBorder);
+            Invalidate();
         }
 
         private static string RemoveLineBreaks(string text)
@@ -691,16 +738,81 @@
             return text.Replace(Environment.NewLine, " ");
         }
 
+        private void DrawButton(Graphics graphics)
+        {
+            _buttonColor = new Color();
+
+            if (Enabled)
+            {
+                switch (MouseState)
+                {
+                    case MouseStates.Normal:
+                        {
+                            _buttonColor = _controlColorState.Color;
+                            break;
+                        }
+
+                    case MouseStates.Hover:
+                        {
+                            _buttonColor = _controlColorState.Hover;
+                            break;
+                        }
+
+                    case MouseStates.Down:
+                        {
+                            _buttonColor = _controlColorState.Pressed;
+                            break;
+                        }
+
+                    default:
+                        {
+                            throw new ArgumentOutOfRangeException();
+                        }
+                }
+            }
+            else
+            {
+                _buttonColor = Enabled ? _controlColorState.Color : _controlColorState.Disabled;
+            }
+
+            GraphicsPath buttonPath = new GraphicsPath();
+            buttonPath.AddRectangle(_buttonRectangle);
+            graphics.SetClip(ControlGraphicsPath);
+            graphics.FillPath(new SolidBrush(_buttonColor), buttonPath);
+            Border.DrawBorderStyle(graphics, ControlBorder, MouseState, buttonPath);
+            Size textSize = GDI.MeasureText(graphics, _buttontext, _buttonFont);
+            graphics.SetClip(buttonPath);
+            graphics.DrawString(_buttontext, Font, new SolidBrush(ForeColor), new PointF(_buttonRectangle.X + 3, (Height / 2) - (textSize.Height / 2)));
+            graphics.ResetClip();
+        }
+
+        private void DrawImage(Graphics graphics)
+        {
+            if (_imageVisible)
+            {
+                GraphicsPath _imagePath = new GraphicsPath();
+                _imagePath.AddRectangle(_imageRectangle);
+                graphics.SetClip(_imagePath);
+
+                if (_image != null)
+                {
+                    graphics.DrawImage(_image, new Point((_imageRectangle.X + (_imageRectangle.Width / 2)) - (_image.Width / 2), (_imageRectangle.Y + (_imageRectangle.Height / 2)) - (_image.Height / 2)));
+                }
+
+                graphics.ResetClip();
+            }
+        }
+
         private void DrawWaterMark()
         {
-            if ((waterMarkContainer == null) && (_textBox.TextLength <= 0))
+            if ((_waterMarkContainer == null) && (_textBox.TextLength <= 0))
             {
-                waterMarkContainer = new Panel(); // Creates the new panel instance
-                waterMarkContainer.Paint += WaterMarkContainer_Paint;
-                waterMarkContainer.Invalidate();
-                waterMarkContainer.Click += WaterMarkContainer_Click;
-                Controls.Add(waterMarkContainer); // adds the control
-                waterMarkContainer.BringToFront();
+                _waterMarkContainer = new Panel(); // Creates the new panel instance
+                _waterMarkContainer.Paint += WaterMarkContainer_Paint;
+                _waterMarkContainer.Invalidate();
+                _waterMarkContainer.Click += WaterMarkContainer_Click;
+                _textBox.Controls.Add(_waterMarkContainer); // adds the control
+                _waterMarkContainer.BringToFront();
             }
         }
 
@@ -708,11 +820,11 @@
         {
             if (_textBox.TextLength > 0)
             {
-                return GDI.MeasureText(Text, Font).Height * 2;
+                return GDI.MeasureText(Text, Font).Height;
             }
             else
             {
-                return GDI.MeasureText("Hello World.", Font).Height * 2;
+                return GDI.MeasureText("Hello World.", Font).Height;
             }
         }
 
@@ -721,7 +833,24 @@
             MouseState = MouseStates.Hover;
         }
 
-        private void OnKeyDown(object obj, KeyEventArgs e)
+        private void OnLeave(object sender, EventArgs e)
+        {
+            if (!_textBox.Focused)
+            {
+                MouseState = MouseStates.Normal;
+            }
+        }
+
+        private void RemoveWaterMark()
+        {
+            if (_waterMarkContainer != null)
+            {
+                _textBox.Controls.Remove(_waterMarkContainer);
+                _waterMarkContainer = null;
+            }
+        }
+
+        private void TextBox_KeyDown(object obj, KeyEventArgs e)
         {
             // Select all
             if (e.Control && (e.KeyCode == Keys.A))
@@ -738,43 +867,49 @@
             }
         }
 
-        private void OnLeave(object sender, EventArgs e)
+        private void TextBox_SizeChanged(object sender, EventArgs e)
         {
-            if (!_textBox.Focused)
-            {
-                MouseState = MouseStates.Normal;
-            }
+            _textWidth = _textBox.Width;
         }
 
-        private void RemoveWaterMark()
+        private void TextBox_TextChanged(object sender, EventArgs e)
         {
-            if (waterMarkContainer != null)
+            if (_watermark.Visible)
             {
-                Controls.Remove(waterMarkContainer);
-                waterMarkContainer = null;
+                // If the text of the text box is not empty.
+                if (_textBox.TextLength > 0)
+                {
+                    // Remove the watermark
+                    RemoveWaterMark();
+                }
+                else
+                {
+                    // But if the text is empty, draw the watermark again.
+                    DrawWaterMark();
+                }
             }
         }
 
         private void WaterMarkContainer_Click(object sender, EventArgs e)
         {
-            Focus();
+            _textBox.Focus();
         }
 
         private void WaterMarkContainer_Paint(object sender, PaintEventArgs e)
         {
             // Configure the watermark
-            waterMarkContainer.Location = new Point(2, 0);
-            waterMarkContainer.Height = Height;
-            waterMarkContainer.Width = Width;
+            _waterMarkContainer.Location = new Point(0, 0);
+            _waterMarkContainer.Height = _textBox.Height;
+            _waterMarkContainer.Width = _textBox.Width;
 
             // Forces it to resize with the parent control
-            waterMarkContainer.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            _waterMarkContainer.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
             // Set color
-            watermark.Brush = ContainsFocus ? new SolidBrush(watermark.ActiveColor) : new SolidBrush(watermark.InactiveColor);
+            _watermark.Brush = ContainsFocus ? new SolidBrush(_watermark.ActiveColor) : new SolidBrush(_watermark.InactiveColor);
 
             // Draws the string on the panel
-            e.Graphics.DrawString(watermark.Text, watermark.Font, watermark.Brush, new PointF(-2f, 1f));
+            e.Graphics.DrawString(_watermark.Text, _watermark.Font, _watermark.Brush, new PointF(0F, 0F));
         }
 
         #endregion

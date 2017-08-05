@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.Components.Symbols
+﻿namespace VisualPlus.Renderer
 {
     #region Namespace
 

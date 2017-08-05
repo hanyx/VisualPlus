@@ -63,9 +63,9 @@
     <Compile Include="Toolkit\ActionList\VisualComboBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisuaListBoxTasks.cs" />
     <Compile Include="Toolkit\Components\ProgressDialog.cs" />
-    <Compile Include="Toolkit\Components\Symbols\Arrow.cs" />
-    <Compile Include="Toolkit\Components\Symbols\Bars.cs" />
-    <Compile Include="Toolkit\Components\Symbols\Star.cs" />
+    <Compile Include="Renderer\Arrow.cs" />
+    <Compile Include="Renderer\Bars.cs" />
+    <Compile Include="Renderer\Star.cs" />
     <Compile Include="Enumerators\ShapeType.cs" />
     <Compile Include="Extensibility\BitmapExtension.cs" />
     <Compile Include="Extensibility\EnumExtension.cs" />

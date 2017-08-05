@@ -11,9 +11,9 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Managers;
+    using VisualPlus.Renderer;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
-    using VisualPlus.Toolkit.Components.Symbols;
 
     #endregion
 

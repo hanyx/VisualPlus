@@ -7,6 +7,7 @@
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.EventArgs;
     using VisualPlus.Toolkit.Controls;
 
     #endregion
@@ -37,7 +38,7 @@
                     Toggle = value;
 
                     // Generate events
-                    OnToggleChanged(EventArgs.Empty);
+                    OnToggleChanged(new ToggleEventArgs(Toggle));
 
                     // Repaint
                     Invalidate();
@@ -59,7 +60,7 @@
             base.OnClick(e);
         }
 
-        protected override void OnToggleChanged(EventArgs e)
+        protected override void OnToggleChanged(ToggleEventArgs e)
         {
             base.OnToggleChanged(e);
             AutoUpdateOthers();

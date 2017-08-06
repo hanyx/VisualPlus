@@ -7,6 +7,8 @@
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.EventArgs;
+
     #endregion
 
     [ToolboxItem(false)]
@@ -50,7 +52,7 @@
                     Toggle = value;
 
                     // Generate events
-                    OnToggleChanged(EventArgs.Empty);
+                    OnToggleChanged(new ToggleEventArgs(Toggle));
 
                     // Repaint
                     Invalidate();
@@ -81,7 +83,7 @@
                     // Generate events
                     if (checkedChanged)
                     {
-                        OnToggleChanged(EventArgs.Empty);
+                        OnToggleChanged(new ToggleEventArgs(Toggle));
                     }
 
                     OnCheckStateChanged(EventArgs.Empty);
@@ -152,7 +154,7 @@
             base.OnClick(e);
         }
 
-        protected override void OnToggleChanged(EventArgs e)
+        protected override void OnToggleChanged(ToggleEventArgs e)
         {
             base.OnToggleChanged(e);
             _checkState = Checked ? CheckState.Checked : CheckState.Unchecked;

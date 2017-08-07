@@ -16,38 +16,8 @@
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    public abstract class RadioButtonBase : ToggleButtonBase
+    public abstract class RadioButtonBase : ToggleCheckmarkBase
     {
-        #region Properties
-
-        [DefaultValue(false)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Checkmark.Checked)]
-        public bool Checked
-        {
-            get
-            {
-                return Toggle;
-            }
-
-            set
-            {
-                if (Toggle != value)
-                {
-                    // Store new values
-                    Toggle = value;
-
-                    // Generate events
-                    OnToggleChanged(new ToggleEventArgs(Toggle));
-
-                    // Repaint
-                    Invalidate();
-                }
-            }
-        }
-
-        #endregion
-
         #region Events
 
         protected override void OnClick(EventArgs e)

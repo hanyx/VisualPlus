@@ -91,6 +91,7 @@
     <Compile Include="Toolkit\Controls\VisualListView.cs" />
     <Compile Include="Toolkit\Controls\VisualScrollBar.cs" />
     <Compile Include="Toolkit\VisualBase\FixedContentValues.cs" />
+    <Compile Include="Toolkit\VisualBase\ToggleBase.cs" />
     <Compile Include="Toolkit\VisualBase\VisualStyleBase.cs" />
     <Compile Include="Toolkit\VisualBase\NestedControlsBase.cs" />
     <Compile Include="Toolkit\VisualBase\CheckBoxBase.cs" />
@@ -99,7 +100,7 @@
     <Compile Include="Enumerators\MouseStates.cs" />
     <Compile Include="Toolkit\VisualBase\ProgressBase.cs" />
     <Compile Include="Toolkit\VisualBase\RadioButtonBase.cs" />
-    <Compile Include="Toolkit\VisualBase\ToggleButtonBase.cs" />
+    <Compile Include="Toolkit\VisualBase\ToggleCheckmarkBase.cs" />
     <Compile Include="Toolkit\VisualBase\InternalContent.cs" />
     <Compile Include="Delegates\ControlDelegate.cs" />
     <Compile Include="Delegates\ControlDragDelegate.cs" />

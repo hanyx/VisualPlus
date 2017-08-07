@@ -23,7 +23,7 @@
     [DefaultProperty("Toggled")]
     [Description("The Visual Toggle")]
     [Designer(ControlManager.FilterProperties.VisualToggle)]
-    public class VisualToggle : VisualStyleBase
+    public class VisualToggle : ToggleBase
     {
         #region Variables
 
@@ -32,8 +32,6 @@
                 Interval = 1
             };
 
-        private Gradient backgroundDisabledGradient;
-        private Gradient backgroundEnabledGradient;
         private Border buttonBorder;
         private Gradient buttonDisabledGradient;
         private Gradient buttonGradient;
@@ -43,7 +41,6 @@
         private Point endPoint;
         private Point startPoint;
         private string textProcessor;
-        private bool toggled;
         private int toggleLocation;
         private ToggleTypes toggleType;
 
@@ -74,10 +71,9 @@
             UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
         }
 
-        public delegate void ToggledChangedEventHandler();
+        // public delegate void ToggledChangedEventHandler();
 
-        public event ToggledChangedEventHandler ToggledChanged;
-
+        // public event ToggledChangedEventHandler ToggledChanged;
         public enum ToggleTypes
         {
             /// <summary>Yes / No toggle.</summary>
@@ -93,40 +89,6 @@
         #endregion
 
         #region Properties
-
-        [TypeConverter(typeof(GradientConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        public Gradient BackgroundDisabledGradient
-        {
-            get
-            {
-                return backgroundDisabledGradient;
-            }
-
-            set
-            {
-                backgroundDisabledGradient = value;
-                Invalidate();
-            }
-        }
-
-        [TypeConverter(typeof(GradientConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        public Gradient BackgroundEnabledGradient
-        {
-            get
-            {
-                return backgroundEnabledGradient;
-            }
-
-            set
-            {
-                backgroundEnabledGradient = value;
-                Invalidate();
-            }
-        }
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
@@ -219,15 +181,14 @@
         {
             get
             {
-                return toggled;
+                return Toggle;
             }
 
             set
             {
-                toggled = value;
+                Toggle = value;
                 Invalidate();
-
-                ToggledChanged?.Invoke();
+                OnToggleChanged(new ToggleEventArgs(Toggle));
             }
         }
 
@@ -282,7 +243,6 @@
             base.OnPaint(e);
 
             Graphics graphics = e.Graphics;
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
             controlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
 
             // Update button location points
@@ -290,18 +250,12 @@
             endPoint = new Point(ClientRectangle.Width - buttonSize.Width - 2, (ClientRectangle.Height / 2) - (buttonSize.Height / 2));
 
             Gradient buttonTemp = Enabled ? buttonGradient : buttonDisabledGradient;
-            Gradient backTemp = Enabled ? backgroundEnabledGradient : backgroundDisabledGradient;
 
             var gradientPoints = new[] { new Point { X = ClientRectangle.Width, Y = 0 }, new Point { X = ClientRectangle.Width, Y = ClientRectangle.Height } };
             LinearGradientBrush buttonGradientBrush = Gradient.CreateGradientBrush(buttonTemp.Colors, gradientPoints, buttonTemp.Angle, buttonTemp.Positions);
-            LinearGradientBrush backgroundGradientBrush = Gradient.CreateGradientBrush(backTemp.Colors, gradientPoints, backTemp.Angle, backTemp.Positions);
-
-            graphics.FillPath(backgroundGradientBrush, controlGraphicsPath);
-
-            VisualBorderRenderer.DrawBorderStyle(graphics, ControlBorder, MouseState, controlGraphicsPath);
 
             // Determines button state to draw
-            Point buttonPoint = toggled ? endPoint : startPoint;
+            Point buttonPoint = Toggle ? endPoint : startPoint;
             buttonRectangle = new Rectangle(buttonPoint, buttonSize);
 
             DrawToggleType(graphics);
@@ -314,8 +268,6 @@
 
         protected override void OnThemeChanged(ThemeEventArgs e)
         {
-            backgroundEnabledGradient = StyleManager.ProgressStyle.Background;
-            backgroundDisabledGradient = StyleManager.ControlStatesStyle.ControlDisabled;
             buttonGradient = StyleManager.ControlStatesStyle.ControlEnabled;
             buttonDisabledGradient = StyleManager.ControlStatesStyle.ControlDisabled;
 
@@ -327,7 +279,7 @@
         /// <param name="e">The event args.</param>
         private void AnimationTimerTick(object sender, EventArgs e)
         {
-            if (toggled)
+            if (Toggle)
             {
                 if (toggleLocation >= 100)
                 {
@@ -377,7 +329,7 @@
             const int XOff = 5;
             const int XOn = 7;
 
-            if (toggled)
+            if (Toggle)
             {
                 textBoxRectangle = new Rectangle(XOff, 0, Width - 1, Height - 1);
             }

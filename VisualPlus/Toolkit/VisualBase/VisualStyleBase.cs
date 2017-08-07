@@ -184,6 +184,7 @@
             ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder);
 
             e.Graphics.Clear(Parent.BackColor);
+            e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
             e.Graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, Width + 1, Height + 1));
             VisualBackgroundRenderer.DrawBackground(e.Graphics, ControlBorder, ClientRectangle, BackgroundStateColor, MouseState);
         }

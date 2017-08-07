@@ -15,7 +15,7 @@
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    public abstract class CheckBoxBase : ToggleButtonBase
+    public abstract class CheckBoxBase : ToggleCheckmarkBase
     {
         #region Variables
 
@@ -33,32 +33,6 @@
         #endregion
 
         #region Properties
-
-        [DefaultValue(false)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Checkmark.Checked)]
-        public bool Checked
-        {
-            get
-            {
-                return Toggle;
-            }
-
-            set
-            {
-                if (Toggle != value)
-                {
-                    // Store new values
-                    Toggle = value;
-
-                    // Generate events
-                    OnToggleChanged(new ToggleEventArgs(Toggle));
-
-                    // Repaint
-                    Invalidate();
-                }
-            }
-        }
 
         [DefaultValue(typeof(CheckState), "Unchecked")]
         [Category(Localize.PropertiesCategory.Behavior)]

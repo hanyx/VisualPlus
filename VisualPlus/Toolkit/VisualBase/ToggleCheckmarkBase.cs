@@ -9,7 +9,6 @@ namespace VisualPlus.Toolkit.VisualBase
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
-    using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Extensibility;
@@ -23,7 +22,7 @@ namespace VisualPlus.Toolkit.VisualBase
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    public abstract class ToggleButtonBase : VisualStyleBase, IAnimate, IControlStates
+    public abstract class ToggleCheckmarkBase : ToggleBase, IAnimate, IControlStates
     {
         #region Variables
 
@@ -38,7 +37,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Constructors
 
-        protected ToggleButtonBase()
+        protected ToggleCheckmarkBase()
         {
             AutoSize = true;
             box = new Rectangle(0, 0, 14, 14);
@@ -48,13 +47,34 @@ namespace VisualPlus.Toolkit.VisualBase
             UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
         }
 
-        [Category(Localize.EventsCategory.PropertyChanged)]
-        [Description("Occours when the toggle has been changed on the control.")]
-        public event ToggleChangedEventHandler ToggleChanged;
-
         #endregion
 
         #region Properties
+        [DefaultValue(false)]
+        [Category(Localize.PropertiesCategory.Behavior)]
+        [Description(Localize.Description.Checkmark.Checked)]
+        public bool Checked
+        {
+            get
+            {
+                return Toggle;
+            }
+
+            set
+            {
+                if (Toggle != value)
+                {
+                    // Store new values
+                    Toggle = value;
+
+                    // Generate events
+                    OnToggleChanged(new ToggleEventArgs(Toggle));
+
+                    // Repaint
+                    Invalidate();
+                }
+            }
+        }
 
         [DefaultValue(Settings.DefaultValue.Animation)]
         [Category(Localize.PropertiesCategory.Behavior)]
@@ -219,10 +239,6 @@ namespace VisualPlus.Toolkit.VisualBase
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Size TextSize { get; set; }
 
-        [Browsable(false)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        internal bool Toggle { get; set; }
-
         #endregion
 
         #region Events
@@ -376,11 +392,6 @@ namespace VisualPlus.Toolkit.VisualBase
             checkMark.DisabledGradient = StyleManager.CheckmarkStyle.DisabledGradient;
 
             base.OnThemeChanged(new ThemeEventArgs(this, e.Style));
-        }
-
-        protected virtual void OnToggleChanged(ToggleEventArgs e)
-        {
-            ToggleChanged?.Invoke(e);
         }
 
         private void ConfigSize(Size textSize)

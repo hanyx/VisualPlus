@@ -145,32 +145,6 @@
 
         #region Events
 
-        /// <summary>Update the visual theme on the control.</summary>
-        /// <param name="control">The control to update the theme for.</param>
-        /// <param name="style">The theme style.</param>
-        public void UpdateTheme(Control control, Styles style)
-        {
-            _styleManager.UpdateStyle(style);
-
-            Font = _styleManager.Font;
-            ForeColor = _styleManager.FontStyle.ForeColor;
-            ForeColorDisabled = _styleManager.FontStyle.ForeColorDisabled;
-            _backgroundColor = StyleManager.ControlStyle.Background(0);
-            _backgroundDisabledColor = StyleManager.FontStyle.ForeColorDisabled;
-
-            ControlBrushCollection = new[]
-                {
-                    _styleManager.ControlStatesStyle.ControlEnabled,
-                    _styleManager.ControlStatesStyle.ControlHover,
-                    _styleManager.ControlStatesStyle.ControlPressed,
-                    _styleManager.ControlStatesStyle.ControlDisabled
-                };
-
-            control.Invalidate();
-
-            OnThemeChanged(new ThemeEventArgs(control, style));
-        }
-
         protected virtual void OnBackgroundChanged(ColorEventArgs e)
         {
             BackgroundChanged?.Invoke(e);
@@ -217,6 +191,32 @@
         protected virtual void OnThemeChanged(ThemeEventArgs e)
         {
             ThemeChanged?.Invoke(e);
+        }
+
+        /// <summary>Update the visual style on the control.</summary>
+        /// <param name="control">The control to update the theme for.</param>
+        /// <param name="style">The theme style.</param>
+        internal void UpdateTheme(VisualStyleBase control, Styles style)
+        {
+            _styleManager.UpdateStyle(style);
+
+            Font = _styleManager.Font;
+            ForeColor = _styleManager.FontStyle.ForeColor;
+            ForeColorDisabled = _styleManager.FontStyle.ForeColorDisabled;
+            _backgroundColor = StyleManager.ControlStyle.Background(0);
+            _backgroundDisabledColor = StyleManager.FontStyle.ForeColorDisabled;
+
+            ControlBrushCollection = new[]
+                {
+                    _styleManager.ControlStatesStyle.ControlEnabled,
+                    _styleManager.ControlStatesStyle.ControlHover,
+                    _styleManager.ControlStatesStyle.ControlPressed,
+                    _styleManager.ControlStatesStyle.ControlDisabled
+                };
+
+            control.Invalidate();
+
+            OnThemeChanged(new ThemeEventArgs(control, style));
         }
 
         #endregion

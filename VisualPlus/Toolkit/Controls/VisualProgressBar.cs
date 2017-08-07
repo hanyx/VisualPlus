@@ -9,7 +9,9 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Managers;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -60,22 +62,14 @@
 
         public VisualProgressBar()
         {
-            SetStyle(ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor, true);
-
             Maximum = 100;
 
             Size = minimumSize;
             MinimumSize = minimumSize;
 
             percentageVisible = true;
-            DoubleBuffered = true;
 
-            backgroundGradient.Colors = StyleManager.ProgressStyle.Background.Colors;
-            backgroundGradient.Positions = StyleManager.ProgressStyle.Background.Positions;
-            hatchBackColor = StyleManager.ProgressStyle.Hatch;
-            hatchForeColor = Color.FromArgb(40, hatchBackColor);
-            progressGradient.Colors = StyleManager.ProgressStyle.Progress.Colors;
-            progressGradient.Positions = StyleManager.ProgressStyle.Progress.Positions;
+            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
         }
 
         public enum BarTypes
@@ -440,9 +434,20 @@
             }
         }
 
+        protected override void OnThemeChanged(ThemeEventArgs e)
+        {
+            backgroundGradient.Colors = StyleManager.ProgressStyle.Background.Colors;
+            backgroundGradient.Positions = StyleManager.ProgressStyle.Background.Positions;
+            hatchBackColor = StyleManager.ProgressStyle.Hatch;
+            hatchForeColor = Color.FromArgb(40, hatchBackColor);
+            progressGradient.Colors = StyleManager.ProgressStyle.Progress.Colors;
+            progressGradient.Positions = StyleManager.ProgressStyle.Progress.Positions;
+            base.OnThemeChanged(e);
+        }
+
         private void DrawDefaultProgress(BarTypes style, Graphics graphics)
         {
-            graphicsDefaultBorderPath = Border.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
+            graphicsDefaultBorderPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
             GraphicsPath progressPath = null;
 
             if (progressBarStyle == ProgressBarStyle.Marquee)
@@ -541,11 +546,11 @@
             {
                 if ((MouseState == MouseStates.Hover) && ControlBorder.HoverVisible)
                 {
-                    Border.DrawBorder(graphics, graphicsDefaultBorderPath, ControlBorder.Thickness, ControlBorder.HoverColor);
+                    VisualBorderRenderer.DrawBorder(graphics, graphicsDefaultBorderPath, ControlBorder.Thickness, ControlBorder.HoverColor);
                 }
                 else
                 {
-                    Border.DrawBorder(graphics, graphicsDefaultBorderPath, ControlBorder.Thickness, ControlBorder.Color);
+                    VisualBorderRenderer.DrawBorder(graphics, graphicsDefaultBorderPath, ControlBorder.Thickness, ControlBorder.Color);
                 }
             }
 
@@ -663,13 +668,13 @@
                     case BarTypes.Horizontal:
                         {
                             // Default progress bar
-                            barStylePath = Border.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
+                            barStylePath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
                             break;
                         }
 
                     case BarTypes.Vertical:
                         {
-                            barStylePath = Border.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
+                            barStylePath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
                             break;
                         }
 
@@ -700,11 +705,11 @@
                 {
                     if ((MouseState == MouseStates.Hover) && ControlBorder.HoverVisible)
                     {
-                        Border.DrawBorder(graphics, barStylePath, ControlBorder.Thickness, ControlBorder.HoverColor);
+                        VisualBorderRenderer.DrawBorder(graphics, barStylePath, ControlBorder.Thickness, ControlBorder.HoverColor);
                     }
                     else
                     {
-                        Border.DrawBorder(graphics, barStylePath, ControlBorder.Thickness, ControlBorder.Color);
+                        VisualBorderRenderer.DrawBorder(graphics, barStylePath, ControlBorder.Thickness, ControlBorder.Color);
                     }
                 }
             }

@@ -5,12 +5,12 @@ namespace VisualPlus.Toolkit.VisualBase
     using System;
     using System.ComponentModel;
     using System.Drawing;
-    using System.Drawing.Drawing2D;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
     using VisualPlus.Properties;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
 
     #endregion
@@ -19,19 +19,18 @@ namespace VisualPlus.Toolkit.VisualBase
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    public abstract class InternalButton : VisualStyleBase
+    public abstract class InternalContent : VisualStyleBase
     {
         #region Variables
 
         private TextImageRelation textImageRelation;
-        private Point textPoint = new Point(0, 0);
         private VisualBitmap visualBitmap;
 
         #endregion
 
         #region Constructors
 
-        protected InternalButton()
+        protected InternalContent()
         {
             visualBitmap = new VisualBitmap(Resources.Icon, new Size(24, 24))
                 {
@@ -42,11 +41,31 @@ namespace VisualPlus.Toolkit.VisualBase
             visualBitmap.Point = new Point(0, (Height / 2) - (visualBitmap.Size.Height / 2));
 
             textImageRelation = TextImageRelation.Overlay;
+
+            ColorGradientToggle = true;
+            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
         }
 
         #endregion
 
         #region Properties
+
+        [TypeConverter(typeof(BorderConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(Localize.PropertiesCategory.Appearance)]
+        public Border Border
+        {
+            get
+            {
+                return ControlBorder;
+            }
+
+            set
+            {
+                ControlBorder = value;
+                Invalidate();
+            }
+        }
 
         [TypeConverter(typeof(VisualBitmapConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
@@ -94,10 +113,17 @@ namespace VisualPlus.Toolkit.VisualBase
             Invalidate();
         }
 
-        protected override void OnMouseEnter(EventArgs e)
+        protected override void OnMouseHover(EventArgs e)
         {
-            base.OnMouseEnter(e);
+            base.OnMouseHover(e);
             MouseState = MouseStates.Hover;
+            Invalidate();
+        }
+
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            base.OnMouseUp(e);
+            MouseState = MouseState = MouseStates.Hover;
             Invalidate();
         }
 
@@ -105,23 +131,11 @@ namespace VisualPlus.Toolkit.VisualBase
         {
             base.OnPaint(e);
 
-            Graphics graphics = e.Graphics;
-            
-            visualBitmap.Point = GDI.ApplyTextImageRelation(graphics, textImageRelation, new Rectangle(visualBitmap.Point, visualBitmap.Size), Text, Font, ClientRectangle, true);
-            textPoint = GDI.ApplyTextImageRelation(graphics, textImageRelation, new Rectangle(visualBitmap.Point, visualBitmap.Size), Text, Font, ClientRectangle, false);
+            e.Graphics.Clear(Parent.BackColor);
+            e.Graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, Width + 1, Height + 1));
 
-            if (ColorGradientToggle)
-            {
-                graphics.Clear(Parent.BackColor);
-                graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
-
-                LinearGradientBrush controlGraphicsBrush = GDI.GetControlBrush(graphics, Enabled, MouseState, ControlBrushCollection, ClientRectangle);
-                GDI.FillBackground(graphics, ControlGraphicsPath, controlGraphicsBrush);
-                Border.DrawBorderStyle(graphics, ControlBorder, MouseState, ControlGraphicsPath);
-            }
-
-            VisualBitmap.DrawImage(graphics, visualBitmap.Border, visualBitmap.Point, visualBitmap.Image, visualBitmap.Size, visualBitmap.Visible);
-            graphics.DrawString(Text, Font, new SolidBrush(ForeColor), textPoint);
+            // VisualControlRenderer.DrawInternalContent(e.Graphics, ClientRectangle, Text, Font, ForeColor, Image, textImageRelation);
+            VisualControlRenderer.DrawButton(e.Graphics, ClientRectangle, Text, Font, ForeColor, Image, ControlBorder, textImageRelation, BackgroundStateColor, BackgroundStateGradientBrush, ColorGradientToggle, MouseState);
         }
 
         #endregion

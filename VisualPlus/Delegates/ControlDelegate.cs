@@ -12,6 +12,8 @@
 
     public delegate void StyleManagerChangedEventHandler();
 
+    public delegate void ThemeChangedEventHandler(ThemeEventArgs e);
+
     public delegate void TextRenderingChangedEventHandler(TextRenderingEventArgs e);
 
     public delegate void BackgroundChangedEventHandler(ColorEventArgs e);

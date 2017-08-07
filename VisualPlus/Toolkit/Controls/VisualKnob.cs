@@ -11,6 +11,7 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Managers;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
 
     #endregion
@@ -1027,7 +1028,7 @@
 
             GraphicsPath borderPath = new GraphicsPath();
             borderPath.AddEllipse(knobRectangle);
-            Border.DrawBorderStyle(offGraphics, knobBorder, State, borderPath);
+            VisualBorderRenderer.DrawBorderStyle(offGraphics, knobBorder, State, borderPath);
         }
 
         private void DrawKnobTop()
@@ -1040,7 +1041,7 @@
 
             GraphicsPath borderPath = new GraphicsPath();
             borderPath.AddEllipse(knobTopRectangle);
-            Border.DrawBorderStyle(offGraphics, knobTopBorder, State, borderPath);
+            VisualBorderRenderer.DrawBorderStyle(offGraphics, knobTopBorder, State, borderPath);
 
             float cx = knobPoint.X;
             float cy = knobPoint.Y;

@@ -8,6 +8,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
@@ -251,13 +252,13 @@
             Rectangle title = ConfigureStyleTitleBox(textArea);
 
             titleBoxRectangle = new Rectangle(title.X, title.Y, title.Width, title.Height);
-            titleBoxPath = Border.GetBorderShape(titleBoxRectangle, titleBorder.Type, titleBorder.Rounding);
+            titleBoxPath = VisualBorderRenderer.GetBorderShape(titleBoxRectangle, titleBorder.Type, titleBorder.Rounding);
 
-            ControlGraphicsPath = Border.GetBorderShape(group, Border.Type, Border.Rounding);
+            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(group, Border.Type, Border.Rounding);
 
             graphics.FillPath(new SolidBrush(Background), ControlGraphicsPath);
 
-            Border.DrawBorderStyle(graphics, Border, MouseState, ControlGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, Border, MouseState, ControlGraphicsPath);
 
             if (titleBoxVisible)
             {
@@ -270,11 +271,11 @@
                 {
                     if ((MouseState == MouseStates.Hover) && titleBorder.HoverVisible)
                     {
-                        Border.DrawBorder(graphics, titleBoxPath, titleBorder.Thickness, titleBorder.HoverColor);
+                        VisualBorderRenderer.DrawBorder(graphics, titleBoxPath, titleBorder.Thickness, titleBorder.HoverColor);
                     }
                     else
                     {
-                        Border.DrawBorder(graphics, titleBoxPath, titleBorder.Thickness, titleBorder.Color);
+                        VisualBorderRenderer.DrawBorder(graphics, titleBoxPath, titleBorder.Thickness, titleBorder.Color);
                     }
                 }
             }

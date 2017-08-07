@@ -10,6 +10,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
     using VisualPlus.Toolkit.VisualBase;
@@ -33,7 +34,6 @@
         private Rectangle _buttonRectangle;
         private string _buttontext;
         private bool _buttonVisible;
-        private int _buttonWidth;
         private ControlColorState _controlColorState;
         private Image _image;
         private Rectangle _imageRectangle;
@@ -75,7 +75,6 @@
                     Multiline = false
                 };
 
-            _buttonWidth = 45;
             _imageWidth = 35;
             _buttonFont = Font;
 
@@ -195,26 +194,7 @@
 
             set
             {
-                if (_buttonVisible != value)
-                {
-                    _buttonVisible = value;
-                    Invalidate();
-                }
-            }
-        }
-
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Size)]
-        public int ButtonWidth
-        {
-            get
-            {
-                return _buttonWidth;
-            }
-
-            set
-            {
-                _buttonWidth = value;
+                _buttonVisible = value;
                 Invalidate();
             }
         }
@@ -779,7 +759,7 @@
             buttonPath.AddRectangle(_buttonRectangle);
             graphics.SetClip(ControlGraphicsPath);
             graphics.FillPath(new SolidBrush(_buttonColor), buttonPath);
-            Border.DrawBorderStyle(graphics, ControlBorder, MouseState, buttonPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, ControlBorder, MouseState, buttonPath);
             Size textSize = GDI.MeasureText(graphics, _buttontext, _buttonFont);
             graphics.SetClip(buttonPath);
             graphics.DrawString(_buttontext, Font, new SolidBrush(ForeColor), new PointF(_buttonRectangle.X + 3, (Height / 2) - (textSize.Height / 2)));

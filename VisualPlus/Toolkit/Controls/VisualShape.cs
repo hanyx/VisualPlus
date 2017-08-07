@@ -9,7 +9,9 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Managers;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
@@ -48,11 +50,11 @@
             Size = new Size(100, 100);
 
             animation = Settings.DefaultValue.Animation;
-            background = StyleManager.ControlStatesStyle.ControlEnabled;
 
             _drag = new Drag(this, Settings.DefaultValue.Moveable);
 
             ConfigureAnimation();
+            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
         }
 
         public enum ShapeType
@@ -220,11 +222,16 @@
             base.OnPaint(e);
 
             Graphics graphics = e.Graphics;
-
             ConfigureComponents(graphics);
 
             DrawBackground(graphics);
             DrawAnimation(graphics);
+        }
+
+        protected override void OnThemeChanged(ThemeEventArgs e)
+        {
+            background = StyleManager.ControlStatesStyle.ControlEnabled;
+            base.OnThemeChanged(e);
         }
 
         private void ConfigureAnimation()
@@ -265,7 +272,7 @@
 
                 case ShapeType.Rectangle:
                     {
-                        controlGraphicsPath = Border.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
+                        controlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
                         graphics.FillPath(gradientBrush, controlGraphicsPath);
 
                         break;
@@ -294,7 +301,7 @@
                     }
             }
 
-            Border.DrawBorderStyle(graphics, ControlBorder, MouseState, controlGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, ControlBorder, MouseState, controlGraphicsPath);
         }
 
         private void DrawAnimation(Graphics graphics)

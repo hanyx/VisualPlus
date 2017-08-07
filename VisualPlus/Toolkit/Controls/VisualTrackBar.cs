@@ -11,6 +11,7 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Managers;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
 
     #endregion
@@ -1390,12 +1391,12 @@
             }
 
             trackBarRectangle = new Rectangle(trackLocation, trackSize);
-            trackBarPath = Border.GetBorderShape(trackBarRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
+            trackBarPath = VisualBorderRenderer.GetBorderShape(trackBarRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
 
             LinearGradientBrush gradientBrush = Gradient.CreateGradientBrush(backgroundGradient.Colors, gradientPoints, backgroundGradient.Angle, backgroundGradient.Positions);
             graphics.FillPath(gradientBrush, trackBarPath);
 
-            Border.DrawBorderStyle(graphics, trackBarBorder, State, trackBarPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, trackBarBorder, State, trackBarPath);
         }
 
         /// <summary>Draws the button.</summary>
@@ -1450,10 +1451,10 @@
             if (buttonVisible)
             {
                 LinearGradientBrush gradientBrush = Gradient.CreateGradientBrush(controlCheckTemp.Colors, gradientPoints, controlCheckTemp.Angle, controlCheckTemp.Positions);
-                buttonPath = Border.GetBorderShape(buttonRectangle, buttonBorder.Type, buttonBorder.Rounding);
+                buttonPath = VisualBorderRenderer.GetBorderShape(buttonRectangle, buttonBorder.Type, buttonBorder.Rounding);
                 graphics.FillPath(gradientBrush, buttonPath);
 
-                Border.DrawBorderStyle(graphics, buttonBorder, State, buttonPath);
+                VisualBorderRenderer.DrawBorderStyle(graphics, buttonBorder, State, buttonPath);
             }
         }
 
@@ -1490,7 +1491,7 @@
                         }
 
                         progressRectangle = new Rectangle(progressLocation, progressSize);
-                        progressPath = Border.GetBorderShape(progressRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
+                        progressPath = VisualBorderRenderer.GetBorderShape(progressRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
                     }
 
                     break;
@@ -1513,7 +1514,7 @@
 
                         progressSize = new Size(Width, Height + textAreaSize.Height);
                         progressRectangle = new Rectangle(progressLocation, progressSize);
-                        progressPath = Border.GetBorderShape(progressRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
+                        progressPath = VisualBorderRenderer.GetBorderShape(progressRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
                     }
 
                     break;

@@ -11,7 +11,7 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Managers;
-    using VisualPlus.Renderer;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
 
@@ -503,7 +503,7 @@
 
             if (itemBorder.Visible)
             {
-                Border.DrawBorder(e.Graphics, itemBorderPath, itemBorder.Thickness, border.Color);
+                VisualBorderRenderer.DrawBorder(e.Graphics, itemBorderPath, itemBorder.Thickness, border.Color);
             }
 
             if (e.Index != -1)
@@ -559,7 +559,7 @@
             graphics.SmoothingMode = SmoothingMode.HighQuality;
             graphics.TextRenderingHint = textRendererHint;
 
-            controlGraphicsPath = Border.GetBorderShape(ClientRectangle, border.Type, border.Rounding);
+            controlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, border.Type, border.Rounding);
 
             foreColor = Enabled ? foreColor : textDisabledColor;
             Gradient controlCheckTemp;
@@ -577,7 +577,7 @@
             LinearGradientBrush gradientBackgroundBrush = Gradient.CreateGradientBrush(controlCheckTemp.Colors, gradientPoints, controlCheckTemp.Angle, controlCheckTemp.Positions);
             graphics.FillPath(gradientBackgroundBrush, controlGraphicsPath);
 
-            Border.DrawBorderStyle(graphics, border, State, controlGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, border, State, controlGraphicsPath);
 
             Point textBoxPoint;
             Point buttonPoint;

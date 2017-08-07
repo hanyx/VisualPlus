@@ -7,7 +7,7 @@
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
-    using VisualPlus.Structure;
+    using VisualPlus.Renders;
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -88,10 +88,10 @@
             graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
             graphics.SmoothingMode = SmoothingMode.HighQuality;
 
-            ControlGraphicsPath = Border.GetBorderShape(ClientRectangle, Border.Type, Border.Rounding);
+            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, Border.Type, Border.Rounding);
             graphics.FillPath(new SolidBrush(Background), ControlGraphicsPath);
 
-            Border.DrawBorderStyle(graphics, Border, MouseState, ControlGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, Border, MouseState, ControlGraphicsPath);
 
             _expander.Draw(graphics, _expander.GetAlignmentPoint(Size));
         }

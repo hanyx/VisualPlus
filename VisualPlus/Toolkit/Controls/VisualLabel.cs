@@ -9,6 +9,7 @@
     using System.Drawing.Text;
     using System.Windows.Forms;
 
+    using VisualPlus.EventArgs;
     using VisualPlus.Managers;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.VisualBase;
@@ -56,8 +57,7 @@
             UpdateStyles();
             BackColor = Color.Transparent;
 
-            ConfigureStyleManager();
-            DefaultGradient();
+            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
         }
 
         #endregion
@@ -340,8 +340,6 @@
             graphics.Clear(Parent.BackColor);
             graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
 
-            ConfigureStyleManager();
-
             Gradient foreGradient = Enabled ? _foreGradient : _foreDisabledGradient;
 
             if (reflection && (orientation == Orientation.Vertical))
@@ -385,20 +383,7 @@
             }
         }
 
-        private void ConfigureStyleManager()
-        {
-            if (StyleManager != null)
-            {
-                // IFont fontStyle = StyleManager.VisualStylesManager.VisualStylesInterface.FontStyle;
-                // Font = new Font(fontStyle.FontFamily, fontStyle.FontSize, fontStyle.FontStyle);
-            }
-            else
-            {
-                // Font = new Font(Settings.DefaultValue.Font.FontFamily, Settings.DefaultValue.Font.FontSize, Settings.DefaultValue.Font.FontStyle);
-            }
-        }
-
-        private void DefaultGradient()
+        protected override void OnThemeChanged(ThemeEventArgs e)
         {
             Color[] foreColor =
                 {
@@ -419,6 +404,8 @@
 
             _foreDisabledGradient.Colors = textDisabledColor;
             _foreDisabledGradient.Positions = gradientPosition;
+
+            base.OnThemeChanged(e);
         }
 
         private void DrawOutline(Graphics graphics)

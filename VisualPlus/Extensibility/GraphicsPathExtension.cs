@@ -5,6 +5,7 @@
     using System.Drawing;
     using System.Drawing.Drawing2D;
 
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
 
     #endregion
@@ -19,7 +20,7 @@
         /// <returns>Converted border path.</returns>
         public static GraphicsPath ToBorderPath(this GraphicsPath borderPath, Border border)
         {
-            return Border.GetBorderShape(borderPath.GetBounds().ToRectangle(), border.Type, border.Rounding);
+            return VisualBorderRenderer.GetBorderShape(borderPath.GetBounds().ToRectangle(), border.Type, border.Rounding);
         }
 
         /// <summary>Converts the Rectangle to a GraphicsPath.</summary>

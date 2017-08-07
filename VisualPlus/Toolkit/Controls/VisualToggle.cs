@@ -9,7 +9,9 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Managers;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -51,8 +53,6 @@
 
         public VisualToggle()
         {
-            SetStyle(ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor, true);
-
             BackColor = Color.Transparent;
             Size = new Size(50, 25);
             Font = StyleManager.Font;
@@ -71,10 +71,7 @@
                     Rounding = Settings.DefaultValue.Rounding.ToggleButton
                 };
 
-            backgroundEnabledGradient = StyleManager.ProgressStyle.Background;
-            backgroundDisabledGradient = StyleManager.ControlStatesStyle.ControlDisabled;
-            buttonGradient = StyleManager.ControlStatesStyle.ControlEnabled;
-            buttonDisabledGradient = StyleManager.ControlStatesStyle.ControlDisabled;
+            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
         }
 
         public delegate void ToggledChangedEventHandler();
@@ -285,8 +282,8 @@
             base.OnPaint(e);
 
             Graphics graphics = e.Graphics;
-
-            controlGraphicsPath = Border.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+            controlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
 
             // Update button location points
             startPoint = new Point(0 + 2, (ClientRectangle.Height / 2) - (buttonSize.Height / 2));
@@ -301,7 +298,7 @@
 
             graphics.FillPath(backgroundGradientBrush, controlGraphicsPath);
 
-            Border.DrawBorderStyle(graphics, ControlBorder, MouseState, controlGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, ControlBorder, MouseState, controlGraphicsPath);
 
             // Determines button state to draw
             Point buttonPoint = toggled ? endPoint : startPoint;
@@ -309,10 +306,20 @@
 
             DrawToggleType(graphics);
 
-            GraphicsPath buttonPath = Border.GetBorderShape(buttonRectangle, buttonBorder.Type, buttonBorder.Rounding);
+            GraphicsPath buttonPath = VisualBorderRenderer.GetBorderShape(buttonRectangle, buttonBorder.Type, buttonBorder.Rounding);
             graphics.FillPath(buttonGradientBrush, buttonPath);
 
-            Border.DrawBorderStyle(graphics, buttonBorder, MouseState, buttonPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, buttonBorder, MouseState, buttonPath);
+        }
+
+        protected override void OnThemeChanged(ThemeEventArgs e)
+        {
+            backgroundEnabledGradient = StyleManager.ProgressStyle.Background;
+            backgroundDisabledGradient = StyleManager.ControlStatesStyle.ControlDisabled;
+            buttonGradient = StyleManager.ControlStatesStyle.ControlEnabled;
+            buttonDisabledGradient = StyleManager.ControlStatesStyle.ControlDisabled;
+
+            base.OnThemeChanged(e);
         }
 
         /// <summary>Create a slide animation when toggled.</summary>

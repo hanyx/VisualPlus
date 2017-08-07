@@ -14,7 +14,7 @@ namespace VisualPlus.Toolkit.VisualBase
     using VisualPlus.EventArgs;
     using VisualPlus.Extensibility;
     using VisualPlus.Managers;
-    using VisualPlus.Renderer;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
 
     #endregion
@@ -40,12 +40,12 @@ namespace VisualPlus.Toolkit.VisualBase
 
         protected ToggleButtonBase()
         {
-            SetStyle(ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor, true);
             AutoSize = true;
             box = new Rectangle(0, 0, 14, 14);
             animation = Settings.DefaultValue.Animation;
             checkMark = new Checkmark(ClientRectangle);
             ConfigureAnimation();
+            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
         }
 
         [Category(Localize.EventsCategory.PropertyChanged)]
@@ -359,16 +359,23 @@ namespace VisualPlus.Toolkit.VisualBase
 
             Graphics graphics = e.Graphics;
             graphics.Clear(Parent.BackColor);
-            graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
-            LinearGradientBrush _boxBrush = GDI.GetControlBrush(graphics, Enabled, MouseState, ControlBrushCollection, ClientRectangle);
+            e.Graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, Width + 1, Height + 1));
 
+            LinearGradientBrush _boxBrush = GDI.GetControlBrush(graphics, Enabled, MouseState, ControlBrushCollection, ClientRectangle);
             Size textSize = GDI.MeasureText(graphics, Text, Font);
             TextSize = Text.MeasureText(Font);
             Point textPoint = new Point(box.Right + boxSpacing, (ClientRectangle.Height / 2) - (textSize.Height / 2));
 
-            ToggleButtonRenderer.DrawCheckBox(graphics, Border, CheckMark, box, Toggle, Enabled, _boxBrush, MouseState, Text, Font, ForeColor, textPoint);
-
+            VisualToggleRenderer.DrawCheckBox(graphics, Border, CheckMark, box, Toggle, Enabled, _boxBrush, MouseState, Text, Font, ForeColor, textPoint);
             DrawAnimation(graphics);
+        }
+
+        protected override void OnThemeChanged(ThemeEventArgs e)
+        {
+            checkMark.EnabledGradient = StyleManager.CheckmarkStyle.EnabledGradient;
+            checkMark.DisabledGradient = StyleManager.CheckmarkStyle.DisabledGradient;
+
+            base.OnThemeChanged(new ThemeEventArgs(this, e.Style));
         }
 
         protected virtual void OnToggleChanged(ToggleEventArgs e)

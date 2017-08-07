@@ -11,7 +11,7 @@
     using VisualPlus.Enumerators;
     using VisualPlus.Extensibility;
     using VisualPlus.Managers;
-    using VisualPlus.Renderer;
+    using VisualPlus.Renders;
     using VisualPlus.Styles;
 
     #endregion
@@ -57,7 +57,7 @@
             shapeRounding = Settings.DefaultValue.Rounding.BoxRounding;
             shapeType = Settings.DefaultValue.BorderType;
 
-            Bitmap bitmap = new Bitmap(Image.FromStream(new MemoryStream(Convert.FromBase64String(ToggleButtonRenderer.GetBase64CheckImage()))));
+            Bitmap bitmap = new Bitmap(Image.FromStream(new MemoryStream(Convert.FromBase64String(VisualToggleRenderer.GetBase64CheckImage()))));
 
             disabledImage = bitmap.FilterGrayScale();
             enabledImage = bitmap;

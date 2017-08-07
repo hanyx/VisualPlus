@@ -9,7 +9,9 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Managers;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -49,15 +51,12 @@
 
         public VisualNumericUpDown()
         {
-            SetStyle(ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor, true);
-
             BackColor = Color.Transparent;
             minimumValue = 0;
             maximumValue = 100;
             Size = new Size(125, 25);
             MinimumSize = new Size(0, 0);
 
-            buttonFont = new Font(StyleManager.Font.FontFamily, 14, FontStyle.Bold);
             buttonOrientation = Orientation.Horizontal;
 
             buttonBorder = new Border
@@ -66,9 +65,7 @@
                     Type = ShapeType.Rectangle
                 };
 
-            buttonForeColor = Color.Gray;
-            backgroundGradient = StyleManager.ControlStyle.BoxEnabled;
-            buttonGradient = StyleManager.ControlStatesStyle.ControlEnabled;
+            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
         }
 
         #endregion
@@ -464,11 +461,8 @@
             base.OnPaint(e);
 
             Graphics graphics = e.Graphics;
-            graphics.Clear(Parent.BackColor);
-            graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
             graphics.SmoothingMode = SmoothingMode.HighQuality;
 
-            ControlGraphicsPath = Border.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
             buttonRectangle = new Rectangle(Width - buttonWidth, 0, buttonWidth, Height);
 
             Size incrementSize = GDI.MeasureText(graphics, "+", buttonFont);
@@ -489,9 +483,7 @@
             horizontalSeparator[1] = new Point(buttonRectangle.X + (buttonRectangle.Width / 2), buttonRectangle.Y + buttonRectangle.Height);
 
             Point[] tempSeparator;
-
             int toggleInt;
-
             switch (buttonOrientation)
             {
                 case Orientation.Vertical:
@@ -531,7 +523,7 @@
             LinearGradientBrush buttonGradientBrush = Gradient.CreateGradientBrush(buttonCheckTemp.Colors, gradientPoints, buttonCheckTemp.Angle, buttonCheckTemp.Positions);
             graphics.FillPath(buttonGradientBrush, buttonPath);
 
-            Border.DrawBorderStyle(graphics, buttonBorder, MouseState, buttonPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, buttonBorder, MouseState, buttonPath);
 
             graphics.ResetClip();
 
@@ -540,7 +532,7 @@
 
             graphics.DrawLine(new Pen(StyleManager.BorderStyle.Color), tempSeparator[0], tempSeparator[1]);
 
-            Border.DrawBorderStyle(graphics, ControlBorder, MouseState, ControlGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, ControlBorder, MouseState, ControlGraphicsPath);
 
             // Draw value string
             Rectangle textBoxRectangle = new Rectangle(6, 0, Width - 1, Height - 1);
@@ -552,6 +544,15 @@
                 };
 
             graphics.DrawString(Convert.ToString(Value), Font, new SolidBrush(ForeColor), textBoxRectangle, stringFormat);
+        }
+
+        protected override void OnThemeChanged(ThemeEventArgs e)
+        {
+            buttonForeColor = Color.Gray;
+            backgroundGradient = StyleManager.ControlStyle.BoxEnabled;
+            buttonGradient = StyleManager.ControlStatesStyle.ControlEnabled;
+            buttonFont = new Font(StyleManager.Font.FontFamily, 14, FontStyle.Bold);
+            base.OnThemeChanged(e);
         }
 
         #endregion

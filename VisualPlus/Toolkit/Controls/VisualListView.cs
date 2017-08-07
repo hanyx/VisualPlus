@@ -11,6 +11,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
     using VisualPlus.Toolkit.VisualBase;
@@ -642,7 +643,7 @@
                 e.Graphics.FillRectangle(new SolidBrush(columnHeaderBackground), columnHeaderRectangle);
             }
 
-            Border.DrawBorderStyle(graphics, columnBorder, MouseState, columnHeaderPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, columnBorder, MouseState, columnHeaderPath);
 
             StringFormat stringFormat = new StringFormat
                 {

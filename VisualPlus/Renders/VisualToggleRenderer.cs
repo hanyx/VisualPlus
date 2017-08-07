@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Renderer
+﻿namespace VisualPlus.Renders
 {
     #region Namespace
 
@@ -13,7 +13,7 @@
 
     #endregion
 
-    public sealed class ToggleButtonRenderer
+    public sealed class VisualToggleRenderer
     {
         #region Events
 
@@ -51,7 +51,7 @@
             graphics.CompositingQuality = CompositingQuality.GammaCorrected;
 
             Rectangle _box = rectangle;
-            GraphicsPath _boxPath = Border.GetBorderShape(_box, border);
+            GraphicsPath _boxPath = VisualBorderRenderer.GetBorderShape(_box, border);
 
             GDI.FillBackground(graphics, _boxPath, linearGradientBrush);
 
@@ -62,7 +62,7 @@
                 graphics.ResetClip();
             }
 
-            Border.DrawBorderStyle(graphics, border, mouseState, _boxPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, border, mouseState, _boxPath);
         }
 
         /// <summary>
@@ -120,7 +120,7 @@
                 case Checkmark.CheckType.Shape:
                     {
                         Rectangle shapeRectangle = new Rectangle(tempPoint, checkmark.ShapeSize);
-                        GraphicsPath shapePath = Border.GetBorderShape(shapeRectangle, checkmark.ShapeType, checkmark.ShapeRounding);
+                        GraphicsPath shapePath = VisualBorderRenderer.GetBorderShape(shapeRectangle, checkmark.ShapeType, checkmark.ShapeRounding);
                         graphics.FillPath(checkmarkBrush, shapePath);
                         break;
                     }

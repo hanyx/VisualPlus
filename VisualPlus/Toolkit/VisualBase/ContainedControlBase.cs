@@ -6,8 +6,11 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Runtime.InteropServices;
+    using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
 
     #endregion
@@ -22,7 +25,7 @@
 
         protected ContainedControlBase()
         {
-            Background = StyleManager.ControlStyle.Background(3);
+            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
         }
 
         #endregion
@@ -78,6 +81,18 @@
 
         protected override void OnMouseLeave(EventArgs e)
         {
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder);
+        }
+
+        protected override void OnThemeChanged(ThemeEventArgs e)
+        {
+            Background = StyleManager.ControlStyle.Background(3);
+            base.OnThemeChanged(e);
         }
 
         /// <summary>Gets the distance from the border.</summary>

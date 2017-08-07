@@ -50,12 +50,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventArgs\ThemeEventArgs.cs" />
     <Compile Include="EventArgs\TextRenderingEventArgs.cs" />
     <Compile Include="EventArgs\MouseStateEventArgs.cs" />
     <Compile Include="EventArgs\ColorEventArgs.cs" />
     <Compile Include="EventArgs\ToggleEventArgs.cs" />
     <Compile Include="Extensibility\StringExtension.cs" />
-    <Compile Include="Renderer\ToggleButtonRenderer.cs" />
+    <Compile Include="Renders\VisualBackgroundRenderer.cs" />
+    <Compile Include="Renders\VisualBorderRenderer.cs" />
+    <Compile Include="Renders\VisualToggleRenderer.cs" />
+    <Compile Include="Renders\VisualControlRenderer.cs" />
     <Compile Include="Structure\ControlColorState.cs" />
     <Compile Include="Structure\ControlGradientState.cs" />
     <Compile Include="Toolkit\ActionList\BackupDesigner.cs" />
@@ -65,9 +69,9 @@
     <Compile Include="Toolkit\ActionList\VisualComboBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisuaListBoxTasks.cs" />
     <Compile Include="Toolkit\Components\ProgressDialog.cs" />
-    <Compile Include="Renderer\Arrow.cs" />
-    <Compile Include="Renderer\Bars.cs" />
-    <Compile Include="Renderer\Star.cs" />
+    <Compile Include="Renders\Arrow.cs" />
+    <Compile Include="Renders\Bars.cs" />
+    <Compile Include="Renders\Star.cs" />
     <Compile Include="Enumerators\ShapeType.cs" />
     <Compile Include="Extensibility\BitmapExtension.cs" />
     <Compile Include="Extensibility\EnumExtension.cs" />
@@ -96,7 +100,7 @@
     <Compile Include="Toolkit\VisualBase\ProgressBase.cs" />
     <Compile Include="Toolkit\VisualBase\RadioButtonBase.cs" />
     <Compile Include="Toolkit\VisualBase\ToggleButtonBase.cs" />
-    <Compile Include="Toolkit\VisualBase\InternalButton.cs" />
+    <Compile Include="Toolkit\VisualBase\InternalContent.cs" />
     <Compile Include="Delegates\ControlDelegate.cs" />
     <Compile Include="Delegates\ControlDragDelegate.cs" />
     <Compile Include="EventArgs\DragControlEventArgs.cs" />

@@ -13,6 +13,7 @@
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Managers;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
 
     #endregion
@@ -40,20 +41,6 @@
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
 
             _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
-
-            Font = _styleManager.Font;
-            ForeColor = _styleManager.FontStyle.ForeColor;
-            ForeColorDisabled = _styleManager.FontStyle.ForeColorDisabled;
-            _backgroundColor = StyleManager.ControlStyle.Background(0);
-            _backgroundDisabledColor = StyleManager.FontStyle.ForeColorDisabled;
-
-            ControlBrushCollection = new[]
-                {
-                    _styleManager.ControlStatesStyle.ControlEnabled,
-                    _styleManager.ControlStatesStyle.ControlHover,
-                    _styleManager.ControlStatesStyle.ControlPressed,
-                    _styleManager.ControlStatesStyle.ControlDisabled
-                };
         }
 
         [Category(Localize.EventsCategory.Appearance)]
@@ -67,6 +54,10 @@
         [Category(Localize.EventsCategory.PropertyChanged)]
         [Description("Occours when the ForeColorDisabled property for the control has changed.")]
         public event ForeColorDisabledChangedEventHandler ForeColorDisabledChanged;
+
+        [Category(Localize.EventsCategory.PropertyChanged)]
+        [Description("Occours when the theme changed for the control.")]
+        public event ThemeChangedEventHandler ThemeChanged;
 
         #endregion
 
@@ -125,6 +116,14 @@
 
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
+        internal Color BackgroundStateColor { get; private set; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        internal LinearGradientBrush BackgroundStateGradientBrush { get; private set; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         internal Gradient[] ControlBrushCollection { get; set; }
 
         [Browsable(false)]
@@ -146,12 +145,30 @@
 
         #region Events
 
-        /// <summary>Update the internal style manager and invalidate.</summary>
-        /// <param name="style">The style.</param>
-        public void UpdateTheme(Styles style)
+        /// <summary>Update the visual theme on the control.</summary>
+        /// <param name="control">The control to update the theme for.</param>
+        /// <param name="style">The theme style.</param>
+        public void UpdateTheme(Control control, Styles style)
         {
             _styleManager.UpdateStyle(style);
-            Invalidate();
+
+            Font = _styleManager.Font;
+            ForeColor = _styleManager.FontStyle.ForeColor;
+            ForeColorDisabled = _styleManager.FontStyle.ForeColorDisabled;
+            _backgroundColor = StyleManager.ControlStyle.Background(0);
+            _backgroundDisabledColor = StyleManager.FontStyle.ForeColorDisabled;
+
+            ControlBrushCollection = new[]
+                {
+                    _styleManager.ControlStatesStyle.ControlEnabled,
+                    _styleManager.ControlStatesStyle.ControlHover,
+                    _styleManager.ControlStatesStyle.ControlPressed,
+                    _styleManager.ControlStatesStyle.ControlDisabled
+                };
+
+            control.Invalidate();
+
+            OnThemeChanged(new ThemeEventArgs(control, style));
         }
 
         protected virtual void OnBackgroundChanged(ColorEventArgs e)
@@ -187,18 +204,19 @@
         {
             base.OnPaint(e);
 
-            Color stateColor = Enabled ? _backgroundColor : _backgroundDisabledColor;
-            ControlGraphicsPath = Border.GetBorderShape(ClientRectangle, ControlBorder);
-
-            Graphics graphics = e.Graphics;
-            graphics.Clear(Parent.BackColor);
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.SetClip(ControlGraphicsPath);
-            graphics.FillRectangle(new SolidBrush(stateColor), ClientRectangle);
-            graphics.ResetClip();
-            Border.DrawBorderStyle(graphics, ControlBorder, MouseState, ControlGraphicsPath);
-
             ForeColor = Enabled ? ForeColor : ForeColorDisabled;
+            BackgroundStateColor = Enabled ? _backgroundColor : _backgroundDisabledColor;
+            BackgroundStateGradientBrush = GDI.GetControlBrush(e.Graphics, Enabled, MouseState, ControlBrushCollection, ClientRectangle);
+            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder);
+
+            e.Graphics.Clear(Parent.BackColor);
+            e.Graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, Width + 1, Height + 1));
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, ControlBorder, ClientRectangle, BackgroundStateColor, MouseState);
+        }
+
+        protected virtual void OnThemeChanged(ThemeEventArgs e)
+        {
+            ThemeChanged?.Invoke(e);
         }
 
         #endregion

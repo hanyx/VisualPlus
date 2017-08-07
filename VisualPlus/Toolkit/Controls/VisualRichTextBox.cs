@@ -9,7 +9,6 @@
     using System.IO;
     using System.Windows.Forms;
 
-    using VisualPlus.Managers;
     using VisualPlus.Toolkit.ActionList;
     using VisualPlus.Toolkit.VisualBase;
 

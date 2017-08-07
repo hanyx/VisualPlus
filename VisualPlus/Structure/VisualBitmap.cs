@@ -8,6 +8,8 @@
     using System.Drawing.Drawing2D;
     using System.Globalization;
 
+    using VisualPlus.Renders;
+
     #endregion
 
     [Description("The VisualBitmap")]
@@ -144,7 +146,7 @@
 
                     if (_border.Visible)
                     {
-                        Border.DrawBorder(graphics, imagePath, _border.Thickness, _border.Color);
+                        VisualBorderRenderer.DrawBorder(graphics, imagePath, _border.Thickness, _border.Color);
                     }
                 }
 

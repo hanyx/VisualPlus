@@ -13,6 +13,7 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Managers;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
 
     #endregion
@@ -707,7 +708,7 @@
 
                     GraphicsPath borderPath = new GraphicsPath();
                     borderPath.AddRectangle(tabPageRectangle);
-                    Border.DrawBorderStyle(graphics, tabPageBorder, State, borderPath);
+                    VisualBorderRenderer.DrawBorderStyle(graphics, tabPageBorder, State, borderPath);
 
                     if (arrowSelectorVisible)
                     {
@@ -753,7 +754,7 @@
 
                         GraphicsPath borderPath = new GraphicsPath();
                         borderPath.AddRectangle(tabPageRectangle);
-                        Border.DrawBorderStyle(graphics, tabPageBorder, State, borderPath);
+                        VisualBorderRenderer.DrawBorderStyle(graphics, tabPageBorder, State, borderPath);
                     }
 
                     graphics.DrawString(

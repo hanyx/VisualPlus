@@ -123,8 +123,7 @@
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            Graphics graphics = e.Graphics;
-            graphics.TextRenderingHint = _textRendererHint;
+            e.Graphics.TextRenderingHint = _textRendererHint;
         }
 
         protected virtual void OnTextRenderingHintChanged(TextRenderingEventArgs e)

@@ -12,6 +12,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Managers;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -545,7 +546,7 @@
                     }
             }
 
-            Border.DrawBorderStyle(graphics, border, MouseState, controlGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, border, MouseState, controlGraphicsPath);
 
             // Draws the button
             if (!Color.IsEmpty && pickerVisible)
@@ -694,7 +695,7 @@
             e.Graphics.FillPath(new SolidBrush(buttonColor), buttonGraphicsPath);
 
             // Draw border
-            Border.DrawBorderStyle(e.Graphics, pickerBorder, MouseState, buttonGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, pickerBorder, MouseState, buttonGraphicsPath);
 
             if (Focused && includeFocus)
             {

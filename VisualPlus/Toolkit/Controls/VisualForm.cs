@@ -15,6 +15,7 @@
     using VisualPlus.Enumerators;
     using VisualPlus.Managers;
     using VisualPlus.Properties;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
 
     #endregion
@@ -616,7 +617,7 @@
         {
             GraphicsPath clientRectangle = new GraphicsPath();
             clientRectangle.AddRectangle(ClientRectangle);
-            Border.DrawBorderStyle(graphics, border, State, clientRectangle);
+            VisualBorderRenderer.DrawBorderStyle(graphics, border, State, clientRectangle);
         }
 
         private void DrawButtons(Graphics graphics)

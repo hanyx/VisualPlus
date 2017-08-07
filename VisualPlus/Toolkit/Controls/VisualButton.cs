@@ -9,6 +9,7 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Managers;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -20,7 +21,7 @@
     [DefaultProperty("Text")]
     [Description("The Visual Button")]
     [Designer(ControlManager.FilterProperties.VisualButton)]
-    public class VisualButton : InternalButton, IAnimate, IControlStates
+    public class VisualButton : InternalContent, IAnimate, IControlStates
     {
         #region Variables
 
@@ -228,6 +229,7 @@
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder);
             DrawAnimation(e.Graphics);
         }
 

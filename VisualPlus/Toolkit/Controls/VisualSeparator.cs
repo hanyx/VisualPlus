@@ -8,6 +8,7 @@
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
+    using VisualPlus.EventArgs;
     using VisualPlus.Managers;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.VisualBase;
@@ -37,36 +38,9 @@
 
         public VisualSeparator()
         {
-            SetStyle(ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor, true);
-
             BackColor = Color.Transparent;
 
-            UpdateStyles();
-
-            float[] gradientPosition = { 0, 1 / 2f, 1 };
-            float angle = 90;
-
-            Color[] lineColor =
-                {
-                    StyleManager.ControlStyle.Line,
-                    ControlPaint.Light(StyleManager.ControlStyle.Line),
-                    StyleManager.ControlStyle.Line
-                };
-
-            Color[] shadowColor =
-                {
-                    ControlPaint.Light(StyleManager.ControlStyle.Shadow),
-                    StyleManager.ControlStyle.Shadow,
-                    ControlPaint.Light(StyleManager.ControlStyle.Shadow)
-                };
-
-            lineGradient.Angle = angle;
-            lineGradient.Colors = lineColor;
-            lineGradient.Positions = gradientPosition;
-
-            shadowGradient.Angle = angle;
-            shadowGradient.Colors = shadowColor;
-            shadowGradient.Positions = gradientPosition;
+            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
         }
 
         #endregion
@@ -167,8 +141,10 @@
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-
+            
             Graphics graphics = e.Graphics;
+            e.Graphics.Clear(Parent.BackColor);
+            e.Graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, Width + 1, Height + 1));
 
             Point linePosition;
             Size lineSize;
@@ -231,6 +207,35 @@
             {
                 Width = 4;
             }
+        }
+
+        protected override void OnThemeChanged(ThemeEventArgs e)
+        {
+            float[] gradientPosition = { 0, 1 / 2f, 1 };
+            float angle = 90;
+
+            Color[] lineColor =
+                {
+                    StyleManager.ControlStyle.Line,
+                    ControlPaint.Light(StyleManager.ControlStyle.Line),
+                    StyleManager.ControlStyle.Line
+                };
+
+            Color[] shadowColor =
+                {
+                    ControlPaint.Light(StyleManager.ControlStyle.Shadow),
+                    StyleManager.ControlStyle.Shadow,
+                    ControlPaint.Light(StyleManager.ControlStyle.Shadow)
+                };
+
+            lineGradient.Angle = angle;
+            lineGradient.Colors = lineColor;
+            lineGradient.Positions = gradientPosition;
+
+            shadowGradient.Angle = angle;
+            shadowGradient.Colors = shadowColor;
+            shadowGradient.Positions = gradientPosition;
+            base.OnThemeChanged(e);
         }
 
         #endregion

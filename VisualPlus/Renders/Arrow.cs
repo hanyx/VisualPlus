@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Renderer
+﻿namespace VisualPlus.Renders
 {
     #region Namespace
 

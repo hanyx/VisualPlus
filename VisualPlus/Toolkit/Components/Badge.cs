@@ -11,6 +11,7 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.Managers;
+    using VisualPlus.Renders;
     using VisualPlus.Structure;
 
     #endregion
@@ -217,10 +218,10 @@
                 Size textSize = GDI.MeasureText(graphics, _value.ToString(), _font);
                 Rectangle shapeRectangle = new Rectangle(badgePoint, new Size(textSize.Width + 1, textSize.Height));
                 Point textPoint = new Point((shapeRectangle.X + (shapeRectangle.Width / 2)) - (textSize.Width / 2), (shapeRectangle.Y + (shapeRectangle.Height / 2)) - (textSize.Height / 2));
-                GraphicsPath shapePath = Border.GetBorderShape(shapeRectangle, _border.Type, _border.Rounding);
+                GraphicsPath shapePath = VisualBorderRenderer.GetBorderShape(shapeRectangle, _border.Type, _border.Rounding);
 
                 graphics.FillPath(new SolidBrush(BackColor), shapePath);
-                Border.DrawBorder(graphics, shapePath, _border.Thickness, _border.Color);
+                VisualBorderRenderer.DrawBorder(graphics, shapePath, _border.Thickness, _border.Color);
                 graphics.DrawString(_value.ToString(), _font, new SolidBrush(_foreColor), textPoint);
             }
         }

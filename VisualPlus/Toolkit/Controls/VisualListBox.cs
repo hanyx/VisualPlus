@@ -61,7 +61,7 @@
             BackColor = Color.Transparent;
             Size = new Size(250, 150);
 
-            _itemNormal = StyleManager.ControlStyle.Background(0);
+            _itemNormal = Background;
             _itemAlternate = StyleManager.BorderStyle.Color;
             _itemSelected = StyleManager.BorderStyle.HoverColor;
 

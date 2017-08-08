@@ -1,5 +1,4 @@
 ![VisualPlus](http://i.imgur.com/sgGoVrP.png)
-
 # VisualPlus
 [![Release](https://img.shields.io/github/release/DarkByte7/VisualPlus.svg?style=flat)](https://github.com/DarkByte7/VisualPlus/releases/latest)
 [![NuGet](https://img.shields.io/nuget/v/VisualPlus.svg?style=flat)](https://www.nuget.org/packages/VisualPlus/)

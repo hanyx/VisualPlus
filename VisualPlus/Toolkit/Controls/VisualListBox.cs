@@ -130,7 +130,7 @@
         #region Properties
 
         [DefaultValue(true)]
-        [Category(Localize.PropertiesCategory.Behavior)]
+        [Category(Localization.Category.Property.Behavior)]
         public bool AlternateColors
         {
             get
@@ -283,8 +283,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ItemAlternate
         {
             get
@@ -315,8 +315,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ItemNormal
         {
             get
@@ -345,8 +345,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ItemSelected
         {
             get

@@ -117,7 +117,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Gradient Background
         {
             get
@@ -134,7 +134,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Border Border
         {
             get
@@ -149,8 +149,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ButtonColor
         {
             get
@@ -165,8 +165,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Direction)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.Direction)]
         public Alignment.Horizontal ButtonHorizontal
         {
             get
@@ -181,8 +181,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Type)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public DropDownButtons ButtonStyles
         {
             get
@@ -198,8 +198,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool ButtonVisible
         {
             get
@@ -214,8 +214,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Size)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public int ButtonWidth
         {
             get
@@ -232,7 +232,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Gradient DisabledBackground
         {
             get
@@ -264,7 +264,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Border ItemBorder
         {
             get
@@ -279,8 +279,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color MenuItemHover
         {
             get
@@ -295,8 +295,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color MenuItemNormal
         {
             get
@@ -311,8 +311,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color MenuTextColor
         {
             get
@@ -327,8 +327,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color SeparatorColor
         {
             get
@@ -343,8 +343,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color SeparatorShadowColor
         {
             get
@@ -360,8 +360,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool SeparatorVisible
         {
             get
@@ -376,8 +376,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.StartIndex)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.StartIndex)]
         public int StartIndex
         {
             get
@@ -401,8 +401,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.MouseState)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.MouseState)]
         public MouseStates State
         {
             get
@@ -417,8 +417,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Alignment)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Alignment)]
         public StringAlignment TextAlignment
         {
             get
@@ -433,8 +433,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color TextDisabledColor
         {
             get
@@ -449,8 +449,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Strings.TextRenderingHint)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Strings.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
             get
@@ -467,7 +467,7 @@
 
         [TypeConverter(typeof(WatermarkConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Behavior)]
+        [Category(Localization.Category.Property.Behavior)]
         public Watermark Watermark
         {
             get

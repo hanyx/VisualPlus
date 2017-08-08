@@ -138,7 +138,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Gradient Background
         {
             get
@@ -153,8 +153,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Size)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public int BarThickness
         {
             get
@@ -169,8 +169,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Size)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public int BarTickSpacing
         {
             get
@@ -186,8 +186,8 @@
         }
 
         [DefaultValue(true)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.AutoSize)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.AutoSize)]
         public bool ButtonAutoSize
         {
             get
@@ -204,7 +204,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Border ButtonBorder
         {
             get
@@ -221,7 +221,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Gradient ButtonGradient
         {
             get
@@ -236,8 +236,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Size)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public Size ButtonSize
         {
             get
@@ -252,8 +252,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ButtonTextColor
         {
             get
@@ -269,8 +269,8 @@
         }
 
         [DefaultValue(true)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool ButtonVisible
         {
             get
@@ -287,7 +287,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Gradient Disabled
         {
             get
@@ -302,7 +302,7 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Data)]
+        [Category(Localization.Category.Property.Data)]
         [Description("Experiemental: Filling Value.")]
         public int FillingValue
         {
@@ -348,8 +348,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color HatchBackColor
         {
             get
@@ -364,8 +364,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color HatchForeColor
         {
             get
@@ -380,9 +380,9 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
+        [Category(Localization.Category.Property.Layout)]
         [DefaultValue(Settings.DefaultValue.HatchSize)]
-        [Description(Localize.Description.Common.Size)]
+        [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public float HatchSize
         {
             get
@@ -397,8 +397,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Type)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public HatchStyle HatchStyle
         {
             get
@@ -414,8 +414,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.HatchVisible)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool HatchVisible
         {
             get
@@ -430,8 +430,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Size)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public int IndentHeight
         {
             get
@@ -446,8 +446,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Size)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public int IndentWidth
         {
             get
@@ -463,8 +463,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool LineTicksVisible
         {
             get
@@ -479,8 +479,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Orientation)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Orientation)]
         public new Orientation Orientation
         {
             get
@@ -496,8 +496,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Data)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Data)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public string Prefix
         {
             get
@@ -514,7 +514,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Gradient Progress
         {
             get
@@ -529,8 +529,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool ProgressFilling
         {
             get
@@ -546,8 +546,8 @@
         }
 
         [DefaultValue(false)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool ProgressValueVisible
         {
             get
@@ -563,8 +563,8 @@
         }
 
         [DefaultValue(true)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool ProgressVisible
         {
             get
@@ -579,8 +579,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.MouseState)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.MouseState)]
         public MouseStates State
         {
             get
@@ -595,8 +595,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Data)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Data)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public string Suffix
         {
             get
@@ -611,8 +611,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color TextDisabledColor
         {
             get
@@ -627,8 +627,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Strings.TextRenderingHint)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Strings.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
             get
@@ -643,8 +643,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color TickColor
         {
             get
@@ -659,8 +659,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Size)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public int TickHeight
         {
             get
@@ -677,7 +677,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Border TrackBar
         {
             get
@@ -692,8 +692,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.ValueDivisor)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.ValueDivisor)]
         public ValueDivisor ValueDivision
         {
             get
@@ -709,8 +709,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool ValueTicksVisible
         {
             get

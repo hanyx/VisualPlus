@@ -45,7 +45,7 @@
 
         [TypeConverter(typeof(DragConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Behavior)]
+        [Category(Localization.Category.Property.Behavior)]
         public Drag Drag
         {
             get
@@ -61,7 +61,7 @@
 
         [TypeConverter(typeof(ExpandableConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Behavior)]
+        [Category(Localization.Category.Property.Behavior)]
         public Expandable Expandable
         {
             get

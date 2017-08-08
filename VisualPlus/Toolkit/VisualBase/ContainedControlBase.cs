@@ -34,7 +34,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Border Border
         {
             get

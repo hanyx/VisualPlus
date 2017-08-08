@@ -52,7 +52,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Border Border
         {
             get
@@ -69,7 +69,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         [TypeConverter(typeof(VisualBitmapConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public VisualBitmap Image
         {
             get
@@ -84,8 +84,8 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.TextImageRelation)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.TextImageRelation)]
         public TextImageRelation TextImageRelation
         {
             get

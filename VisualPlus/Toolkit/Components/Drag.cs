@@ -10,6 +10,7 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.EventArgs;
+    using VisualPlus.Localization.Descriptions;
 
     #endregion
 
@@ -40,8 +41,8 @@
             AttachEvents();
         }
 
-        [Category(Localize.EventsCategory.DragDrop)]
-        [Description(Localize.EventDescription.ControlDragChanged)]
+        [Category(Localization.Category.Event.DragDrop)]
+        [Description(Event.ControlDragChanged)]
         public event ControlDragEventHandler ControlDrag;
 
         #endregion

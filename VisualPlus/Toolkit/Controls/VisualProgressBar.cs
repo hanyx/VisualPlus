@@ -90,7 +90,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Gradient BackgroundGradient
         {
             get
@@ -106,8 +106,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.BarAmount)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Progressbar.Bars)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Progressbar.Bars)]
         public int BarAmount
         {
             get
@@ -122,8 +122,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Size)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public Point BarSize
         {
             get
@@ -138,8 +138,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Spacing)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.Spacing)]
         public int BarSpacing
         {
             get
@@ -154,8 +154,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.Type)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public BarTypes BarStyle
         {
             get
@@ -185,7 +185,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Border Border
         {
             get
@@ -200,8 +200,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color HatchBackColor
         {
             get
@@ -216,8 +216,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color HatchForeColor
         {
             get
@@ -232,9 +232,9 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
+        [Category(Localization.Category.Property.Layout)]
         [DefaultValue(Settings.DefaultValue.HatchSize)]
-        [Description(Localize.Description.Common.Size)]
+        [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public float HatchSize
         {
             get
@@ -249,8 +249,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Type)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public HatchStyle HatchStyle
         {
             get
@@ -266,8 +266,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.HatchVisible)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool HatchVisible
         {
             get
@@ -283,8 +283,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool PercentageVisible
         {
             get
@@ -301,7 +301,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Gradient Progress
         {
             get
@@ -317,7 +317,7 @@
         }
 
         [DefaultValue(typeof(ProgressBarStyle))]
-        [Category(Localize.PropertiesCategory.Behavior)]
+        [Category(Localization.Category.Property.Behavior)]
         [Description("This property allows the user to set the style of the ProgressBar.")]
         public ProgressBarStyle Style
         {
@@ -333,8 +333,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Alignment)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.Alignment)]
         public StringAlignment ValueAlignment
         {
             get

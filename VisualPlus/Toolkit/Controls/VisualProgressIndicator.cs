@@ -59,8 +59,8 @@
 
         #region Properties
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color AnimationColor
         {
             get
@@ -74,8 +74,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.AnimationSpeed)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.AnimationSpeed)]
         public int AnimationSpeed
         {
             get
@@ -89,8 +89,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color BaseColor
         {
             get
@@ -105,8 +105,8 @@
         }
 
         [DefaultValue(45F)]
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Amount)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.Amount)]
         public float Circles
         {
             get
@@ -122,8 +122,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Size)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public Size CircleSize
         {
             get
@@ -139,8 +139,8 @@
         }
 
         [DefaultValue(7.5F)]
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Diameter)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.Diameter)]
         public float Diameter
         {
             get

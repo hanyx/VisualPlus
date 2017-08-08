@@ -131,7 +131,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Border Border
         {
             get
@@ -146,9 +146,9 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         [DefaultValue(typeof(Color), "Black")]
-        [Description(Localize.Description.Common.Color)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color Color
         {
             get
@@ -168,7 +168,7 @@
 
         /// <summary>The color step.</summary>
         /// <exception cref="System.ArgumentOutOfRangeException">Value must be between 1 and 359</exception>
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         [DefaultValue(4)]
         [Description("Gets or sets the increment for rendering the color wheel.")]
         public int ColorStep
@@ -194,8 +194,8 @@
         }
 
         [DefaultValue(false)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool DrawFocusRectangle
         {
             get
@@ -210,7 +210,7 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         [DefaultValue(typeof(HslColorManagerStructure), "0, 0, 0")]
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -237,7 +237,7 @@
         ///     selection is moved a large distance.
         /// </summary>
         /// <value>A numeric value. The default value is 5.</value>
-        [Category(Localize.PropertiesCategory.Behavior)]
+        [Category(Localization.Category.Property.Behavior)]
         [DefaultValue(5)]
         public int LargeChange
         {
@@ -258,7 +258,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Border Picker
         {
             get
@@ -273,7 +273,7 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         [Description("Gets or sets the picker style.")]
         public PickerType PickerStyle
         {
@@ -289,8 +289,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool PickerVisible
         {
             get
@@ -305,7 +305,7 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         [DefaultValue(10)]
         [Description("Gets or sets the size of the selection handle.")]
         public int SelectionSize
@@ -330,7 +330,7 @@
         ///     selection is moved a small distance.
         /// </summary>
         /// <value>A numeric value. The default value is 1.</value>
-        [Category(Localize.PropertiesCategory.Behavior)]
+        [Category(Localization.Category.Property.Behavior)]
         [DefaultValue(1)]
         public int SmallChange
         {

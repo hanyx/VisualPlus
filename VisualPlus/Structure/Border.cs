@@ -41,11 +41,11 @@
             hoverVisible = true;
         }
 
-        [Category(Localize.EventsCategory.PropertyChanged)]
+        [Category(Localization.Category.Event.PropertyChanged)]
         [Description("Occours when the hvoer color has been changed.")]
         public event BorderHoverColorChangedEventHandler HoverColorChanged;
 
-        [Category(Localize.EventsCategory.PropertyChanged)]
+        [Category(Localization.Category.Event.PropertyChanged)]
         [Description("Occours when the hover visible has been changed.")]
         public event BorderHoverVisibleChangedEventHandler HoverVisibleChanged;
 
@@ -55,7 +55,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Common.Color)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color HoverColor
         {
             get
@@ -72,7 +72,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Common.Visible)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool HoverVisible
         {
             get

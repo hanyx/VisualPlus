@@ -46,8 +46,8 @@
         #region Properties
 
         [DefaultValue(Settings.DefaultValue.Animation)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.Animation)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Animation)]
         public bool Animation
         {
             get
@@ -69,8 +69,8 @@
             }
         }
 
-        [Description(Localize.Description.Common.ColorGradient)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Category(Localization.Category.Property.Appearance)]
         public Gradient DisabledGradient
         {
             get
@@ -84,8 +84,8 @@
             }
         }
 
-        [Description(Localize.Description.Common.ColorGradient)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Category(Localization.Category.Property.Appearance)]
         public Gradient EnabledGradient
         {
             get
@@ -100,7 +100,7 @@
         }
 
         [DefaultValue(true)]
-        [Category(Localize.PropertiesCategory.Behavior)]
+        [Category(Localization.Category.Property.Behavior)]
         [Description("Gets or sets the color gradient toggle.")]
         public bool GradientToggle
         {
@@ -116,8 +116,8 @@
             }
         }
 
-        [Description(Localize.Description.Common.ColorGradient)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Category(Localization.Category.Property.Appearance)]
         public Gradient HoverGradient
         {
             get
@@ -131,8 +131,8 @@
             }
         }
 
-        [Description(Localize.Description.Common.ColorGradient)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Category(Localization.Category.Property.Appearance)]
         public Gradient PressedGradient
         {
             get

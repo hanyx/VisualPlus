@@ -51,11 +51,11 @@
             ControlBorder = new Border();
         }
 
-        [Category(Localize.EventsCategory.Mouse)]
+        [Category(Localization.Category.Event.Mouse)]
         [Description("Occours when the MouseState of the control has changed.")]
         public event MouseStateChangedEventHandler MouseStateChanged;
 
-        [Category(Localize.EventsCategory.PropertyChanged)]
+        [Category(Localization.Category.Event.PropertyChanged)]
         [Description("Occours when the TextRenderingHint property has changed.")]
         public event TextRenderingChangedEventHandler TextRenderingHintChanged;
 
@@ -63,12 +63,12 @@
 
         #region Properties
 
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.AutoSize)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.AutoSize)]
         public new bool AutoSize { get; set; }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.MouseState)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.MouseState)]
         public MouseStates MouseState
         {
             get
@@ -83,8 +83,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Strings.TextRenderingHint)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Strings.TextRenderingHint)]
         public TextRenderingHint TextRenderingHint
         {
             get

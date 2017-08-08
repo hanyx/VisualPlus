@@ -19,7 +19,7 @@
     {
         #region Constructors
 
-        [Category(Localize.EventsCategory.PropertyChanged)]
+        [Category(Localization.Category.Event.PropertyChanged)]
         [Description("Occours when the toggle has been changed on the control.")]
         public event ToggleChangedEventHandler ToggleChanged;
 

@@ -26,8 +26,8 @@
 
         #region Constructors
 
-        [Category(Localize.EventsCategory.PropertyChanged)]
-        [Description(Localize.Description.Checkmark.Checked)]
+        [Category(Localization.Category.Event.PropertyChanged)]
+        [Description(Localization.Descriptions.Property.Description.Checkmark.Checked)]
         public event EventHandler CheckStateChanged;
 
         #endregion
@@ -35,8 +35,8 @@
         #region Properties
 
         [DefaultValue(typeof(CheckState), "Unchecked")]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Checkmark.Checked)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Checkmark.Checked)]
         public CheckState CheckState
         {
             get
@@ -68,8 +68,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.Toggle)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
         [DefaultValue(false)]
         public bool ThreeState
         {

@@ -10,6 +10,7 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
 
     #endregion
@@ -62,20 +63,20 @@
             _control.MouseHover += ControlMouseHover;
         }
 
-        [Category(Localize.EventsCategory.PropertyChanged)]
-        [Description(Localize.EventDescription.ToggleExpanderChanged)]
+        [Category(Localization.Category.Event.PropertyChanged)]
+        [Description(Event.ToggleExpanderChanged)]
         public event ExpanderClickEventHandler ExpanderClick;
 
-        [Category(Localize.EventsCategory.PropertyChanged)]
-        [Description(Localize.EventDescription.ToggleExpanderChanged)]
+        [Category(Localization.Category.Event.PropertyChanged)]
+        [Description(Event.ToggleExpanderChanged)]
         public event ExpanderContractedEventHandler ExpanderContracted;
 
-        [Category(Localize.EventsCategory.PropertyChanged)]
-        [Description(Localize.EventDescription.ToggleExpanderChanged)]
+        [Category(Localization.Category.Event.PropertyChanged)]
+        [Description(Event.ToggleExpanderChanged)]
         public event ExpanderExpandedEventHandler ExpanderExpanded;
 
-        [Category(Localize.EventsCategory.PropertyChanged)]
-        [Description(Localize.EventDescription.ToggleExpanderChanged)]
+        [Category(Localization.Category.Event.PropertyChanged)]
+        [Description(Event.ToggleExpanderChanged)]
         public event ExpanderToggledEventHandler ExpanderToggled;
 
         #endregion
@@ -84,7 +85,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Common.Alignment)]
+        [Description(Property.Description.Common.Alignment)]
         public Alignment.Horizontal Alignment
         {
             get
@@ -100,7 +101,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Common.Size)]
+        [Description(Property.Description.Common.Size)]
         public Size ButtonSize
         {
             get
@@ -116,7 +117,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Common.Color)]
+        [Description(Property.Description.Common.Color)]
         public Color Color
         {
             get
@@ -132,7 +133,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Expander.ContractedHeight)]
+        [Description(Property.Description.Expander.ContractedHeight)]
         public int ContractedHeight
         {
             get
@@ -148,7 +149,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Common.Cursor)]
+        [Description(Property.Description.Common.Cursor)]
         public Cursor Cursor
         {
             get
@@ -164,7 +165,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Expander.Expanded)]
+        [Description(Property.Description.Expander.Expanded)]
         public bool Expanded
         {
             get
@@ -184,7 +185,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Common.Size)]
+        [Description(Property.Description.Common.Size)]
         public Size OriginalSize
         {
             get
@@ -200,7 +201,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Common.Spacing)]
+        [Description(Property.Description.Common.Spacing)]
         public int Spacing
         {
             get
@@ -216,7 +217,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Common.Visible)]
+        [Description(Property.Description.Common.Visible)]
         public bool Visible
         {
             get

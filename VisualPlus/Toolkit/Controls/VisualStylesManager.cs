@@ -92,8 +92,8 @@
         #region Properties
 
         [DefaultValue(Settings.DefaultValue.Animation)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.Animation)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Animation)]
         public bool Animation
         {
             get
@@ -108,8 +108,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.BarAmount)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Progressbar.Bars)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Progressbar.Bars)]
         public int BarAmount
         {
             get
@@ -124,8 +124,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.BorderHoverVisible)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool BorderHoverVisible
         {
             get
@@ -140,8 +140,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.Rounding.Default)]
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Border.Rounding)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Border.Rounding)]
         public int BorderRounding
         {
             get
@@ -159,8 +159,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.BorderThickness)]
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Border.Thickness)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Border.Thickness)]
         public int BorderThickness
         {
             get
@@ -178,8 +178,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.BorderType)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Type)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public ShapeType BorderType
         {
             get
@@ -194,8 +194,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.BorderVisible)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool BorderVisible
         {
             get
@@ -209,9 +209,9 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
+        [Category(Localization.Category.Property.Layout)]
         [DefaultValue(Settings.DefaultValue.HatchSize)]
-        [Description(Localize.Description.Common.Size)]
+        [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public float HatchSize
         {
             get
@@ -226,8 +226,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.HatchVisible)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool HatchVisible
         {
             get
@@ -244,8 +244,8 @@
         public bool Initialized { get; }
 
         [DefaultValue(Settings.DefaultValue.ProgressSize)]
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Size)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public float ProgressSize
         {
             get
@@ -259,8 +259,8 @@
             }
         }
 
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Strings.TextRenderingHint)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Strings.TextRenderingHint)]
         public TextRenderingHint TextRenderingHint
         {
             get
@@ -275,8 +275,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Visible)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool TextVisible
         {
             get
@@ -292,8 +292,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Localize.PropertiesCategory.Appearance)]
-        [Description(Localize.Description.Common.Type)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public Styles VisualStyle
         {
             get

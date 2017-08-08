@@ -66,7 +66,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Common.Image)]
+        [Description(Localization.Descriptions.Property.Description.Common.Image)]
         public Bitmap Image
         {
             get
@@ -81,7 +81,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Common.Point)]
+        [Description(Localization.Descriptions.Property.Description.Common.Point)]
         public Point Point
         {
             get
@@ -96,7 +96,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Common.Size)]
+        [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public Size Size
         {
             get
@@ -111,7 +111,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Common.Visible)]
+        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool Visible
         {
             get

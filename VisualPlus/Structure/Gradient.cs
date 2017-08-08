@@ -40,15 +40,15 @@
             positions = new[] { 0, 1 / 2f, 1 };
         }
 
-        [Category(Localize.EventsCategory.PropertyChanged)]
+        [Category(Localization.Category.Event.PropertyChanged)]
         [Description("Occours when the angle property has changed.")]
         public event GradientAngleChangedEventHandler AngleChanged;
 
-        [Category(Localize.EventsCategory.PropertyChanged)]
+        [Category(Localization.Category.Event.PropertyChanged)]
         [Description("Occours when the colors property has changed.")]
         public event GradientColorChangedEventHandler ColorsChanged;
 
-        [Category(Localize.EventsCategory.PropertyChanged)]
+        [Category(Localization.Category.Event.PropertyChanged)]
         [Description("Occours when the positions property has changed.")]
         public event GradientPositionsChangedEventHandler PositionsChanged;
 
@@ -58,7 +58,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Gradient.Angle)]
+        [Description(Localization.Descriptions.Property.Description.Gradient.Angle)]
         public float Angle
         {
             get
@@ -75,7 +75,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Gradient.Colors)]
+        [Description(Localization.Descriptions.Property.Description.Gradient.Colors)]
         public Color[] Colors
         {
             get
@@ -92,7 +92,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localize.Description.Gradient.Positions)]
+        [Description(Localization.Descriptions.Property.Description.Gradient.Positions)]
         public float[] Positions
         {
             get

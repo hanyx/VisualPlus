@@ -51,8 +51,8 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Properties
         [DefaultValue(false)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Checkmark.Checked)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Checkmark.Checked)]
         public bool Checked
         {
             get
@@ -77,8 +77,8 @@ namespace VisualPlus.Toolkit.VisualBase
         }
 
         [DefaultValue(Settings.DefaultValue.Animation)]
-        [Category(Localize.PropertiesCategory.Behavior)]
-        [Description(Localize.Description.Common.Animation)]
+        [Category(Localization.Category.Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Animation)]
         public bool Animation
         {
             get
@@ -102,7 +102,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Border Border
         {
             get
@@ -117,8 +117,8 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [Description(Localize.Description.Common.Size)]
-        [Category(Localize.PropertiesCategory.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Category(Localization.Category.Property.Layout)]
         public Size Box
         {
             get
@@ -138,8 +138,8 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [Category(Localize.PropertiesCategory.Layout)]
-        [Description(Localize.Description.Common.Spacing)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Localization.Descriptions.Property.Description.Common.Spacing)]
         public int BoxSpacing
         {
             get
@@ -156,7 +156,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         [TypeConverter(typeof(CheckMarkConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Checkmark CheckMark
         {
             get
@@ -171,8 +171,8 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [Description(Localize.Description.Common.ColorGradient)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Category(Localization.Category.Property.Appearance)]
         public Gradient DisabledGradient
         {
             get
@@ -186,8 +186,8 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [Description(Localize.Description.Common.ColorGradient)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Category(Localization.Category.Property.Appearance)]
         public Gradient EnabledGradient
         {
             get
@@ -201,8 +201,8 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [Description(Localize.Description.Common.ColorGradient)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Category(Localization.Category.Property.Appearance)]
         public Gradient HoverGradient
         {
             get
@@ -220,8 +220,8 @@ namespace VisualPlus.Toolkit.VisualBase
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool IsBoxLarger { get; set; }
 
-        [Description(Localize.Description.Common.ColorGradient)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Category(Localization.Category.Property.Appearance)]
         public Gradient PressedGradient
         {
             get

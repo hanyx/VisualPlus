@@ -56,6 +56,11 @@
     <Compile Include="EventArgs\ColorEventArgs.cs" />
     <Compile Include="EventArgs\ToggleEventArgs.cs" />
     <Compile Include="Extensibility\StringExtension.cs" />
+    <Compile Include="Localization\Category\Event.cs" />
+    <Compile Include="Localization\Descriptions\Event.cs" />
+    <Compile Include="Localization\Descriptions\Property.cs" />
+    <Compile Include="Localization\GlobalStrings.cs" />
+    <Compile Include="Localization\Category\Property.cs" />
     <Compile Include="Renders\VisualBackgroundRenderer.cs" />
     <Compile Include="Renders\VisualBorderRenderer.cs" />
     <Compile Include="Renders\VisualToggleRenderer.cs" />
@@ -191,7 +196,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GDI.cs" />
-    <Compile Include="Localization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

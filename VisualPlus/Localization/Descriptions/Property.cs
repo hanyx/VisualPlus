@@ -1,20 +1,8 @@
-﻿namespace VisualPlus
+﻿namespace VisualPlus.Localization.Descriptions
 {
-    internal class Localize
+    public sealed class Property
     {
-        private const string DefaultCategoryText = "VisualExtension";
-
-        public struct GlobalStrings
-        {
-            public const string Abort = "Abort";
-            public const string Cancel = "Cancel";
-            public const string Close = "Close";
-            public const string Ignore = "Ignore";
-            public const string No = "No";
-            public const string OK = "OK";
-            public const string Retry = "Retry";
-            public const string Yes = "Yes";
-        }
+        #region Methods
 
         public struct Description
         {
@@ -89,72 +77,6 @@
             }
         }
 
-        public struct EventDescription
-        {
-            public const string ForeColorDisabledChanged = "The foreground disabled color of this compoment, which is used to display the text.";
-            public const string MouseStateChanged = "Occours when the state of the mouse on the control changes.";
-            public const string StyleManagerChanged = "Occours when the style manager has changed.";
-            public const string TextRenderingHintChanged = "Occours when the TextRenderingHint has changed.";
-            public const string ToggleExpanderChanged = "Occours when the expander toggle has changed.";
-            public const string ControlDragChanged = "Occours when the control is being dragged.";
-            public const string ControlDragToggleChanged = "Occours when the control drag toggle has been changed.";
-        }
-
-#if DEBUG
-
-        public struct EventsCategory
-        {
-            public const string Action = DefaultCategoryText;
-            public const string Appearance = DefaultCategoryText;
-            public const string Behavior = DefaultCategoryText;
-            public const string Data = DefaultCategoryText;
-            public const string DragDrop = DefaultCategoryText;
-            public const string Focus = DefaultCategoryText;
-            public const string Key = DefaultCategoryText;
-            public const string Layout = DefaultCategoryText;
-            public const string Misc = DefaultCategoryText;
-            public const string Mouse = DefaultCategoryText;
-            public const string PropertyChanged = DefaultCategoryText;
-        }
-
-        public struct PropertiesCategory
-        {
-            public const string Accessibility = DefaultCategoryText;
-            public const string Appearance = DefaultCategoryText;
-            public const string Behavior = DefaultCategoryText;
-            public const string Data = DefaultCategoryText;
-            public const string Design = DefaultCategoryText;
-            public const string Focus = DefaultCategoryText;
-            public const string Layout = DefaultCategoryText;
-        }
-
-#else
-
-        public struct EventsCategory
-        {
-            public const string Action = "Action";
-            public const string Appearance = "Appearance";
-            public const string Behavior = "Behavior";
-            public const string Data = "Data";
-            public const string DragDrop = "Drag Drop";
-            public const string Focus = "Focus";
-            public const string Key = "Key";
-            public const string Layout = "Layout";
-            public const string Misc = "Misc";
-            public const string Mouse = "Mouse";
-            public const string PropertyChanged = "Property Changed";
-        }
-
-        public struct PropertiesCategory
-        {
-            public const string Accessibility = "Accessibility";
-            public const string Appearance = "Appearance";
-            public const string Behavior = "Behavior";
-            public const string Layout = "Layout";
-            public const string Data = "Data";
-            public const string Design = "Design";
-            public const string Focus = "Focus";
-        }
-#endif
+        #endregion
     }
 }

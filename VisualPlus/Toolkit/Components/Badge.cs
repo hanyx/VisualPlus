@@ -57,15 +57,15 @@
             _border = new Border { Rounding = Settings.DefaultValue.Rounding.Default };
         }
 
-        [Category(Localize.EventsCategory.PropertyChanged)]
+        [Category(Localization.Category.Event.PropertyChanged)]
         [Description("Occours when the value property has changed.")]
         public event BadgeValueChangedEventHandler ValueChanged;
 
-        [Category(Localize.EventsCategory.PropertyChanged)]
+        [Category(Localization.Category.Event.PropertyChanged)]
         [Description("Occours when the value has been decreased.")]
         public event BadgeValueDecreasedEventHandler ValueDecreased;
 
-        [Category(Localize.EventsCategory.PropertyChanged)]
+        [Category(Localization.Category.Event.PropertyChanged)]
         [Description("Occours when the value has been increased.")]
         public event BadgeValueIncreasedEventHandler ValueIncreased;
 
@@ -90,7 +90,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localize.PropertiesCategory.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Border Border
         {
             get

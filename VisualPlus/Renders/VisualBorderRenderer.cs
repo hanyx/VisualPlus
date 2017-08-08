@@ -83,6 +83,14 @@
             DrawBorderStyle(graphics, border, mouseState, borderPath);
         }
 
+        /// <summary>Gets the distance from the border.</summary>
+        /// <param name="shape">The shape of the container control.</param>
+        /// <returns>The internal control distance.</returns>
+        public static int GetBorderDistance(Shape shape)
+        {
+            return (shape.Rounding / 2) + shape.Thickness + 1;
+        }
+
         /// <summary>Get the border shape.</summary>
         /// <param name="rectangle">The rectangle.</param>
         /// <param name="border">The border.</param>

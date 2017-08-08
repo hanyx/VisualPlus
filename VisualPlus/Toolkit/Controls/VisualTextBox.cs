@@ -65,7 +65,7 @@
             _textBox = new TextBox
                 {
                     Size = new Size(_textWidth, 25),
-                    Location = new Point(GetBorderDistance(ControlBorder), GetBorderDistance(ControlBorder)),
+                    Location = new Point(VisualBorderRenderer.GetBorderDistance(ControlBorder), VisualBorderRenderer.GetBorderDistance(ControlBorder)),
                     Text = string.Empty,
                     BorderStyle = BorderStyle.None,
                     TextAlign = HorizontalAlignment.Left,
@@ -653,7 +653,7 @@
             {
                 if (_imageVisible)
                 {
-                    _textBox.Location = new Point(GetBorderDistance(ControlBorder) + _imageRectangle.Width, _textBox.Location.Y);
+                    _textBox.Location = new Point(VisualBorderRenderer.GetBorderDistance(ControlBorder) + _imageRectangle.Width, _textBox.Location.Y);
 
                     DrawImage(graphics);
 
@@ -664,7 +664,7 @@
                 }
                 else
                 {
-                    _textBox.Location = new Point(GetBorderDistance(ControlBorder), _textBox.Location.Y);
+                    _textBox.Location = new Point(VisualBorderRenderer.GetBorderDistance(ControlBorder), _textBox.Location.Y);
 
                     if (_buttonVisible)
                     {
@@ -689,11 +689,11 @@
             {
                 if (_imageVisible)
                 {
-                    _textBox.Location = new Point(GetBorderDistance(ControlBorder) + _imageWidth, _textBox.Location.Y);
+                    _textBox.Location = new Point(VisualBorderRenderer.GetBorderDistance(ControlBorder) + _imageWidth, _textBox.Location.Y);
                 }
                 else
                 {
-                    _textBox.Location = new Point(GetBorderDistance(ControlBorder), _textBox.Location.Y);
+                    _textBox.Location = new Point(VisualBorderRenderer.GetBorderDistance(ControlBorder), _textBox.Location.Y);
                 }
 
                 if ((!_imageVisible & !_buttonVisible) && AutoSize)
@@ -702,7 +702,7 @@
                 }
 
                 _textBox.Height = GetTextBoxHeight();
-                Size = new Size(Width, GetBorderDistance(ControlBorder) + _textBox.Height + GetBorderDistance(ControlBorder));
+                Size = new Size(Width, VisualBorderRenderer.GetBorderDistance(ControlBorder) + _textBox.Height + VisualBorderRenderer.GetBorderDistance(ControlBorder));
             }
             else
             {

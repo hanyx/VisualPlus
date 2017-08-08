@@ -3,298 +3,403 @@
     #region Namespace
 
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
-    using System.Globalization;
     using System.Windows.Forms;
 
-    using VisualPlus.Delegates;
-    using VisualPlus.Managers;
+    using VisualPlus.Localization.Category;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
 
     #endregion
 
-    [TypeConverter(typeof(BadgeConverter))]
-    [Description("Badge component.")]
-    public class Badge
+    [ToolboxItem(false)]
+    [Description("The VisualPlus badge component enables controls to have a badge with text displayed.")]
+    public class Badge : Label
     {
         #region Variables
 
-        private Color _backColor;
-        private Point _badgePoint;
-        private Border _border;
-        private Control _control;
-        private Font _font;
-        private Color _foreColor;
-        private int _value;
-        private bool _visible;
+        public Action<Control> ClickEvent;
 
         #endregion
 
         #region Constructors
 
         /// <summary>Initializes a new instance of the <see cref="Badge" /> class.</summary>
-        /// <param name="control">The control.</param>
-        /// <param name="badgePoint">The badge location.</param>
-        public Badge(Control control, Point badgePoint)
+        public Badge()
         {
-            StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
-
-            _control = control;
-
-            _badgePoint = badgePoint;
-
-            _value = 0;
-            _visible = true;
-
-            _font = _styleManager.Font;
-
-            _backColor = Color.Red;
-            _foreColor = Color.White;
-
-            _border = new Border { Rounding = Settings.DefaultValue.Rounding.Default };
+            Background = Color.Red;
+            Shape = new Shape();
         }
-
-        [Category(Localization.Category.Event.PropertyChanged)]
-        [Description("Occours when the value property has changed.")]
-        public event BadgeValueChangedEventHandler ValueChanged;
-
-        [Category(Localization.Category.Event.PropertyChanged)]
-        [Description("Occours when the value has been decreased.")]
-        public event BadgeValueDecreasedEventHandler ValueDecreased;
-
-        [Category(Localization.Category.Event.PropertyChanged)]
-        [Description("Occours when the value has been increased.")]
-        public event BadgeValueIncreasedEventHandler ValueIncreased;
 
         #endregion
 
         #region Properties
 
-        [NotifyParentProperty(true)]
-        [RefreshProperties(RefreshProperties.Repaint)]
-        public Color BackColor
-        {
-            get
-            {
-                return _backColor;
-            }
+        [DefaultValue(typeof(Color), "Red")]
+        [Category(Property.Appearance)]
+        public Color Background { get; set; }
 
-            set
-            {
-                _backColor = value;
-            }
-        }
-
-        [TypeConverter(typeof(BorderConverter))]
+        [TypeConverter(typeof(ShapeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
-        public Border Border
-        {
-            get
-            {
-                return _border;
-            }
-
-            set
-            {
-                _border = value;
-            }
-        }
-
-        [NotifyParentProperty(true)]
-        [RefreshProperties(RefreshProperties.Repaint)]
-        public Font Font
-        {
-            get
-            {
-                return _font;
-            }
-
-            set
-            {
-                _font = value;
-            }
-        }
-
-        [NotifyParentProperty(true)]
-        [RefreshProperties(RefreshProperties.Repaint)]
-        public Color ForeColor
-        {
-            get
-            {
-                return _foreColor;
-            }
-
-            set
-            {
-                _foreColor = value;
-            }
-        }
-
-        [NotifyParentProperty(true)]
-        [RefreshProperties(RefreshProperties.Repaint)]
-        public Point Location
-        {
-            get
-            {
-                return _badgePoint;
-            }
-
-            set
-            {
-                _badgePoint = value;
-            }
-        }
-
-        [NotifyParentProperty(true)]
-        [RefreshProperties(RefreshProperties.Repaint)]
-        public int Value
-        {
-            get
-            {
-                return _value;
-            }
-
-            set
-            {
-                if (_value != value)
-                {
-                    _value = value;
-                    ValueChanged?.Invoke();
-                }
-            }
-        }
-
-        [NotifyParentProperty(true)]
-        [RefreshProperties(RefreshProperties.Repaint)]
-        public bool Visible
-        {
-            get
-            {
-                return _visible;
-            }
-
-            set
-            {
-                _visible = value;
-            }
-        }
+        [Category(Property.Appearance)]
+        public Shape Shape { get; set; }
 
         #endregion
 
         #region Events
 
-        /// <summary>Decrement from the value.</summary>
-        /// <param name="value">Amount of value to decrement.</param>
-        public void Decrement(int value)
+        /// <summary>Add a badge control to the control, with the specified text and position.</summary>
+        /// <param name="control">The control to draw the badge on.</param>
+        /// <param name="text">The text for the badge to display.</param>
+        /// <returns>Badge control added to control.</returns>
+        public static bool Add(Control control, string text)
         {
-            if (Value > 0)
+            if (controlsList.Contains(control))
             {
-                Value -= value;
-                ValueDecreased?.Invoke();
-                if (Value < 0)
-                {
-                    Value = 0;
-                }
-            }
-            else
-            {
-                Value = 0;
+                return false;
             }
 
-            _control.Invalidate();
+            ConstructBadge(control, text, DefaultFont, DefaultBackColor, DefaultForeColor, new Point(), new Shape());
+            return true;
+        }
+
+        /// <summary>Add a badge control to the control, with the specified text and position.</summary>
+        /// <param name="control">The control to draw the badge on.</param>
+        /// <param name="text">The text for the badge to display.</param>
+        /// <param name="position">The position of the badge.</param>
+        /// <returns>Badge control added to control.</returns>
+        public static bool Add(Control control, string text, Point position)
+        {
+            if (controlsList.Contains(control))
+            {
+                return false;
+            }
+
+            ConstructBadge(control, text, DefaultFont, DefaultBackColor, DefaultForeColor, position, new Shape());
+            return true;
+        }
+
+        /// <summary>Add a badge control to the control, with the specified text font and position.</summary>
+        /// <param name="control">The control to draw the badge on.</param>
+        /// <param name="text">The text for the badge to display.</param>
+        /// <param name="font">The font to use for the text.</param>
+        /// <param name="position">The position of the badge.</param>
+        /// <returns>Badge control added to control.</returns>
+        public static bool Add(Control control, string text, Font font, Point position)
+        {
+            if (controlsList.Contains(control))
+            {
+                return false;
+            }
+
+            ConstructBadge(control, text, font, DefaultBackColor, DefaultForeColor, position, new Shape());
+            return true;
+        }
+
+        /// <summary>Add a badge control to the control, with the specified text, style and position.</summary>
+        /// <param name="control">The control to draw the badge on.</param>
+        /// <param name="text">The text for the badge to display.</param>
+        /// <param name="font">The font to use for the text.</param>
+        /// <param name="backColor">The back Color of the badge.</param>
+        /// <param name="foreColor">The fore Color of the badge.</param>
+        /// <param name="position">The position of the badge.</param>
+        /// <returns>Badge control added to control.</returns>
+        public static bool Add(Control control, string text, Font font, Color backColor, Color foreColor, Point position)
+        {
+            if (controlsList.Contains(control))
+            {
+                return false;
+            }
+
+            ConstructBadge(control, text, font, backColor, foreColor, position, new Shape());
+            return true;
+        }
+
+        /// <summary>Add a badge control to the control, with the specified settings.</summary>
+        /// <param name="control">The control to draw the badge on.</param>
+        /// <param name="text">The text for the badge to display.</param>
+        /// <param name="font">The font to use for the text.</param>
+        /// <param name="backColor">The back Color of the badge.</param>
+        /// <param name="foreColor">The fore Color of the badge.</param>
+        /// <param name="position">The position of the badge.</param>
+        /// <param name="shape">The shape of the badge.</param>
+        /// <returns>Badge control added to control.</returns>
+        public static bool Add(Control control, string text, Font font, Color backColor, Color foreColor, Point position, Shape shape)
+        {
+            if (controlsList.Contains(control))
+            {
+                return false;
+            }
+
+            ConstructBadge(control, text, font, backColor, foreColor, position, shape);
+            return true;
         }
 
         /// <summary>Draws the badge.</summary>
-        /// <param name="graphics">The graphics.</param>
-        /// <param name="badgePoint">The badge location.</param>
-        public void Draw(Graphics graphics, Point badgePoint)
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="position">The position to draw.</param>
+        /// <param name="backColor">The back color.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="foreColor">The fore color.</param>
+        /// <param name="shape">The shape type.</param>
+        public static void Draw(Graphics graphics, Point position, Color backColor, string text, Font font, Color foreColor, Shape shape)
         {
-            if (_visible)
-            {
-                Size textSize = GDI.MeasureText(graphics, _value.ToString(), _font);
-                Rectangle shapeRectangle = new Rectangle(badgePoint, new Size(textSize.Width + 1, textSize.Height));
-                Point textPoint = new Point((shapeRectangle.X + (shapeRectangle.Width / 2)) - (textSize.Width / 2), (shapeRectangle.Y + (shapeRectangle.Height / 2)) - (textSize.Height / 2));
-                GraphicsPath shapePath = VisualBorderRenderer.GetBorderShape(shapeRectangle, _border.Type, _border.Rounding);
+            Size textSize = GDI.MeasureText(graphics, text, font);
+            Rectangle shapeRectangle = new Rectangle(position, new Size(textSize.Width + 1, textSize.Height));
+            Point textPoint = new Point(shapeRectangle.X, shapeRectangle.Y);
+            GraphicsPath shapePath = VisualBorderRenderer.GetBorderShape(shapeRectangle, shape.Type, shape.Rounding);
 
-                graphics.FillPath(new SolidBrush(BackColor), shapePath);
-                VisualBorderRenderer.DrawBorder(graphics, shapePath, _border.Thickness, _border.Color);
-                graphics.DrawString(_value.ToString(), _font, new SolidBrush(_foreColor), textPoint);
+            graphics.FillPath(new SolidBrush(backColor), shapePath);
+            VisualBorderRenderer.DrawBorder(graphics, shapePath, shape);
+            graphics.DrawString(text, font, new SolidBrush(foreColor), textPoint);
+        }
+
+        /// <summary>Gets the back color from the badge.</summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns back color.</returns>
+        public static Color GetBackColor(Control control)
+        {
+            Badge badge = GetBadge(control);
+            return badge?.Background ?? DefaultBackColor;
+        }
+
+        /// <summary>Gets the badge from the control.</summary>
+        /// <param name="control">The control.</param>
+        /// <returns>The badge.</returns>
+        public static Badge GetBadge(Control control)
+        {
+            for (var i = 0; i < control.Controls.Count; i++)
+            {
+                if (control.Controls[i] is Badge)
+                {
+                    return control.Controls[i] as Badge;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>Gets the text from the badge.</summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns text.</returns>
+        public static Font GetFont(Control control)
+        {
+            Badge badge = GetBadge(control);
+            return badge?.Font;
+        }
+
+        /// <summary>Gets the fore color from the badge.</summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns fore color.</returns>
+        public static Color GetForeColor(Control control)
+        {
+            Badge badge = GetBadge(control);
+            return badge?.ForeColor ?? DefaultForeColor;
+        }
+
+        /// <summary>Gets the position for the badge.</summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns position.</returns>
+        public static Point GetPosition(Control control)
+        {
+            Badge badge = GetBadge(control);
+            return badge?.Location ?? new Point(0, 0);
+        }
+
+        /// <summary>Gets the shape from the badge.</summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns shape.</returns>
+        public static Shape GetShape(Control control)
+        {
+            Badge badge = GetBadge(control);
+            return badge?.Shape;
+        }
+
+        /// <summary>Gets the size from the badge.</summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns size.</returns>
+        public static Size GetSize(Control control)
+        {
+            Badge badge = GetBadge(control);
+            return badge?.Size ?? new Size(0, 0);
+        }
+
+        /// <summary>Gets the text from the badge.</summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns text.</returns>
+        public static string GetText(Control control)
+        {
+            Badge badge = GetBadge(control);
+            return badge != null ? badge.Text : string.Empty;
+        }
+
+        /// <summary>Remove the badge from the control.</summary>
+        /// <param name="control">The control to remove the badge from.</param>
+        /// <returns>Removed badge from control.</returns>
+        public static bool Remove(Control control)
+        {
+            Badge _badge = GetBadge(control);
+            if (_badge != null)
+            {
+                control.Controls.Remove(_badge);
+                controlsList.Remove(control);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        /// <summary>Increment to the value.</summary>
-        /// <param name="value">Amount of value to increment.</param>
-        public void Increment(int value)
+        /// <summary>Sets the back color for the badge.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="color">The color.</param>
+        public static void SetBackColor(Control control, Color color)
         {
-            Value += value;
-            ValueIncreased?.Invoke();
-            _control.Invalidate();
-        }
-
-        #endregion
-    }
-
-    public class BadgeConverter : ExpandableObjectConverter
-    {
-        #region Events
-
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
-        }
-
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            var stringValue = value as string;
-
-            if (stringValue != null)
+            Badge badge = GetBadge(control);
+            if (badge != null)
             {
-                return new ObjectExpanderWrapper(stringValue);
+                badge.Background = color;
             }
-
-            return base.ConvertFrom(context, culture, value);
         }
 
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        /// <summary>Sets the click action for the badge.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="action">The action.</param>
+        public static void SetClickAction(Control control, Action<Control> action)
         {
-            object result = null;
-            Badge badge = value as Badge;
-
-            if ((badge != null) && (destinationType == typeof(string)))
+            Badge _badge = GetBadge(control);
+            if (_badge != null)
             {
-                // result = borderStyle.ToString();
-                result = "Badge Settings";
+                _badge.ClickEvent = action;
             }
-
-            return result ?? base.ConvertTo(context, culture, value, destinationType);
         }
 
-        #endregion
-    }
-
-    [TypeConverter(typeof(BadgeConverter))]
-    public class ObjectBadgeWrapper
-    {
-        #region Constructors
-
-        public ObjectBadgeWrapper()
+        /// <summary>Sets the font for the badge.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="font">The font.</param>
+        public static void SetFont(Control control, Font font)
         {
+            Badge badge = GetBadge(control);
+            if (badge != null)
+            {
+                badge.Font = font;
+            }
         }
 
-        public ObjectBadgeWrapper(string value)
+        /// <summary>Sets the fore color for the badge.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="color">The color.</param>
+        public static void SetForeColor(Control control, Color color)
         {
-            Value = value;
+            Badge badge = GetBadge(control);
+            if (badge != null)
+            {
+                badge.ForeColor = color;
+            }
         }
 
-        #endregion
+        /// <summary>Sets the position for the badge.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="position">The position.</param>
+        public static void SetPosition(Control control, Point position)
+        {
+            Badge badge = GetBadge(control);
+            if (badge != null)
+            {
+                badge.Location = position;
+            }
+        }
 
-        #region Properties
+        /// <summary>Sets the shape for the badge.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="shape">The shape.</param>
+        public static void SetShape(Control control, Shape shape)
+        {
+            Badge badge = GetBadge(control);
+            if (badge != null)
+            {
+                badge.Shape = shape;
+            }
+        }
 
-        public object Value { get; set; }
+        /// <summary>Sets the text for the badge.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="text">The text.</param>
+        public static void SetText(Control control, string text)
+        {
+            Badge _badge = GetBadge(control);
+            if (_badge != null)
+            {
+                _badge.Text = text;
+                _badge.Size = ConfigureSize(text, _badge.Font);
+            }
+        }
+
+        protected override void OnClick(EventArgs e)
+        {
+            ClickEvent(this);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            Draw(e.Graphics, new Point(0, 0), Background, Text, Font, ForeColor, Shape);
+        }
+
+        /// <summary>Attach the badge control.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="badge">The badge control.</param>
+        private static void Attach(Control control, Badge badge)
+        {
+            controlsList.Add(control);
+            control.Controls.Add(badge);
+        }
+
+        /// <summary>Configures the size of the text field.</summary>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <returns>The text field size.</returns>
+        private static Size ConfigureSize(string text, Font font)
+        {
+            Size textSize = GDI.MeasureText(text, font);
+            textSize = new Size(textSize.Width + 1, textSize.Height + 1);
+            return textSize;
+        }
+
+        /// <summary>Construct a badge control for the control, with the specified settings.</summary>
+        /// <param name="control">The control to draw the badge on.</param>
+        /// <param name="text">The text for the badge to display.</param>
+        /// <param name="font">The font to use for the text.</param>
+        /// <param name="backColor">The back Color of the badge.</param>
+        /// <param name="foreColor">The fore Color of the badge.</param>
+        /// <param name="position">The position of the badge.</param>
+        /// <param name="shape">The shape of the badge.</param>
+        private static void ConstructBadge(Control control, string text, Font font, Color backColor, Color foreColor, Point position, Shape shape)
+        {
+            Size textSize = ConfigureSize(text, font);
+
+            Badge _badge = new Badge
+                {
+                    AutoSize = false,
+                    Font = font,
+                    Text = text,
+                    BackColor = Color.Transparent,
+                    Background = backColor,
+                    ForeColor = foreColor,
+                    Location = position,
+                    Shape = shape,
+                    Size = textSize
+                };
+
+            Attach(control, _badge);
+            SetPosition(control, position);
+        }
+
+        private static List<Control> controlsList = new List<Control>();
 
         #endregion
     }

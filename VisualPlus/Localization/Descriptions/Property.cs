@@ -2,6 +2,12 @@
 {
     public sealed class Property
     {
+        #region Events
+
+        public const string IsDragging = "The current drag state of the control.";
+
+        #endregion
+
         #region Methods
 
         public struct Description

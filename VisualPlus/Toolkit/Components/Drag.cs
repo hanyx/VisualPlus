@@ -10,15 +10,17 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization.Category;
 
     #endregion
 
-    [Description("Drag component.")]
+    [Description("The VisualPlus drag component enables controls to be dragged.")]
     [TypeConverter(typeof(DragConverter))]
     public class Drag
     {
         #region Variables
+
+        private readonly Cursor _default = Cursors.SizeAll;
 
         private Control _control;
         private Cursor _cursorMove;
@@ -31,19 +33,54 @@
 
         /// <summary>Initializes a new instance of the <see cref="Drag" /> class.</summary>
         /// <param name="control">The control to attach.</param>
-        /// <param name="enabled">Dragging enabled state.</param>
-        public Drag(Control control, bool enabled)
+        public Drag(Control control)
         {
-            _cursorMove = Cursors.SizeAll;
+            _cursorMove = _default;
+            _control = control;
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="Drag" /> class.</summary>
+        /// <param name="control">The control to attach.</param>
+        /// <param name="enabled">Dragging enabled state.</param>
+        /// <param name="moveCursor">The move Cursor.</param>
+        public Drag(Control control, bool enabled, Cursor moveCursor)
+        {
+            _cursorMove = moveCursor;
             _control = control;
             _enabled = enabled;
 
-            AttachEvents();
+            if (_enabled)
+            {
+                AttachEvents();
+            }
         }
 
-        [Category(Localization.Category.Event.DragDrop)]
-        [Description(Event.ControlDragChanged)]
+        /// <summary>Initializes a new instance of the <see cref="Drag" /> class.</summary>
+        /// <param name="control">The control to attach.</param>
+        /// <param name="enabled">Dragging enabled state.</param>
+        public Drag(Control control, bool enabled)
+        {
+            _cursorMove = _default;
+            _control = control;
+            _enabled = enabled;
+
+            if (_enabled)
+            {
+                AttachEvents();
+            }
+        }
+
+        [Category(Event.DragDrop)]
+        [Description(Localization.Descriptions.Event.ControlDragChanged)]
         public event ControlDragEventHandler ControlDrag;
+
+        [Category(Event.PropertyChanged)]
+        [Description(Localization.Descriptions.Event.CursorChanged)]
+        public event ControlDragCursorChangedEventHandler ControlDragCursorChanged;
+
+        [Category(Event.PropertyChanged)]
+        [Description(Localization.Descriptions.Event.ControlDragToggleChanged)]
+        public event ControlDragToggleEventHandler ControlDragToggle;
 
         #endregion
 
@@ -51,6 +88,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
+        [Category(Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Cursor)]
         public Cursor CursorMove
         {
             get
@@ -60,12 +99,20 @@
 
             set
             {
+                if ((_cursorMove == null) || (_cursorMove == value))
+                {
+                    return;
+                }
+
                 _cursorMove = value;
+                OnControlDragCursorChanged(new CursorChangedEventArgs(_cursorMove));
             }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
+        [Category(Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
         public bool Enabled
         {
             get
@@ -76,12 +123,22 @@
             set
             {
                 _enabled = value;
+
+                if (_enabled)
+                {
+                    AttachEvents();
+                }
+                else
+                {
+                    DetachEvents();
+                }
             }
         }
 
-        [Description("The current drag state of the control.")]
         [Browsable(false)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Category(Property.Behavior)]
+        [Description(Localization.Descriptions.Property.IsDragging)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public bool IsDragging { get; private set; }
 
         #endregion
@@ -94,6 +151,8 @@
             _control.MouseDown += ControlMouseDown;
             _control.MouseMove += ControlMouseMove;
             _control.MouseUp += ControlMouseUp;
+
+            OnControlDragToggle(new ToggleEventArgs(_enabled));
         }
 
         /// <summary>Detach the extension events to the control.</summary>
@@ -102,6 +161,23 @@
             _control.MouseDown -= ControlMouseDown;
             _control.MouseMove -= ControlMouseMove;
             _control.MouseUp -= ControlMouseUp;
+
+            OnControlDragToggle(new ToggleEventArgs(_enabled));
+        }
+
+        protected virtual void OnControlDrag(DragControlEventArgs e)
+        {
+            ControlDrag?.Invoke(e);
+        }
+
+        protected virtual void OnControlDragCursorChanged(CursorChangedEventArgs e)
+        {
+            ControlDragCursorChanged?.Invoke(e);
+        }
+
+        protected virtual void OnControlDragToggle(ToggleEventArgs e)
+        {
+            ControlDragToggle?.Invoke(e);
         }
 
         /// <summary>Control mouse down event.</summary>
@@ -127,7 +203,8 @@
                 _control.Top += e.Location.Y - _lastPosition.Y;
                 _control.Cursor = _cursorMove;
                 IsDragging = true;
-                ControlDrag?.Invoke(new DragControlEventArgs(e.Location));
+
+                OnControlDrag(new DragControlEventArgs(e.Location));
             }
         }
 

@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventArgs\CursorChangedEventArgs.cs" />
     <Compile Include="EventArgs\ThemeEventArgs.cs" />
     <Compile Include="EventArgs\TextRenderingEventArgs.cs" />
     <Compile Include="EventArgs\MouseStateEventArgs.cs" />

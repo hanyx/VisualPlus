@@ -14,7 +14,7 @@
 
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(RadioButton))]
-    [DefaultEvent("CheckedChanged")]
+    [DefaultEvent("ToggleChanged")]
     [DefaultProperty("Checked")]
     [Description("The Visual RadioButton")]
     [Designer(ControlManager.FilterProperties.VisualRadioButton)]

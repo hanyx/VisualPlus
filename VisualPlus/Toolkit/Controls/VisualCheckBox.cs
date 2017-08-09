@@ -14,7 +14,7 @@
 
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(CheckBox))]
-    [DefaultEvent("CheckedChanged")]
+    [DefaultEvent("ToggleChanged")]
     [DefaultProperty("Checked")]
     [Description("The Visual CheckBox")]
     [Designer(ControlManager.FilterProperties.VisualCheckBox)]

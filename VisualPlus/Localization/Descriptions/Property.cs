@@ -5,7 +5,7 @@
         #region Events
 
         public const string IsDragging = "The current drag state of the control.";
-
+        public const string ReadOnly = "Gets or sets a value indicating whether the text box is read-only.";
         #endregion
 
         #region Methods

@@ -10,6 +10,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
@@ -121,7 +122,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Border ButtonBorder
         {
             get
@@ -138,7 +139,7 @@
 
         [TypeConverter(typeof(ControlColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public ControlColorState ButtonColor
         {
             get
@@ -154,7 +155,7 @@
         }
 
         [Description(Localization.Descriptions.Property.Description.Strings.Font)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Font ButtonFont
         {
             get
@@ -183,7 +184,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool ButtonVisible
         {
@@ -239,7 +240,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Image)]
         public Image Image
         {
@@ -255,7 +256,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Image)]
         public bool ImageVisible
         {
@@ -274,7 +275,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public int ImageWidth
         {
@@ -309,6 +310,21 @@
             {
                 _textBox.Multiline = value;
                 Invalidate();
+            }
+        }
+
+        [Category(Property.Behavior)]
+        [Description(Localization.Descriptions.Property.ReadOnly)]
+        public bool ReadOnly
+        {
+            get
+            {
+                return _textBox.ReadOnly;
+            }
+
+            set
+            {
+                _textBox.ReadOnly = value;
             }
         }
 
@@ -353,7 +369,7 @@
         }
 
         [DefaultValue(125)]
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public int TextBoxWidth
         {
@@ -372,7 +388,7 @@
 
         [TypeConverter(typeof(WatermarkConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         public Watermark Watermark
         {
             get

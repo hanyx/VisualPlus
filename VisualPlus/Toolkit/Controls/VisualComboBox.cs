@@ -39,7 +39,6 @@
         private Gradient controlGradient = new Gradient();
         private GraphicsPath controlGraphicsPath;
         private Color foreColor;
-        private Border itemBorder;
 
         private Size itemSize;
         private Color menuItemHover;
@@ -89,7 +88,6 @@
             separatorShadowColor = _styleManager.ControlStyle.Shadow;
 
             border = new Border();
-            itemBorder = new Border();
 
             textRendererHint = Settings.DefaultValue.TextRenderingHint;
             Font = _styleManager.Font;
@@ -258,23 +256,6 @@
             {
                 base.ForeColor = value;
                 foreColor = value;
-                Invalidate();
-            }
-        }
-
-        [TypeConverter(typeof(BorderConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
-        public Border ItemBorder
-        {
-            get
-            {
-                return itemBorder;
-            }
-
-            set
-            {
-                itemBorder = value;
                 Invalidate();
             }
         }
@@ -494,17 +475,12 @@
                     : new SolidBrush(menuItemNormal),
                 e.Bounds);
 
-            itemSize = GetItemSize(e.Bounds);
+            itemSize = e.Bounds.Size;
 
             Point itemPoint = new Point(e.Bounds.X, e.Bounds.Y);
             Rectangle itemBorderRectangle = new Rectangle(itemPoint, itemSize);
             GraphicsPath itemBorderPath = new GraphicsPath();
             itemBorderPath.AddRectangle(itemBorderRectangle);
-
-            if (itemBorder.Visible)
-            {
-                VisualBorderRenderer.DrawBorder(e.Graphics, itemBorderPath, itemBorder.Thickness, border.Color);
-            }
 
             if (e.Index != -1)
             {
@@ -692,13 +668,6 @@
             }
         }
 
-        /// <summary>Gets the item size.</summary>
-        /// <param name="itemBounds">Item bounds.</param>
-        /// <returns>Item size.</returns>
-        private Size GetItemSize(Rectangle itemBounds)
-        {
-            return new Size(itemBounds.Width - itemBorder.Thickness, itemBounds.Height - itemBorder.Thickness);
-        }
 
         #endregion
     }

@@ -7,6 +7,7 @@
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
+    using VisualPlus.Localization.Category;
     using VisualPlus.Renders;
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
@@ -23,7 +24,6 @@
         #region Variables
 
         private Drag _drag;
-        private Expandable _expander;
 
         #endregion
 
@@ -33,10 +33,7 @@
         {
             Size = new Size(187, 117);
             Padding = new Padding(5, 5, 5, 5);
-            DoubleBuffered = true;
-
             _drag = new Drag(this, Settings.DefaultValue.Moveable);
-            _expander = new Expandable(this, 22);
         }
 
         #endregion
@@ -45,7 +42,7 @@
 
         [TypeConverter(typeof(DragConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         public Drag Drag
         {
             get
@@ -56,22 +53,6 @@
             set
             {
                 _drag = value;
-            }
-        }
-
-        [TypeConverter(typeof(ExpandableConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Behavior)]
-        public Expandable Expandable
-        {
-            get
-            {
-                return _expander;
-            }
-
-            set
-            {
-                _expander = value;
             }
         }
 
@@ -92,8 +73,6 @@
             graphics.FillPath(new SolidBrush(Background), ControlGraphicsPath);
 
             VisualBorderRenderer.DrawBorderStyle(graphics, Border, MouseState, ControlGraphicsPath);
-
-            _expander.Draw(graphics, _expander.GetAlignmentPoint(Size));
         }
 
         #endregion

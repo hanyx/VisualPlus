@@ -8,6 +8,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
@@ -25,7 +26,6 @@
         #region Variables
 
         private Drag _drag;
-        private Expandable _expander;
         private GroupBoxStyle groupBoxStyle;
         private StringAlignment stringAlignment;
         private TitleAlignments titleAlign;
@@ -54,11 +54,6 @@
 
             _drag = new Drag(this, Settings.DefaultValue.Moveable);
 
-            _expander = new Expandable(this, 25)
-                {
-                    Visible = false
-                };
-
             titleBorder = new Border();
             titleGradient = StyleManager.ControlStatesStyle.ControlDisabled;
         }
@@ -85,7 +80,7 @@
 
         #region Properties
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public GroupBoxStyle BoxStyle
         {
@@ -103,7 +98,7 @@
 
         [TypeConverter(typeof(DragConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         public Drag Drag
         {
             get
@@ -117,23 +112,7 @@
             }
         }
 
-        [TypeConverter(typeof(ExpandableConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Behavior)]
-        public Expandable Expandable
-        {
-            get
-            {
-                return _expander;
-            }
-
-            set
-            {
-                _expander = value;
-            }
-        }
-
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Alignment)]
         public StringAlignment TextAlignment
         {
@@ -149,7 +128,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Alignment)]
         public TitleAlignments TitleAlignment
         {
@@ -167,7 +146,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Border TitleBorder
         {
             get
@@ -183,7 +162,7 @@
         }
 
         [DefaultValue("25")]
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public int TitleBoxHeight
         {
@@ -200,7 +179,7 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TitleBoxVisible)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool TitleBoxVisible
         {
@@ -218,7 +197,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient TitleGradient
         {
             get
@@ -295,8 +274,6 @@
 
                 graphics.DrawString(Text, Font, new SolidBrush(ForeColor), titleBoxRectangle, stringFormat);
             }
-
-            _expander.Draw(graphics, _expander.GetAlignmentPoint(Size));
         }
 
         private Rectangle ConfigureStyleBox(Size textArea)

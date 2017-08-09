@@ -163,7 +163,6 @@
     <Compile Include="InterfaceTypes.cs" />
     <Compile Include="Managers\ControlManager.cs" />
     <Compile Include="Structure\Checkmark.cs" />
-    <Compile Include="Toolkit\Components\Expandable.cs" />
     <Compile Include="Toolkit\Components\Drag.cs" />
     <Compile Include="Managers\ExceptionManager.cs" />
     <Compile Include="Managers\ColorManager.cs" />

@@ -74,6 +74,9 @@
     <Compile Include="Toolkit\ActionList\VisualListViewTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualComboBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisuaListBoxTasks.cs" />
+    <Compile Include="Toolkit\Components\Expander.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Toolkit\Components\ProgressDialog.cs" />
     <Compile Include="Renders\Arrow.cs" />
     <Compile Include="Renders\Bars.cs" />

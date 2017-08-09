@@ -1,0 +1,374 @@
+﻿namespace VisualPlus.Toolkit.Components
+{
+    #region Namespace
+
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Windows.Forms;
+
+    using VisualPlus.Localization.Category;
+
+    #endregion
+
+    [ToolboxItem(false)]
+    [Description("The VisualPlus expander component enables controls to be expandable.")]
+    public class Expander : Label
+    {
+        #region Properties
+
+        [DefaultValue(typeof(Color), "Black")]
+        [Category(Property.Appearance)]
+        public Color Color { get; set; }
+
+        [DefaultValue(typeof(int), "0")]
+        [Category(Property.Appearance)]
+        public int ContractedHeight { get; set; }
+
+        [DefaultValue(typeof(Size), "0, 0")]
+        [Category(Property.Appearance)]
+        public Size Original { get; set; }
+
+        [DefaultValue(typeof(bool), "true")]
+        [Category(Property.Appearance)]
+        public bool State { get; set; }
+
+        #endregion
+
+        #region Events
+
+        /// <summary>Add a expander control to the control, with the specified settings.</summary>
+        /// <param name="control">The control to draw the expander on.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="contractedHeight">The contracted Height.</param>
+        /// <param name="state">The expanded state.</param>
+        /// <returns>Expander control added to control.</returns>
+        public static bool Add(Control control, Rectangle rectangle, int contractedHeight, bool state)
+        {
+            if (controlsList.Contains(control))
+            {
+                return false;
+            }
+
+            ConstructExpander(control, Color.Black, rectangle, contractedHeight, Cursors.Hand, state);
+            return true;
+        }
+
+        /// <summary>Add a expander control to the control, with the specified settings.</summary>
+        /// <param name="control">The control to draw the expander on.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="contractedHeight">The contracted Height.</param>
+        /// <param name="cursor">The cursor.</param>
+        /// <param name="state">The expanded state.</param>
+        /// <returns>Expander control added to control.</returns>
+        public static bool Add(Control control, Color color, Rectangle rectangle, int contractedHeight, Cursor cursor, bool state)
+        {
+            if (controlsList.Contains(control))
+            {
+                return false;
+            }
+
+            ConstructExpander(control, color, rectangle, contractedHeight, cursor, state);
+            return true;
+        }
+
+        /// <summary>Draws the expander button.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="rectangle">The button rectangle.</param>
+        /// <param name="color">The button color.</param>
+        /// <param name="state">The expanded toggle.</param>
+        public static void Draw(Graphics graphics, Rectangle rectangle, Color color, bool state)
+        {
+            var points = new Point[3];
+            if (state)
+            {
+                points[0].X = rectangle.X + (rectangle.Width / 2);
+                points[0].Y = rectangle.Y;
+
+                points[1].X = rectangle.X;
+                points[1].Y = rectangle.Y + rectangle.Height;
+
+                points[2].X = rectangle.X + rectangle.Width;
+                points[2].Y = rectangle.Y + rectangle.Height;
+            }
+            else
+            {
+                points[0].X = rectangle.X;
+                points[0].Y = rectangle.Y;
+
+                points[1].X = rectangle.X + rectangle.Width;
+                points[1].Y = rectangle.Y;
+
+                points[2].X = rectangle.X + (rectangle.Width / 2);
+                points[2].Y = rectangle.Y + rectangle.Height;
+            }
+
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+            graphics.FillPolygon(new SolidBrush(color), points);
+        }
+
+        /// <summary>Gets the back color from the expander.</summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns back color.</returns>
+        public static Color GetColor(Control control)
+        {
+            Expander _expander = GetExpander(control);
+            return _expander?.Color ?? DefaultBackColor;
+        }
+
+        /// <summary>Gets the contracted height from the expander.</summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns contracted height.</returns>
+        public static int GetContractedHeight(Control control)
+        {
+            Expander _expander = GetExpander(control);
+            return _expander?.ContractedHeight ?? 0;
+        }
+
+        /// <summary>Gets the cursor from the expander.</summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns cursor.</returns>
+        public static Cursor GetCursor(Control control)
+        {
+            Expander _expander = GetExpander(control);
+            return _expander?.Cursor ?? Cursors.Hand;
+        }
+
+        /// <summary>Gets the expander from the control.</summary>
+        /// <param name="control">The control.</param>
+        /// <returns>The expander.</returns>
+        public static Expander GetExpander(Control control)
+        {
+            for (var i = 0; i < control.Controls.Count; i++)
+            {
+                if (control.Controls[i] is Expander)
+                {
+                    return control.Controls[i] as Expander;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>Gets the original size from the expander.</summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns original size.</returns>
+        public static Size GetOriginal(Control control)
+        {
+            Expander _expander = GetExpander(control);
+            return _expander?.Original ?? new Size(0, 0);
+        }
+
+        /// <summary>Gets the position for the expander.</summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns position.</returns>
+        public static Point GetPosition(Control control)
+        {
+            Expander _expander = GetExpander(control);
+            return _expander?.Location ?? new Point(0, 0);
+        }
+
+        /// <summary>Gets the size for the expander.</summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns size.</returns>
+        public static Size GetSize(Control control)
+        {
+            Expander _expander = GetExpander(control);
+            return _expander?.Size ?? new Size(0, 0);
+        }
+
+        /// <summary>Gets the expanded state from the expander.</summary>
+        /// <param name="control">The control.</param>
+        /// <returns>Returns expanded state.</returns>
+        public static bool GetState(Control control)
+        {
+            Expander _expander = GetExpander(control);
+            return _expander?.State ?? false;
+        }
+
+        /// <summary>Remove the expander from the control.</summary>
+        /// <param name="control">The control to remove the expander from.</param>
+        /// <returns>Removed expander from control.</returns>
+        public static bool Remove(Control control)
+        {
+            Expander _expander = GetExpander(control);
+            if (_expander != null)
+            {
+                control.Controls.Remove(_expander);
+                controlsList.Remove(control);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>Sets the back color for the expander.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="color">The color.</param>
+        public static void SetColor(Control control, Color color)
+        {
+            Expander _expander = GetExpander(control);
+            if (_expander != null)
+            {
+                _expander.Color = color;
+                _expander.Invalidate();
+            }
+        }
+
+        /// <summary>Sets the contracted height for the expander.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="contractedHeight">The contracted Height.</param>
+        public static void SetContractedHeight(Control control, int contractedHeight)
+        {
+            Expander _expander = GetExpander(control);
+            if (_expander != null)
+            {
+                _expander.ContractedHeight = contractedHeight;
+            }
+        }
+
+        /// <summary>Sets the cursor for the expander.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="cursor">The cursor.</param>
+        public static void SetCursor(Control control, Cursor cursor)
+        {
+            Expander _expander = GetExpander(control);
+            if (_expander != null)
+            {
+                _expander.Cursor = cursor;
+            }
+        }
+
+        /// <summary>Sets the original size for the expander.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="original">The original.</param>
+        public static void SetOriginal(Control control, Size original)
+        {
+            Expander _expander = GetExpander(control);
+            if (_expander != null)
+            {
+                _expander.Original = original;
+            }
+        }
+
+        /// <summary>Sets the position for the expander.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="position">The position.</param>
+        public static void SetPosition(Control control, Point position)
+        {
+            Expander expander = GetExpander(control);
+            if (expander != null)
+            {
+                expander.Location = position;
+            }
+        }
+
+        /// <summary>Sets the size for the expander.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="size">The size.</param>
+        public static void SetSize(Control control, Size size)
+        {
+            Expander _expander = GetExpander(control);
+            if (_expander != null)
+            {
+                _expander.Size = size;
+            }
+        }
+
+        /// <summary>Sets the expanded state for the expander.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="expanded">The expanded.</param>
+        public static void SetState(Control control, bool expanded)
+        {
+            Expander _expander = GetExpander(control);
+            if (_expander != null)
+            {
+                _expander.State = expanded;
+                ConfigureState(control, _expander, expanded);
+            }
+        }
+
+        protected override void OnClick(EventArgs e)
+        {
+            base.OnClick(e);
+
+            ConfigureState(Parent, this, State);
+            Invalidate();
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            Draw(e.Graphics, new Rectangle(0, 0, Width, Height), Color, State);
+        }
+
+        /// <summary>Attach the expander control.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="expander">The expander.</param>
+        private static void Attach(Control control, Expander expander)
+        {
+            controlsList.Add(control);
+            control.Controls.Add(expander);
+
+            // control.Resize += ControlReSizeChanged;
+            // control.SizeChanged += ControlReSizeChanged;
+        }
+
+        /// <summary>Configures the state of the control.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="expander">The expander.</param>
+        /// <param name="state">The state.</param>
+        private static void ConfigureState(Control control, Expander expander, bool state)
+        {
+            int _height;
+
+            if (state)
+            {
+                _height = expander.ContractedHeight;
+                expander.State = false;
+            }
+            else
+            {
+                _height = expander.Original.Height;
+                expander.State = true;
+            }
+
+            control.Size = new Size(GetOriginal(control).Width, _height);
+            control.Invalidate();
+        }
+
+        /// <summary>Construct a expander control for the control, with the specified settings.</summary>
+        /// <param name="control">The control to draw the expander on.</param>
+        /// <param name="color">The color of the expander.</param>
+        /// <param name="rectangle">The expander rectangle.</param>
+        /// <param name="contractedHeight">The contracted height.</param>
+        /// <param name="cursor">The cursor for the expander.</param>
+        /// <param name="state">The state toggle.</param>
+        private static void ConstructExpander(Control control, Color color, Rectangle rectangle, int contractedHeight, Cursor cursor, bool state)
+        {
+            Expander _expander = new Expander
+                {
+                    AutoSize = false,
+                    BackColor = Color.Transparent,
+                    Color = color,
+                    Location = rectangle.Location,
+                    Size = rectangle.Size,
+                    Original = control.Size,
+                    ContractedHeight = contractedHeight,
+                    Cursor = cursor,
+                    State = state
+                };
+
+            Attach(control, _expander);
+            SetPosition(control, rectangle.Location);
+        }
+
+        private static List<Control> controlsList = new List<Control>();
+
+        #endregion
+    }
+}

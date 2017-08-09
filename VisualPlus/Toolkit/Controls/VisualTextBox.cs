@@ -32,6 +32,7 @@
         private Border _buttonBorder;
         private Color _buttonColor;
         private Font _buttonFont;
+        private int _buttonIndent;
         private Rectangle _buttonRectangle;
         private string _buttontext;
         private bool _buttonVisible;
@@ -78,7 +79,7 @@
 
             _imageWidth = 35;
             _buttonFont = Font;
-
+            _buttonIndent = 3;
             _buttontext = "visualButton";
 
             _image = null;
@@ -222,6 +223,20 @@
             set
             {
                 _buttonFont = value;
+                Invalidate();
+            }
+        }
+
+        public int ButtonIndent
+        {
+            get
+            {
+                return _buttonIndent;
+            }
+
+            set
+            {
+                _buttonIndent = value;
                 Invalidate();
             }
         }
@@ -834,7 +849,7 @@
             VisualBorderRenderer.DrawBorderStyle(graphics, ControlBorder, MouseState, buttonPath);
             Size textSize = GDI.MeasureText(graphics, _buttontext, _buttonFont);
             graphics.SetClip(buttonPath);
-            graphics.DrawString(_buttontext, Font, new SolidBrush(ForeColor), new PointF(_buttonRectangle.X + 3, (Height / 2) - (textSize.Height / 2)));
+            graphics.DrawString(_buttontext, Font, new SolidBrush(ForeColor), new PointF(_buttonRectangle.X + _buttonIndent, (Height / 2) - (textSize.Height / 2)));
             graphics.ResetClip();
         }
 

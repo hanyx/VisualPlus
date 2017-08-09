@@ -61,6 +61,24 @@
         /// <param name="color">The color.</param>
         /// <param name="rectangle">The rectangle.</param>
         /// <param name="contractedHeight">The contracted Height.</param>
+        /// <param name="state">The expanded state.</param>
+        /// <returns>Expander control added to control.</returns>
+        public static bool Add(Control control, Color color, Rectangle rectangle, int contractedHeight, bool state)
+        {
+            if (controlsList.Contains(control))
+            {
+                return false;
+            }
+
+            ConstructExpander(control, color, rectangle, contractedHeight, Cursors.Hand, state);
+            return true;
+        }
+
+        /// <summary>Add a expander control to the control, with the specified settings.</summary>
+        /// <param name="control">The control to draw the expander on.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="contractedHeight">The contracted Height.</param>
         /// <param name="cursor">The cursor.</param>
         /// <param name="state">The expanded state.</param>
         /// <returns>Expander control added to control.</returns>

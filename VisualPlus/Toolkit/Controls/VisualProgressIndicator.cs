@@ -49,7 +49,7 @@
             SetStyle(ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor, true);
 
             Size = new Size(80, 80);
-            MinimumSize = new Size(80, 80);
+            MinimumSize = new Size(0, 0);
             SetPoints();
             animationSpeed.Interval = 100;
             UpdateStyles();

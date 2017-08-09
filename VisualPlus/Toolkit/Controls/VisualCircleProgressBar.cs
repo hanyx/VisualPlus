@@ -8,6 +8,8 @@
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -55,11 +57,7 @@
             // Attempt to center icon
             iconPoint = new Point((Width / 2) - (iconRectangle.Width / 2), (Height / 2) - (iconRectangle.Height / 2));
 
-            backgroundCircleColor = StyleManager.ProgressStyle.BackCircle;
-            foregroundCircleColor = StyleManager.ProgressStyle.ForeCircle;
-
-            progressGradient1 = StyleManager.ProgressStyle.Progress.Colors[0];
-            progressGradient2 = StyleManager.ProgressStyle.Progress.Colors[1];
+            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
         }
 
         public enum ProgressShape
@@ -76,7 +74,7 @@
         #region Properties
 
         [DefaultValue(true)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool BackCircleVisible
         {
@@ -92,7 +90,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color BackgroundCircle
         {
@@ -109,7 +107,7 @@
         }
 
         [DefaultValue(true)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool ForeCircleVisible
         {
@@ -125,7 +123,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ForegroundCircle
         {
@@ -141,7 +139,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Rotation)]
         public float GradientRotation
         {
@@ -157,7 +155,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Image)]
         public Point IconPoint
         {
@@ -173,7 +171,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public Size IconSize
         {
@@ -189,7 +187,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Image)]
         public Image Image
         {
@@ -205,7 +203,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ProgressGradient1
         {
@@ -221,7 +219,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ProgressGradient2
         {
@@ -238,7 +236,7 @@
         }
 
         [DefaultValue(Settings.DefaultValue.ProgressSize)]
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public float ProgressSize
         {
@@ -254,7 +252,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public ProgressShape Shape
         {
@@ -271,7 +269,7 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool TextVisible
         {
@@ -312,6 +310,16 @@
         {
             base.OnSizeChanged(e);
             SetStandardSize();
+        }
+
+        protected override void OnThemeChanged(ThemeEventArgs e)
+        {
+            backgroundCircleColor = StyleManager.ProgressStyle.BackCircle;
+            foregroundCircleColor = StyleManager.ProgressStyle.ForeCircle;
+
+            progressGradient1 = StyleManager.ProgressStyle.Progress.Colors[0];
+            progressGradient2 = StyleManager.ProgressStyle.Progress.Colors[1];
+            base.OnThemeChanged(e);
         }
 
         private void DrawCircles(Graphics graphics)

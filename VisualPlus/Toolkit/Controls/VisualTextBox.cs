@@ -120,6 +120,51 @@
 
         #region Properties
 
+        [Category(Property.Behavior)]
+        [Description(Localization.Descriptions.Property.AutoCompleteCustomSource)]
+        public AutoCompleteStringCollection AutoCompleteCustomSource
+        {
+            get
+            {
+                return _textBox.AutoCompleteCustomSource;
+            }
+
+            set
+            {
+                _textBox.AutoCompleteCustomSource = value;
+            }
+        }
+
+        [Category(Property.Behavior)]
+        [Description(Localization.Descriptions.Property.AutoCompleteMode)]
+        public AutoCompleteMode AutoCompleteMode
+        {
+            get
+            {
+                return _textBox.AutoCompleteMode;
+            }
+
+            set
+            {
+                _textBox.AutoCompleteMode = value;
+            }
+        }
+
+        [Category(Property.Behavior)]
+        [Description(Localization.Descriptions.Property.AutoCompleteSource)]
+        public AutoCompleteSource AutoCompleteSource
+        {
+            get
+            {
+                return _textBox.AutoCompleteSource;
+            }
+
+            set
+            {
+                _textBox.AutoCompleteSource = value;
+            }
+        }
+
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(Property.Appearance)]
@@ -296,8 +341,8 @@
         [Description("Gets whether the mouse is on the button.")]
         public bool MouseOnButton { get; private set; }
 
-        [Category("Behaviour")]
-        [Description("Gets or sets a value indicating whether this is a multiline TextBox control.")]
+        [Category(Property.Behavior)]
+        [Description(Localization.Descriptions.Property.MultiLine)]
         [DefaultValue(false)]
         public virtual bool MultiLine
         {

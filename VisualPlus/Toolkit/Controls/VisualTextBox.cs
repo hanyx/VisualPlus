@@ -120,6 +120,11 @@
 
         #region Properties
 
+        [Editor("System.Windows.Forms.Design.ListControlStringCollectionEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Localizable(true)]
+        [Browsable(true)]
         [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.AutoCompleteCustomSource)]
         public AutoCompleteStringCollection AutoCompleteCustomSource
@@ -135,6 +140,9 @@
             }
         }
 
+        [DefaultValue(typeof(AutoCompleteMode), "None")]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
         [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.AutoCompleteMode)]
         public AutoCompleteMode AutoCompleteMode
@@ -150,6 +158,9 @@
             }
         }
 
+        [DefaultValue(typeof(AutoCompleteSource), "None")]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
         [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.AutoCompleteSource)]
         public AutoCompleteSource AutoCompleteSource

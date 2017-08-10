@@ -725,7 +725,7 @@
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-
+            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder);
             Graphics graphics = e.Graphics;
 
             if (_textBox.BackColor != Background)
@@ -733,8 +733,8 @@
                 _textBox.BackColor = Background;
             }
 
-            _buttonRectangle = new Rectangle(_textBox.Right, 0, Width, Height);
-            _imageRectangle = new Rectangle(0, 0, _imageWidth, Height - 1);
+            _buttonRectangle = new Rectangle(_textBox.Right, 0, Width - _textBox.Right - 2, Height);
+            _imageRectangle = new Rectangle(0, 0, _imageWidth, Height);
 
             if (!_textBox.Multiline)
             {
@@ -844,8 +844,14 @@
 
             GraphicsPath buttonPath = new GraphicsPath();
             buttonPath.AddRectangle(_buttonRectangle);
+
             graphics.SetClip(ControlGraphicsPath);
+
+
             graphics.FillPath(new SolidBrush(_buttonColor), buttonPath);
+
+
+
             VisualBorderRenderer.DrawBorderStyle(graphics, ControlBorder, MouseState, buttonPath);
             Size textSize = GDI.MeasureText(graphics, _buttontext, _buttonFont);
             graphics.SetClip(buttonPath);

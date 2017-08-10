@@ -65,17 +65,6 @@ namespace VisualPlus
         #endregion
     }
 
-    public interface IContainedControl
-    {
-        #region Properties
-
-        Border Border { get; set; }
-
-        Control ContainedControl { get; }
-
-        #endregion
-    }
-
     public interface IControlStyle
     {
         #region Properties

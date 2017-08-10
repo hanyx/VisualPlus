@@ -24,7 +24,7 @@
     [DefaultProperty("Items")]
     [Description("The Visual ListView")]
     [Designer(typeof(VisualListViewTasks))]
-    public class VisualListView : ContainedControlBase, IContainedControl
+    public class VisualListView : ContainedControlBase
     {
         #region Variables
 
@@ -189,7 +189,7 @@
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(false)]
         [Description("Gets access to the contained control.")]
-        public Control ContainedControl
+        public ListView ContainedControl
         {
             get
             {

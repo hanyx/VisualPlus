@@ -21,7 +21,7 @@
     [DefaultBindingProperty("SelectedValue")]
     [Description("The Visual ListBox")]
     [Designer(typeof(VisualListBoxTasks))]
-    public class VisualListBox : ContainedControlBase, IContainedControl
+    public class VisualListBox : ContainedControlBase
     {
         #region Variables
 
@@ -149,7 +149,7 @@
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(false)]
         [Description("Gets access to the contained control.")]
-        public Control ContainedControl
+        public ListBox ContainedControl
         {
             get
             {

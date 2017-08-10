@@ -275,7 +275,7 @@
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(false)]
         [Description("Gets access to the contained control.")]
-        public Control ContainedControl
+        public TextBox ContainedControl
         {
             get
             {

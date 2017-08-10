@@ -617,16 +617,13 @@
 
         public void UpdateTheme(Styles style)
         {
-            // _textBox.ForeColor = null;
-            // _textBox.BackColor = null;
             StyleManager.UpdateStyle(style);
 
-            Font = StyleManager.Font;
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
-            Background = StyleManager.ControlStyle.Background(0);
-            BackgroundDisabled = StyleManager.FontStyle.ForeColorDisabled;
-            Invalidate();
+            // Font = _styleManager.Font;
+            // ForeColor = _styleManager.FontStyle.ForeColor;
+            // ForeColorDisabled = _styleManager.FontStyle.ForeColorDisabled;
+            // _backgroundColor = StyleManager.ControlStyle.Background(0);
+            // _backgroundDisabledColor = StyleManager.FontStyle.ForeColorDisabled;
         }
 
         protected override void OnEnter(EventArgs e)

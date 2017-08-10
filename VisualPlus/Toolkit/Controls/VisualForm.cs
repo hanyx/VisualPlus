@@ -277,6 +277,21 @@
             }
         }
 
+        [Category(Property.WindowStyle)]
+        [Description(Localization.Descriptions.Property.ShowIcon)]
+        public new bool ShowIcon
+        {
+            get
+            {
+                return vsImage.Visible;
+            }
+
+            set
+            {
+                vsImage.Visible = value;
+            }
+        }
+
         public bool Sizable { get; set; }
 
         [Category(Property.Appearance)]
@@ -500,6 +515,31 @@
             statusBarBounds = new Rectangle(0, 0, Width, windowBarHeight);
         }
 
+        protected override void OnResizeEnd(EventArgs e)
+        {
+            base.OnResizeEnd(e);
+            Screen scn = Screen.FromPoint(Location);
+            if (DoSnap(Left, scn.WorkingArea.Left))
+            {
+                Left = scn.WorkingArea.Left;
+            }
+
+            if (DoSnap(Top, scn.WorkingArea.Top))
+            {
+                Top = scn.WorkingArea.Top;
+            }
+
+            if (DoSnap(scn.WorkingArea.Right, Right))
+            {
+                Left = scn.WorkingArea.Right - Width;
+            }
+
+            if (DoSnap(scn.WorkingArea.Bottom, Bottom))
+            {
+                Top = scn.WorkingArea.Bottom - Height;
+            }
+        }
+
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
@@ -599,6 +639,8 @@
 
         private const int MONITOR_DEFAULTTONEAREST = 2;
 
+        private const int SnapDist = 100;
+
         private const uint TPM_LEFTALIGN = 0x0000;
         private const uint TPM_RETURNCMD = 0x0100;
 
@@ -614,6 +656,12 @@
         private const int WMSZ_TOPRIGHT = 5;
         private const int WS_MINIMIZEBOX = 0x20000;
         private const int WS_SYSMENU = 0x00080000;
+
+        private bool DoSnap(int pos, int edge)
+        {
+            int delta = pos - edge;
+            return delta > 0 && delta <= SnapDist;
+        }
 
         private void DrawBorder(Graphics graphics)
         {

@@ -82,7 +82,7 @@
             buttonBackPressedColor = _styleManager.ControlStatesStyle.ControlPressed.Colors[0];
 
             maxColor = _styleManager.ControlStyle.FlatButtonEnabled;
-            minColor = _styleManager.ControlStyle.FlatButtonDisabled;
+            minColor = _styleManager.ControlStyle.FlatButtonEnabled;
 
             windowBarColor = _styleManager.ControlStyle.Background(0);
 
@@ -616,7 +616,10 @@
         private void DrawBorder(Graphics graphics)
         {
             GraphicsPath clientRectangle = new GraphicsPath();
-            clientRectangle.AddRectangle(ClientRectangle);
+
+            Rectangle rect = new Rectangle(ClientRectangle.Location, new Size(ClientRectangle.Width - 1, ClientRectangle.Height - 1));
+
+            clientRectangle.AddRectangle(rect);
             VisualBorderRenderer.DrawBorderStyle(graphics, border, State, clientRectangle);
         }
 

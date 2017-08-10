@@ -153,9 +153,6 @@
     <Compile Include="Toolkit\Controls\VisualLabel.cs" />
     <Compile Include="Toolkit\Controls\VisualRating.cs" />
     <Compile Include="Toolkit\Controls\VisualShape.cs" />
-    <Compile Include="Toolkit\Controls\VisualStylesManager.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Toolkit\Controls\VisualToolTip.cs">
       <SubType>Component</SubType>
     </Compile>

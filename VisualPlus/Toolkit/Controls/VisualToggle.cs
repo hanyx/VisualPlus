@@ -10,6 +10,7 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
+    using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -92,7 +93,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Border Border
         {
             get
@@ -109,7 +110,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Border ButtonBorder
         {
             get
@@ -126,7 +127,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient ButtonDisabled
         {
             get
@@ -143,7 +144,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient ButtonGradient
         {
             get
@@ -158,7 +159,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public Size ButtonSize
         {
@@ -175,7 +176,7 @@
         }
 
         [DefaultValue(false)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
         public bool Toggled
         {
@@ -192,7 +193,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public ToggleTypes Type
         {
@@ -303,21 +304,21 @@
             {
                 case ToggleTypes.YesNo:
                     {
-                        textProcessor = Toggled ? "Yes" : "No";
+                        textProcessor = Toggled ? "No" : "Yes";
 
                         break;
                     }
 
                 case ToggleTypes.OnOff:
                     {
-                        textProcessor = Toggled ? "On" : "Off";
+                        textProcessor = Toggled ? "Off" : "On";
 
                         break;
                     }
 
                 case ToggleTypes.IO:
                     {
-                        textProcessor = Toggled ? "I" : "O";
+                        textProcessor = Toggled ? "O" : "I";
 
                         break;
                     }

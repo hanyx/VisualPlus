@@ -20,7 +20,7 @@
 
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(Control))]
-    [DefaultEvent("ToggledChanged")]
+    [DefaultEvent("ToggleChanged")]
     [DefaultProperty("Toggled")]
     [Description("The Visual Toggle")]
     [Designer(ControlManager.FilterProperties.VisualToggle)]

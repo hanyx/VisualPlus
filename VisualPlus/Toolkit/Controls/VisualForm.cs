@@ -43,6 +43,9 @@
             };
 
         private readonly Cursor[] resizeCursors = { Cursors.SizeNESW, Cursors.SizeWE, Cursors.SizeNWSE, Cursors.SizeWE, Cursors.SizeNS };
+        private bool _magnetic;
+
+        private int _magneticRadius;
 
         private StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
         private Border border;
@@ -88,6 +91,9 @@
 
             windowBarColor = _styleManager.ControlStyle.Background(0);
 
+            _magneticRadius = 100;
+            _magnetic = true;
+
             // Padding-Left: 5 for icon
             Padding = new Padding(5, 0, 0, 0);
 
@@ -124,7 +130,7 @@
             /// <summary>The min down.</summary>
             MinDown,
 
-            /// <summary>None.</summary>
+            /// <summary>The None.</summary>
             None
         }
 
@@ -274,6 +280,38 @@
             {
                 vsImage = value;
                 Invalidate();
+            }
+        }
+
+        [DefaultValue(true)]
+        [Category(Property.Behavior)]
+        [Description("Snap window snaps toggles snapping to screen edges.")]
+        public bool Magnetic
+        {
+            get
+            {
+                return _magnetic;
+            }
+
+            set
+            {
+                _magnetic = value;
+            }
+        }
+
+        [DefaultValue(100)]
+        [Category(Property.Behavior)]
+        [Description("The snap radius determines the distance to trigger the snap.")]
+        public int MagneticRadius
+        {
+            get
+            {
+                return _magneticRadius;
+            }
+
+            set
+            {
+                _magneticRadius = value;
             }
         }
 
@@ -518,25 +556,28 @@
         protected override void OnResizeEnd(EventArgs e)
         {
             base.OnResizeEnd(e);
-            Screen scn = Screen.FromPoint(Location);
-            if (DoSnap(Left, scn.WorkingArea.Left))
+            if (_magnetic)
             {
-                Left = scn.WorkingArea.Left;
-            }
+                Screen scn = Screen.FromPoint(Location);
+                if (DoSnap(Left, scn.WorkingArea.Left))
+                {
+                    Left = scn.WorkingArea.Left;
+                }
 
-            if (DoSnap(Top, scn.WorkingArea.Top))
-            {
-                Top = scn.WorkingArea.Top;
-            }
+                if (DoSnap(Top, scn.WorkingArea.Top))
+                {
+                    Top = scn.WorkingArea.Top;
+                }
 
-            if (DoSnap(scn.WorkingArea.Right, Right))
-            {
-                Left = scn.WorkingArea.Right - Width;
-            }
+                if (DoSnap(scn.WorkingArea.Right, Right))
+                {
+                    Left = scn.WorkingArea.Right - Width;
+                }
 
-            if (DoSnap(scn.WorkingArea.Bottom, Bottom))
-            {
-                Top = scn.WorkingArea.Bottom - Height;
+                if (DoSnap(scn.WorkingArea.Bottom, Bottom))
+                {
+                    Top = scn.WorkingArea.Bottom - Height;
+                }
             }
         }
 
@@ -639,8 +680,6 @@
 
         private const int MONITOR_DEFAULTTONEAREST = 2;
 
-        private const int SnapDist = 100;
-
         private const uint TPM_LEFTALIGN = 0x0000;
         private const uint TPM_RETURNCMD = 0x0100;
 
@@ -660,7 +699,7 @@
         private bool DoSnap(int pos, int edge)
         {
             int delta = pos - edge;
-            return delta > 0 && delta <= SnapDist;
+            return (delta > 0) && (delta <= _magneticRadius);
         }
 
         private void DrawBorder(Graphics graphics)

@@ -162,7 +162,7 @@
         [DefaultValue(typeof(AutoCompleteSource), "None")]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Property.Behavior)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.AutoCompleteSource)]
         public AutoCompleteSource AutoCompleteSource
         {
@@ -399,6 +399,24 @@
             }
         }
 
+        [DefaultValue(typeof(HorizontalAlignment), "Left")]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [Category(Property.Behavior)]
+        [Description(Localization.Descriptions.Property.TextAlign)]
+        public HorizontalAlignment TexAlignment
+        {
+            get
+            {
+                return _textBox.TextAlign;
+            }
+
+            set
+            {
+                _textBox.TextAlign = value;
+            }
+        }
+
         [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [Localizable(false)]
         public new string Text
@@ -595,6 +613,20 @@
         public void Undo()
         {
             _textBox.Undo();
+        }
+
+        public void UpdateTheme(Styles style)
+        {
+            // _textBox.ForeColor = null;
+            // _textBox.BackColor = null;
+            StyleManager.UpdateStyle(style);
+
+            Font = StyleManager.Font;
+            ForeColor = StyleManager.FontStyle.ForeColor;
+            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+            Background = StyleManager.ControlStyle.Background(0);
+            BackgroundDisabled = StyleManager.FontStyle.ForeColorDisabled;
+            Invalidate();
         }
 
         protected override void OnEnter(EventArgs e)

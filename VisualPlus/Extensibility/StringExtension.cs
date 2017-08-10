@@ -11,6 +11,14 @@
     {
         #region Events
 
+        /// <summary>Converts the string HTML to a color.</summary>
+        /// <param name="withoutHash">The HTML color. (Don't include hash '#')</param>
+        /// <returns>The color from the HTML.</returns>
+        public static Color FromHtml(this string withoutHash)
+        {
+            return ColorTranslator.FromHtml("#" + withoutHash);
+        }
+
         /// <summary>Provides the size, in pixels, of the specified text when drawn with the specified font.</summary>
         /// <param name="text">The text to measure.</param>
         /// <param name="font">The font to apply to the measured text.</param>

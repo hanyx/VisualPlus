@@ -56,6 +56,7 @@
     <Compile Include="EventArgs\MouseStateEventArgs.cs" />
     <Compile Include="EventArgs\ColorEventArgs.cs" />
     <Compile Include="EventArgs\ToggleEventArgs.cs" />
+    <Compile Include="Extensibility\ColorExtension.cs" />
     <Compile Include="Extensibility\StringExtension.cs" />
     <Compile Include="Localization\Category\Event.cs" />
     <Compile Include="Localization\Descriptions\Event.cs" />

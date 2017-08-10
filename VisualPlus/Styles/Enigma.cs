@@ -7,6 +7,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.Extensibility;
     using VisualPlus.Managers;
     using VisualPlus.Structure;
 
@@ -156,9 +157,9 @@
             {
                 Color[] controlHoverColors =
                     {
-                        ColorManager.ColorFromHtml("2d2f32"),
-                        ControlPaint.Light(ColorManager.ColorFromHtml("1a1a1a")),
-                        ColorManager.ColorFromHtml("2d2f32")
+                        "2d2f32".FromHtml(),
+                        ControlPaint.Light("1a1a1a".FromHtml()),
+                        "2d2f32".FromHtml()
                     };
 
                 Gradient controlHover = new Gradient

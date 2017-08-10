@@ -56,25 +56,14 @@
             return BlendColor(backgroundColor, frontColor, frontColor.A);
         }
 
-        public static Color ColorFromHtml(string withoutHash)
-        {
-            return ColorTranslator.FromHtml("#" + withoutHash);
-        }
-
-        public static string ColorToHtml(Color color)
-        {
-            return ColorTranslator.ToHtml(color);
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="red"></param>
-        /// <param name="green"></param>
-        /// <param name="blue"></param>
-        /// <returns></returns>
+        /// <summary>The create color from rgb.</summary>
+        /// <param name="red">The red.</param>
+        /// <param name="green">The green.</param>
+        /// <param name="blue">The blue.</param>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color CreateColorFromRGB(int red, int green, int blue)
         {
-            // Corect Red element
+            // Correct Red element
             int r = red;
             if (r > 255)
             {
@@ -86,7 +75,7 @@
                 r = 0;
             }
 
-            // Corect Green element
+            // Correct Green element
             int g = green;
             if (g > 255)
             {

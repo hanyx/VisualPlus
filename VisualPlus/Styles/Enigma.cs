@@ -7,6 +7,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.Managers;
     using VisualPlus.Structure;
 
     #endregion
@@ -85,8 +86,8 @@
             {
                 Color[] boxEnabledColors =
                     {
-                        ControlPaint.Light(Color.FromArgb(241, 244, 249)),
-                        Color.FromArgb(241, 244, 249)
+                        ControlPaint.Light(Color.FromArgb(27, 28, 28)),
+                        Color.FromArgb(27, 28, 28)
                     };
 
                 Gradient boxEnabled = new Gradient
@@ -155,9 +156,9 @@
             {
                 Color[] controlHoverColors =
                     {
-                        Color.FromArgb(181, 181, 181),
-                        ControlPaint.Light(Color.FromArgb(181, 181, 181)),
-                        Color.FromArgb(181, 181, 181)
+                        ColorManager.ColorFromHtml("2d2f32"),
+                        ControlPaint.Light(ColorManager.ColorFromHtml("1a1a1a")),
+                        ColorManager.ColorFromHtml("2d2f32")
                     };
 
                 Gradient controlHover = new Gradient
@@ -243,7 +244,7 @@
         {
             get
             {
-                return Color.FromArgb(119, 119, 118);
+                return Color.White;
             }
         }
 
@@ -283,7 +284,7 @@
         {
             get
             {
-                return Color.Yellow;
+                return Color.White;
             }
         }
 

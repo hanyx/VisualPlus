@@ -10,6 +10,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -27,7 +28,7 @@
     {
         #region Variables
 
-        private StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+        private StyleManager _styleManager;
 
         private Border border;
         private Color buttonColor;
@@ -69,35 +70,25 @@
 
             SetStyle((ControlStyles)139286, true);
             SetStyle(ControlStyles.Selectable, false);
+
+            _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+
             mouseState = MouseStates.Normal;
             DrawMode = DrawMode.OwnerDrawFixed;
             DropDownStyle = ComboBoxStyle.DropDownList;
+
             Size = new Size(135, 26);
             ItemHeight = 20;
             UpdateStyles();
             DropDownHeight = 100;
+
             BackColor = Color.Transparent;
-
-            buttonColor = _styleManager.ControlStyle.FlatButtonEnabled;
-            menuTextColor = _styleManager.FontStyle.ForeColor;
-
-            menuItemNormal = _styleManager.ControlStyle.ItemEnabled;
-            menuItemHover = _styleManager.ControlStyle.ItemHover;
-
-            separatorColor = _styleManager.ControlStyle.Line;
-            separatorShadowColor = _styleManager.ControlStyle.Shadow;
 
             border = new Border();
 
             textRendererHint = Settings.DefaultValue.TextRenderingHint;
-            Font = _styleManager.Font;
-            foreColor = _styleManager.FontStyle.ForeColor;
-            textDisabledColor = _styleManager.FontStyle.ForeColorDisabled;
 
-            controlGradient.Colors = _styleManager.ControlStyle.BoxEnabled.Colors;
-            controlGradient.Positions = _styleManager.ControlStyle.BoxEnabled.Positions;
-            controlDisabledGradient.Colors = _styleManager.ControlStyle.BoxDisabled.Colors;
-            controlDisabledGradient.Positions = _styleManager.ControlStyle.BoxDisabled.Positions;
+            UpdateStyle(Settings.DefaultValue.DefaultStyle);
         }
 
         public enum DropDownButtons
@@ -115,7 +106,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient Background
         {
             get
@@ -132,7 +123,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Border Border
         {
             get
@@ -147,7 +138,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ButtonColor
         {
@@ -163,7 +154,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Direction)]
         public Alignment.Horizontal ButtonHorizontal
         {
@@ -179,7 +170,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public DropDownButtons ButtonStyles
         {
@@ -196,7 +187,7 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool ButtonVisible
         {
@@ -212,7 +203,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public int ButtonWidth
         {
@@ -230,7 +221,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient DisabledBackground
         {
             get
@@ -260,7 +251,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color MenuItemHover
         {
@@ -276,7 +267,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color MenuItemNormal
         {
@@ -292,7 +283,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color MenuTextColor
         {
@@ -308,7 +299,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color SeparatorColor
         {
@@ -324,7 +315,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color SeparatorShadowColor
         {
@@ -341,7 +332,7 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool SeparatorVisible
         {
@@ -357,7 +348,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.StartIndex)]
         public int StartIndex
         {
@@ -382,7 +373,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.MouseState)]
         public MouseStates State
         {
@@ -398,7 +389,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Alignment)]
         public StringAlignment TextAlignment
         {
@@ -414,7 +405,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color TextDisabledColor
         {
@@ -430,7 +421,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Strings.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
@@ -448,7 +439,7 @@
 
         [TypeConverter(typeof(WatermarkConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         public Watermark Watermark
         {
             get
@@ -467,13 +458,34 @@
 
         #region Events
 
+        /// <summary>Update the style of the control.</summary>
+        /// <param name="style">The visual style.</param>
+        public void UpdateStyle(Styles style)
+        {
+            _styleManager.UpdateStyle(style);
+
+            Font = _styleManager.Font;
+            foreColor = _styleManager.FontStyle.ForeColor;
+            textDisabledColor = _styleManager.FontStyle.ForeColorDisabled;
+
+            controlGradient = _styleManager.ControlStyle.BoxEnabled;
+            controlDisabledGradient = _styleManager.ControlStyle.BoxDisabled;
+
+            buttonColor = _styleManager.ControlStyle.FlatButtonEnabled;
+            menuTextColor = _styleManager.FontStyle.ForeColor;
+
+            menuItemNormal = _styleManager.ControlStyle.ItemEnabled;
+            menuItemHover = _styleManager.ControlStyle.ItemHover;
+
+            separatorColor = _styleManager.ControlStyle.Line;
+            separatorShadowColor = _styleManager.ControlStyle.Shadow;
+
+            Invalidate();
+        }
+
         protected override void OnDrawItem(DrawItemEventArgs e)
         {
-            e.Graphics.FillRectangle(
-                (e.State & DrawItemState.Selected) == DrawItemState.Selected
-                    ? new SolidBrush(menuItemHover)
-                    : new SolidBrush(menuItemNormal),
-                e.Bounds);
+            e.Graphics.FillRectangle((e.State & DrawItemState.Selected) == DrawItemState.Selected ? new SolidBrush(menuItemHover) : new SolidBrush(menuItemNormal), e.Bounds);
 
             itemSize = e.Bounds.Size;
 
@@ -667,7 +679,6 @@
                 }
             }
         }
-
 
         #endregion
     }

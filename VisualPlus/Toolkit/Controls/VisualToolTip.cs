@@ -8,9 +8,11 @@
     using System.Drawing.Text;
     using System.Windows.Forms;
 
+    using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
     using VisualPlus.Properties;
     using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
 
     #endregion
 
@@ -92,7 +94,7 @@
 
         #region Properties
 
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.AutoSize)]
         public bool AutoSize
         {
@@ -109,7 +111,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient Background
         {
             get
@@ -125,7 +127,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Border Border
         {
             get
@@ -139,7 +141,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Strings.Font)]
         public Font Font
         {
@@ -168,7 +170,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Image)]
         public Image Icon
         {
@@ -183,7 +185,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool IconBorder
         {
@@ -198,7 +200,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public Size IconSize
         {
@@ -213,7 +215,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color LineColor
         {
@@ -228,7 +230,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Padding)]
         public Padding Padding
         {
@@ -243,7 +245,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public int SeparatorThickness
         {
@@ -258,7 +260,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Spacing)]
         public int Spacing
         {
@@ -273,7 +275,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Strings.Text)]
         public string Text
         {
@@ -288,7 +290,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Strings.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
@@ -303,7 +305,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool TextShadow
         {
@@ -318,7 +320,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public ToolTipType TipType
         {
@@ -333,7 +335,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Strings.Text)]
         public string Title
         {
@@ -348,7 +350,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color TitleColor
         {
@@ -363,7 +365,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Strings.Font)]
         public Font TitleFont
         {
@@ -378,7 +380,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public Size ToolTipSize
         {

@@ -4,12 +4,13 @@
     {
         #region Events
 
-        public const string IsDragging = "The current drag state of the control.";
-        public const string ReadOnly = "Gets or sets a value indicating whether the text box is read-only.";
         public const string AutoCompleteCustomSource = "Gets or sets a custom StringCollection to use when the AutoCompleteSource property is set to CustomSource.";
         public const string AutoCompleteMode = "Gets or sets an option that controls how automatic completion works for the Textbox.";
-        public const string MultiLine = "Gets or sets a value indicating whether this is a multiline TextBox control.";
         public const string AutoCompleteSource = "Gets or sets a value specifiying the source of complete string used for automatic completion.";
+
+        public const string IsDragging = "The current drag state of the control.";
+        public const string MultiLine = "Gets or sets a value indicating whether this is a multiline TextBox control.";
+        public const string ReadOnly = "Gets or sets a value indicating whether the text box is read-only.";
 
         #endregion
 

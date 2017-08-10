@@ -12,6 +12,7 @@ namespace VisualPlus.Toolkit.VisualBase
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Extensibility;
+    using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -50,34 +51,9 @@ namespace VisualPlus.Toolkit.VisualBase
         #endregion
 
         #region Properties
-        [DefaultValue(false)]
-        [Category(Localization.Category.Property.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Checkmark.Checked)]
-        public bool Checked
-        {
-            get
-            {
-                return Toggle;
-            }
-
-            set
-            {
-                if (Toggle != value)
-                {
-                    // Store new values
-                    Toggle = value;
-
-                    // Generate events
-                    OnToggleChanged(new ToggleEventArgs(Toggle));
-
-                    // Repaint
-                    Invalidate();
-                }
-            }
-        }
 
         [DefaultValue(Settings.DefaultValue.Animation)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Animation)]
         public bool Animation
         {
@@ -102,7 +78,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Border Border
         {
             get
@@ -118,7 +94,7 @@ namespace VisualPlus.Toolkit.VisualBase
         }
 
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         public Size Box
         {
             get
@@ -138,7 +114,7 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Spacing)]
         public int BoxSpacing
         {
@@ -154,9 +130,35 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
+        [DefaultValue(false)]
+        [Category(Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Checkmark.Checked)]
+        public bool Checked
+        {
+            get
+            {
+                return Toggle;
+            }
+
+            set
+            {
+                if (Toggle != value)
+                {
+                    // Store new values
+                    Toggle = value;
+
+                    // Generate events
+                    OnToggleChanged(new ToggleEventArgs(Toggle));
+
+                    // Repaint
+                    Invalidate();
+                }
+            }
+        }
+
         [TypeConverter(typeof(CheckMarkConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Checkmark CheckMark
         {
             get
@@ -172,7 +174,7 @@ namespace VisualPlus.Toolkit.VisualBase
         }
 
         [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient DisabledGradient
         {
             get
@@ -187,7 +189,7 @@ namespace VisualPlus.Toolkit.VisualBase
         }
 
         [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient EnabledGradient
         {
             get
@@ -202,7 +204,7 @@ namespace VisualPlus.Toolkit.VisualBase
         }
 
         [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient HoverGradient
         {
             get
@@ -221,7 +223,7 @@ namespace VisualPlus.Toolkit.VisualBase
         public bool IsBoxLarger { get; set; }
 
         [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient PressedGradient
         {
             get

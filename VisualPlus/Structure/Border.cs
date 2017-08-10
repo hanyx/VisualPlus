@@ -10,8 +10,11 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.EventArgs;
-    using VisualPlus.Managers;
+    using VisualPlus.Localization.Category;
     using VisualPlus.Styles;
+    using VisualPlus.Toolkit.Components;
+
+    using Property = VisualPlus.Localization.Descriptions.Property;
 
     #endregion
 
@@ -41,11 +44,11 @@
             hoverVisible = true;
         }
 
-        [Category(Localization.Category.Event.PropertyChanged)]
+        [Category(Event.PropertyChanged)]
         [Description("Occours when the hvoer color has been changed.")]
         public event BorderHoverColorChangedEventHandler HoverColorChanged;
 
-        [Category(Localization.Category.Event.PropertyChanged)]
+        [Category(Event.PropertyChanged)]
         [Description("Occours when the hover visible has been changed.")]
         public event BorderHoverVisibleChangedEventHandler HoverVisibleChanged;
 
@@ -55,7 +58,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Description.Common.Color)]
         public Color HoverColor
         {
             get
@@ -72,7 +75,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Description.Common.Visible)]
         public bool HoverVisible
         {
             get

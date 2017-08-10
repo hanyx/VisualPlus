@@ -10,9 +10,10 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Extensibility;
-    using VisualPlus.Managers;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
     using VisualPlus.Styles;
+    using VisualPlus.Toolkit.Components;
 
     #endregion
 
@@ -85,7 +86,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.AutoSize)]
+        [Description(Property.Description.Common.AutoSize)]
         public bool AutoSize
         {
             get
@@ -101,7 +102,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Checkmark.Character)]
+        [Description(Property.Description.Checkmark.Character)]
         public char Character
         {
             get
@@ -117,7 +118,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Description(Property.Description.Common.ColorGradient)]
         public Gradient DisabledGradient
         {
             get
@@ -133,7 +134,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.Image)]
+        [Description(Property.Description.Common.Image)]
         public Bitmap DisabledImage
         {
             get
@@ -149,7 +150,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Description(Property.Description.Common.ColorGradient)]
         public Gradient EnabledGradient
         {
             get
@@ -165,7 +166,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.Image)]
+        [Description(Property.Description.Common.Image)]
         public Bitmap EnabledImage
         {
             get
@@ -181,7 +182,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Strings.Font)]
+        [Description(Property.Description.Strings.Font)]
         public Font Font
         {
             get
@@ -197,7 +198,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Description.Common.Size)]
         public Size ImageSize
         {
             get
@@ -213,7 +214,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.Point)]
+        [Description(Property.Description.Common.Point)]
         public Point Location
         {
             get
@@ -229,7 +230,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Border.Rounding)]
+        [Description(Property.Description.Border.Rounding)]
         public int ShapeRounding
         {
             get
@@ -245,7 +246,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Description.Common.Size)]
         public Size ShapeSize
         {
             get
@@ -261,7 +262,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.Type)]
+        [Description(Property.Description.Common.Type)]
         public ShapeType ShapeType
         {
             get
@@ -277,7 +278,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Checkmark.CheckType)]
+        [Description(Property.Description.Checkmark.CheckType)]
         public CheckType Style
         {
             get

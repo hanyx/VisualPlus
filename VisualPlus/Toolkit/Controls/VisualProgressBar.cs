@@ -10,6 +10,7 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
+    using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -90,7 +91,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient BackgroundGradient
         {
             get
@@ -106,7 +107,7 @@
         }
 
         [DefaultValue(Settings.DefaultValue.BarAmount)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Progressbar.Bars)]
         public int BarAmount
         {
@@ -122,7 +123,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public Point BarSize
         {
@@ -138,7 +139,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Spacing)]
         public int BarSpacing
         {
@@ -154,7 +155,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public BarTypes BarStyle
         {
@@ -185,7 +186,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Border Border
         {
             get
@@ -200,7 +201,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color HatchBackColor
         {
@@ -216,7 +217,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color HatchForeColor
         {
@@ -232,7 +233,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [DefaultValue(Settings.DefaultValue.HatchSize)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public float HatchSize
@@ -249,7 +250,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public HatchStyle HatchStyle
         {
@@ -266,7 +267,7 @@
         }
 
         [DefaultValue(Settings.DefaultValue.HatchVisible)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool HatchVisible
         {
@@ -283,7 +284,7 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool PercentageVisible
         {
@@ -301,7 +302,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient Progress
         {
             get
@@ -317,7 +318,7 @@
         }
 
         [DefaultValue(typeof(ProgressBarStyle))]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description("This property allows the user to set the style of the ProgressBar.")]
         public ProgressBarStyle Style
         {
@@ -333,7 +334,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Alignment)]
         public StringAlignment ValueAlignment
         {

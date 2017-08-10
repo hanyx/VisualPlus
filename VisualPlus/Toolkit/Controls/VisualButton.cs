@@ -8,6 +8,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -46,7 +47,7 @@
         #region Properties
 
         [DefaultValue(Settings.DefaultValue.Animation)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Animation)]
         public bool Animation
         {
@@ -70,7 +71,7 @@
         }
 
         [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient DisabledGradient
         {
             get
@@ -85,7 +86,7 @@
         }
 
         [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient EnabledGradient
         {
             get
@@ -100,7 +101,7 @@
         }
 
         [DefaultValue(true)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description("Gets or sets the color gradient toggle.")]
         public bool GradientToggle
         {
@@ -117,7 +118,7 @@
         }
 
         [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient HoverGradient
         {
             get
@@ -132,7 +133,7 @@
         }
 
         [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient PressedGradient
         {
             get

@@ -8,6 +8,7 @@
     using System.Drawing.Drawing2D;
     using System.Globalization;
 
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
 
     #endregion
@@ -66,7 +67,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.Image)]
+        [Description(Property.Description.Common.Image)]
         public Bitmap Image
         {
             get
@@ -81,7 +82,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.Point)]
+        [Description(Property.Description.Common.Point)]
         public Point Point
         {
             get
@@ -96,7 +97,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Description.Common.Size)]
         public Size Size
         {
             get
@@ -111,7 +112,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Description.Common.Visible)]
         public bool Visible
         {
             get

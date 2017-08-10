@@ -3,10 +3,9 @@ namespace VisualPlus
     #region Namespace
 
     using System.Drawing;
-    using System.Windows.Forms;
 
-    using VisualPlus.Managers;
     using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
 
     #endregion
 

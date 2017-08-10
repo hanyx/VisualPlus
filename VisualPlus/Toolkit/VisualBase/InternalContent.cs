@@ -9,6 +9,7 @@ namespace VisualPlus.Toolkit.VisualBase
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
     using VisualPlus.Properties;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -52,7 +53,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Border Border
         {
             get
@@ -69,7 +70,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         [TypeConverter(typeof(VisualBitmapConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public VisualBitmap Image
         {
             get
@@ -84,7 +85,7 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.TextImageRelation)]
         public TextImageRelation TextImageRelation
         {

@@ -10,6 +10,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.EventArgs;
+    using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.VisualBase;
@@ -66,7 +67,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient ForeGradient
         {
             get
@@ -83,7 +84,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient ForeGradientDisabled
         {
             get
@@ -99,7 +100,7 @@
         }
 
         [DefaultValue(false)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
         public bool GradientString
         {
@@ -115,7 +116,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Orientation)]
         public Orientation Orientation
         {
@@ -132,7 +133,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Outline)]
         public bool Outline
         {
@@ -148,7 +149,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color OutlineColor
         {
@@ -164,7 +165,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Point)]
         public Point OutlineLocation
         {
@@ -181,7 +182,7 @@
         }
 
         [DefaultValue(false)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
         public bool Reflection
         {
@@ -197,7 +198,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ReflectionColor
         {
@@ -213,7 +214,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Spacing)]
         public int ReflectionSpacing
         {
@@ -230,7 +231,7 @@
         }
 
         [DefaultValue(false)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
         public bool Shadow
         {
@@ -246,7 +247,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ShadowColor
         {
@@ -262,7 +263,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Direction)]
         public int ShadowDirection
         {
@@ -278,7 +279,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Point)]
         public Point ShadowLocation
         {
@@ -294,7 +295,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Opacity)]
         public int ShadowOpacity
         {

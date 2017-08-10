@@ -9,6 +9,7 @@
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
+    using VisualPlus.Localization.Category;
     using VisualPlus.Toolkit.ActionList;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -130,7 +131,7 @@
         #region Properties
 
         [DefaultValue(true)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         public bool AlternateColors
         {
             get
@@ -283,7 +284,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ItemAlternate
         {
@@ -315,7 +316,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ItemNormal
         {
@@ -345,7 +346,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ItemSelected
         {

@@ -9,6 +9,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.EventArgs;
+    using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.VisualBase;
@@ -49,7 +50,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient Line
         {
             get
@@ -64,7 +65,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Orientation)]
         public Orientation Orientation
         {
@@ -103,7 +104,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         public Gradient Shadow
         {
             get
@@ -118,7 +119,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool ShadowVisible
         {
@@ -141,7 +142,7 @@
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            
+
             Graphics graphics = e.Graphics;
             e.Graphics.Clear(Parent.BackColor);
             e.Graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, Width + 1, Height + 1));

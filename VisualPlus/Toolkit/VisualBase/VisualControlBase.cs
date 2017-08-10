@@ -12,6 +12,7 @@
     using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
+    using VisualPlus.Localization.Category;
     using VisualPlus.Structure;
 
     #endregion
@@ -51,11 +52,11 @@
             ControlBorder = new Border();
         }
 
-        [Category(Localization.Category.Event.Mouse)]
+        [Category(Event.Mouse)]
         [Description("Occours when the MouseState of the control has changed.")]
         public event MouseStateChangedEventHandler MouseStateChanged;
 
-        [Category(Localization.Category.Event.PropertyChanged)]
+        [Category(Event.PropertyChanged)]
         [Description("Occours when the TextRenderingHint property has changed.")]
         public event TextRenderingChangedEventHandler TextRenderingHintChanged;
 
@@ -63,11 +64,11 @@
 
         #region Properties
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.AutoSize)]
         public new bool AutoSize { get; set; }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.MouseState)]
         public MouseStates MouseState
         {
@@ -83,7 +84,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Strings.TextRenderingHint)]
         public TextRenderingHint TextRenderingHint
         {

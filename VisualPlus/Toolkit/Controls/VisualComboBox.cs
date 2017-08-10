@@ -15,6 +15,7 @@
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
+    using VisualPlus.Toolkit.Components;
 
     #endregion
 

@@ -12,9 +12,12 @@
     using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
-    using VisualPlus.Managers;
+    using VisualPlus.Localization.Category;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
+
+    using Property = VisualPlus.Localization.Descriptions.Property;
 
     #endregion
 
@@ -43,19 +46,19 @@
             _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
         }
 
-        [Category(Localization.Category.Event.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Event.Appearance)]
+        [Description(Property.Description.Common.Color)]
         public event BackgroundChangedEventHandler BackgroundChanged;
 
-        [Category(Localization.Category.Event.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Event.Appearance)]
+        [Description(Property.Description.Common.Color)]
         public event BackgroundChangedEventHandler BackgroundDisabledChanged;
 
-        [Category(Localization.Category.Event.PropertyChanged)]
+        [Category(Event.PropertyChanged)]
         [Description("Occours when the ForeColorDisabled property for the control has changed.")]
         public event ForeColorDisabledChangedEventHandler ForeColorDisabledChanged;
 
-        [Category(Localization.Category.Event.PropertyChanged)]
+        [Category(Event.PropertyChanged)]
         [Description("Occours when the theme changed for the control.")]
         public event ThemeChangedEventHandler ThemeChanged;
 
@@ -64,7 +67,7 @@
         #region Properties
 
         [Category(Localization.Category.Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Description.Common.Color)]
         public Color Background
         {
             get
@@ -81,7 +84,7 @@
         }
 
         [Category(Localization.Category.Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Description.Common.Color)]
         public Color BackgroundDisabled
         {
             get
@@ -98,7 +101,7 @@
         }
 
         [Category(Localization.Category.Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Description.Common.Color)]
         public Color ForeColorDisabled
         {
             get

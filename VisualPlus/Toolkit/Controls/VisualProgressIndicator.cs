@@ -9,6 +9,7 @@
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
+    using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -59,7 +60,7 @@
 
         #region Properties
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color AnimationColor
         {
@@ -74,7 +75,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.AnimationSpeed)]
         public int AnimationSpeed
         {
@@ -89,7 +90,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color BaseColor
         {
@@ -105,7 +106,7 @@
         }
 
         [DefaultValue(45F)]
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Amount)]
         public float Circles
         {
@@ -122,7 +123,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public Size CircleSize
         {
@@ -139,7 +140,7 @@
         }
 
         [DefaultValue(7.5F)]
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Diameter)]
         public float Diameter
         {

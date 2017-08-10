@@ -11,7 +11,11 @@
     using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
+    using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
+    using VisualPlus.Toolkit.Components;
+
+    using Property = VisualPlus.Localization.Descriptions.Property;
 
     #endregion
 
@@ -47,23 +51,23 @@
             visible = true;
         }
 
-        [Category(Localization.Category.Event.PropertyChanged)]
+        [Category(Event.PropertyChanged)]
         [Description("Occours when the color has been changed.")]
         public event BorderColorChangedEventHandler ColorChanged;
 
-        [Category(Localization.Category.Event.PropertyChanged)]
+        [Category(Event.PropertyChanged)]
         [Description("Occours when the border rounding has been changed.")]
         public event BorderRoundingChangedEventHandler RoundingChanged;
 
-        [Category(Localization.Category.Event.PropertyChanged)]
+        [Category(Event.PropertyChanged)]
         [Description("Occours when the border thickness changed.")]
         public event BorderThicknessChangedEventHandler ThicknessChanged;
 
-        [Category(Localization.Category.Event.PropertyChanged)]
+        [Category(Event.PropertyChanged)]
         [Description("Occours when the border type changed.")]
         public event BorderTypeChangedEventHandler TypeChanged;
 
-        [Category(Localization.Category.Event.PropertyChanged)]
+        [Category(Event.PropertyChanged)]
         [Description("Occours when the border visible changed.")]
         public event BorderVisibleChangedEventHandler VisibleChanged;
 
@@ -73,7 +77,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Description.Common.Color)]
         public Color Color
         {
             get
@@ -90,7 +94,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Border.Rounding)]
+        [Description(Property.Description.Border.Rounding)]
         public int Rounding
         {
             get
@@ -110,7 +114,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Border.Thickness)]
+        [Description(Property.Description.Border.Thickness)]
         public int Thickness
         {
             get
@@ -130,7 +134,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Border.Shape)]
+        [Description(Property.Description.Border.Shape)]
         public ShapeType Type
         {
             get
@@ -147,7 +151,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Description.Common.Visible)]
         public bool Visible
         {
             get

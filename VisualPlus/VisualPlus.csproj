@@ -87,7 +87,7 @@
     <Compile Include="Extensibility\GraphicsPathExtension.cs" />
     <Compile Include="Extensibility\PointExtension.cs" />
     <Compile Include="Extensibility\RectangleExtension.cs" />
-    <Compile Include="Managers\StyleManager.cs" />
+    <Compile Include="Toolkit\Components\StyleManager.cs" />
     <Compile Include="Toolkit\Components\Badge.cs">
       <SubType>Component</SubType>
     </Compile>

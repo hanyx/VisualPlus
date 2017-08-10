@@ -847,10 +847,7 @@
 
             graphics.SetClip(ControlGraphicsPath);
 
-
             graphics.FillPath(new SolidBrush(_buttonColor), buttonPath);
-
-
 
             VisualBorderRenderer.DrawBorderStyle(graphics, ControlBorder, MouseState, buttonPath);
             Size textSize = GDI.MeasureText(graphics, _buttontext, _buttonFont);

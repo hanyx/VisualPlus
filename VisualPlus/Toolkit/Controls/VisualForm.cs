@@ -12,13 +12,17 @@
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
     using VisualPlus.Properties;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
+
+    using Property = VisualPlus.Localization.Descriptions.Property;
 
     #endregion
 
@@ -116,6 +120,10 @@
             MouseMessageFilter.MouseMove += OnGlobalMouseMove;
         }
 
+        [Category(Event.Appearance)]
+        [Description(Property.Description.Common.Color)]
+        public event BackgroundChangedEventHandler BackgroundChanged;
+
         public enum ButtonState
         {
             /// <summary>The x over.</summary>
@@ -144,8 +152,8 @@
 
         #region Properties
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Property.Description.Common.Color)]
         public Color Background
         {
             get
@@ -156,13 +164,14 @@
             set
             {
                 _background = value;
+                OnBackgroundChanged(new ColorEventArgs(_background));
                 Invalidate();
             }
         }
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public Border Border
         {
             get
@@ -177,8 +186,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Property.Description.Common.Color)]
         public Color ButtonBackHoverColor
         {
             get
@@ -193,8 +202,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Property.Description.Common.Color)]
         public Color ButtonBackPressedColor
         {
             get
@@ -209,8 +218,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Property.Description.Common.Color)]
         public Color ButtonCloseColor
         {
             get
@@ -225,8 +234,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Property.Description.Common.Color)]
         public Color ButtonMaximizeColor
         {
             get
@@ -241,8 +250,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Property.Description.Common.Color)]
         public Color ButtonMinimizeColor
         {
             get
@@ -257,8 +266,8 @@
             }
         }
 
-        [Category(Property.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Property.Description.Common.Size)]
         public Size ButtonSize
         {
             get
@@ -290,7 +299,7 @@
 
         [TypeConverter(typeof(VisualBitmapConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Localization.Category.Property.Appearance)]
         public VisualBitmap Image
         {
             get
@@ -306,7 +315,7 @@
         }
 
         [DefaultValue(true)]
-        [Category(Property.Behavior)]
+        [Category(Localization.Category.Property.Behavior)]
         [Description("Snap window snaps toggles snapping to screen edges.")]
         public bool Magnetic
         {
@@ -322,7 +331,7 @@
         }
 
         [DefaultValue(100)]
-        [Category(Property.Behavior)]
+        [Category(Localization.Category.Property.Behavior)]
         [Description("The snap radius determines the distance to trigger the snap.")]
         public int MagneticRadius
         {
@@ -337,8 +346,8 @@
             }
         }
 
-        [Category(Property.WindowStyle)]
-        [Description(Localization.Descriptions.Property.ShowIcon)]
+        [Category(Localization.Category.Property.WindowStyle)]
+        [Description(Property.ShowIcon)]
         public new bool ShowIcon
         {
             get
@@ -354,8 +363,8 @@
 
         public bool Sizable { get; set; }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.MouseState)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Property.Description.Common.MouseState)]
         public MouseStates State
         {
             get
@@ -370,8 +379,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Alignment)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Property.Description.Common.Alignment)]
         public Alignment.TextAlignment TitleAlignment
         {
             get
@@ -386,8 +395,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Localization.Category.Property.Appearance)]
+        [Description(Property.Description.Common.Color)]
         public Color WindowBarColor
         {
             get
@@ -402,8 +411,8 @@
             }
         }
 
-        [Category(Property.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Category(Localization.Category.Property.Layout)]
+        [Description(Property.Description.Common.Size)]
         public int WindowBarHeight
         {
             get
@@ -442,6 +451,22 @@
         public const int WM_MOUSEMOVE = 0x0200;
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int WM_RBUTTONDOWN = 0x0204;
+
+        protected virtual void OnBackgroundChanged(ColorEventArgs e)
+        {
+            GDI.ApplyContainerBackColorChange(this, Background);
+            BackgroundChanged?.Invoke(e);
+        }
+
+        protected override void OnControlAdded(ControlEventArgs e)
+        {
+            GDI.SetControlBackColor(e.Control, Background, false);
+        }
+
+        protected override void OnControlRemoved(ControlEventArgs e)
+        {
+            GDI.SetControlBackColor(e.Control, Background, true);
+        }
 
         protected override void OnEnter(EventArgs e)
         {

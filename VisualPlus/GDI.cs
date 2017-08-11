@@ -10,6 +10,7 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Controls;
 
     #endregion
 
@@ -63,6 +64,20 @@
 
             Rectangle anchoredRectangle = new Rectangle(anchoredLocation, anchoredSize);
             return anchoredRectangle;
+        }
+
+        /// <summary>Apply BackColor change on the container and it's child controls.</summary>
+        /// <param name="container">The container control.</param>
+        /// <param name="backgroundColor">The container backgroundColor.</param>
+        public static void ApplyContainerBackColorChange(Control container, Color backgroundColor)
+        {
+            foreach (object control in container.Controls)
+            {
+                if (control != null)
+                {
+                    ((Control)control).BackColor = backgroundColor;
+                }
+            }
         }
 
         /// <summary>Draws the text image relation.</summary>
@@ -441,6 +456,32 @@
             return textSize;
         }
 
+        /// <summary>Set's the container controls BackColor.</summary>
+        /// <param name="control">Current control.</param>
+        /// <param name="backgroundColor">Container background color.</param>
+        /// <param name="onControlRemoved">Control removed?</param>
+        public static void SetControlBackColor(Control control, Color backgroundColor, bool onControlRemoved)
+        {
+            Color backColor;
+
+            if (onControlRemoved)
+            {
+                backColor = Color.Transparent;
+
+                // Bug: The Control doesn't support transparent background
+                if (control is VisualProgressIndicator)
+                {
+                    backColor = SystemColors.Control;
+                }
+            }
+            else
+            {
+                backColor = backgroundColor;
+            }
+
+            control.BackColor = backColor;
+        }
+
         /// <summary>Checks if the text is larger than the rectangle.</summary>
         /// <param name="text">The text.</param>
         /// <param name="rectangle">The rectangle.</param>
@@ -535,7 +576,7 @@
         /// <param name="rectangle">The rectangle.</param>
         /// <param name="curve">The curve.</param>
         /// <returns>The <see cref="GraphicsPath" />.</returns>
-        private GraphicsPath RoundForm(Rectangle rectangle, int curve)
+        internal static GraphicsPath RoundForm(Rectangle rectangle, int curve)
         {
             GraphicsPath _graphicsPath = new GraphicsPath();
             _graphicsPath.StartFigure();

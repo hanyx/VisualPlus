@@ -531,6 +531,24 @@
             return Gradient.CreateGradientBrush(tempGradient.Colors, gradientPoints, tempGradient.Angle, tempGradient.Positions);
         }
 
+        /// <summary>Draws the rounded rectangle from a rectangle shape.</summary>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="curve">The curve.</param>
+        /// <returns>The <see cref="GraphicsPath" />.</returns>
+        private GraphicsPath RoundForm(Rectangle rectangle, int curve)
+        {
+            GraphicsPath _graphicsPath = new GraphicsPath();
+            _graphicsPath.StartFigure();
+            _graphicsPath.AddArc(rectangle.X, rectangle.Y, curve, curve, 180F, 90F);
+            _graphicsPath.AddLine(curve, rectangle.Y, rectangle.Width - curve, 90F);
+            _graphicsPath.AddArc(rectangle.Width - curve, rectangle.Y, curve, curve, 270F, 90F);
+            _graphicsPath.AddLine(rectangle.Width, curve, rectangle.Width, rectangle.Height - curve);
+            _graphicsPath.AddArc(rectangle.Width - curve, rectangle.Height - curve, curve, curve, 90F, 90F);
+            _graphicsPath.AddLine(rectangle.Width - curve, rectangle.Height, curve, rectangle.Height);
+            _graphicsPath.AddArc(rectangle.X, rectangle.Height - curve, curve, curve, 90F, 90F);
+            return _graphicsPath;
+        }
+
         #endregion
     }
 }

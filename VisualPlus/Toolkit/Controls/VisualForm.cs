@@ -43,6 +43,8 @@
             };
 
         private readonly Cursor[] resizeCursors = { Cursors.SizeNESW, Cursors.SizeWE, Cursors.SizeNWSE, Cursors.SizeWE, Cursors.SizeNS };
+
+        private Color _background;
         private bool _magnetic;
 
         private int _magneticRadius;
@@ -91,8 +93,12 @@
 
             windowBarColor = _styleManager.ControlStyle.Background(0);
 
+            _background = _styleManager.ControlStyle.Background(3);
             _magneticRadius = 100;
             _magnetic = true;
+
+            TransparencyKey = Color.Fuchsia;
+            DoubleBuffered = true;
 
             // Padding-Left: 5 for icon
             Padding = new Padding(5, 0, 0, 0);
@@ -137,6 +143,22 @@
         #endregion
 
         #region Properties
+
+        [Category(Property.Appearance)]
+        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        public Color Background
+        {
+            get
+            {
+                return _background;
+            }
+
+            set
+            {
+                _background = value;
+                Invalidate();
+            }
+        }
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
@@ -421,6 +443,30 @@
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int WM_RBUTTONDOWN = 0x0204;
 
+        protected override void OnEnter(EventArgs e)
+        {
+            base.OnEnter(e);
+            State = MouseStates.Hover;
+        }
+
+        protected override void OnGotFocus(EventArgs e)
+        {
+            base.OnGotFocus(e);
+            State = MouseStates.Hover;
+        }
+
+        protected override void OnLeave(EventArgs e)
+        {
+            base.OnLeave(e);
+            State = MouseStates.Normal;
+        }
+
+        protected override void OnLostFocus(EventArgs e)
+        {
+            base.OnLostFocus(e);
+            State = MouseStates.Normal;
+        }
+
         protected override void OnMouseDown(MouseEventArgs e)
         {
             if (DesignMode)
@@ -438,12 +484,6 @@
             base.OnMouseDown(e);
         }
 
-        protected override void OnMouseEnter(EventArgs e)
-        {
-            State = MouseStates.Hover;
-            Invalidate();
-        }
-
         protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
@@ -453,9 +493,11 @@
                 return;
             }
 
-            buttonState = ButtonState.None;
-            State = MouseStates.Normal;
-            Invalidate();
+            if (buttonState != ButtonState.None)
+            {
+                buttonState = ButtonState.None;
+                Invalidate();
+            }
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -527,9 +569,18 @@
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            base.OnPaint(e);
+
             Graphics graphics = e.Graphics;
             graphics.Clear(BackColor);
+            graphics.SmoothingMode = SmoothingMode.Default;
             graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+
+            Rectangle _rectangle = new Rectangle(ClientRectangle.Location, new Size(ClientRectangle.Width - 1, ClientRectangle.Height));
+            GraphicsPath clientRectangle = VisualBorderRenderer.GetBorderShape(_rectangle, Border);
+
+            graphics.SetClip(clientRectangle);
+            graphics.FillPath(new SolidBrush(_background), clientRectangle);
 
             // Title box
             graphics.FillRectangle(new SolidBrush(windowBarColor), statusBarBounds);
@@ -537,46 +588,45 @@
             DrawButtons(graphics);
             DrawIcon(graphics);
             DrawTitle(graphics);
+
+            graphics.ResetClip();
             DrawBorder(graphics);
         }
 
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-
             minButtonBounds = new Rectangle(Width - Padding.Right - (3 * buttonSize.Width), (Padding.Top + (windowBarHeight / 2)) - (buttonSize.Height / 2), buttonSize.Width, buttonSize.Height);
-
             maxButtonBounds = new Rectangle(Width - Padding.Right - (2 * buttonSize.Width), (Padding.Top + (windowBarHeight / 2)) - (buttonSize.Height / 2), buttonSize.Width, buttonSize.Height);
-
             xButtonBounds = new Rectangle(Width - Padding.Right - buttonSize.Width, (Padding.Top + (windowBarHeight / 2)) - (buttonSize.Height / 2), buttonSize.Width, buttonSize.Height);
-
             statusBarBounds = new Rectangle(0, 0, Width, windowBarHeight);
         }
 
         protected override void OnResizeEnd(EventArgs e)
         {
             base.OnResizeEnd(e);
+
             if (_magnetic)
             {
-                Screen scn = Screen.FromPoint(Location);
-                if (DoSnap(Left, scn.WorkingArea.Left))
+                Screen _screen = Screen.FromPoint(Location);
+                if (DoSnap(Left, _screen.WorkingArea.Left))
                 {
-                    Left = scn.WorkingArea.Left;
+                    Left = _screen.WorkingArea.Left;
                 }
 
-                if (DoSnap(Top, scn.WorkingArea.Top))
+                if (DoSnap(Top, _screen.WorkingArea.Top))
                 {
-                    Top = scn.WorkingArea.Top;
+                    Top = _screen.WorkingArea.Top;
                 }
 
-                if (DoSnap(scn.WorkingArea.Right, Right))
+                if (DoSnap(_screen.WorkingArea.Right, Right))
                 {
-                    Left = scn.WorkingArea.Right - Width;
+                    Left = _screen.WorkingArea.Right - Width;
                 }
 
-                if (DoSnap(scn.WorkingArea.Bottom, Bottom))
+                if (DoSnap(_screen.WorkingArea.Bottom, Bottom))
                 {
-                    Top = scn.WorkingArea.Bottom - Height;
+                    Top = _screen.WorkingArea.Bottom - Height;
                 }
             }
         }
@@ -696,20 +746,20 @@
         private const int WS_MINIMIZEBOX = 0x20000;
         private const int WS_SYSMENU = 0x00080000;
 
-        private bool DoSnap(int pos, int edge)
+        /// <summary>Snap the position to edge.</summary>
+        /// <param name="position">The position.</param>
+        /// <param name="edge">The edge.</param>
+        /// <returns>Does a snap.</returns>
+        private bool DoSnap(int position, int edge)
         {
-            int delta = pos - edge;
-            return (delta > 0) && (delta <= _magneticRadius);
+            return (position - edge > 0) && (position - edge <= _magneticRadius);
         }
 
         private void DrawBorder(Graphics graphics)
         {
-            GraphicsPath clientRectangle = new GraphicsPath();
-
-            Rectangle rect = new Rectangle(ClientRectangle.Location, new Size(ClientRectangle.Width - 1, ClientRectangle.Height - 1));
-
-            clientRectangle.AddRectangle(rect);
-            VisualBorderRenderer.DrawBorderStyle(graphics, border, State, clientRectangle);
+            Rectangle _rectangle = new Rectangle(ClientRectangle.Location, new Size(ClientRectangle.Width - 1, ClientRectangle.Height - 1));
+            GraphicsPath _rectangleClient = VisualBorderRenderer.GetBorderShape(_rectangle, Border);
+            VisualBorderRenderer.DrawBorderStyle(graphics, border, State, _rectangleClient);
         }
 
         private void DrawButtons(Graphics graphics)
@@ -1013,7 +1063,9 @@
 
             if (oldState != buttonState)
             {
-                Invalidate();
+                Invalidate(maxButtonBounds);
+                Invalidate(minButtonBounds);
+                Invalidate(xButtonBounds);
             }
         }
 

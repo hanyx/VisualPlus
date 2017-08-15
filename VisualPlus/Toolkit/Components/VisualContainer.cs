@@ -10,57 +10,82 @@
 
     #endregion
 
-    /// <summary>The visualContainer component.</summary>
     [ToolboxItem(false)]
     [Description("The Visual Container Component")]
-    public sealed partial class VisualContainer : ToolStripDropDown
+    public class VisualContainer : ToolStripDropDown
     {
         #region Variables
 
-        private ToolStripControlHost _controlHost;
-        private bool _fade = true;
+        private bool _fade;
+        private int _frames;
+        private int _totalDuration;
         private Control _userControl;
 
         #endregion
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualContainer" /> class.</summary>
+        /// <param name="contextControl">The context control to display.</param>
         public VisualContainer(Control contextControl)
         {
-            if (contextControl == null)
-            {
-                throw new ArgumentNullException("No context control to load." + nameof(contextControl));
-            }
-
-            _userControl = contextControl;
+            _userControl = contextControl ?? throw new ArgumentNullException("No context control to load." + nameof(contextControl));
 
             _fade = SystemInformation.IsMenuAnimationEnabled && SystemInformation.IsMenuFadeEnabled;
+            _frames = 5;
+            _totalDuration = 100;
 
-            // Setup control
-            _controlHost = new ToolStripControlHost(contextControl)
+            ToolStripControlHost controlHost = new ToolStripControlHost(contextControl)
                 {
                     AutoSize = false
                 };
 
-            Padding = Margin = _controlHost.Padding = _controlHost.Margin = Padding.Empty;
-
+            Padding = Margin = controlHost.Padding = controlHost.Margin = Padding.Empty;
             contextControl.Location = Point.Empty;
-
-            Items.Add(_controlHost);
-
+            Items.Add(controlHost);
             contextControl.Disposed += delegate
                 {
                     contextControl = null;
-
-                    // Disposes after close.
                     Dispose(true);
                 };
         }
 
         #endregion
 
+        #region Properties
+
+        public int Frames
+        {
+            get
+            {
+                return _frames;
+            }
+
+            set
+            {
+                _frames = value;
+            }
+        }
+
+        public int TotalDuration
+        {
+            get
+            {
+                return _totalDuration;
+            }
+
+            set
+            {
+                _totalDuration = value;
+            }
+        }
+
+        #endregion
+
         #region Events
 
+        /// <summary>Displays a VisualContainer as a context menu of the control.</summary>
+        /// <param name="control">The control.</param>
         public void Show(Control control)
         {
             if (control == null)
@@ -71,6 +96,9 @@
             Show(control, control.ClientRectangle);
         }
 
+        /// <summary>Displays a VisualContainer as a context menu of the control.</summary>
+        /// <param name="form">The form.</param>
+        /// <param name="point">The point.</param>
         public void Show(Form form, Point point)
         {
             Show(form, new Rectangle(point, new Size(0, 0)));
@@ -79,7 +107,6 @@
         protected override void OnOpened(EventArgs e)
         {
             _userControl.Focus();
-
             base.OnOpened(e);
         }
 
@@ -94,12 +121,16 @@
             base.OnOpening(e);
         }
 
+        /// <summary>Prevent ALT from closing it and allow ALT + MNEMONIC to work.</summary>
+        /// <param name="keyData">The key data.</param>
+        /// <returns>Processed Dialog Key.</returns>
         protected override bool ProcessDialogKey(Keys keyData)
         {
-            // Prevent ALT from closing it and allow ALT + MNEMONIC to work
             return ((keyData & Keys.Alt) != Keys.Alt) && base.ProcessDialogKey(keyData);
         }
 
+        /// <summary>Set the visible core toggle.</summary>
+        /// <param name="visible">The visible.</param>
         protected override void SetVisibleCore(bool visible)
         {
             double opacity = Opacity;
@@ -118,7 +149,8 @@
             {
                 if (i > 1)
                 {
-                    Thread.Sleep(_frameDuration);
+                    // The frame duration to sleep.
+                    Thread.Sleep(_totalDuration / _frames);
                 }
 
                 Opacity = (opacity * i) / _frames;
@@ -127,10 +159,9 @@
             Opacity = opacity;
         }
 
-        private const int _frameDuration = _totalDuration / _frames;
-        private const int _frames = 5;
-        private const int _totalDuration = 100;
-
+        /// <summary>Displays a VisualContainer as a context menu of the control.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="area">The area.</param>
         private void Show(Control control, Rectangle area)
         {
             if (control == null)
@@ -139,7 +170,6 @@
             }
 
             Point location = control.PointToScreen(new Point(area.Left, area.Top + area.Height));
-
             Rectangle screen = Screen.FromControl(control).WorkingArea;
 
             if (location.X + Size.Width > screen.Left + screen.Width)

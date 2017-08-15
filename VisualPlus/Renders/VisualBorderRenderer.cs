@@ -63,6 +63,11 @@
                 {
                     DrawBorder(graphics, borderPath, border.Thickness, border.HoverColor);
                 }
+                else if ((mouseState == MouseStates.Down) && border.HoverVisible)
+                {
+                    // TODO: Create 'Down' border color.
+                    DrawBorder(graphics, borderPath, border.Thickness, border.HoverVisible ? border.HoverColor : border.Color);
+                }
                 else
                 {
                     DrawBorder(graphics, borderPath, border.Thickness, border.Color);

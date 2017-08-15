@@ -27,13 +27,9 @@
 
         /// <summary>Initializes a new instance of the <see cref="VisualContainer" /> class.</summary>
         /// <param name="contextControl">The context control to display.</param>
-        public VisualContainer(Control contextControl)
+        public VisualContainer(Control contextControl) : this()
         {
             _userControl = contextControl ?? throw new ArgumentNullException("No context control to load." + nameof(contextControl));
-
-            _fade = SystemInformation.IsMenuAnimationEnabled && SystemInformation.IsMenuFadeEnabled;
-            _frames = 5;
-            _totalDuration = 100;
 
             ToolStripControlHost controlHost = new ToolStripControlHost(contextControl)
                 {
@@ -48,6 +44,14 @@
                     contextControl = null;
                     Dispose(true);
                 };
+        }
+
+        /// <summary>Prevents a default instance of the <see cref="VisualContainer" /> class from being created.</summary>
+        private VisualContainer()
+        {
+            _fade = SystemInformation.IsMenuAnimationEnabled && SystemInformation.IsMenuFadeEnabled;
+            _frames = 5;
+            _totalDuration = 100;
         }
 
         #endregion

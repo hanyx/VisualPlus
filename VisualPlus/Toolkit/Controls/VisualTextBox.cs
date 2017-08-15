@@ -362,6 +362,24 @@
             }
         }
 
+        [DefaultValue(32767)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [Category(Property.Behavior)]
+        [Description(Localization.Descriptions.Property.MaxLength)]
+        public int MaxLength
+        {
+            get
+            {
+                return _textBox.MaxLength;
+            }
+
+            set
+            {
+                _textBox.MaxLength = value;
+            }
+        }
+
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(false)]
         [Description("Gets whether the mouse is on the button.")]
@@ -384,6 +402,24 @@
             }
         }
 
+        [DefaultValue('*')]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [Category(Property.Behavior)]
+        [Description(Localization.Descriptions.Property.PasswordChar)]
+        public char PasswordChar
+        {
+            get
+            {
+                return _textBox.PasswordChar;
+            }
+
+            set
+            {
+                _textBox.PasswordChar = value;
+            }
+        }
+
         [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.ReadOnly)]
         public bool ReadOnly
@@ -396,24 +432,6 @@
             set
             {
                 _textBox.ReadOnly = value;
-            }
-        }
-
-        [DefaultValue(typeof(HorizontalAlignment), "Left")]
-        [EditorBrowsable(EditorBrowsableState.Always)]
-        [Browsable(true)]
-        [Category(Property.Behavior)]
-        [Description(Localization.Descriptions.Property.TextAlign)]
-        public HorizontalAlignment TexAlignment
-        {
-            get
-            {
-                return _textBox.TextAlign;
-            }
-
-            set
-            {
-                _textBox.TextAlign = value;
             }
         }
 
@@ -457,6 +475,24 @@
             }
         }
 
+        [DefaultValue(typeof(HorizontalAlignment), "Left")]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [Category(Property.Behavior)]
+        [Description(Localization.Descriptions.Property.TextAlign)]
+        public HorizontalAlignment TextAlign
+        {
+            get
+            {
+                return _textBox.TextAlign;
+            }
+
+            set
+            {
+                _textBox.TextAlign = value;
+            }
+        }
+
         [DefaultValue(125)]
         [Category(Property.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
@@ -472,6 +508,24 @@
                 _textBox.Width = value;
                 _textWidth = value;
                 Invalidate();
+            }
+        }
+
+        [DefaultValue(false)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [Category(Property.Behavior)]
+        [Description(Localization.Descriptions.Property.UseSystemPasswordChar)]
+        public bool UseSystemPasswordChar
+        {
+            get
+            {
+                return _textBox.UseSystemPasswordChar;
+            }
+
+            set
+            {
+                _textBox.UseSystemPasswordChar = value;
             }
         }
 

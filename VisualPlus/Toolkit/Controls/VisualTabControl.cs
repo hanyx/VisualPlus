@@ -665,7 +665,14 @@
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            Graphics graphics = GDI.Initialize(e, CompositingMode.SourceOver, CompositingQuality.Default, InterpolationMode.Default, PixelOffsetMode.Default, SmoothingMode.HighQuality, textRendererHint);
+            Graphics graphics = e.Graphics;
+            graphics.CompositingMode = CompositingMode.SourceOver;
+            graphics.CompositingQuality = CompositingQuality.Default;
+            graphics.InterpolationMode = InterpolationMode.Default;
+            graphics.PixelOffsetMode = PixelOffsetMode.Default;
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+            graphics.TextRenderingHint = textRendererHint;
+
             graphics.Clear(Parent.BackColor);
 
             // Draw tab selector background body

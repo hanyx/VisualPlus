@@ -647,9 +647,9 @@
                 {
                     case DropDownButtons.Arrow:
                         {
-                            buttonImageSize = new Size(25, 25);
+                            buttonImageSize = new Size(10, 8);
                             buttonImagePoint = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - (buttonImageSize.Height / 2));
-                            Arrow.DrawArrow(graphics, buttonImagePoint, buttonImageSize, buttonColor, 13);
+                            GDI.DrawTriangle(graphics, new Rectangle(buttonImagePoint, buttonImageSize), new SolidBrush(buttonColor), false);
                             break;
                         }
 

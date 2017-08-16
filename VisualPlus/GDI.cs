@@ -14,7 +14,7 @@
 
     #endregion
 
-    internal class GDI
+    public sealed class GDI
     {
         #region Events
 
@@ -368,6 +368,42 @@
             }
         }
 
+        /// <summary>Draw a triangle.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="rectangle">The button rectangle.</param>
+        /// <param name="brush">The brush.</param>
+        /// <param name="state">The expanded toggle.</param>
+        /// TODO: Add angle
+        public static void DrawTriangle(Graphics graphics, Rectangle rectangle, Brush brush, bool state)
+        {
+            var points = new Point[3];
+            if (state)
+            {
+                points[0].X = rectangle.X + (rectangle.Width / 2);
+                points[0].Y = rectangle.Y;
+
+                points[1].X = rectangle.X;
+                points[1].Y = rectangle.Y + rectangle.Height;
+
+                points[2].X = rectangle.X + rectangle.Width;
+                points[2].Y = rectangle.Y + rectangle.Height;
+            }
+            else
+            {
+                points[0].X = rectangle.X;
+                points[0].Y = rectangle.Y;
+
+                points[1].X = rectangle.X + rectangle.Width;
+                points[1].Y = rectangle.Y;
+
+                points[2].X = rectangle.X + (rectangle.Width / 2);
+                points[2].Y = rectangle.Y + rectangle.Height;
+            }
+
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+            graphics.FillPolygon(brush, points);
+        }
+
         /// <summary>Flip the size by orientation.</summary>
         /// <param name="orientation">The orientation.</param>
         /// <param name="size">Current size.</param>
@@ -401,27 +437,6 @@
         public static Point[] GetGradientPoints(Rectangle rectangle)
         {
             return new[] { new Point { X = rectangle.Width, Y = 0 }, new Point { X = rectangle.Width, Y = rectangle.Height } };
-        }
-
-        /// <summary>Initialize the graphics processor.</summary>
-        /// <param name="e">Paint event.</param>
-        /// <param name="compositingMode">Compositing mode.</param>
-        /// <param name="compositingQuality">Compositing quality.</param>
-        /// <param name="interpolationMode">Interpolation mode.</param>
-        /// <param name="pixelOffsetMode">Pixel offset mode.</param>
-        /// <param name="smoothingMode">Smoothing mode.</param>
-        /// <param name="textRenderingHint">Text rendering hint.</param>
-        /// <returns>Processed graphics.</returns>
-        public static Graphics Initialize(PaintEventArgs e, CompositingMode compositingMode, CompositingQuality compositingQuality, InterpolationMode interpolationMode, PixelOffsetMode pixelOffsetMode, SmoothingMode smoothingMode, TextRenderingHint textRenderingHint)
-        {
-            Graphics graphics = e.Graphics;
-            graphics.CompositingMode = compositingMode;
-            graphics.CompositingQuality = compositingQuality;
-            graphics.InterpolationMode = interpolationMode;
-            graphics.PixelOffsetMode = pixelOffsetMode;
-            graphics.SmoothingMode = smoothingMode;
-            graphics.TextRenderingHint = textRenderingHint;
-            return graphics;
         }
 
         /// <summary>Checks whether the mouse is inside the bounds.</summary>

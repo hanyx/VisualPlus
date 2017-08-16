@@ -814,7 +814,14 @@
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            Graphics graphics = GDI.Initialize(e, CompositingMode.SourceOver, CompositingQuality.Default, InterpolationMode.Default, PixelOffsetMode.Default, SmoothingMode.HighQuality, TextRenderingHint.AntiAliasGridFit);
+            Graphics graphics = e.Graphics;
+            graphics.CompositingMode = CompositingMode.SourceOver;
+            graphics.CompositingQuality = CompositingQuality.Default;
+            graphics.InterpolationMode = InterpolationMode.Default;
+            graphics.PixelOffsetMode = PixelOffsetMode.Default;
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+            graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
+
             offGraphics = graphics;
             offGraphics.Clear(BackColor);
 

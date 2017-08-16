@@ -282,7 +282,6 @@
                 case ShapeType.Triangle:
                     {
                         Rectangle triangleRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
-
                         var points = new Point[3];
 
                         points[0].X = triangleRectangle.X + (triangleRectangle.Width / 2);
@@ -297,7 +296,6 @@
                         graphics.FillPolygon(gradientBrush, points);
 
                         controlGraphicsPath.AddPolygon(points);
-
                         break;
                     }
             }

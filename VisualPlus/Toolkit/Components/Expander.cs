@@ -6,7 +6,6 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Drawing;
-    using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
     using VisualPlus.Localization.Category;
@@ -100,32 +99,7 @@
         /// <param name="state">The expanded toggle.</param>
         public static void Draw(Graphics graphics, Rectangle rectangle, Color color, bool state)
         {
-            var points = new Point[3];
-            if (state)
-            {
-                points[0].X = rectangle.X + (rectangle.Width / 2);
-                points[0].Y = rectangle.Y;
-
-                points[1].X = rectangle.X;
-                points[1].Y = rectangle.Y + rectangle.Height;
-
-                points[2].X = rectangle.X + rectangle.Width;
-                points[2].Y = rectangle.Y + rectangle.Height;
-            }
-            else
-            {
-                points[0].X = rectangle.X;
-                points[0].Y = rectangle.Y;
-
-                points[1].X = rectangle.X + rectangle.Width;
-                points[1].Y = rectangle.Y;
-
-                points[2].X = rectangle.X + (rectangle.Width / 2);
-                points[2].Y = rectangle.Y + rectangle.Height;
-            }
-
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.FillPolygon(new SolidBrush(color), points);
+            GDI.DrawTriangle(graphics, rectangle, new SolidBrush(color), state);
         }
 
         /// <summary>Gets the back color from the expander.</summary>

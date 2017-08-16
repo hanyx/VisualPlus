@@ -33,10 +33,23 @@
 
         /// <summary>Initializes a new instance of the <see cref="Drag" /> class.</summary>
         /// <param name="control">The control to attach.</param>
-        public Drag(Control control)
+        public Drag(Control control) : this()
         {
-            _cursorMove = _default;
             _control = control;
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="Drag" /> class.</summary>
+        /// <param name="control">The control to attach.</param>
+        /// <param name="enabled">Dragging enabled state.</param>
+        public Drag(Control control, bool enabled) : this()
+        {
+            _control = control;
+            _enabled = enabled;
+
+            if (_enabled)
+            {
+                AttachEvents();
+            }
         }
 
         /// <summary>Initializes a new instance of the <see cref="Drag" /> class.</summary>
@@ -48,25 +61,17 @@
             _cursorMove = moveCursor;
             _control = control;
             _enabled = enabled;
+
             if (_enabled)
             {
                 AttachEvents();
             }
         }
 
-        /// <summary>Initializes a new instance of the <see cref="Drag" /> class.</summary>
-        /// <param name="control">The control to attach.</param>
-        /// <param name="enabled">Dragging enabled state.</param>
-        public Drag(Control control, bool enabled)
+        /// <summary>Prevents a default instance of the <see cref="Drag" /> class from being created.</summary>
+        private Drag()
         {
             _cursorMove = _default;
-            _control = control;
-            _enabled = enabled;
-
-            if (_enabled)
-            {
-                AttachEvents();
-            }
         }
 
         [Category(Event.DragDrop)]
@@ -144,7 +149,7 @@
 
         #region Events
 
-        /// <summary>Attach the extension events to the control.</summary>
+        /// <summary>Hooks the drag events to the control.</summary>
         public void AttachEvents()
         {
             _control.MouseDown += ControlMouseDown;
@@ -154,7 +159,7 @@
             OnControlDragToggle(new ToggleEventArgs(_enabled));
         }
 
-        /// <summary>Detach the extension events to the control.</summary>
+        /// <summary>Unhooks the drag events from the control.</summary>
         public void DetachEvents()
         {
             _control.MouseDown -= ControlMouseDown;

@@ -29,7 +29,14 @@
         /// <param name="contextControl">The context control to display.</param>
         public VisualContainer(Control contextControl) : this()
         {
-            _userControl = contextControl ?? throw new ArgumentNullException("No context control to load." + nameof(contextControl));
+            if (contextControl != null)
+            {
+                _userControl = contextControl;
+            }
+            else
+            {
+                throw new ArgumentNullException("No context control to load." + nameof(contextControl));
+            }
 
             ToolStripControlHost controlHost = new ToolStripControlHost(contextControl)
                 {

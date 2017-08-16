@@ -39,6 +39,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="Watermark"/> class.</summary>
         public Watermark()
         {
             StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);

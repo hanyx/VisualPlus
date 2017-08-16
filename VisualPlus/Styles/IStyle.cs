@@ -99,7 +99,7 @@
 
         Color BackCircle { get; }
 
-        Gradient Background { get; }
+        Gradient BackProgress { get; }
 
         Color ForeCircle { get; }
 

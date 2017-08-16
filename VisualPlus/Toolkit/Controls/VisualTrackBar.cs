@@ -100,8 +100,8 @@
             Size = new Size(200, 50);
             MinimumSize = new Size(0, 0);
 
-            backgroundGradient = _styleManager.ProgressStyle.Background;
-            trackBarDisabledGradient = _styleManager.ProgressStyle.Background;
+            backgroundGradient = _styleManager.ProgressStyle.BackProgress;
+            trackBarDisabledGradient = _styleManager.ProgressStyle.BackProgress;
             progressGradient = _styleManager.ProgressStyle.Progress;
             buttonGradient = _styleManager.ControlStatesStyle.ControlEnabled;
             hatchBackColor = _styleManager.ProgressStyle.Hatch;

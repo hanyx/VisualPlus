@@ -48,7 +48,6 @@
             _cursorMove = moveCursor;
             _control = control;
             _enabled = enabled;
-
             if (_enabled)
             {
                 AttachEvents();

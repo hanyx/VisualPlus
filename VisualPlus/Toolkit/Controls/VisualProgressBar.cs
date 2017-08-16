@@ -437,8 +437,8 @@
 
         protected override void OnThemeChanged(ThemeEventArgs e)
         {
-            backgroundGradient.Colors = StyleManager.ProgressStyle.Background.Colors;
-            backgroundGradient.Positions = StyleManager.ProgressStyle.Background.Positions;
+            backgroundGradient.Colors = StyleManager.ProgressStyle.BackProgress.Colors;
+            backgroundGradient.Positions = StyleManager.ProgressStyle.BackProgress.Positions;
             hatchBackColor = StyleManager.ProgressStyle.Hatch;
             hatchForeColor = Color.FromArgb(40, hatchBackColor);
             progressGradient.Colors = StyleManager.ProgressStyle.Progress.Colors;

@@ -41,7 +41,7 @@
             }
         }
 
-        public Gradient Background
+        public Gradient BackProgress
         {
             get
             {

@@ -80,7 +80,6 @@
     </Compile>
     <Compile Include="Toolkit\Components\ProgressDialog.cs" />
     <Compile Include="Renders\Bars.cs" />
-    <Compile Include="Renders\Star.cs" />
     <Compile Include="Enumerators\ShapeType.cs" />
     <Compile Include="Extensibility\BitmapExtension.cs" />
     <Compile Include="Extensibility\EnumExtension.cs" />

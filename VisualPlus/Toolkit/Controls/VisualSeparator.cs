@@ -37,10 +37,10 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualSeparator"/> class.</summary>
         public VisualSeparator()
         {
             BackColor = Color.Transparent;
-
             UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
         }
 

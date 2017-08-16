@@ -26,13 +26,13 @@
         #region Variables
 
         private StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
-
         private ToolStripItemClickedEventArgs clickedEventArgs;
 
         #endregion
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualContextMenuStrip" /> class.</summary>
         public VisualContextMenuStrip()
         {
             Renderer = new VisualToolStripRender();
@@ -216,7 +216,6 @@
         private static Color arrowColor;
         private static Color arrowDisabledColor;
         private static bool arrowVisible = Settings.DefaultValue.TextVisible;
-
         private static Color background;
         private static Border border;
         private static Font contextMenuFont;
@@ -246,36 +245,6 @@
         #endregion
 
         #region Methods
-
-        public sealed class VisualToolStripMenuItem : ToolStripMenuItem
-        {
-            #region Constructors
-
-            public VisualToolStripMenuItem()
-            {
-                AutoSize = false;
-                Size = new Size(160, 30);
-                Font = contextMenuFont;
-            }
-
-            #endregion
-
-            #region Events
-
-            protected override ToolStripDropDown CreateDefaultDropDown()
-            {
-                if (DesignMode)
-                {
-                    return base.CreateDefaultDropDown();
-                }
-
-                VisualContextMenuStrip defaultDropDown = new VisualContextMenuStrip();
-                defaultDropDown.Items.AddRange(base.CreateDefaultDropDown().Items);
-                return defaultDropDown;
-            }
-
-            #endregion
-        }
 
         public sealed class VisualToolStripRender : ToolStripProfessionalRenderer
         {

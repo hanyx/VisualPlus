@@ -85,7 +85,9 @@
 
         public VisualForm()
         {
-            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
+            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
+            UpdateStyles();
+
             FormBorderStyle = FormBorderStyle.None;
             Sizable = true;
 

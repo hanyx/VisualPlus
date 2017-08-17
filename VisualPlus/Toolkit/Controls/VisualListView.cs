@@ -31,12 +31,10 @@
         #region Variables
 
         private Border _border;
+        private Color _columnHeaderColor;
 
         private ListView _listView;
         private bool _standardHeader;
-        private Border columnBorder;
-        private Color columnHeaderBackground;
-        private Size columnSize;
         private Font headerFont;
         private Color headerText;
         private Color itemBackground;
@@ -79,14 +77,8 @@
             BackColor = Color.Transparent;
             Size = new Size(250, 150);
 
-            // AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            // AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            columnBorder = new Border
-                {
-                    Type = ShapeType.Rectangle,
-                    HoverVisible = false
-                };
-
+           //  _listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            // _listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             _listView.DrawColumnHeader += ListView_DrawColumnHeader;
             _listView.DrawItem += ListView_DrawItem;
             _listView.DrawSubItem += ListView_DrawSubItem;
@@ -154,33 +146,16 @@
 
         [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
-        public Color ColumnBackground
+        public Color ColumnHeaderColor
         {
             get
             {
-                return columnHeaderBackground;
+                return _columnHeaderColor;
             }
 
             set
             {
-                columnHeaderBackground = value;
-                Invalidate();
-            }
-        }
-
-        [TypeConverter(typeof(BorderConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
-        public Border ColumnBorder
-        {
-            get
-            {
-                return columnBorder;
-            }
-
-            set
-            {
-                columnBorder = value;
+                _columnHeaderColor = value;
                 Invalidate();
             }
         }
@@ -611,7 +586,7 @@
             Background = StyleManager.ControlStyle.Background(3);
             BackgroundDisabled = StyleManager.ControlStyle.Background(0);
 
-            columnHeaderBackground = StyleManager.ControlStyle.FlatButtonDisabled;
+            _columnHeaderColor = StyleManager.ControlStyle.FlatButtonDisabled;
             headerText = StyleManager.FontStyle.ForeColor;
             itemBackground = StyleManager.ControlStyle.ItemEnabled;
             itemHover = StyleManager.ControlStyle.ItemHover;
@@ -664,35 +639,28 @@
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
             graphics.TextRenderingHint = TextRenderingHint;
 
-            columnSize = new Size(Width, e.Bounds.Height);
+            Rectangle _columnHeaderRectangle = new Rectangle(e.Bounds.X, e.Bounds.Y, Width - 1, e.Bounds.Height - 1);
 
-            Rectangle columnHeaderRectangle = new Rectangle(e.Bounds.X, e.Bounds.Y, columnSize.Width - 1, columnSize.Height - 1);
-            GraphicsPath columnHeaderPath = new GraphicsPath();
-            columnHeaderPath.AddRectangle(columnHeaderRectangle);
-            columnHeaderPath.CloseAllFigures();
-
+            // Draws the column header background.
             if (_standardHeader)
             {
-                // Draw the standard header background.
                 e.DrawBackground();
             }
             else
             {
-                // Draw column header background
-                e.Graphics.FillRectangle(new SolidBrush(columnHeaderBackground), columnHeaderRectangle);
+                e.Graphics.FillRectangle(new SolidBrush(_columnHeaderColor), _columnHeaderRectangle);
             }
 
-            VisualBorderRenderer.DrawBorderStyle(graphics, columnBorder, MouseState, columnHeaderPath);
-
-            StringFormat stringFormat = new StringFormat
+            StringFormat _stringFormat = new StringFormat
                 {
-                    // Alignment = StringAlignment.Center,
+                    Alignment = StringAlignment.Center,
                     LineAlignment = StringAlignment.Center
                 };
 
+            Rectangle _textRectangle = new Rectangle(e.Bounds.X + itemPadding, e.Bounds.Y + itemPadding, e.Bounds.Width - (itemPadding * 2), e.Bounds.Height - (itemPadding * 2));
+
             // Draw the header text.
-            e.Graphics.DrawString(e.Header.Text, headerFont, new SolidBrush(headerText), new Rectangle(e.Bounds.X + itemPadding, e.Bounds.Y + itemPadding, e.Bounds.Width - (itemPadding * 2), e.Bounds.Height - (itemPadding * 2)), stringFormat);
-            graphics.Dispose();
+            e.Graphics.DrawString(e.Header.Text, headerFont, new SolidBrush(headerText), _textRectangle, _stringFormat);
         }
 
         private void ListView_DrawItem(object sender, DrawListViewItemEventArgs e)
@@ -716,24 +684,23 @@
             }
 
             // Draw separator
-            graphics.DrawLine(new Pen(StyleManager.BorderStyle.Color), e.Bounds.Left, 0, e.Bounds.Right, 0);
-
+            // graphics.DrawLine(new Pen(StyleManager.BorderStyle.Color), e.Bounds.Left, 0, e.Bounds.Right, 0);
             foreach (ListViewItem.ListViewSubItem subItem in e.Item.SubItems)
             {
                 // Draw text
                 graphics.DrawString(subItem.Text, Font, new SolidBrush(Color.Black), new Rectangle(subItem.Bounds.X + itemPadding, itemPadding, subItem.Bounds.Width - (2 * itemPadding), subItem.Bounds.Height - (2 * itemPadding)), GetStringFormat());
             }
 
-            if ((e.State & ListViewItemStates.Selected) != 0)
-            {
-                // Selected item background
-                e.Graphics.FillRectangle(new SolidBrush(itemSelected), e.Bounds);
-            }
-            else
-            {
-                // Unselected item background
-                e.Graphics.FillRectangle(new SolidBrush(itemBackground), e.Bounds);
-            }
+            // if ((e.State & ListViewItemStates.Selected) != 0)
+            // {
+            // // Selected item background
+            // e.Graphics.FillRectangle(new SolidBrush(itemSelected), e.Bounds);
+            // }
+            // else
+            // {
+            // // Unselected item background
+            // e.Graphics.FillRectangle(new SolidBrush(itemBackground), e.Bounds);
+            // }
 
             // Draw the item text for views other than the Details view
             if (_listView.View != View.Details)
@@ -748,28 +715,28 @@
 
         private void ListView_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
         {
-            TextFormatFlags flags = TextFormatFlags.Left;
+            TextFormatFlags _textFormatFlags = TextFormatFlags.Left;
 
-            using (StringFormat sf = new StringFormat())
+            using (StringFormat _stringFormat = new StringFormat())
             {
                 // Store the column text alignment, letting it default
                 // to Left if it has not been set to Center or Right.
                 switch (e.Header.TextAlign)
                 {
                     case HorizontalAlignment.Center:
-                        sf.Alignment = StringAlignment.Center;
-                        flags = TextFormatFlags.HorizontalCenter;
+                        _stringFormat.Alignment = StringAlignment.Center;
+                        _textFormatFlags = TextFormatFlags.HorizontalCenter;
                         break;
                     case HorizontalAlignment.Right:
-                        sf.Alignment = StringAlignment.Far;
-                        flags = TextFormatFlags.Right;
+                        _stringFormat.Alignment = StringAlignment.Far;
+                        _textFormatFlags = TextFormatFlags.Right;
                         break;
                 }
 
-                // Draw the text and background for a subitem with a 
+                // Draw the text and background for a sub item with a 
                 // negative value. 
-                double subItemValue;
-                if ((e.ColumnIndex > 0) && double.TryParse(e.SubItem.Text, NumberStyles.Currency, NumberFormatInfo.CurrentInfo, out subItemValue) && (subItemValue < 0))
+                double _subItemValue;
+                if ((e.ColumnIndex > 0) && double.TryParse(e.SubItem.Text, NumberStyles.Currency, NumberFormatInfo.CurrentInfo, out _subItemValue) && (_subItemValue < 0))
                 {
                     // Unless the item is selected, draw the standard 
                     // background to make it stand out from the gradient.
@@ -778,15 +745,15 @@
                         e.DrawBackground();
                     }
 
-                    // Draw the subitem text in red to highlight it. 
-                    e.Graphics.DrawString(e.SubItem.Text, Font, Brushes.Red, e.Bounds, sf);
+                    // Draw the sub item text in red to highlight it. 
+                    e.Graphics.DrawString(e.SubItem.Text, Font, Brushes.Red, e.Bounds, _stringFormat);
 
                     return;
                 }
 
-                // Draw normal text for a subitem with a nonnegative 
-                // or nonnumerical value.
-                e.DrawText(flags);
+                // Draw normal text for a sub item with a non negative 
+                // or non numerical value.
+                e.DrawText(_textFormatFlags);
             }
         }
 

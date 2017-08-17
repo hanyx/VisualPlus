@@ -15,7 +15,7 @@
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    public abstract class ProgressBase : VisualStyleBase
+    public abstract class ProgressBase : VisualControlBase
     {
         #region Variables
 

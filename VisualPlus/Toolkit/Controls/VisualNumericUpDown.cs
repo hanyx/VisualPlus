@@ -9,11 +9,11 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -24,9 +24,11 @@
     [DefaultProperty("Value")]
     [Description("The Visual NumericUpDown")]
     [Designer(ControlManager.FilterProperties.VisualNumericUpDown)]
-    public class VisualNumericUpDown : VisualStyleBase
+    public class VisualNumericUpDown : VisualControlBase
     {
         #region Variables
+
+        private Border _border;
 
         private Gradient backgroundGradient;
         private Border buttonBorder;
@@ -66,7 +68,9 @@
                     Type = ShapeType.Rectangle
                 };
 
-            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
+            _border = new Border();
+
+            UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
         #endregion
@@ -97,12 +101,12 @@
         {
             get
             {
-                return ControlBorder;
+                return _border;
             }
 
             set
             {
-                ControlBorder = value;
+                _border = value;
                 Invalidate();
             }
         }
@@ -288,6 +292,35 @@
             Invalidate();
         }
 
+        public void UpdateTheme(Styles style)
+        {
+            StyleManager = new StyleManager(style);
+
+            buttonForeColor = Color.Gray;
+            backgroundGradient = StyleManager.ControlStyle.BoxEnabled;
+            buttonGradient = StyleManager.ControlStatesStyle.ControlEnabled;
+            buttonFont = new Font(StyleManager.Font.FontFamily, 14, FontStyle.Bold);
+
+            ControlBrushCollection = new[]
+                {
+                    StyleManager.ControlStatesStyle.ControlEnabled,
+                    StyleManager.ControlStatesStyle.ControlHover,
+                    StyleManager.ControlStatesStyle.ControlPressed,
+                    StyleManager.ControlStatesStyle.ControlDisabled
+                };
+
+            ForeColor = StyleManager.FontStyle.ForeColor;
+            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+            Background = StyleManager.ControlStyle.Background(3);
+            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+            _border.Color = StyleManager.BorderStyle.Color;
+            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+
+            buttonBorder.Color = StyleManager.BorderStyle.Color;
+            buttonBorder.HoverColor = StyleManager.BorderStyle.HoverColor;
+            Invalidate();
+        }
+
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
             base.OnKeyPress(e);
@@ -464,6 +497,7 @@
             Graphics graphics = e.Graphics;
             graphics.SmoothingMode = SmoothingMode.HighQuality;
 
+            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
             buttonRectangle = new Rectangle(Width - buttonWidth, 0, buttonWidth, Height);
 
             Size incrementSize = GDI.MeasureText(graphics, "+", buttonFont);
@@ -533,7 +567,7 @@
 
             graphics.DrawLine(new Pen(StyleManager.BorderStyle.Color), tempSeparator[0], tempSeparator[1]);
 
-            VisualBorderRenderer.DrawBorderStyle(graphics, ControlBorder, MouseState, ControlGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, _border, MouseState, ControlGraphicsPath);
 
             // Draw value string
             Rectangle textBoxRectangle = new Rectangle(6, 0, Width - 1, Height - 1);
@@ -545,15 +579,6 @@
                 };
 
             graphics.DrawString(Convert.ToString(Value), Font, new SolidBrush(ForeColor), textBoxRectangle, stringFormat);
-        }
-
-        protected override void OnThemeChanged(ThemeEventArgs e)
-        {
-            buttonForeColor = Color.Gray;
-            backgroundGradient = StyleManager.ControlStyle.BoxEnabled;
-            buttonGradient = StyleManager.ControlStatesStyle.ControlEnabled;
-            buttonFont = new Font(StyleManager.Font.FontFamily, 14, FontStyle.Bold);
-            base.OnThemeChanged(e);
         }
 
         #endregion

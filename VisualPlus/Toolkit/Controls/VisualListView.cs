@@ -15,6 +15,7 @@
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
+    using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -28,6 +29,8 @@
     public class VisualListView : ContainedControlBase
     {
         #region Variables
+
+        private Border _border;
 
         private ListView _listView;
         private Border columnBorder;
@@ -54,11 +57,11 @@
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
 
             headerFont = StyleManager.Font;
-
+            _border = new Border();
             _listView = new ListView
                 {
                     BackColor = Background,
-                    Size = GetInternalControlSize(Size, Border),
+                    Size = GetInternalControlSize(Size, _border),
                     BorderStyle = BorderStyle.None,
                     View = View.Details,
                     MultiSelect = false,
@@ -69,7 +72,7 @@
                     GridLines = true,
                     HeaderStyle = ColumnHeaderStyle.Nonclickable,
                     OwnerDraw = true,
-                    Location = GetInternalControlLocation(Border)
+                    Location = GetInternalControlLocation(_border)
                 };
 
             AutoSize = true;
@@ -78,12 +81,6 @@
 
             // AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             // AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            columnHeaderBackground = StyleManager.ControlStyle.FlatButtonDisabled;
-            headerText = StyleManager.FontStyle.ForeColor;
-            itemBackground = StyleManager.ControlStyle.ItemEnabled;
-            itemHover = StyleManager.ControlStyle.ItemHover;
-            itemSelected = StyleManager.BorderStyle.Color;
-
             columnBorder = new Border
                 {
                     Type = ShapeType.Rectangle,
@@ -95,6 +92,8 @@
             _listView.DrawSubItem += ListView_DrawSubItem;
 
             Controls.Add(_listView);
+
+            UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
         #endregion
@@ -114,6 +113,20 @@
             set
             {
                 _listView.AllowColumnReorder = value;
+            }
+        }
+
+        public new Color Background
+        {
+            get
+            {
+                return base.Background;
+            }
+
+            set
+            {
+                _listView.BackColor = value;
+                base.Background = value;
             }
         }
 
@@ -586,6 +599,26 @@
 
         #region Events
 
+        public void UpdateTheme(Styles style)
+        {
+            StyleManager = new StyleManager(style);
+            _border.Color = StyleManager.BorderStyle.Color;
+            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+            ForeColor = StyleManager.FontStyle.ForeColor;
+            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+
+            Background = StyleManager.ControlStyle.Background(3);
+            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+
+            columnHeaderBackground = StyleManager.ControlStyle.FlatButtonDisabled;
+            headerText = StyleManager.FontStyle.ForeColor;
+            itemBackground = StyleManager.ControlStyle.ItemEnabled;
+            itemHover = StyleManager.ControlStyle.ItemHover;
+            itemSelected = StyleManager.BorderStyle.Color;
+
+            Invalidate();
+        }
+
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
@@ -600,13 +633,17 @@
             {
                 _listView.BackColor = Background;
             }
+
+            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
+            e.Graphics.FillPath(new SolidBrush(Background), ControlGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, MouseState, ControlGraphicsPath);
         }
 
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            _listView.Location = GetInternalControlLocation(ControlBorder);
-            _listView.Size = GetInternalControlSize(Size, ControlBorder);
+            _listView.Location = GetInternalControlLocation(_border);
+            _listView.Size = GetInternalControlSize(Size, _border);
         }
 
         private static StringFormat GetStringFormat()

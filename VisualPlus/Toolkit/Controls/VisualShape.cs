@@ -9,7 +9,6 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
@@ -24,14 +23,17 @@
     [DefaultEvent("Click")]
     [DefaultProperty("ShapeForm")]
     [Description("The Visual Shape")]
-    public class VisualShape : VisualStyleBase
+    public class VisualShape : VisualControlBase
     {
         #region Variables
+
+        private Gradient _background;
+
+        private Border _border;
 
         private Drag _drag;
 
         private bool animation;
-        private Gradient background;
         private GraphicsPath controlGraphicsPath;
         private VFXManager effectsManager;
         private VFXManager hoverEffectsManager;
@@ -43,9 +45,6 @@
 
         public VisualShape()
         {
-            SetStyle(ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor, true);
-
-            UpdateStyles();
             shapeType = ShapeType.Rectangle;
             BackColor = Color.Transparent;
             Size = new Size(100, 100);
@@ -53,9 +52,10 @@
             animation = Settings.DefaultValue.Animation;
 
             _drag = new Drag(this, Settings.DefaultValue.Moveable);
-
+            _border = new Border();
             ConfigureAnimation();
-            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
+
+            UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
         public enum ShapeType
@@ -106,12 +106,12 @@
         {
             get
             {
-                return background;
+                return _background;
             }
 
             set
             {
-                background = value;
+                _background = value;
                 Invalidate();
             }
         }
@@ -123,12 +123,12 @@
         {
             get
             {
-                return ControlBorder;
+                return _border;
             }
 
             set
             {
-                ControlBorder = value;
+                _border = value;
                 Invalidate();
             }
         }
@@ -168,6 +168,29 @@
         #endregion
 
         #region Events
+
+        public void UpdateTheme(Styles style)
+        {
+            StyleManager = new StyleManager(style);
+
+            ForeColor = StyleManager.FontStyle.ForeColor;
+            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+
+            Background = StyleManager.ControlStyle.Background(0);
+            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+            _background = StyleManager.ControlStatesStyle.ControlEnabled;
+
+            ControlBrushCollection = new[]
+                {
+                    StyleManager.ControlStatesStyle.ControlEnabled,
+                    StyleManager.ControlStatesStyle.ControlHover,
+                    StyleManager.ControlStatesStyle.ControlPressed,
+                    StyleManager.ControlStatesStyle.ControlDisabled
+                };
+            _border.Color = StyleManager.BorderStyle.Color;
+            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+            Invalidate();
+        }
 
         protected override void OnCreateControl()
         {
@@ -229,12 +252,6 @@
             DrawAnimation(graphics);
         }
 
-        protected override void OnThemeChanged(ThemeEventArgs e)
-        {
-            background = StyleManager.ControlStatesStyle.ControlEnabled;
-            base.OnThemeChanged(e);
-        }
-
         private void ConfigureAnimation()
         {
             effectsManager = new VFXManager(false)
@@ -256,7 +273,7 @@
         private void ConfigureComponents(Graphics graphics)
         {
             var gradientPoints = new[] { new Point { X = ClientRectangle.Width, Y = 0 }, new Point { X = ClientRectangle.Width, Y = ClientRectangle.Height } };
-            LinearGradientBrush gradientBrush = Gradient.CreateGradientBrush(background.Colors, gradientPoints, background.Angle, background.Positions);
+            LinearGradientBrush gradientBrush = Gradient.CreateGradientBrush(_background.Colors, gradientPoints, _background.Angle, _background.Positions);
             controlGraphicsPath = new GraphicsPath();
 
             switch (shapeType)
@@ -273,7 +290,7 @@
 
                 case ShapeType.Rectangle:
                     {
-                        controlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
+                        controlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
                         graphics.FillPath(gradientBrush, controlGraphicsPath);
 
                         break;
@@ -300,7 +317,7 @@
                     }
             }
 
-            VisualBorderRenderer.DrawBorderStyle(graphics, ControlBorder, MouseState, controlGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, _border, MouseState, controlGraphicsPath);
         }
 
         private void DrawAnimation(Graphics graphics)

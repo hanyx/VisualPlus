@@ -27,6 +27,8 @@ namespace VisualPlus.Toolkit.VisualBase
     {
         #region Variables
 
+        private Border _border;
+
         private bool animation;
         private Rectangle box;
         private int boxSpacing = 2;
@@ -44,8 +46,9 @@ namespace VisualPlus.Toolkit.VisualBase
             box = new Rectangle(0, 0, 14, 14);
             animation = Settings.DefaultValue.Animation;
             checkMark = new Checkmark(ClientRectangle);
+            _border = new Border();
+
             ConfigureAnimation();
-            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
         }
 
         #endregion
@@ -83,12 +86,12 @@ namespace VisualPlus.Toolkit.VisualBase
         {
             get
             {
-                return ControlBorder;
+                return _border;
             }
 
             set
             {
-                ControlBorder = value;
+                _border = value;
                 Invalidate();
             }
         }
@@ -386,14 +389,6 @@ namespace VisualPlus.Toolkit.VisualBase
 
             VisualToggleRenderer.DrawCheckBox(graphics, Border, CheckMark, box, Toggle, Enabled, _boxBrush, MouseState, Text, Font, ForeColor, textPoint);
             DrawAnimation(graphics);
-        }
-
-        protected override void OnThemeChanged(ThemeEventArgs e)
-        {
-            checkMark.EnabledGradient = StyleManager.CheckmarkStyle.EnabledGradient;
-            checkMark.DisabledGradient = StyleManager.CheckmarkStyle.DisabledGradient;
-
-            base.OnThemeChanged(new ThemeEventArgs(this, e.Style));
         }
 
         private void ConfigSize(Size textSize)

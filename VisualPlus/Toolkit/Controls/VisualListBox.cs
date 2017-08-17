@@ -9,8 +9,12 @@
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
+    using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
+    using VisualPlus.Renders;
+    using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
+    using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -27,6 +31,7 @@
         #region Variables
 
         private bool _alternateColors;
+        private Border _border;
 
         private FixedContentValue _contentValues = new FixedContentValue();
         private Color _itemAlternate;
@@ -46,25 +51,23 @@
             // Cannot select this control, only the child and does not generate a click event
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
 
+            _border = new Border();
+
             _listBox = new ListBox
                 {
                     BackColor = Background,
-                    Size = GetInternalControlSize(Size, Border),
+                    Size = GetInternalControlSize(Size, _border),
                     BorderStyle = BorderStyle.None,
                     IntegralHeight = false,
                     MultiColumn = false,
                     DrawMode = DrawMode.OwnerDrawVariable,
                     ItemHeight = 18,
-                    Location = GetInternalControlLocation(ControlBorder)
+                    Location = GetInternalControlLocation(_border)
                 };
 
             AutoSize = true;
             BackColor = Color.Transparent;
             Size = new Size(250, 150);
-
-            _itemNormal = Background;
-            _itemAlternate = StyleManager.BorderStyle.Color;
-            _itemSelected = StyleManager.BorderStyle.HoverColor;
 
             _listBox.DataSourceChanged += ListBox_DataSourceChanged;
             _listBox.DisplayMemberChanged += ListBox_DisplayMemberChanged;
@@ -88,6 +91,8 @@
             _listBox.KeyPress += ListBox_KeyPress;
 
             Controls.Add(_listBox);
+
+            UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
         [Description("Occurs when the value of the DataSource property changes.")]
@@ -143,6 +148,20 @@
             {
                 _alternateColors = value;
                 _listBox.Invalidate();
+            }
+        }
+
+        public new Color Background
+        {
+            get
+            {
+                return base.Background;
+            }
+
+            set
+            {
+                _listBox.BackColor = value;
+                base.Background = value;
             }
         }
 
@@ -661,6 +680,24 @@
             _listBox.SetSelected(index, value);
         }
 
+        public void UpdateTheme(Styles style)
+        {
+            StyleManager = new StyleManager(style);
+            _border.Color = StyleManager.BorderStyle.Color;
+            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+            ForeColor = StyleManager.FontStyle.ForeColor;
+            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+
+            Background = StyleManager.ControlStyle.Background(3);
+            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+
+            _itemNormal = Background;
+            _itemAlternate = StyleManager.BorderStyle.Color;
+            _itemSelected = StyleManager.BorderStyle.HoverColor;
+
+            Invalidate();
+        }
+
         protected override void OnClick(EventArgs e)
         {
             base.OnClick(e);
@@ -711,13 +748,17 @@
             {
                 _listBox.BackColor = Background;
             }
+
+            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
+            e.Graphics.FillPath(new SolidBrush(Background), ControlGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, MouseState, ControlGraphicsPath);
         }
 
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            _listBox.Location = GetInternalControlLocation(ControlBorder);
-            _listBox.Size = GetInternalControlSize(Size, ControlBorder);
+            _listBox.Location = GetInternalControlLocation(_border);
+            _listBox.Size = GetInternalControlSize(Size, _border);
         }
 
         protected virtual void OnSelectedIndexChanged(EventArgs e)

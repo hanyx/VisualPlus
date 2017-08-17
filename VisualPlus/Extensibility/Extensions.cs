@@ -10,9 +10,6 @@
     using System.Linq;
     using System.Windows.Forms;
 
-    using VisualPlus.Enumerators;
-    using VisualPlus.Toolkit.VisualBase;
-
     #endregion
 
     public static class Extensions
@@ -117,14 +114,6 @@
             {
                 p.ScrollControlIntoView(c);
             }
-        }
-
-        /// <summary>Update the visual style on the control.</summary>
-        /// <param name="visualStyleBase">The control to update the style for.</param>
-        /// <param name="style">The theme style.</param>
-        public static void UpdateStyle(this VisualStyleBase visualStyleBase, Styles style)
-        {
-            visualStyleBase.UpdateTheme(visualStyleBase, style);
         }
 
         #endregion

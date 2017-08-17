@@ -14,6 +14,7 @@
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
+    using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -28,6 +29,8 @@
     public class VisualTextBox : ContainedControlBase, IInputMethods
     {
         #region Variables
+
+        private Border _border;
 
         private Border _buttonBorder;
         private Color _buttonColor;
@@ -63,11 +66,11 @@
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
 
             _textWidth = 125;
-
+            _border = new Border();
             _textBox = new TextBox
                 {
                     Size = new Size(_textWidth, 25),
-                    Location = new Point(VisualBorderRenderer.GetBorderDistance(ControlBorder), VisualBorderRenderer.GetBorderDistance(ControlBorder)),
+                    Location = new Point(VisualBorderRenderer.GetBorderDistance(_border), VisualBorderRenderer.GetBorderDistance(_border)),
                     Text = string.Empty,
                     BorderStyle = BorderStyle.None,
                     TextAlign = HorizontalAlignment.Left,
@@ -111,6 +114,8 @@
             {
                 DrawWaterMark();
             }
+
+            UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
         public delegate void ButtonClickedEventHandler();
@@ -174,6 +179,37 @@
             set
             {
                 _textBox.AutoCompleteSource = value;
+            }
+        }
+
+        public new Color Background
+        {
+            get
+            {
+                return base.Background;
+            }
+
+            set
+            {
+                _textBox.BackColor = value;
+                base.Background = value;
+            }
+        }
+
+        [TypeConverter(typeof(BorderConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(Property.Appearance)]
+        public Border Border
+        {
+            get
+            {
+                return _border;
+            }
+
+            set
+            {
+                _border = value;
+                Invalidate();
             }
         }
 
@@ -671,13 +707,16 @@
 
         public void UpdateTheme(Styles style)
         {
-            StyleManager.UpdateStyle(style);
+            StyleManager = new StyleManager(style);
 
-            // Font = _styleManager.Font;
-            // ForeColor = _styleManager.FontStyle.ForeColor;
-            // ForeColorDisabled = _styleManager.FontStyle.ForeColorDisabled;
-            // _backgroundColor = StyleManager.ControlStyle.Background(0);
-            // _backgroundDisabledColor = StyleManager.FontStyle.ForeColorDisabled;
+            ForeColor = StyleManager.FontStyle.ForeColor;
+            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+
+            Background = StyleManager.ControlStyle.Background(3);
+            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+            _border.Color = StyleManager.BorderStyle.Color;
+            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+            Invalidate();
         }
 
         protected override void OnEnter(EventArgs e)
@@ -808,7 +847,8 @@
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder);
+            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
+            e.Graphics.FillPath(new SolidBrush(Background), ControlGraphicsPath);
             Graphics graphics = e.Graphics;
 
             if (_textBox.BackColor != Background)
@@ -823,7 +863,7 @@
             {
                 if (_imageVisible)
                 {
-                    _textBox.Location = new Point(VisualBorderRenderer.GetBorderDistance(ControlBorder) + _imageRectangle.Width, _textBox.Location.Y);
+                    _textBox.Location = new Point(VisualBorderRenderer.GetBorderDistance(_border) + _imageRectangle.Width, _textBox.Location.Y);
 
                     DrawImage(graphics);
 
@@ -834,7 +874,7 @@
                 }
                 else
                 {
-                    _textBox.Location = new Point(VisualBorderRenderer.GetBorderDistance(ControlBorder), _textBox.Location.Y);
+                    _textBox.Location = new Point(VisualBorderRenderer.GetBorderDistance(_border), _textBox.Location.Y);
 
                     if (_buttonVisible)
                     {
@@ -849,6 +889,8 @@
             {
                 DrawWaterMark();
             }
+
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, MouseState, ControlGraphicsPath);
         }
 
         protected override void OnResize(EventArgs e)
@@ -859,25 +901,25 @@
             {
                 if (_imageVisible)
                 {
-                    _textBox.Location = new Point(VisualBorderRenderer.GetBorderDistance(ControlBorder) + _imageWidth, _textBox.Location.Y);
+                    _textBox.Location = new Point(VisualBorderRenderer.GetBorderDistance(_border) + _imageWidth, _textBox.Location.Y);
                 }
                 else
                 {
-                    _textBox.Location = new Point(VisualBorderRenderer.GetBorderDistance(ControlBorder), _textBox.Location.Y);
+                    _textBox.Location = new Point(VisualBorderRenderer.GetBorderDistance(_border), _textBox.Location.Y);
                 }
 
                 if ((!_imageVisible & !_buttonVisible) && AutoSize)
                 {
-                    _textBox.Width = GetInternalControlSize(Size, ControlBorder).Width;
+                    _textBox.Width = GetInternalControlSize(Size, _border).Width;
                 }
 
                 _textBox.Height = GetTextBoxHeight();
-                Size = new Size(Width, VisualBorderRenderer.GetBorderDistance(ControlBorder) + _textBox.Height + VisualBorderRenderer.GetBorderDistance(ControlBorder));
+                Size = new Size(Width, VisualBorderRenderer.GetBorderDistance(_border) + _textBox.Height + VisualBorderRenderer.GetBorderDistance(_border));
             }
             else
             {
-                _textBox.Location = GetInternalControlLocation(ControlBorder);
-                _textBox.Size = GetInternalControlSize(Size, ControlBorder);
+                _textBox.Location = GetInternalControlLocation(_border);
+                _textBox.Size = GetInternalControlSize(Size, _border);
             }
 
             Invalidate();
@@ -932,7 +974,7 @@
 
             graphics.FillPath(new SolidBrush(_buttonColor), buttonPath);
 
-            VisualBorderRenderer.DrawBorderStyle(graphics, ControlBorder, MouseState, buttonPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, _border, MouseState, buttonPath);
             Size textSize = GDI.MeasureText(graphics, _buttontext, _buttonFont);
             graphics.SetClip(buttonPath);
             graphics.DrawString(_buttontext, Font, new SolidBrush(ForeColor), new PointF(_buttonRectangle.X + _buttonIndent, (Height / 2) - (textSize.Height / 2)));

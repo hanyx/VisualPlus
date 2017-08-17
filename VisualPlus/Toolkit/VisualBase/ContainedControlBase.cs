@@ -6,12 +6,8 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Runtime.InteropServices;
-    using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Renders;
     using VisualPlus.Structure;
 
     #endregion
@@ -20,38 +16,8 @@
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    public abstract class ContainedControlBase : VisualStyleBase
+    public abstract class ContainedControlBase : VisualControlBase
     {
-        #region Constructors
-
-        protected ContainedControlBase()
-        {
-            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
-        }
-
-        #endregion
-
-        #region Properties
-
-        [TypeConverter(typeof(BorderConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
-        public Border Border
-        {
-            get
-            {
-                return ControlBorder;
-            }
-
-            set
-            {
-                ControlBorder = value;
-                Invalidate();
-            }
-        }
-
-        #endregion
-
         #region Events
 
         protected override void OnEnter(EventArgs e)
@@ -82,18 +48,6 @@
 
         protected override void OnMouseLeave(EventArgs e)
         {
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder);
-        }
-
-        protected override void OnThemeChanged(ThemeEventArgs e)
-        {
-            Background = StyleManager.ControlStyle.Background(3);
-            base.OnThemeChanged(e);
         }
 
         /// <summary>Gets the internal control location.</summary>

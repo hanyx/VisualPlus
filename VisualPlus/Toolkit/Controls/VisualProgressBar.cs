@@ -9,11 +9,11 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -34,6 +34,8 @@
         #endregion
 
         #region Variables
+
+        private Border _border;
 
         private Gradient backgroundGradient = new Gradient();
         private Point barLocation = new Point(0, 0);
@@ -69,8 +71,8 @@
             MinimumSize = minimumSize;
 
             percentageVisible = true;
-
-            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
+            _border = new Border();
+            UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
         public enum BarTypes
@@ -191,12 +193,12 @@
         {
             get
             {
-                return ControlBorder;
+                return _border;
             }
 
             set
             {
-                ControlBorder = value;
+                _border = value;
                 Invalidate();
             }
         }
@@ -378,6 +380,29 @@
 
         #region Events
 
+        public void UpdateTheme(Styles style)
+        {
+            StyleManager = new StyleManager(style);
+
+            ForeColor = StyleManager.FontStyle.ForeColor;
+            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+
+            Background = StyleManager.ControlStyle.Background(0);
+            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+
+            backgroundGradient.Colors = StyleManager.ProgressStyle.BackProgress.Colors;
+            backgroundGradient.Positions = StyleManager.ProgressStyle.BackProgress.Positions;
+            hatchBackColor = StyleManager.ProgressStyle.Hatch;
+            hatchForeColor = Color.FromArgb(40, hatchBackColor);
+            progressGradient.Colors = StyleManager.ProgressStyle.Progress.Colors;
+            progressGradient.Positions = StyleManager.ProgressStyle.Progress.Positions;
+
+            _border.Color = StyleManager.BorderStyle.Color;
+            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+
+            Invalidate();
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -435,20 +460,9 @@
             }
         }
 
-        protected override void OnThemeChanged(ThemeEventArgs e)
-        {
-            backgroundGradient.Colors = StyleManager.ProgressStyle.BackProgress.Colors;
-            backgroundGradient.Positions = StyleManager.ProgressStyle.BackProgress.Positions;
-            hatchBackColor = StyleManager.ProgressStyle.Hatch;
-            hatchForeColor = Color.FromArgb(40, hatchBackColor);
-            progressGradient.Colors = StyleManager.ProgressStyle.Progress.Colors;
-            progressGradient.Positions = StyleManager.ProgressStyle.Progress.Positions;
-            base.OnThemeChanged(e);
-        }
-
         private void DrawDefaultProgress(BarTypes style, Graphics graphics)
         {
-            graphicsDefaultBorderPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
+            graphicsDefaultBorderPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
             GraphicsPath progressPath = null;
 
             if (progressBarStyle == ProgressBarStyle.Marquee)
@@ -483,7 +497,7 @@
                         {
                             i1 = (int)Math.Round(((Value - Minimum) / (double)(Maximum - Minimum)) * (Width - 2));
 
-                            if (ControlBorder.Type == ShapeType.Rectangle)
+                            if (_border.Type == ShapeType.Rectangle)
                             {
                                 progressPath = new GraphicsPath();
                                 progressPath.AddRectangle(new Rectangle(0, 0, i1 + 1, Height));
@@ -491,7 +505,7 @@
                             }
                             else
                             {
-                                progressPath = GDI.DrawRoundedRectangle(new Rectangle(1, 1, i1, Height - 2), ControlBorder.Rounding);
+                                progressPath = GDI.DrawRoundedRectangle(new Rectangle(1, 1, i1, Height - 2), _border.Rounding);
                             }
                         }
 
@@ -500,7 +514,7 @@
                         {
                             i1 = (int)Math.Round(((Value - Minimum) / (double)(Maximum - Minimum)) * (Height - 2));
 
-                            if (ControlBorder.Type == ShapeType.Rectangle)
+                            if (_border.Type == ShapeType.Rectangle)
                             {
                                 progressPath = new GraphicsPath();
                                 progressPath.AddRectangle(new Rectangle(0, Height - i1 - 2, Width, i1));
@@ -508,7 +522,7 @@
                             }
                             else
                             {
-                                progressPath = GDI.DrawRoundedRectangle(new Rectangle(0, Height - i1 - 2, Width, i1), ControlBorder.Rounding);
+                                progressPath = GDI.DrawRoundedRectangle(new Rectangle(0, Height - i1 - 2, Width, i1), _border.Rounding);
                             }
                         }
 
@@ -543,15 +557,15 @@
             }
 
             // Draw border
-            if (ControlBorder.Visible)
+            if (_border.Visible)
             {
-                if ((MouseState == MouseStates.Hover) && ControlBorder.HoverVisible)
+                if ((MouseState == MouseStates.Hover) && _border.HoverVisible)
                 {
-                    VisualBorderRenderer.DrawBorder(graphics, graphicsDefaultBorderPath, ControlBorder.Thickness, ControlBorder.HoverColor);
+                    VisualBorderRenderer.DrawBorder(graphics, graphicsDefaultBorderPath, _border.Thickness, _border.HoverColor);
                 }
                 else
                 {
-                    VisualBorderRenderer.DrawBorder(graphics, graphicsDefaultBorderPath, ControlBorder.Thickness, ControlBorder.Color);
+                    VisualBorderRenderer.DrawBorder(graphics, graphicsDefaultBorderPath, _border.Thickness, _border.Color);
                 }
             }
 
@@ -651,10 +665,10 @@
                     case BarTypes.Bars:
                         {
                             // Create bars
-                            if (ControlBorder.Type == ShapeType.Rounded)
+                            if (_border.Type == ShapeType.Rounded)
                             {
                                 // Rounded rectangle - makes it possible to make circles with full roundness.
-                                barStylePath.AddPath(GDI.DrawRoundedRectangle(barLocation.X, barLocation.Y, barSize.X, barSize.Y, ControlBorder.Rounding), true);
+                                barStylePath.AddPath(GDI.DrawRoundedRectangle(barLocation.X, barLocation.Y, barSize.X, barSize.Y, _border.Rounding), true);
                             }
                             else
                             {
@@ -669,13 +683,13 @@
                     case BarTypes.Horizontal:
                         {
                             // Default progress bar
-                            barStylePath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
+                            barStylePath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
                             break;
                         }
 
                     case BarTypes.Vertical:
                         {
-                            barStylePath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
+                            barStylePath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
                             break;
                         }
 
@@ -702,15 +716,15 @@
                 }
 
                 // Draw border
-                if (ControlBorder.Visible)
+                if (_border.Visible)
                 {
-                    if ((MouseState == MouseStates.Hover) && ControlBorder.HoverVisible)
+                    if ((MouseState == MouseStates.Hover) && _border.HoverVisible)
                     {
-                        VisualBorderRenderer.DrawBorder(graphics, barStylePath, ControlBorder.Thickness, ControlBorder.HoverColor);
+                        VisualBorderRenderer.DrawBorder(graphics, barStylePath, _border.Thickness, _border.HoverColor);
                     }
                     else
                     {
-                        VisualBorderRenderer.DrawBorder(graphics, barStylePath, ControlBorder.Thickness, ControlBorder.Color);
+                        VisualBorderRenderer.DrawBorder(graphics, barStylePath, _border.Thickness, _border.Color);
                     }
                 }
             }

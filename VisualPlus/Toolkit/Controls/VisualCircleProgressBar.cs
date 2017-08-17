@@ -8,9 +8,10 @@
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
-    using VisualPlus.EventArgs;
+    using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
+    using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -47,8 +48,6 @@
 
         public VisualCircleProgressBar()
         {
-            SetStyle(ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor, true);
-
             BackColor = Color.Transparent;
             MinimumSize = new Size(100, 100);
             Maximum = 100;
@@ -57,7 +56,7 @@
             // Attempt to center icon
             iconPoint = new Point((Width / 2) - (iconRectangle.Width / 2), (Height / 2) - (iconRectangle.Height / 2));
 
-            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
         public enum ProgressShape
@@ -289,11 +288,31 @@
 
         #region Events
 
+        public void UpdateTheme(Styles style)
+        {
+            StyleManager = new StyleManager(style);
+
+            ForeColor = StyleManager.FontStyle.ForeColor;
+            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+
+            Background = StyleManager.ControlStyle.Background(0);
+            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+
+            backgroundCircleColor = StyleManager.ProgressStyle.BackCircle;
+            foregroundCircleColor = StyleManager.ProgressStyle.ForeCircle;
+
+            progressGradient1 = StyleManager.ProgressStyle.Progress.Colors[0];
+            progressGradient2 = StyleManager.ProgressStyle.Progress.Colors[1];
+
+            Invalidate();
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
 
             Graphics graphics = e.Graphics;
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
 
             DrawCircles(graphics);
             DrawImage(graphics);
@@ -310,16 +329,6 @@
         {
             base.OnSizeChanged(e);
             SetStandardSize();
-        }
-
-        protected override void OnThemeChanged(ThemeEventArgs e)
-        {
-            backgroundCircleColor = StyleManager.ProgressStyle.BackCircle;
-            foregroundCircleColor = StyleManager.ProgressStyle.ForeCircle;
-
-            progressGradient1 = StyleManager.ProgressStyle.Progress.Colors[0];
-            progressGradient2 = StyleManager.ProgressStyle.Progress.Colors[1];
-            base.OnThemeChanged(e);
         }
 
         private void DrawCircles(Graphics graphics)

@@ -8,7 +8,6 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Extensibility;
-    using VisualPlus.Managers;
     using VisualPlus.Structure;
 
     #endregion
@@ -105,7 +104,7 @@
         {
             get
             {
-                return Color.FromArgb(180, 180, 180);
+                return Color.FromArgb(180, 255, 180);
             }
         }
 
@@ -317,7 +316,7 @@
         {
             get
             {
-                return Color.FromArgb(120, 183, 230);
+                return Color.FromArgb(230, 120, 125);
             }
         }
 

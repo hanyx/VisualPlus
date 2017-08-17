@@ -89,7 +89,7 @@
 
             textRendererHint = Settings.DefaultValue.TextRenderingHint;
 
-            UpdateStyle(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
         public enum DropDownButtons
@@ -461,10 +461,13 @@
 
         /// <summary>Update the style of the control.</summary>
         /// <param name="style">The visual style.</param>
-        public void UpdateStyle(Styles style)
+        public void UpdateTheme(Styles style)
         {
             _styleManager.UpdateStyle(style);
 
+            border.Color = _styleManager.BorderStyle.Color;
+            border.HoverColor = _styleManager.BorderStyle.HoverColor;
+           
             Font = _styleManager.Font;
             foreColor = _styleManager.FontStyle.ForeColor;
             textDisabledColor = _styleManager.FontStyle.ForeColorDisabled;

@@ -9,10 +9,11 @@
     using System.Drawing.Text;
     using System.Windows.Forms;
 
-    using VisualPlus.EventArgs;
+    using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
     using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -23,7 +24,7 @@
     [DefaultProperty("Text")]
     [Description("The Visual Label")]
     [Designer(ControlManager.FilterProperties.VisualLabel)]
-    public class VisualLabel : VisualStyleBase
+    public class VisualLabel : VisualControlBase
     {
         #region Variables
 
@@ -58,7 +59,7 @@
             UpdateStyles();
             BackColor = Color.Transparent;
 
-            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
         #endregion
@@ -333,6 +334,39 @@
 
         #region Events
 
+        public void UpdateTheme(Styles style)
+        {
+            StyleManager = new StyleManager(style);
+
+            ForeColor = StyleManager.FontStyle.ForeColor;
+            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+
+            Background = StyleManager.ControlStyle.Background(0);
+            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+
+            Color[] foreColor =
+                {
+                    StyleManager.FontStyle.ForeColor,
+                    StyleManager.FontStyle.ForeColor
+                };
+
+            Color[] textDisabledColor =
+                {
+                    ControlPaint.Light(StyleManager.FontStyle.ForeColorDisabled),
+                    StyleManager.FontStyle.ForeColorDisabled
+                };
+
+            float[] gradientPosition = { 0, 1 };
+
+            _foreGradient.Colors = foreColor;
+            _foreGradient.Positions = gradientPosition;
+
+            _foreDisabledGradient.Colors = textDisabledColor;
+            _foreDisabledGradient.Positions = gradientPosition;
+
+            Invalidate();
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -382,31 +416,6 @@
             {
                 graphics.DrawString(Text, Font, new SolidBrush(ForeColor), textBoxRectangle, GetStringFormat());
             }
-        }
-
-        protected override void OnThemeChanged(ThemeEventArgs e)
-        {
-            Color[] foreColor =
-                {
-                    StyleManager.FontStyle.ForeColor,
-                    StyleManager.FontStyle.ForeColor
-                };
-
-            Color[] textDisabledColor =
-                {
-                    ControlPaint.Light(StyleManager.FontStyle.ForeColorDisabled),
-                    StyleManager.FontStyle.ForeColorDisabled
-                };
-
-            float[] gradientPosition = { 0, 1 };
-
-            _foreGradient.Colors = foreColor;
-            _foreGradient.Positions = gradientPosition;
-
-            _foreDisabledGradient.Colors = textDisabledColor;
-            _foreDisabledGradient.Positions = gradientPosition;
-
-            base.OnThemeChanged(e);
         }
 
         private void DrawOutline(Graphics graphics)

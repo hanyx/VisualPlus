@@ -8,10 +8,11 @@
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
-    using VisualPlus.EventArgs;
+    using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Managers;
     using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -22,7 +23,7 @@
     [DefaultProperty("Enabled")]
     [Description("The Visual Separator")]
     [Designer(ControlManager.FilterProperties.VisualSeparator)]
-    public class VisualSeparator : VisualStyleBase
+    public class VisualSeparator : VisualControlBase
     {
         #region Variables
 
@@ -37,11 +38,11 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualSeparator"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualSeparator" /> class.</summary>
         public VisualSeparator()
         {
             BackColor = Color.Transparent;
-            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
         #endregion
@@ -139,6 +140,52 @@
 
         #region Events
 
+        public void UpdateTheme(Styles style)
+        {
+            StyleManager = new StyleManager(style);
+
+            ForeColor = StyleManager.FontStyle.ForeColor;
+            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+
+            Background = StyleManager.ControlStyle.Background(0);
+            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+
+            StyleManager = new StyleManager(style);
+
+            ForeColor = StyleManager.FontStyle.ForeColor;
+            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+
+            Background = StyleManager.ControlStatesStyle.ControlEnabled.Colors[0];
+            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+
+            float[] gradientPosition = { 0, 1 / 2f, 1 };
+            float angle = 90;
+
+            Color[] lineColor =
+                {
+                    StyleManager.ControlStyle.Line,
+                    ControlPaint.Light(StyleManager.ControlStyle.Line),
+                    StyleManager.ControlStyle.Line
+                };
+
+            Color[] shadowColor =
+                {
+                    ControlPaint.Light(StyleManager.ControlStyle.Shadow),
+                    StyleManager.ControlStyle.Shadow,
+                    ControlPaint.Light(StyleManager.ControlStyle.Shadow)
+                };
+
+            lineGradient.Angle = angle;
+            lineGradient.Colors = lineColor;
+            lineGradient.Positions = gradientPosition;
+
+            shadowGradient.Angle = angle;
+            shadowGradient.Colors = shadowColor;
+            shadowGradient.Positions = gradientPosition;
+
+            Invalidate();
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -208,35 +255,6 @@
             {
                 Width = 4;
             }
-        }
-
-        protected override void OnThemeChanged(ThemeEventArgs e)
-        {
-            float[] gradientPosition = { 0, 1 / 2f, 1 };
-            float angle = 90;
-
-            Color[] lineColor =
-                {
-                    StyleManager.ControlStyle.Line,
-                    ControlPaint.Light(StyleManager.ControlStyle.Line),
-                    StyleManager.ControlStyle.Line
-                };
-
-            Color[] shadowColor =
-                {
-                    ControlPaint.Light(StyleManager.ControlStyle.Shadow),
-                    StyleManager.ControlStyle.Shadow,
-                    ControlPaint.Light(StyleManager.ControlStyle.Shadow)
-                };
-
-            lineGradient.Angle = angle;
-            lineGradient.Colors = lineColor;
-            lineGradient.Positions = gradientPosition;
-
-            shadowGradient.Angle = angle;
-            shadowGradient.Colors = shadowColor;
-            shadowGradient.Positions = gradientPosition;
-            base.OnThemeChanged(e);
         }
 
         #endregion

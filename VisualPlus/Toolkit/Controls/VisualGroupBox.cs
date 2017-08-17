@@ -25,6 +25,8 @@
     {
         #region Variables
 
+        private Border _border;
+
         private Drag _drag;
         private GroupBoxStyle groupBoxStyle;
         private StringAlignment stringAlignment;
@@ -50,12 +52,13 @@
             titleGradient = new Gradient();
 
             Size = new Size(220, 180);
-            Padding = new Padding(5, titleBoxHeight + Border.Thickness, 5, 5);
+            titleBorder = new Border();
+            _border = new Border();
+            Padding = new Padding(5, titleBoxHeight + _border.Thickness, 5, 5);
 
             _drag = new Drag(this, Settings.DefaultValue.Moveable);
 
-            titleBorder = new Border();
-            titleGradient = StyleManager.ControlStatesStyle.ControlDisabled;
+            UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
         public enum GroupBoxStyle
@@ -79,6 +82,23 @@
         #endregion
 
         #region Properties
+
+        [TypeConverter(typeof(BorderConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(Property.Appearance)]
+        public Border Border
+        {
+            get
+            {
+                return _border;
+            }
+
+            set
+            {
+                _border = value;
+                Invalidate();
+            }
+        }
 
         [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Type)]
@@ -216,6 +236,22 @@
 
         #region Events
 
+        public void UpdateTheme(Styles style)
+        {
+            StyleManager = new StyleManager(style);
+            _border.Color = StyleManager.BorderStyle.Color;
+            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+            ForeColor = StyleManager.FontStyle.ForeColor;
+            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+
+            Background = StyleManager.ControlStyle.Background(0);
+            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+
+            titleGradient = StyleManager.ControlStatesStyle.ControlDisabled;
+
+            Invalidate();
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -233,11 +269,11 @@
             titleBoxRectangle = new Rectangle(title.X, title.Y, title.Width, title.Height);
             titleBoxPath = VisualBorderRenderer.GetBorderShape(titleBoxRectangle, titleBorder.Type, titleBorder.Rounding);
 
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(group, Border.Type, Border.Rounding);
+            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(group, _border.Type, _border.Rounding);
 
             graphics.FillPath(new SolidBrush(Background), ControlGraphicsPath);
 
-            VisualBorderRenderer.DrawBorderStyle(graphics, Border, MouseState, ControlGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, _border, MouseState, ControlGraphicsPath);
 
             if (titleBoxVisible)
             {

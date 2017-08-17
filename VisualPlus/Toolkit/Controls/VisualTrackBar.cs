@@ -100,23 +100,12 @@
             Size = new Size(200, 50);
             MinimumSize = new Size(0, 0);
 
-            backgroundGradient = _styleManager.ProgressStyle.BackProgress;
-            trackBarDisabledGradient = _styleManager.ProgressStyle.BackProgress;
-            progressGradient = _styleManager.ProgressStyle.Progress;
-            buttonGradient = _styleManager.ControlStatesStyle.ControlEnabled;
-            hatchBackColor = _styleManager.ProgressStyle.Hatch;
-            tickColor = _styleManager.ControlStyle.Line;
-
             trackBarBorder = new Border();
             buttonBorder = new Border();
 
             textRendererHint = Settings.DefaultValue.TextRenderingHint;
-            Font = _styleManager.Font;
 
-            textFont = Font;
-            foreColor = _styleManager.FontStyle.ForeColor;
-            buttonTextColor = ForeColor;
-            textDisabledColor = _styleManager.FontStyle.ForeColorDisabled;
+            UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
         public enum ValueDivisor
@@ -805,6 +794,34 @@
                 Minimum = Maximum;
             }
 
+            Invalidate();
+        }
+
+        public void UpdateTheme(Styles style)
+        {
+            StyleManager _styleManager = new StyleManager(style);
+
+            ForeColor = _styleManager.FontStyle.ForeColor;
+
+            Font = _styleManager.Font;
+            textFont = Font;
+            foreColor = _styleManager.FontStyle.ForeColor;
+            buttonTextColor = ForeColor;
+            textDisabledColor = _styleManager.FontStyle.ForeColorDisabled;
+
+            backgroundGradient = _styleManager.ProgressStyle.BackProgress;
+            trackBarDisabledGradient = _styleManager.ProgressStyle.BackProgress;
+            progressGradient = _styleManager.ProgressStyle.Progress;
+            buttonGradient = _styleManager.ControlStatesStyle.ControlEnabled;
+            hatchBackColor = _styleManager.ProgressStyle.Hatch;
+            tickColor = _styleManager.ControlStyle.Line;
+
+
+            buttonBorder.Color = _styleManager.BorderStyle.Color;
+            buttonBorder.HoverColor = _styleManager.BorderStyle.HoverColor;
+
+            trackBarBorder.Color = _styleManager.BorderStyle.Color;
+            trackBarBorder.HoverColor = _styleManager.BorderStyle.HoverColor;
             Invalidate();
         }
 

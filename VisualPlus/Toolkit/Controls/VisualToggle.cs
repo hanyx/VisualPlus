@@ -14,6 +14,7 @@
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -32,6 +33,8 @@
             {
                 Interval = 1
             };
+
+        private Border _border;
 
         private Border buttonBorder;
         private Gradient buttonDisabledGradient;
@@ -59,7 +62,7 @@
             toggleType = ToggleTypes.YesNo;
             buttonSize = new Size(20, 20);
 
-            ControlBorder = new Border
+            _border = new Border
                 {
                     Rounding = Settings.DefaultValue.Rounding.ToggleBorder
                 };
@@ -69,12 +72,9 @@
                     Rounding = Settings.DefaultValue.Rounding.ToggleButton
                 };
 
-            UpdateTheme(this, Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
-        // public delegate void ToggledChangedEventHandler();
-
-        // public event ToggledChangedEventHandler ToggledChanged;
         public enum ToggleTypes
         {
             /// <summary>Yes / No toggle.</summary>
@@ -98,12 +98,12 @@
         {
             get
             {
-                return ControlBorder;
+                return _border;
             }
 
             set
             {
-                ControlBorder = value;
+                _border = value;
                 Invalidate();
             }
         }
@@ -213,6 +213,25 @@
 
         #region Events
 
+        public void UpdateTheme(Styles style)
+        {
+            StyleManager = new StyleManager(style);
+
+            ForeColor = StyleManager.FontStyle.ForeColor;
+            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+
+            Background = StyleManager.ControlStyle.Background(3);
+            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+
+            buttonGradient = StyleManager.ControlStatesStyle.ControlEnabled;
+            buttonDisabledGradient = StyleManager.ControlStatesStyle.ControlDisabled;
+            _border.Color = StyleManager.BorderStyle.Color;
+            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+            buttonBorder.Color = StyleManager.BorderStyle.Color;
+            buttonBorder.HoverColor = StyleManager.BorderStyle.HoverColor;
+            Invalidate();
+        }
+
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
@@ -244,7 +263,9 @@
             base.OnPaint(e);
 
             Graphics graphics = e.Graphics;
-            controlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, ControlBorder.Type, ControlBorder.Rounding);
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+
+            controlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
 
             // Update button location points
             startPoint = new Point(0 + 2, (ClientRectangle.Height / 2) - (buttonSize.Height / 2));
@@ -265,14 +286,7 @@
             graphics.FillPath(buttonGradientBrush, buttonPath);
 
             VisualBorderRenderer.DrawBorderStyle(graphics, buttonBorder, MouseState, buttonPath);
-        }
-
-        protected override void OnThemeChanged(ThemeEventArgs e)
-        {
-            buttonGradient = StyleManager.ControlStatesStyle.ControlEnabled;
-            buttonDisabledGradient = StyleManager.ControlStatesStyle.ControlDisabled;
-
-            base.OnThemeChanged(e);
+            VisualBorderRenderer.DrawBorderStyle(graphics, _border, MouseState, controlGraphicsPath);
         }
 
         /// <summary>Create a slide animation when toggled.</summary>

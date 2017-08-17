@@ -6,8 +6,10 @@
     using System.Drawing;
     using System.Windows.Forms;
 
+    using VisualPlus.Enumerators;
     using VisualPlus.Managers;
     using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -37,6 +39,39 @@
                     ShapeSize = new Size(8, 8),
                     ShapeRounding = Settings.DefaultValue.Rounding.Default
                 };
+
+            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+        }
+
+        #endregion
+
+        #region Events
+
+        public void UpdateTheme(Styles style)
+        {
+            StyleManager = new StyleManager(style);
+
+            ForeColor = StyleManager.FontStyle.ForeColor;
+            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+
+            Background = StyleManager.ControlStyle.Background(0);
+            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+
+            CheckMark.EnabledGradient = StyleManager.CheckmarkStyle.EnabledGradient;
+            CheckMark.DisabledGradient = StyleManager.CheckmarkStyle.DisabledGradient;
+
+            ControlBrushCollection = new[]
+                {
+                    StyleManager.ControlStatesStyle.ControlEnabled,
+                    StyleManager.ControlStatesStyle.ControlHover,
+                    StyleManager.ControlStatesStyle.ControlPressed,
+                    StyleManager.ControlStatesStyle.ControlDisabled
+                };
+
+            Border.Color = StyleManager.BorderStyle.Color;
+            Border.HoverColor = StyleManager.BorderStyle.HoverColor;
+
+            Invalidate();
         }
 
         #endregion

@@ -33,10 +33,10 @@
         private Border _border;
 
         private ListView _listView;
+        private bool _standardHeader;
         private Border columnBorder;
         private Color columnHeaderBackground;
         private Size columnSize;
-        private bool drawStandardHeader;
         private Font headerFont;
         private Color headerText;
         private Color itemBackground;
@@ -533,16 +533,17 @@
 
         [DefaultValue(false)]
         [Category(Property.Behavior)]
+        [Description("Draws the background of the column header.")]
         public bool StandardHeader
         {
             get
             {
-                return drawStandardHeader;
+                return _standardHeader;
             }
 
             set
             {
-                drawStandardHeader = value;
+                _standardHeader = value;
                 Invalidate();
             }
         }
@@ -665,12 +666,12 @@
 
             columnSize = new Size(Width, e.Bounds.Height);
 
-            Rectangle columnHeaderRectangle = new Rectangle(e.Bounds.X, e.Bounds.Y, columnSize.Width, columnSize.Height);
+            Rectangle columnHeaderRectangle = new Rectangle(e.Bounds.X, e.Bounds.Y, columnSize.Width - 1, columnSize.Height - 1);
             GraphicsPath columnHeaderPath = new GraphicsPath();
             columnHeaderPath.AddRectangle(columnHeaderRectangle);
             columnHeaderPath.CloseAllFigures();
 
-            if (drawStandardHeader)
+            if (_standardHeader)
             {
                 // Draw the standard header background.
                 e.DrawBackground();

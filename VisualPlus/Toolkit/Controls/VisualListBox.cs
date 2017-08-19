@@ -165,6 +165,23 @@
             }
         }
 
+        [TypeConverter(typeof(BorderConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(Property.Appearance)]
+        public Border Border
+        {
+            get
+            {
+                return _border;
+            }
+
+            set
+            {
+                _border = value;
+                Invalidate();
+            }
+        }
+
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(false)]

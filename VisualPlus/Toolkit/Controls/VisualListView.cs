@@ -32,15 +32,13 @@
 
         private Border _border;
         private Color _columnHeaderColor;
-
+        private Color _itemSelected;
         private ListView _listView;
         private bool _standardHeader;
         private Font headerFont;
         private Color headerText;
         private Color itemBackground;
-        private Color itemHover;
         private int itemPadding = 12;
-        private Color itemSelected;
 
         #endregion
 
@@ -77,7 +75,7 @@
             BackColor = Color.Transparent;
             Size = new Size(250, 150);
 
-           //  _listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            // _listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             // _listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             _listView.DrawColumnHeader += ListView_DrawColumnHeader;
             _listView.DrawItem += ListView_DrawItem;
@@ -119,6 +117,23 @@
             {
                 _listView.BackColor = value;
                 base.Background = value;
+            }
+        }
+
+        [TypeConverter(typeof(BorderConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(Property.Appearance)]
+        public Border Border
+        {
+            get
+            {
+                return _border;
+            }
+
+            set
+            {
+                _border = value;
+                Invalidate();
             }
         }
 
@@ -345,22 +360,6 @@
         }
 
         [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
-        public Color ItemHover
-        {
-            get
-            {
-                return itemHover;
-            }
-
-            set
-            {
-                itemHover = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Property.Appearance)]
         public int ItemPadding
         {
             get
@@ -391,16 +390,16 @@
 
         [Category(Property.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
-        public Color ItemSelected
+        public Color ItemSelectedColor
         {
             get
             {
-                return itemSelected;
+                return _itemSelected;
             }
 
             set
             {
-                itemSelected = value;
+                _itemSelected = value;
                 Invalidate();
             }
         }
@@ -589,8 +588,7 @@
             _columnHeaderColor = StyleManager.ControlStyle.FlatButtonDisabled;
             headerText = StyleManager.FontStyle.ForeColor;
             itemBackground = StyleManager.ControlStyle.ItemEnabled;
-            itemHover = StyleManager.ControlStyle.ItemHover;
-            itemSelected = StyleManager.BorderStyle.Color;
+            _itemSelected = StyleManager.BorderStyle.HoverColor;
 
             Invalidate();
         }
@@ -675,12 +673,7 @@
             if (e.State.HasFlag(ListViewItemStates.Selected))
             {
                 // selected background
-                graphics.FillRectangle(new SolidBrush(itemSelected), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
-            }
-            else if (e.Bounds.Contains(LastPosition) && (MouseState == MouseStates.Hover))
-            {
-                // hover background
-                graphics.FillRectangle(new SolidBrush(itemHover), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
+                graphics.FillRectangle(new SolidBrush(_itemSelected), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
             }
 
             // Draw separator
@@ -690,17 +683,6 @@
                 // Draw text
                 graphics.DrawString(subItem.Text, Font, new SolidBrush(Color.Black), new Rectangle(subItem.Bounds.X + itemPadding, itemPadding, subItem.Bounds.Width - (2 * itemPadding), subItem.Bounds.Height - (2 * itemPadding)), GetStringFormat());
             }
-
-            // if ((e.State & ListViewItemStates.Selected) != 0)
-            // {
-            // // Selected item background
-            // e.Graphics.FillRectangle(new SolidBrush(itemSelected), e.Bounds);
-            // }
-            // else
-            // {
-            // // Unselected item background
-            // e.Graphics.FillRectangle(new SolidBrush(itemBackground), e.Bounds);
-            // }
 
             // Draw the item text for views other than the Details view
             if (_listView.View != View.Details)

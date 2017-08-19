@@ -7,11 +7,12 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.Extensibility;
     using VisualPlus.Structure;
 
     #endregion
 
-    public class Visual : IBorder, ICheckmark, IControl, IControlState, IFont, IProgress, ITab, IWatermark
+    public class Enigma : IBorder, ICheckmark, IControl, IControlState, IFont, IProgress, ITab, IWatermark
     {
         #region Variables
 
@@ -45,8 +46,8 @@
             {
                 Color[] backgroundColors =
                     {
-                        ControlPaint.Light(Color.Gainsboro),
-                        Color.Gainsboro
+                        ControlPaint.Light(Color.FromArgb(137, 136, 136)),
+                        Color.FromArgb(137, 136, 136)
                     };
 
                 Gradient backgroundGradient = new Gradient
@@ -85,8 +86,8 @@
             {
                 Color[] boxEnabledColors =
                     {
-                        ControlPaint.Light(Color.FromArgb(241, 244, 249)),
-                        Color.FromArgb(241, 244, 249)
+                        ControlPaint.Light(Color.FromArgb(27, 28, 28)),
+                        Color.FromArgb(27, 28, 28)
                     };
 
                 Gradient boxEnabled = new Gradient
@@ -103,7 +104,7 @@
         {
             get
             {
-                return Color.FromArgb(180, 180, 180);
+                return Color.FromArgb(180, 255, 180);
             }
         }
 
@@ -134,9 +135,9 @@
             {
                 Color[] controlEnabledColors =
                     {
-                        Color.FromArgb(226, 226, 226),
-                        ControlPaint.Light(Color.FromArgb(226, 226, 226)),
-                        Color.FromArgb(226, 226, 226)
+                        Color.Black,
+                        ControlPaint.Light(Color.Black),
+                        Color.Black
                     };
 
                 Gradient controlEnabled = new Gradient
@@ -155,9 +156,9 @@
             {
                 Color[] controlHoverColors =
                     {
-                        Color.FromArgb(181, 181, 181),
-                        ControlPaint.Light(Color.FromArgb(181, 181, 181)),
-                        Color.FromArgb(181, 181, 181)
+                        "2d2f32".FromHtml(),
+                        ControlPaint.Light("1a1a1a".FromHtml()),
+                        "2d2f32".FromHtml()
                     };
 
                 Gradient controlHover = new Gradient
@@ -243,7 +244,7 @@
         {
             get
             {
-                return Color.FromArgb(119, 119, 118);
+                return Color.White;
             }
         }
 
@@ -251,7 +252,7 @@
         {
             get
             {
-                return new FontFamily("Segoe UI");
+                return new FontFamily("Verdana");
             }
         }
 
@@ -283,7 +284,7 @@
         {
             get
             {
-                return Color.Black;
+                return Color.White;
             }
         }
 
@@ -315,7 +316,7 @@
         {
             get
             {
-                return Color.FromArgb(120, 183, 230);
+                return Color.FromArgb(230, 120, 125);
             }
         }
 
@@ -411,7 +412,7 @@
         {
             get
             {
-                return Styles.Visual;
+                return Styles.Enigma;
             }
         }
 

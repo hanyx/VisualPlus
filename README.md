@@ -1,11 +1,13 @@
-# VisualPlus [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/VisualPlusUI/General)
+![VisualPlus](http://i.imgur.com/sgGoVrP.png)
+# VisualPlus
 [![Release](https://img.shields.io/github/release/DarkByte7/VisualPlus.svg?style=flat)](https://github.com/DarkByte7/VisualPlus/releases/latest)
 [![NuGet](https://img.shields.io/nuget/v/VisualPlus.svg?style=flat)](https://www.nuget.org/packages/VisualPlus/)
 [![NuGetPre](https://img.shields.io/nuget/vpre/VisualPlus.svg?style=flat)](https://www.nuget.org/packages/VisualPlus/)
 [![Issues](https://img.shields.io/github/issues/DarkByte7/VisualPlus.svg?style=flat)](https://github.com/DarkByte7/VisualPlus/issues)
 [![All Releases](https://img.shields.io/github/downloads/DarkByte7/VisualPlus/total.svg?style=flat)](https://github.com/DarkByte7/VisualPlus/releases)
-
-VisualPlus allows you the developer to quickly build professional looking .NET applications. With these clean and easily customizable controls to meet your development needs.
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/VisualPlusUI/General)
+ 
+VisualPlus allows you the developer to quickly build professional looking .NET applications. With these easily customizable controls to meet your development needs.
 
 | Service | Stable | Beta |
 | :---- | :---- | :------ |
@@ -54,7 +56,7 @@ Send me a message to add a project to this list:
 - [VisualPlus](https://github.com/DarkByte7/VisualPlus)
 
 ## Screenshots
-![ToolBox](http://i.imgur.com/EgBcSNg.jpg)
+![ToolBox](http://i.imgur.com/5m9rzBl.jpg)
 
 ## License
 This repository is licensed with the [GPLv3](LICENSE) license.

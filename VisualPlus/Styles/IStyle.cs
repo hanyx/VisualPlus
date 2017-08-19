@@ -4,8 +4,7 @@
 
     using System.Drawing;
 
-    using VisualPlus.Enums;
-    using VisualPlus.Framework.Structure;
+    using VisualPlus.Structure;
 
     #endregion
 
@@ -20,13 +19,28 @@
         #endregion
     }
 
-    public interface IWatermark
+    public interface ICheckmark
     {
         #region Properties
 
-        Color ActiveColor { get; }
+        Gradient DisabledGradient { get; }
 
-        Color InactiveColor { get; }
+        Gradient EnabledGradient { get; }
+
+        #endregion
+    }
+
+    public interface IControlState
+    {
+        #region Properties
+
+        Gradient ControlDisabled { get; }
+
+        Gradient ControlEnabled { get; }
+
+        Gradient ControlHover { get; }
+
+        Gradient ControlPressed { get; }
 
         #endregion
     }
@@ -39,17 +53,9 @@
 
         Gradient BoxEnabled { get; }
 
-        Gradient ControlDisabled { get; }
-
-        Gradient ControlEnabled { get; }
-
-        Gradient ControlHover { get; }
-
-        Gradient ControlPressed { get; }
+        Color FlatButtonDisabled { get; }
 
         Color FlatButtonEnabled { get; }
-
-        Color FlatButtonDisabled { get; }
 
         Color ItemEnabled { get; }
 
@@ -93,11 +99,11 @@
 
         Color BackCircle { get; }
 
-        Color Hatch { get; }
-
-        Gradient Background { get; }
+        Gradient BackProgress { get; }
 
         Color ForeCircle { get; }
+
+        Color Hatch { get; }
 
         Gradient Progress { get; }
 
@@ -108,12 +114,27 @@
 
     public interface ITab
     {
+        #region Properties
+
+        Color Menu { get; }
+
         Color TabEnabled { get; }
 
         Color TabHover { get; }
 
         Color TabSelected { get; }
 
-        Color Menu { get; }
+        #endregion
+    }
+
+    public interface IWatermark
+    {
+        #region Properties
+
+        Color ActiveColor { get; }
+
+        Color InactiveColor { get; }
+
+        #endregion
     }
 }

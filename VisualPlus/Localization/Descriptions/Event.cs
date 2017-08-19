@@ -4,6 +4,8 @@
     {
         #region Events
 
+        public const string PropertyEventChanged = "Occours when the controls property was triggered by an event that has caused a change.";
+
         public const string ControlDragChanged = "Occours when the control is being dragged.";
         public const string ControlDragToggleChanged = "Occours when the control drag toggle has been changed.";
 

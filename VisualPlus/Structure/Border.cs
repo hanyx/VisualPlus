@@ -28,28 +28,41 @@
     {
         #region Variables
 
-        private Color hoverColor;
-        private bool hoverVisible;
+        private Color _hoverColor;
+        private bool _hoverVisible;
 
         #endregion
 
         #region Constructors
 
         /// <summary>Initializes a new instance of the <see cref="Border" /> class.</summary>
+        /// <param name="hoverColor">The hover Color.</param>
+        /// <param name="hoverVisible">The hover Visible.</param>
+        public Border(Color hoverColor, bool hoverVisible)
+        {
+            ConstructBorder(hoverColor, hoverVisible);
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="Border" /> class.</summary>
+        /// <param name="hoverColor">The hover Color.</param>
+        public Border(Color hoverColor)
+        {
+            ConstructBorder(hoverColor, true);
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="Border" /> class.</summary>
         public Border()
         {
             StyleManager styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
-
-            hoverColor = styleManager.BorderStyle.HoverColor;
-            hoverVisible = true;
+            ConstructBorder(styleManager.BorderStyle.HoverColor, true);
         }
 
         [Category(Event.PropertyChanged)]
-        [Description("Occours when the hvoer color has been changed.")]
+        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event BorderHoverColorChangedEventHandler HoverColorChanged;
 
         [Category(Event.PropertyChanged)]
-        [Description("Occours when the hover visible has been changed.")]
+        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event BorderHoverVisibleChangedEventHandler HoverVisibleChanged;
 
         #endregion
@@ -63,13 +76,13 @@
         {
             get
             {
-                return hoverColor;
+                return _hoverColor;
             }
 
             set
             {
-                hoverColor = value;
-                HoverColorChanged?.Invoke(new ColorEventArgs(hoverColor));
+                _hoverColor = value;
+                HoverColorChanged?.Invoke(new ColorEventArgs(_hoverColor));
             }
         }
 
@@ -80,14 +93,27 @@
         {
             get
             {
-                return hoverVisible;
+                return _hoverVisible;
             }
 
             set
             {
-                hoverVisible = value;
+                _hoverVisible = value;
                 HoverVisibleChanged?.Invoke();
             }
+        }
+
+        #endregion
+
+        #region Events
+
+        /// <summary>Constructs the shape.</summary>
+        /// <param name="hoverColor">The hover Color.</param>
+        /// <param name="hoverVisible">The hover Visible.</param>
+        private void ConstructBorder(Color hoverColor, bool hoverVisible)
+        {
+            _hoverColor = hoverColor;
+            _hoverVisible = hoverVisible;
         }
 
         #endregion

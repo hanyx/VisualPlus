@@ -21,38 +21,56 @@
     {
         #region Variables
 
-        private float angle;
-
-        private Color[] colors;
-
-        private float[] positions;
+        private float _angle;
+        private Color[] _colors;
+        private float[] _positions;
 
         #endregion
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="Gradient" /> class.</summary>
         public Gradient()
         {
-            colors = new[]
+            var _defaultColors = new[]
                 {
                     Color.Red,
                     Color.Green,
                     Color.Blue
                 };
 
-            positions = new[] { 0, 1 / 2f, 1 };
+            var _defaultPosition = new[] { 0, 1 / 2f, 1 };
+
+            ConstructGradient(_defaultColors, _defaultPosition, 0);
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="Gradient" /> class.</summary>
+        /// <param name="colors">The colors.</param>
+        /// <param name="positions">The positions.</param>
+        public Gradient(Color[] colors, float[] positions)
+        {
+            ConstructGradient(colors, positions, 0);
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="Gradient" /> class.</summary>
+        /// <param name="colors">The colors.</param>
+        /// <param name="positions">The positions.</param>
+        /// <param name="angle">The angle.</param>
+        public Gradient(Color[] colors, float[] positions, float angle)
+        {
+            ConstructGradient(colors, positions, angle);
         }
 
         [Category(Event.PropertyChanged)]
-        [Description("Occours when the angle property has changed.")]
+        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event GradientAngleChangedEventHandler AngleChanged;
 
         [Category(Event.PropertyChanged)]
-        [Description("Occours when the colors property has changed.")]
+        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event GradientColorChangedEventHandler ColorsChanged;
 
         [Category(Event.PropertyChanged)]
-        [Description("Occours when the positions property has changed.")]
+        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event GradientPositionsChangedEventHandler PositionsChanged;
 
         #endregion
@@ -66,12 +84,12 @@
         {
             get
             {
-                return angle;
+                return _angle;
             }
 
             set
             {
-                angle = value;
+                _angle = value;
                 AngleChanged?.Invoke();
             }
         }
@@ -83,12 +101,12 @@
         {
             get
             {
-                return colors;
+                return _colors;
             }
 
             set
             {
-                colors = value;
+                _colors = value;
                 ColorsChanged?.Invoke();
             }
         }
@@ -100,12 +118,12 @@
         {
             get
             {
-                return positions;
+                return _positions;
             }
 
             set
             {
-                positions = value;
+                _positions = value;
                 PositionsChanged?.Invoke();
             }
         }
@@ -134,6 +152,22 @@
             linearGradientBrush.RotateTransform(angle);
 
             return linearGradientBrush;
+        }
+
+        /// <summary>Constructs the gradient.</summary>
+        /// <param name="colors">The colors.</param>
+        /// <param name="positions">The positions.</param>
+        /// <param name="angle">The angle.</param>
+        private void ConstructGradient(Color[] colors, float[] positions, float angle)
+        {
+            if (colors.Length != positions.Length)
+            {
+                throw new Exception("You must have an equal amount of colors that you have positions for them.");
+            }
+
+            _colors = colors;
+            _positions = positions;
+            _angle = angle;
         }
 
         #endregion

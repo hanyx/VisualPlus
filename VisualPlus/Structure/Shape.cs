@@ -29,11 +29,11 @@
     {
         #region Variables
 
-        private Color color;
-        private int rounding;
-        private int thickness;
-        private ShapeType type;
-        private bool visible;
+        private Color _color;
+        private int _rounding;
+        private ShapeType _shapeType;
+        private int _thickness;
+        private bool _visible;
 
         #endregion
 
@@ -43,32 +43,57 @@
         public Shape()
         {
             StyleManager styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+            ConstructShape(ShapeType.Rounded, styleManager.BorderStyle.Color, Settings.DefaultValue.Rounding.Default, Settings.DefaultValue.BorderThickness, true);
+        }
 
-            color = styleManager.BorderStyle.Color;
-            rounding = Settings.DefaultValue.Rounding.Default;
-            thickness = Settings.DefaultValue.BorderThickness;
-            type = ShapeType.Rounded;
-            visible = true;
+        /// <summary>Initializes a new instance of the <see cref="Shape" /> class.</summary>
+        /// <param name="shapeType">The shape type.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="rounding">The rounding.</param>
+        public Shape(ShapeType shapeType, Color color, int rounding) : this()
+        {
+            ConstructShape(shapeType, color, rounding, _thickness, _visible);
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="Shape" /> class.</summary>
+        /// <param name="shapeType">The shape type.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="rounding">The rounding.</param>
+        /// <param name="thickness">The thickness.</param>
+        public Shape(ShapeType shapeType, Color color, int rounding, int thickness) : this()
+        {
+            ConstructShape(shapeType, color, rounding, thickness, _visible);
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="Shape" /> class.</summary>
+        /// <param name="shapeType">The shape type.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="rounding">The rounding.</param>
+        /// <param name="thickness">The thickness.</param>
+        /// <param name="visible">The visibility.</param>
+        public Shape(ShapeType shapeType, Color color, int rounding, int thickness, bool visible)
+        {
+            ConstructShape(shapeType, color, rounding, thickness, visible);
         }
 
         [Category(Event.PropertyChanged)]
-        [Description("Occours when the color has been changed.")]
+        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event BorderColorChangedEventHandler ColorChanged;
 
         [Category(Event.PropertyChanged)]
-        [Description("Occours when the border rounding has been changed.")]
+        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event BorderRoundingChangedEventHandler RoundingChanged;
 
         [Category(Event.PropertyChanged)]
-        [Description("Occours when the border thickness changed.")]
+        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event BorderThicknessChangedEventHandler ThicknessChanged;
 
         [Category(Event.PropertyChanged)]
-        [Description("Occours when the border type changed.")]
+        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event BorderTypeChangedEventHandler TypeChanged;
 
         [Category(Event.PropertyChanged)]
-        [Description("Occours when the border visible changed.")]
+        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event BorderVisibleChangedEventHandler VisibleChanged;
 
         #endregion
@@ -82,13 +107,13 @@
         {
             get
             {
-                return color;
+                return _color;
             }
 
             set
             {
-                color = value;
-                ColorChanged?.Invoke(new ColorEventArgs(color));
+                _color = value;
+                ColorChanged?.Invoke(new ColorEventArgs(_color));
             }
         }
 
@@ -99,14 +124,14 @@
         {
             get
             {
-                return rounding;
+                return _rounding;
             }
 
             set
             {
                 if (ExceptionManager.ArgumentOutOfRangeException(value, Settings.MinimumRounding, Settings.MaximumRounding))
                 {
-                    rounding = value;
+                    _rounding = value;
                     RoundingChanged?.Invoke();
                 }
             }
@@ -119,14 +144,14 @@
         {
             get
             {
-                return thickness;
+                return _thickness;
             }
 
             set
             {
                 if (ExceptionManager.ArgumentOutOfRangeException(value, Settings.MinimumBorderSize, Settings.MaximumBorderSize))
                 {
-                    thickness = value;
+                    _thickness = value;
                     ThicknessChanged?.Invoke();
                 }
             }
@@ -139,12 +164,12 @@
         {
             get
             {
-                return type;
+                return _shapeType;
             }
 
             set
             {
-                type = value;
+                _shapeType = value;
                 TypeChanged?.Invoke();
             }
         }
@@ -156,14 +181,33 @@
         {
             get
             {
-                return visible;
+                return _visible;
             }
 
             set
             {
-                visible = value;
+                _visible = value;
                 VisibleChanged?.Invoke();
             }
+        }
+
+        #endregion
+
+        #region Events
+
+        /// <summary>Constructs the shape.</summary>
+        /// <param name="shapeType">The shape type.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="rounding">The rounding.</param>
+        /// <param name="thickness">The thickness.</param>
+        /// <param name="visible">The visibility.</param>
+        private void ConstructShape(ShapeType shapeType, Color color, int rounding, int thickness, bool visible)
+        {
+            _color = color;
+            _rounding = rounding;
+            _thickness = thickness;
+            _shapeType = shapeType;
+            _visible = visible;
         }
 
         #endregion

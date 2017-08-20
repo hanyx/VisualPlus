@@ -51,6 +51,9 @@ BitCoin donations are also welcome: `1KKghRonJu6orcu7rf4r1wSnsnAPbnC8B7`
 - Vote for [popular feature requests](https://github.com/DarkByte7/VisualPlus/issues?q=is:open+is:issue+label:feature-request+sort:reactions-B1-desc).
 - File a bug in [GitHub Issues](https://github.com/DarkByte7/VisualPlus/issues?q=is:open+is:issue).
 
+## Tutorial
+[![](http://youronline.biz/wp-content/uploads/2012/08/Play-Video-Now.jpg)](https://youtu.be/QulNVudD9o8)
+
 ## Projects that use VisualPlus
 Send me a message to add a project to this list:
 - [VisualPlus](https://github.com/DarkByte7/VisualPlus)

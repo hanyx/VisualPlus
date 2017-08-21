@@ -6,6 +6,7 @@
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Drawing.Text;
+    using System.Globalization;
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
@@ -485,6 +486,34 @@
             return new[] { new Point { X = rectangle.Width, Y = 0 }, new Point { X = rectangle.Width, Y = rectangle.Height } };
         }
 
+        /// <summary>Retrieves the transition color between two other colors.</summary>
+        /// <param name="value">The progress value in the transition.</param>
+        /// <param name="beginColor">The beginning color.</param>
+        /// <param name="endColor">The ending color.</param>
+        /// <returns>The color in between.</returns>
+        public static Color GetTransitionColor(int value, Color beginColor, Color endColor)
+        {
+            try
+            {
+                try
+                {
+                    int _red = int.Parse(Math.Round(beginColor.R + ((endColor.R - beginColor.R) * value * 0.01), 0).ToString(CultureInfo.CurrentCulture));
+                    int _green = int.Parse(Math.Round(beginColor.G + ((endColor.G - beginColor.G) * value * 0.01), 0).ToString(CultureInfo.CurrentCulture));
+                    int _blue = int.Parse(Math.Round(beginColor.B + ((endColor.B - beginColor.B) * value * 0.01), 0).ToString(CultureInfo.CurrentCulture));
+                    return Color.FromArgb(255, _red, _green, _blue);
+                }
+                catch (Exception)
+                {
+                    return beginColor;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
         /// <summary>Checks whether the mouse is inside the bounds.</summary>
         /// <param name="mousePoint">Mouse location.</param>
         /// <param name="bounds">The rectangle.</param>
@@ -595,6 +624,24 @@
             return Graphics.FromImage(drawArea);
         }
 
+        /// <summary>Draws the rounded rectangle from a rectangle shape.</summary>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="curve">The curve.</param>
+        /// <returns>The <see cref="GraphicsPath" />.</returns>
+        internal static GraphicsPath CreateFormPath(Rectangle rectangle, int curve)
+        {
+            GraphicsPath _graphicsPath = new GraphicsPath();
+            _graphicsPath.StartFigure();
+            _graphicsPath.AddArc(rectangle.X, rectangle.Y, curve, curve, 180F, 90F);
+            _graphicsPath.AddLine(curve, rectangle.Y, rectangle.Width - curve, 90F);
+            _graphicsPath.AddArc(rectangle.Width - curve, rectangle.Y, curve, curve, 270F, 90F);
+            _graphicsPath.AddLine(rectangle.Width, curve, rectangle.Width, rectangle.Height - curve);
+            _graphicsPath.AddArc(rectangle.Width - curve, rectangle.Height - curve, curve, curve, 90F, 90F);
+            _graphicsPath.AddLine(rectangle.Width - curve, rectangle.Height, curve, rectangle.Height);
+            _graphicsPath.AddArc(rectangle.X, rectangle.Height - curve, curve, curve, 90F, 90F);
+            return _graphicsPath;
+        }
+
         /// <summary>Draw background image.</summary>
         /// <param name="graphics">Graphics controller.</param>
         /// <param name="rectangle">The rectangle.</param>
@@ -664,24 +711,6 @@
 
             var gradientPoints = GetGradientPoints(rectangle);
             return Gradient.CreateGradientBrush(tempGradient.Colors, gradientPoints, tempGradient.Angle, tempGradient.Positions);
-        }
-
-        /// <summary>Draws the rounded rectangle from a rectangle shape.</summary>
-        /// <param name="rectangle">The rectangle.</param>
-        /// <param name="curve">The curve.</param>
-        /// <returns>The <see cref="GraphicsPath" />.</returns>
-        internal static GraphicsPath CreateFormPath(Rectangle rectangle, int curve)
-        {
-            GraphicsPath _graphicsPath = new GraphicsPath();
-            _graphicsPath.StartFigure();
-            _graphicsPath.AddArc(rectangle.X, rectangle.Y, curve, curve, 180F, 90F);
-            _graphicsPath.AddLine(curve, rectangle.Y, rectangle.Width - curve, 90F);
-            _graphicsPath.AddArc(rectangle.Width - curve, rectangle.Y, curve, curve, 270F, 90F);
-            _graphicsPath.AddLine(rectangle.Width, curve, rectangle.Width, rectangle.Height - curve);
-            _graphicsPath.AddArc(rectangle.Width - curve, rectangle.Height - curve, curve, curve, 90F, 90F);
-            _graphicsPath.AddLine(rectangle.Width - curve, rectangle.Height, curve, rectangle.Height);
-            _graphicsPath.AddArc(rectangle.X, rectangle.Height - curve, curve, curve, 90F, 90F);
-            return _graphicsPath;
         }
 
         #endregion

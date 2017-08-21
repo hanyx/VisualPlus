@@ -517,6 +517,39 @@
             return textSize;
         }
 
+        /// <summary>Rounds the region of the control.</summary>
+        /// <param name="control">The control to round.</param>
+        /// <param name="rounding">The amount of rounding.</param>
+        public static void RoundRegion(Control control, int rounding)
+        {
+            try
+            {
+                control.Region = Region.FromHrgn(Native.CreateRoundRectRgn(0, 0, control.Width, control.Height, rounding, rounding));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        /// <summary>Rounds the region of the control.</summary>
+        /// <param name="form">The form control to round.</param>
+        /// <param name="rounding">The amount of rounding.</param>
+        public static void RoundRegion(Form form, int rounding)
+        {
+            try
+            {
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.Region = Region.FromHrgn(Native.CreateRoundRectRgn(0, 0, form.Width, form.Height, rounding, rounding));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
         /// <summary>Set's the container controls BackColor.</summary>
         /// <param name="control">Current control.</param>
         /// <param name="backgroundColor">Container background color.</param>
@@ -637,7 +670,7 @@
         /// <param name="rectangle">The rectangle.</param>
         /// <param name="curve">The curve.</param>
         /// <returns>The <see cref="GraphicsPath" />.</returns>
-        internal static GraphicsPath RoundForm(Rectangle rectangle, int curve)
+        internal static GraphicsPath CreateFormPath(Rectangle rectangle, int curve)
         {
             GraphicsPath _graphicsPath = new GraphicsPath();
             _graphicsPath.StartFigure();

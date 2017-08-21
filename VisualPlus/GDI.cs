@@ -81,6 +81,24 @@
             }
         }
 
+        /// <summary>Apply a gradient background image on the control.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="size">The size of the gradient.</param>
+        /// <param name="topLeft">The color for top-left.</param>
+        /// <param name="topRight">The color for top-right.</param>
+        /// <param name="bottomLeft">The color for bottom-left.</param>
+        /// <param name="bottomRight">The color for bottom-right.</param>
+        public static void ApplyGradientBackground(Control control, Size size, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight)
+        {
+            if (control.BackgroundImageLayout != ImageLayout.Stretch)
+            {
+                control.BackgroundImageLayout = ImageLayout.Stretch;
+            }
+
+            Bitmap _bitmap = CreateGradientBitmap(size, topLeft, topRight, bottomLeft, bottomRight);
+            control.BackgroundImage = _bitmap;
+        }
+
         /// <summary>Draws the text image relation.</summary>
         /// <param name="graphics">The graphics.</param>
         /// <param name="relation">The relation type.</param>
@@ -233,6 +251,35 @@
             pointsArray[9].Y = pointsArray[1].Y; // mirror point
 
             return pointsArray;
+        }
+
+        /// <summary>Creates a gradient bitmap.</summary>
+        /// <param name="size">The size of the gradient.</param>
+        /// <param name="topLeft">The color for top-left.</param>
+        /// <param name="topRight">The color for top-right.</param>
+        /// <param name="bottomLeft">The color for bottom-left.</param>
+        /// <param name="bottomRight">The color for bottom-right.</param>
+        /// <param name="quality">The bitmap quality.</param>
+        /// <returns>A bitmap with a gradient.</returns>
+        public static Bitmap CreateGradientBitmap(Size size, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight, int quality = 10)
+        {
+            Bitmap _bitmap = new Bitmap(quality, quality);
+            if (quality == 100)
+            {
+                _bitmap = new Bitmap(size.Width, size.Width);
+            }
+
+            for (var i = 0; i < _bitmap.Width; i++)
+            {
+                Color _xColor = GetTransitionColor(int.Parse(Math.Round((i / (double)_bitmap.Width) * 100.0, 0).ToString(CultureInfo.CurrentCulture)), topLeft, topRight);
+                for (var j = 0; j < _bitmap.Height; j++)
+                {
+                    Color _yColor = GetTransitionColor(int.Parse(Math.Round((j / (double)_bitmap.Height) * 100.0, 0).ToString(CultureInfo.CurrentCulture)), bottomLeft, bottomRight);
+                    _bitmap.SetPixel(i, j, InsertColor(_xColor, _yColor));
+                }
+            }
+
+            return _bitmap;
         }
 
         /// <summary>Draws the control.</summary>
@@ -512,6 +559,15 @@
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        /// <summary>Insert the color on to another color.</summary>
+        /// <param name="color0">The color0.</param>
+        /// <param name="color1">The color1.</param>
+        /// <returns>The returning inserted color.</returns>
+        public static Color InsertColor(Color color0, Color color1)
+        {
+            return Color.FromArgb((color0.R + color1.R) / 2, (color0.G + color1.G) / 2, (color0.B + color1.B) / 2);
         }
 
         /// <summary>Checks whether the mouse is inside the bounds.</summary>

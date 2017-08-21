@@ -157,7 +157,9 @@
     <Compile Include="InterfaceTypes.cs" />
     <Compile Include="Managers\ControlManager.cs" />
     <Compile Include="Structure\Checkmark.cs" />
-    <Compile Include="Toolkit\Components\Drag.cs" />
+    <Compile Include="Toolkit\Components\VisualDrag.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Managers\ExceptionManager.cs" />
     <Compile Include="Managers\ColorManager.cs" />
     <Compile Include="Extensibility\Extensions.cs" />

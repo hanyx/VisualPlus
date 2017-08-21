@@ -16,32 +16,39 @@
 
     [Description("The VisualPlus drag component enables controls to be dragged.")]
     [TypeConverter(typeof(DragConverter))]
-    public class Drag
+    public class VisualDrag : Component
     {
         #region Variables
-
-        private readonly Cursor _default = Cursors.SizeAll;
 
         private Control _control;
         private Cursor _cursorMove;
         private bool _enabled;
+        private bool _horizontal;
         private Point _lastPosition;
+        private bool _vertical;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="Drag" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualDrag" /> class.</summary>
+        /// <param name="container">The container.</param>
+        public VisualDrag(IContainer container) : this()
+        {
+            container.Add(this);
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="VisualDrag" /> class.</summary>
         /// <param name="control">The control to attach.</param>
-        public Drag(Control control) : this()
+        public VisualDrag(Control control) : this()
         {
             _control = control;
         }
 
-        /// <summary>Initializes a new instance of the <see cref="Drag" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualDrag" /> class.</summary>
         /// <param name="control">The control to attach.</param>
         /// <param name="enabled">Dragging enabled state.</param>
-        public Drag(Control control, bool enabled) : this()
+        public VisualDrag(Control control, bool enabled) : this()
         {
             _control = control;
             _enabled = enabled;
@@ -52,11 +59,11 @@
             }
         }
 
-        /// <summary>Initializes a new instance of the <see cref="Drag" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualDrag" /> class.</summary>
         /// <param name="control">The control to attach.</param>
         /// <param name="enabled">Dragging enabled state.</param>
         /// <param name="moveCursor">The move Cursor.</param>
-        public Drag(Control control, bool enabled, Cursor moveCursor)
+        public VisualDrag(Control control, bool enabled, Cursor moveCursor)
         {
             _cursorMove = moveCursor;
             _control = control;
@@ -68,10 +75,12 @@
             }
         }
 
-        /// <summary>Prevents a default instance of the <see cref="Drag" /> class from being created.</summary>
-        private Drag()
+        /// <summary>Prevents a default instance of the <see cref="VisualDrag" /> class from being created.</summary>
+        private VisualDrag()
         {
-            _cursorMove = _default;
+            _cursorMove = Cursors.SizeAll;
+            _vertical = true;
+            _horizontal = true;
         }
 
         [Category(Event.DragDrop)]
@@ -89,6 +98,23 @@
         #endregion
 
         #region Properties
+
+        [NotifyParentProperty(true)]
+        [RefreshProperties(RefreshProperties.Repaint)]
+        [Category(Property.Behavior)]
+        [Description("The control to attach this component.")]
+        public Control Control
+        {
+            get
+            {
+                return _control;
+            }
+
+            set
+            {
+                _control = value;
+            }
+        }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
@@ -128,6 +154,11 @@
             {
                 _enabled = value;
 
+                if (_control == null)
+                {
+                    return;
+                }
+
                 if (_enabled)
                 {
                     AttachEvents();
@@ -139,11 +170,45 @@
             }
         }
 
+        [NotifyParentProperty(true)]
+        [RefreshProperties(RefreshProperties.Repaint)]
+        [Category(Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
+        public bool Horizontal
+        {
+            get
+            {
+                return _horizontal;
+            }
+
+            set
+            {
+                _horizontal = value;
+            }
+        }
+
         [Browsable(false)]
         [Category(Property.Behavior)]
         [Description(Localization.Descriptions.Property.IsDragging)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public bool IsDragging { get; private set; }
+
+        [NotifyParentProperty(true)]
+        [RefreshProperties(RefreshProperties.Repaint)]
+        [Category(Property.Behavior)]
+        [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
+        public bool Vertical
+        {
+            get
+            {
+                return _vertical;
+            }
+
+            set
+            {
+                _vertical = value;
+            }
+        }
 
         #endregion
 
@@ -201,15 +266,23 @@
         /// <param name="e">The event.</param>
         private void ControlMouseMove(object sender, MouseEventArgs e)
         {
-            if (_enabled && (e.Button == MouseButtons.Left))
+            if (!_enabled || (e.Button != MouseButtons.Left))
+            {
+                return;
+            }
+
+            if (_horizontal)
             {
                 _control.Left += e.Location.X - _lastPosition.X;
-                _control.Top += e.Location.Y - _lastPosition.Y;
-                _control.Cursor = _cursorMove;
-                IsDragging = true;
-
-                OnControlDrag(new DragControlEventArgs(e.Location));
             }
+
+            if (_vertical)
+            {
+                _control.Top += e.Location.Y - _lastPosition.Y;
+            }
+
+            IsDragging = true;
+            OnControlDrag(new DragControlEventArgs(e.Location));
         }
 
         /// <summary>Control mouse up event.</summary>
@@ -250,7 +323,7 @@
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             object result = null;
-            Drag drag = value as Drag;
+            VisualDrag drag = value as VisualDrag;
 
             if ((drag != null) && (destinationType == typeof(string)))
             {

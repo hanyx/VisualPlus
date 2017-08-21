@@ -27,8 +27,6 @@
 
         private Border _border;
 
-        private Drag _drag;
-
         #endregion
 
         #region Constructors
@@ -37,7 +35,6 @@
         {
             Size = new Size(187, 117);
             Padding = new Padding(5, 5, 5, 5);
-            _drag = new Drag(this, Settings.DefaultValue.Moveable);
             _border = new Border();
 
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
@@ -61,22 +58,6 @@
             {
                 _border = value;
                 Invalidate();
-            }
-        }
-
-        [TypeConverter(typeof(DragConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Behavior)]
-        public Drag Drag
-        {
-            get
-            {
-                return _drag;
-            }
-
-            set
-            {
-                _drag = value;
             }
         }
 

@@ -26,8 +26,6 @@
         #region Variables
 
         private Border _border;
-
-        private Drag _drag;
         private GroupBoxStyle groupBoxStyle;
         private StringAlignment stringAlignment;
         private TitleAlignments titleAlign;
@@ -49,15 +47,11 @@
             titleAlign = TitleAlignments.Top;
             titleBoxVisible = Settings.DefaultValue.TitleBoxVisible;
             titleBoxHeight = 25;
-            titleGradient = new Gradient();
-
+   
             Size = new Size(220, 180);
             titleBorder = new Border();
             _border = new Border();
             Padding = new Padding(5, titleBoxHeight + _border.Thickness, 5, 5);
-
-            _drag = new Drag(this, Settings.DefaultValue.Moveable);
-
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
@@ -113,22 +107,6 @@
             {
                 groupBoxStyle = value;
                 Invalidate();
-            }
-        }
-
-        [TypeConverter(typeof(DragConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Behavior)]
-        public Drag Drag
-        {
-            get
-            {
-                return _drag;
-            }
-
-            set
-            {
-                _drag = value;
             }
         }
 

@@ -28,11 +28,7 @@
         #region Variables
 
         private Gradient _background;
-
         private Border _border;
-
-        private Drag _drag;
-
         private bool animation;
         private GraphicsPath controlGraphicsPath;
         private VFXManager effectsManager;
@@ -51,7 +47,6 @@
 
             animation = Settings.DefaultValue.Animation;
 
-            _drag = new Drag(this, Settings.DefaultValue.Moveable);
             _border = new Border();
             ConfigureAnimation();
 
@@ -130,22 +125,6 @@
             {
                 _border = value;
                 Invalidate();
-            }
-        }
-
-        [TypeConverter(typeof(DragConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Behavior)]
-        public Drag Drag
-        {
-            get
-            {
-                return _drag;
-            }
-
-            set
-            {
-                _drag = value;
             }
         }
 

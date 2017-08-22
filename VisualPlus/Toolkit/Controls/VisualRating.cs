@@ -43,6 +43,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualRating"/> class.</summary>
         public VisualRating()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer, true);

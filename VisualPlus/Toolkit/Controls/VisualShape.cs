@@ -39,6 +39,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualShape" /> class.</summary>
         public VisualShape()
         {
             shapeType = ShapeType.Rectangle;

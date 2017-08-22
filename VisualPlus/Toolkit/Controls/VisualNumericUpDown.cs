@@ -52,6 +52,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualNumericUpDown"/> class.</summary>
         public VisualNumericUpDown()
         {
             BackColor = Color.Transparent;

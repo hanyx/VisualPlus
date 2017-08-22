@@ -62,6 +62,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualComboBox"/> class.</summary>
         public VisualComboBox()
         {
             SetStyle(

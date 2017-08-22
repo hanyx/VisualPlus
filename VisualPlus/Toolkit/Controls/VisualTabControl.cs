@@ -65,6 +65,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualTabControl" /> class.</summary>
         public VisualTabControl()
         {
             SetStyle(

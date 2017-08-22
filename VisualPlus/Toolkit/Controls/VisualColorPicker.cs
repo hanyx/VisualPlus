@@ -63,6 +63,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualColorPicker"/> class.</summary>
         public VisualColorPicker()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.Selectable | ControlStyles.StandardClick | ControlStyles.StandardDoubleClick | ControlStyles.SupportsTransparentBackColor, true);

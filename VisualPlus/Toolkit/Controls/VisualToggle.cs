@@ -52,6 +52,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualToggle" /> class.</summary>
         public VisualToggle()
         {
             BackColor = Color.Transparent;

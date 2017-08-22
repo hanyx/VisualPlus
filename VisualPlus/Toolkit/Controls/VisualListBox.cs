@@ -43,6 +43,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualListBox"/> class.</summary>
         public VisualListBox()
         {
             // Contains another control

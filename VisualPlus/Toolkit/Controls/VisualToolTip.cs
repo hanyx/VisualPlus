@@ -61,6 +61,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualToolTip" /> class.</summary>
         public VisualToolTip()
         {
             backgroundGradient = _styleManager.ControlStatesStyle.ControlEnabled;

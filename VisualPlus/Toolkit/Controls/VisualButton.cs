@@ -41,6 +41,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualButton"/> class.</summary>
         public VisualButton()
         {
             Size = new Size(140, 45);

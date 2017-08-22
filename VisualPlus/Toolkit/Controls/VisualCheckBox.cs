@@ -24,6 +24,7 @@
     {
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualCheckBox"/> class.</summary>
         public VisualCheckBox()
         {
             Cursor = Cursors.Hand;

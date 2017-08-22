@@ -44,6 +44,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualListView"/> class.</summary>
         public VisualListView()
         {
             // Contains another control

@@ -83,19 +83,19 @@
 
         /// <summary>Apply a gradient background image on the control.</summary>
         /// <param name="control">The control.</param>
-        /// <param name="size">The size of the gradient.</param>
         /// <param name="topLeft">The color for top-left.</param>
         /// <param name="topRight">The color for top-right.</param>
         /// <param name="bottomLeft">The color for bottom-left.</param>
         /// <param name="bottomRight">The color for bottom-right.</param>
-        public static void ApplyGradientBackground(Control control, Size size, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight)
+        /// <param name="quality">The quality.</param>
+        public static void ApplyGradientBackground(Control control, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight, int quality = 10)
         {
             if (control.BackgroundImageLayout != ImageLayout.Stretch)
             {
                 control.BackgroundImageLayout = ImageLayout.Stretch;
             }
 
-            Bitmap _bitmap = CreateGradientBitmap(size, topLeft, topRight, bottomLeft, bottomRight);
+            Bitmap _bitmap = CreateGradientBitmap(control.Size, topLeft, topRight, bottomLeft, bottomRight, quality);
             control.BackgroundImage = _bitmap;
         }
 

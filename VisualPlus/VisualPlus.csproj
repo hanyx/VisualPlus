@@ -64,6 +64,7 @@
     <Compile Include="Localization\GlobalStrings.cs" />
     <Compile Include="Localization\Category\Property.cs" />
     <Compile Include="Renders\VisualBackgroundRenderer.cs" />
+    <Compile Include="Renders\VisualBadgeRenderer.cs" />
     <Compile Include="Renders\VisualBorderRenderer.cs" />
     <Compile Include="Renders\VisualToggleRenderer.cs" />
     <Compile Include="Renders\VisualControlRenderer.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Toolkit\ActionList\VisualListViewTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualComboBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisuaListBoxTasks.cs" />
+    <Compile Include="Toolkit\VisualBase\BadgeLabel.cs" />
     <Compile Include="Toolkit\Components\Expander.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -87,15 +89,15 @@
     <Compile Include="Extensibility\PointExtension.cs" />
     <Compile Include="Extensibility\RectangleExtension.cs" />
     <Compile Include="Toolkit\Components\StyleManager.cs" />
-    <Compile Include="Toolkit\Components\Badge.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Structure\Border.cs" />
     <Compile Include="Structure\Shape.cs" />
     <Compile Include="Delegates\BorderDelegate.cs" />
     <Compile Include="Delegates\ControlExpandableDelegate.cs" />
     <Compile Include="Delegates\GradientDelegate.cs" />
     <Compile Include="Delegates\WatermarkDelegate.cs" />
+    <Compile Include="Toolkit\Components\VisualBadge.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Toolkit\Controls\VisualListBox.cs" />
     <Compile Include="Toolkit\Controls\VisualListView.cs" />
     <Compile Include="Toolkit\Controls\VisualScrollBar.cs" />

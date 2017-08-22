@@ -929,8 +929,8 @@
             float tx;
             float ty;
 
-            float incr = MathManager.DegreeToRadian((endAngle - startAngle) / ((scaleDivisions - 1) * (scaleSubDivisions + 1)));
-            float currentAngle = MathManager.DegreeToRadian(startAngle);
+            float incr = MathManager.DegreeToRadians((endAngle - startAngle) / ((scaleDivisions - 1) * (scaleSubDivisions + 1)));
+            float currentAngle = MathManager.DegreeToRadians(startAngle);
 
             float radius = knobRectangle.Width / 2;
             float rulerValue = minimum;
@@ -1059,8 +1059,8 @@
             float w = KnobTopSize.Width;
 
             // TODO: Adjust
-            float incr = MathManager.DegreeToRadian((startAngle - endAngle) / ((buttonDivisions - 1) * (scaleSubDivisions + 1)));
-            float currentAngle = MathManager.DegreeToRadian(0);
+            float incr = MathManager.DegreeToRadians((startAngle - endAngle) / ((buttonDivisions - 1) * (scaleSubDivisions + 1)));
+            float currentAngle = MathManager.DegreeToRadians(0);
 
             float radius = KnobTickSize.Width / 2;
 
@@ -1172,7 +1172,7 @@
             float radius = knobRectangle.Width / 2;
 
             float degree = (deltaAngle * Value) / (maximum - minimum);
-            degree = MathManager.DegreeToRadian(degree + startAngle);
+            degree = MathManager.DegreeToRadians(degree + startAngle);
 
             Point Pos = new Point(0, 0);
 
@@ -1197,7 +1197,7 @@
             float radius = knobRectangle.Width / 2;
 
             float degree = (deltaAngle * Value) / (maximum - minimum);
-            degree = MathManager.DegreeToRadian(degree + startAngle);
+            degree = MathManager.DegreeToRadians(degree + startAngle);
 
             Point Pos = new Point(0, 0)
                 {

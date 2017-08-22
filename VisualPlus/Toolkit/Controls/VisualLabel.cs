@@ -327,6 +327,7 @@
             set
             {
                 base.Text = value;
+                Invalidate();
             }
         }
 

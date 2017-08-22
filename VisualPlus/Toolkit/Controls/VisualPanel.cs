@@ -31,6 +31,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualPanel"/> class.</summary>
         public VisualPanel()
         {
             Size = new Size(187, 117);

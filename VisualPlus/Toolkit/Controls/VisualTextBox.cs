@@ -55,6 +55,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualTextBox" /> class.</summary>
         public VisualTextBox()
         {
             SetStyle(ControlStyles.UserPaint | ControlStyles.SupportsTransparentBackColor, true);

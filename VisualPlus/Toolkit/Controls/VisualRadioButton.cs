@@ -24,6 +24,7 @@
     {
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualRadioButton"/> class.</summary>
         public VisualRadioButton()
         {
             Cursor = Cursors.Hand;

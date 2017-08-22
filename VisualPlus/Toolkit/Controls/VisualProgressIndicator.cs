@@ -45,6 +45,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualProgressIndicator"/> class.</summary>
         public VisualProgressIndicator()
         {
             SetStyle(ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor, true);

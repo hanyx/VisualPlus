@@ -63,6 +63,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualProgressBar"/> class.</summary>
         public VisualProgressBar()
         {
             Maximum = 100;

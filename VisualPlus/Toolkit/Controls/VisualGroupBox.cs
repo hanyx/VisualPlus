@@ -40,6 +40,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualGroupBox"/> class.</summary>
         public VisualGroupBox()
         {
             groupBoxStyle = GroupBoxStyle.Default;

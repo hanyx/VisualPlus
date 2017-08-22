@@ -37,6 +37,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualRichTextBox"/> class.</summary>
         public VisualRichTextBox()
         {
             SetStyle(ControlStyles.UserPaint | ControlStyles.SupportsTransparentBackColor, true);

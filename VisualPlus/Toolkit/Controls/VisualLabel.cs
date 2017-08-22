@@ -52,6 +52,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualLabel"/> class.</summary>
         public VisualLabel()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);

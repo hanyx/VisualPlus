@@ -73,6 +73,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualKnob"/> class.</summary>
         public VisualKnob()
         {
             SetStyle(

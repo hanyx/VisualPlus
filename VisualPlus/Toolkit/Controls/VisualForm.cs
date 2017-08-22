@@ -83,6 +83,7 @@
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="VisualForm"/> class.</summary>
         public VisualForm()
         {
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);

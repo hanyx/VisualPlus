@@ -83,6 +83,8 @@
     <Compile Include="Toolkit\Components\VisualGradient.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Toolkit\Controls\VisualGauge.cs" />
+    <Compile Include="Toolkit\Controls\VisualRangeBar.cs" />
     <Compile Include="Toolkit\VisualBase\BadgeLabel.cs" />
     <Compile Include="Toolkit\Components\Expander.cs">
       <SubType>Component</SubType>

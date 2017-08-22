@@ -35,6 +35,113 @@
             {
                 Attach();
             }
+
+            ConstructVisualBadge(_badgeLabel.Text, _badgeLabel.Font, _badgeLabel.ForeColor, _badgeLabel.Background, new Rectangle(_badgeLabel.Location, _badgeLabel.Size), new Shape());
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="VisualBadge" /> class.</summary>
+        /// <param name="control">The control to attach.</param>
+        /// <param name="text">The text.</param>
+        public VisualBadge(Control control, string text) : this()
+        {
+            _control = control;
+
+            if (Enabled)
+            {
+                Attach();
+            }
+
+            ConstructVisualBadge(text, _badgeLabel.Font, _badgeLabel.ForeColor, _badgeLabel.Background, new Rectangle(_badgeLabel.Location, _badgeLabel.Size), new Shape());
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="VisualBadge" /> class.</summary>
+        /// <param name="control">The control to attach.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        public VisualBadge(Control control, string text, Font font) : this()
+        {
+            _control = control;
+
+            if (Enabled)
+            {
+                Attach();
+            }
+
+            ConstructVisualBadge(text, font, _badgeLabel.ForeColor, _badgeLabel.Background, new Rectangle(_badgeLabel.Location, _badgeLabel.Size), new Shape());
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="VisualBadge" /> class.</summary>
+        /// <param name="control">The control to attach.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="foreColor">The fore Color.</param>
+        public VisualBadge(Control control, string text, Font font, Color foreColor) : this()
+        {
+            _control = control;
+
+            if (Enabled)
+            {
+                Attach();
+            }
+
+            ConstructVisualBadge(text, font, foreColor, _badgeLabel.Background, new Rectangle(_badgeLabel.Location, _badgeLabel.Size), new Shape());
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="VisualBadge" /> class.</summary>
+        /// <param name="control">The control to attach.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="foreColor">The fore Color.</param>
+        /// <param name="background">The background.</param>
+        public VisualBadge(Control control, string text, Font font, Color foreColor, Color background) : this()
+        {
+            _control = control;
+
+            if (Enabled)
+            {
+                Attach();
+            }
+
+            ConstructVisualBadge(text, font, foreColor, background, new Rectangle(_badgeLabel.Location, _badgeLabel.Size), new Shape());
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="VisualBadge" /> class.</summary>
+        /// <param name="control">The control to attach.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="foreColor">The fore Color.</param>
+        /// <param name="background">The background.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        public VisualBadge(Control control, string text, Font font, Color foreColor, Color background, Rectangle rectangle) : this()
+        {
+            _control = control;
+
+            if (Enabled)
+            {
+                Attach();
+            }
+
+            ConstructVisualBadge(text, font, foreColor, background, rectangle, new Shape());
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="VisualBadge" /> class.</summary>
+        /// <param name="control">The control to attach.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="foreColor">The fore Color.</param>
+        /// <param name="background">The background.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="shape">The shape.</param>
+        public VisualBadge(Control control, string text, Font font, Color foreColor, Color background, Rectangle rectangle, Shape shape) : this()
+        {
+            _control = control;
+
+            if (Enabled)
+            {
+                Attach();
+            }
+
+            ConstructVisualBadge(text, font, foreColor, background, rectangle, shape);
         }
 
         /// <summary>Initializes a new instance of the <see cref="VisualBadge" /> class.</summary>
@@ -240,6 +347,24 @@
         private void Attach()
         {
             _control.Controls.Add(_badgeLabel);
+        }
+
+        /// <summary>Creates the visual badge.</summary>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="foreColor">The fore Color.</param>
+        /// <param name="background">The background.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="shape">The shape.</param>
+        private void ConstructVisualBadge(string text, Font font, Color foreColor, Color background, Rectangle rectangle, Shape shape)
+        {
+            Text = text;
+            Font = font;
+            ForeColor = foreColor;
+            Background = background;
+            Size = rectangle.Size;
+            Location = rectangle.Location;
+            Shape = shape;
         }
 
         /// <summary>Remove the badge label from the control.</summary>

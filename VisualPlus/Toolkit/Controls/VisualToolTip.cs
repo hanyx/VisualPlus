@@ -26,7 +26,7 @@
     {
         #region Variables
 
-        private StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+        private VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
         private bool autoSize = true;
         private Gradient backgroundGradient;

@@ -53,7 +53,7 @@
 
         private int _magneticRadius;
 
-        private StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+        private VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
         private Border border;
         private Color buttonBackHoverColor;
         private Color buttonBackPressedColor;

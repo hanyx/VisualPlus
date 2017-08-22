@@ -79,7 +79,7 @@
                 ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor,
                 true);
 
-            StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+            VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
             pointerColor = _styleManager.ProgressStyle.Progress.Colors[0];
 

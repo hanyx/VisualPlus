@@ -34,7 +34,7 @@
 
         public ControlColorState()
         {
-            StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+            VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
             _color = _styleManager.ControlStyle.Background(0);
             _disabled = _styleManager.FontStyle.ForeColorDisabled;

@@ -34,7 +34,7 @@
 
         #region Variables
 
-        private StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+        private VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
         private Gradient backgroundGradient = new Gradient();
         private int barThickness = 10;
@@ -799,7 +799,7 @@
 
         public void UpdateTheme(Styles style)
         {
-            StyleManager _styleManager = new StyleManager(style);
+            VisualStyleManager _styleManager = new VisualStyleManager(style);
 
             ForeColor = _styleManager.FontStyle.ForeColor;
 

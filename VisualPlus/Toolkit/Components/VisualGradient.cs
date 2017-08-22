@@ -10,6 +10,7 @@
 
     #endregion
 
+    [ToolboxItem(true)]
     [Description("The VisualPlus gradient component can be used to apply gradient backgrounds on controls.")]
     public class VisualGradient : Component
     {

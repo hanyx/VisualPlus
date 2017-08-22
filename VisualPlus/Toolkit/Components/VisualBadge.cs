@@ -13,6 +13,7 @@
 
     #endregion
 
+    [ToolboxItem(true)]
     [Description("The VisualPlus badge component enables controls to have a badge with text displayed.")]
     public class VisualBadge : Component
     {

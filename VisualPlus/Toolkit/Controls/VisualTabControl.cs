@@ -28,7 +28,7 @@
     {
         #region Variables
 
-        private StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+        private VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
         private TabAlignment alignment = TabAlignment.Top;
         private bool arrowSelectorVisible = true;

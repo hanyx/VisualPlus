@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.FilterProperties
+﻿namespace VisualPlus.Toolkit.PropertyFilter
 {
     #region Namespace
 
@@ -7,7 +7,7 @@
 
     #endregion
 
-    internal class VisualListBoxDesigner : ControlDesigner
+    internal class VisualRatingDesigner : ControlDesigner
     {
         #region Events
 
@@ -29,6 +29,8 @@
             properties.Remove("BackgroundImageLayout");
             properties.Remove("UseVisualStyleBackColor");
             properties.Remove("RightToLeft");
+            properties.Remove("MouseState");
+            properties.Remove("StyleManager");
 
             base.PreFilterProperties(properties);
         }

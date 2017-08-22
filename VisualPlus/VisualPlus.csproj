@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Delegates\StyleManagerDelegate.cs" />
     <Compile Include="EventArgs\CursorChangedEventArgs.cs" />
     <Compile Include="EventArgs\ThemeEventArgs.cs" />
     <Compile Include="EventArgs\TextRenderingEventArgs.cs" />
@@ -76,6 +77,9 @@
     <Compile Include="Toolkit\ActionList\VisualListViewTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualComboBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisuaListBoxTasks.cs" />
+    <Compile Include="Toolkit\Components\VisualStyleManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Toolkit\Components\VisualGradient.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -91,7 +95,6 @@
     <Compile Include="Extensibility\GraphicsPathExtension.cs" />
     <Compile Include="Extensibility\PointExtension.cs" />
     <Compile Include="Extensibility\RectangleExtension.cs" />
-    <Compile Include="Toolkit\Components\StyleManager.cs" />
     <Compile Include="Structure\Border.cs" />
     <Compile Include="Structure\Shape.cs" />
     <Compile Include="Delegates\BorderDelegate.cs" />
@@ -117,29 +120,29 @@
     <Compile Include="Delegates\ControlDelegate.cs" />
     <Compile Include="Delegates\ControlDragDelegate.cs" />
     <Compile Include="EventArgs\DragControlEventArgs.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualCircleProgressBarDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualContextMenuDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualLabelDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualRatingDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualListBoxDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualListViewDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualToolTipDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualFormDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualTrackBarDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualToggleDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualTextBoxDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualTabControlDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualSeparatorDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualRichTextBoxDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualRadioButtonDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualProgressIndicatorDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualProgressBarDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualPanelDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualNumericUpDownDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualGroupBoxDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualComboBoxDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualButtonDesigner.cs" />
-    <Compile Include="Toolkit\FilterProperties\VisualCheckBoxDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualCircleProgressBarDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualContextMenuDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualLabelDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualRatingDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualListBoxDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualListViewDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualToolTipDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualFormDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualTrackBarDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualToggleDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualTextBoxDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualTabControlDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualSeparatorDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualRichTextBoxDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualRadioButtonDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualProgressIndicatorDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualProgressBarDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualPanelDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualNumericUpDownDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualGroupBoxDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualComboBoxDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualButtonDesigner.cs" />
+    <Compile Include="Toolkit\PropertyFilter\VisualCheckBoxDesigner.cs" />
     <Compile Include="Toolkit\Controls\VisualButton.cs" />
     <Compile Include="Toolkit\Controls\VisualCheckBox.cs" />
     <Compile Include="Toolkit\Controls\VisualColorPicker.cs" />

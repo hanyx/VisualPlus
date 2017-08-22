@@ -294,7 +294,7 @@
 
         public void UpdateTheme(Styles style)
         {
-            StyleManager = new StyleManager(style);
+            StyleManager = new VisualStyleManager(style);
 
             buttonForeColor = Color.Gray;
             backgroundGradient = StyleManager.ControlStyle.BoxEnabled;

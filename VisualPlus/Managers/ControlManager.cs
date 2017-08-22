@@ -234,7 +234,7 @@
 
         private struct NamespaceLocations
         {
-            public const string FilterPropertiesLocation = @"VisualPlus.Toolkit.FilterProperties.";
+            public const string FilterPropertiesLocation = @"VisualPlus.Toolkit.PropertyFilter.";
         }
 
         #endregion

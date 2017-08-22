@@ -1,24 +1,24 @@
-﻿namespace VisualPlus.Toolkit.FilterProperties
+﻿namespace VisualPlus.Toolkit.PropertyFilter
 {
     #region Namespace
 
     using System.Collections;
-    using System.Windows.Forms.Design;
+    using System.ComponentModel.Design;
 
     #endregion
 
-    internal class VisualFormDesigner : ControlDesigner
+    internal class VisualToolTipDesigner : ComponentDesigner
     {
         #region Events
 
         protected override void PreFilterProperties(IDictionary properties)
         {
             properties.Remove("ImeMode");
+            properties.Remove("Padding");
             properties.Remove("FlatAppearance");
             properties.Remove("FlatStyle");
             properties.Remove("AutoEllipsis");
             properties.Remove("UseCompatibleTextRendering");
-            properties.Remove("Icon");
             properties.Remove("Image");
             properties.Remove("ImageAlign");
             properties.Remove("ImageIndex");

@@ -40,7 +40,7 @@
         private Bitmap _canvas;
         private Graphics _graphicsBuffer;
         private LinearGradientBrush _spectrumGradient;
-        private StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+        private VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
         private LinearGradientBrush _whiteTopGradient;
         private Border border;
         private Brush brush;

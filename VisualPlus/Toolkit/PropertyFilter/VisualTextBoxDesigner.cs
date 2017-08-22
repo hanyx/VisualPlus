@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.FilterProperties
+﻿namespace VisualPlus.Toolkit.PropertyFilter
 {
     #region Namespace
 
@@ -7,7 +7,7 @@
 
     #endregion
 
-    internal class VisualComboBoxDesigner : ControlDesigner
+    internal class VisualTextBoxDesigner : ControlDesigner
     {
         #region Events
 
@@ -25,7 +25,6 @@
             properties.Remove("ImageKey");
             properties.Remove("ImageList");
             properties.Remove("TextImageRelation");
-            properties.Remove("DropDownStyle");
             properties.Remove("BackgroundImage");
             properties.Remove("BackgroundImageLayout");
             properties.Remove("UseVisualStyleBackColor");

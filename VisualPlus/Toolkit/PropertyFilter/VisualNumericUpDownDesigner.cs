@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.FilterProperties
+﻿namespace VisualPlus.Toolkit.PropertyFilter
 {
     #region Namespace
 
@@ -7,7 +7,7 @@
 
     #endregion
 
-    internal class VisualTextBoxDesigner : ControlDesigner
+    internal class VisualNumericUpDownDesigner : ControlDesigner
     {
         #region Events
 

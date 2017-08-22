@@ -49,7 +49,7 @@
 
         public void UpdateTheme(Styles style)
         {
-            StyleManager = new StyleManager(style);
+            StyleManager = new VisualStyleManager(style);
 
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;

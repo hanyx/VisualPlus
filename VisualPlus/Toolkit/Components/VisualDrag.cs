@@ -14,6 +14,7 @@
 
     #endregion
 
+    [ToolboxItem(true)]
     [Description("The VisualPlus drag component enables controls to be dragged.")]
     [TypeConverter(typeof(DragConverter))]
     public class VisualDrag : Component

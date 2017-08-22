@@ -32,7 +32,7 @@
         /// <summary>Initializes a new instance of the <see cref="BadgeLabel" /> class.</summary>
         public BadgeLabel()
         {
-            StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+            VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
             Background = Color.FromArgb(120, 183, 230);
             ForeColor = Color.White;

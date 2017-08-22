@@ -23,7 +23,7 @@
     {
         #region Variables
 
-        private readonly StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+        private readonly VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
         private bool autoSize;
         private char checkCharacter;

@@ -576,7 +576,7 @@
 
         public void UpdateTheme(Styles style)
         {
-            StyleManager = new StyleManager(style);
+            StyleManager = new VisualStyleManager(style);
             _border.Color = StyleManager.BorderStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
             ForeColor = StyleManager.FontStyle.ForeColor;

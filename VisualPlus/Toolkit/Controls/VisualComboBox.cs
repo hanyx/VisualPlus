@@ -29,7 +29,7 @@
     {
         #region Variables
 
-        private StyleManager _styleManager;
+        private VisualStyleManager _styleManager;
 
         private Border border;
         private Color buttonColor;
@@ -72,7 +72,7 @@
             SetStyle((ControlStyles)139286, true);
             SetStyle(ControlStyles.Selectable, false);
 
-            _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
             mouseState = MouseStates.Normal;
             DrawMode = DrawMode.OwnerDrawFixed;
@@ -463,7 +463,7 @@
         /// <param name="style">The visual style.</param>
         public void UpdateTheme(Styles style)
         {
-            _styleManager.UpdateStyle(style);
+            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
             border.Color = _styleManager.BorderStyle.Color;
             border.HoverColor = _styleManager.BorderStyle.HoverColor;

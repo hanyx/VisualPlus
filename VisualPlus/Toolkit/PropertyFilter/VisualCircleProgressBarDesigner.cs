@@ -1,13 +1,13 @@
-﻿namespace VisualPlus.Toolkit.FilterProperties
+﻿namespace VisualPlus.Toolkit.PropertyFilter
 {
     #region Namespace
 
     using System.Collections;
-    using System.ComponentModel.Design;
+    using System.Windows.Forms.Design;
 
     #endregion
 
-    internal class VisualToolTipDesigner : ComponentDesigner
+    internal class VisualCircleProgressBarDesigner : ControlDesigner
     {
         #region Events
 
@@ -17,17 +17,24 @@
             properties.Remove("Padding");
             properties.Remove("FlatAppearance");
             properties.Remove("FlatStyle");
+
             properties.Remove("AutoEllipsis");
             properties.Remove("UseCompatibleTextRendering");
+
             properties.Remove("Image");
             properties.Remove("ImageAlign");
             properties.Remove("ImageIndex");
             properties.Remove("ImageKey");
             properties.Remove("ImageList");
-            properties.Remove("TextImageRelation");
+
+            // properties.Remove("TextImageRelation");
+            properties.Remove("BackColor");
             properties.Remove("BackgroundImage");
             properties.Remove("BackgroundImageLayout");
             properties.Remove("UseVisualStyleBackColor");
+
+            // properties.Remove("ComponentFont");
+            // properties.Remove("ForeColor");
             properties.Remove("RightToLeft");
 
             base.PreFilterProperties(properties);

@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.FilterProperties
+﻿namespace VisualPlus.Toolkit.PropertyFilter
 {
     #region Namespace
 
@@ -7,18 +7,18 @@
 
     #endregion
 
-    internal class VisualGroupBoxDesigner : ControlDesigner
+    internal class VisualFormDesigner : ControlDesigner
     {
         #region Events
 
         protected override void PreFilterProperties(IDictionary properties)
         {
             properties.Remove("ImeMode");
-            properties.Remove("Padding");
             properties.Remove("FlatAppearance");
             properties.Remove("FlatStyle");
             properties.Remove("AutoEllipsis");
             properties.Remove("UseCompatibleTextRendering");
+            properties.Remove("Icon");
             properties.Remove("Image");
             properties.Remove("ImageAlign");
             properties.Remove("ImageIndex");

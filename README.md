@@ -7,7 +7,7 @@
 [![All Releases](https://img.shields.io/github/downloads/DarkByte7/VisualPlus/total.svg?style=flat)](https://github.com/DarkByte7/VisualPlus/releases)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/VisualPlusUI/General)
  
-VisualPlus allows you the developer to quickly build professional looking .NET applications. With these easily customizable controls to meet your development needs.
+The VisualPlus Framework (VPF), VisualPlus UI for WinForms allows you to rapidly deploy professional .NET applications with customizable controls.
 
 | Service | Stable | Beta |
 | :---- | :---- | :------ |

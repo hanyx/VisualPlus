@@ -42,7 +42,7 @@
         /// <summary>Initializes a new instance of the <see cref="Watermark" /> class.</summary>
         public Watermark()
         {
-            StyleManager _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+            VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
             activeColor = _styleManager.WatermarkStyle.ActiveColor;
             font = _styleManager.Font;

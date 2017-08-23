@@ -8,7 +8,7 @@
     using System.Runtime.InteropServices;
     using System.Text;
 
-    using VisualPlus.Toolkit.Controls;
+    using VisualPlus.Toolkit.Controls.Layout;
 
     #endregion
 
@@ -18,6 +18,10 @@
 
         [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
         public static extern int BitBlt(IntPtr hDC, int x, int y, int nWidth, int nHeight, IntPtr hSrcDC, int xSrc, int ySrc, int dwRop);
+
+        [Description("The CreateRoundRectRgn function creates a rectangular region with rounded corners.")]
+        [DllImport("Gdi32.dll")]
+        public static extern IntPtr CreateRoundRectRgn(int x1, int y1, int x2, int y2, int cx, int cy);
 
         [DllImport("user32.dll")]
         [Description("Gets the cursor position on the screen.")]

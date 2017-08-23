@@ -6,11 +6,12 @@
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Drawing.Text;
+    using System.Globalization;
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Controls;
+    using VisualPlus.Toolkit.Controls.DataVisualization;
 
     #endregion
 
@@ -78,6 +79,24 @@
                     ((Control)control).BackColor = backgroundColor;
                 }
             }
+        }
+
+        /// <summary>Apply a gradient background image on the control.</summary>
+        /// <param name="control">The control.</param>
+        /// <param name="topLeft">The color for top-left.</param>
+        /// <param name="topRight">The color for top-right.</param>
+        /// <param name="bottomLeft">The color for bottom-left.</param>
+        /// <param name="bottomRight">The color for bottom-right.</param>
+        /// <param name="quality">The quality.</param>
+        public static void ApplyGradientBackground(Control control, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight, int quality = 10)
+        {
+            if (control.BackgroundImageLayout != ImageLayout.Stretch)
+            {
+                control.BackgroundImageLayout = ImageLayout.Stretch;
+            }
+
+            Bitmap _bitmap = CreateGradientBitmap(control.Size, topLeft, topRight, bottomLeft, bottomRight, quality);
+            control.BackgroundImage = _bitmap;
         }
 
         /// <summary>Draws the text image relation.</summary>
@@ -232,6 +251,35 @@
             pointsArray[9].Y = pointsArray[1].Y; // mirror point
 
             return pointsArray;
+        }
+
+        /// <summary>Creates a gradient bitmap.</summary>
+        /// <param name="size">The size of the gradient.</param>
+        /// <param name="topLeft">The color for top-left.</param>
+        /// <param name="topRight">The color for top-right.</param>
+        /// <param name="bottomLeft">The color for bottom-left.</param>
+        /// <param name="bottomRight">The color for bottom-right.</param>
+        /// <param name="quality">The bitmap quality.</param>
+        /// <returns>A bitmap with a gradient.</returns>
+        public static Bitmap CreateGradientBitmap(Size size, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight, int quality = 10)
+        {
+            Bitmap _bitmap = new Bitmap(quality, quality);
+            if (quality == 100)
+            {
+                _bitmap = new Bitmap(size.Width, size.Width);
+            }
+
+            for (var i = 0; i < _bitmap.Width; i++)
+            {
+                Color _xColor = GetTransitionColor(int.Parse(Math.Round((i / (double)_bitmap.Width) * 100.0, 0).ToString(CultureInfo.CurrentCulture)), topLeft, topRight);
+                for (var j = 0; j < _bitmap.Height; j++)
+                {
+                    Color _yColor = GetTransitionColor(int.Parse(Math.Round((j / (double)_bitmap.Height) * 100.0, 0).ToString(CultureInfo.CurrentCulture)), bottomLeft, bottomRight);
+                    _bitmap.SetPixel(i, j, InsertColor(_xColor, _yColor));
+                }
+            }
+
+            return _bitmap;
         }
 
         /// <summary>Draws the control.</summary>
@@ -485,6 +533,43 @@
             return new[] { new Point { X = rectangle.Width, Y = 0 }, new Point { X = rectangle.Width, Y = rectangle.Height } };
         }
 
+        /// <summary>Retrieves the transition color between two other colors.</summary>
+        /// <param name="value">The progress value in the transition.</param>
+        /// <param name="beginColor">The beginning color.</param>
+        /// <param name="endColor">The ending color.</param>
+        /// <returns>The color in between.</returns>
+        public static Color GetTransitionColor(int value, Color beginColor, Color endColor)
+        {
+            try
+            {
+                try
+                {
+                    int _red = int.Parse(Math.Round(beginColor.R + ((endColor.R - beginColor.R) * value * 0.01), 0).ToString(CultureInfo.CurrentCulture));
+                    int _green = int.Parse(Math.Round(beginColor.G + ((endColor.G - beginColor.G) * value * 0.01), 0).ToString(CultureInfo.CurrentCulture));
+                    int _blue = int.Parse(Math.Round(beginColor.B + ((endColor.B - beginColor.B) * value * 0.01), 0).ToString(CultureInfo.CurrentCulture));
+                    return Color.FromArgb(255, _red, _green, _blue);
+                }
+                catch (Exception)
+                {
+                    return beginColor;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        /// <summary>Insert the color on to another color.</summary>
+        /// <param name="color0">The color0.</param>
+        /// <param name="color1">The color1.</param>
+        /// <returns>The returning inserted color.</returns>
+        public static Color InsertColor(Color color0, Color color1)
+        {
+            return Color.FromArgb((color0.R + color1.R) / 2, (color0.G + color1.G) / 2, (color0.B + color1.B) / 2);
+        }
+
         /// <summary>Checks whether the mouse is inside the bounds.</summary>
         /// <param name="mousePoint">Mouse location.</param>
         /// <param name="bounds">The rectangle.</param>
@@ -515,6 +600,39 @@
             Size textSize = new Size(width, height);
 
             return textSize;
+        }
+
+        /// <summary>Rounds the region of the control.</summary>
+        /// <param name="control">The control to round.</param>
+        /// <param name="rounding">The amount of rounding.</param>
+        public static void RoundRegion(Control control, int rounding)
+        {
+            try
+            {
+                control.Region = Region.FromHrgn(Native.CreateRoundRectRgn(0, 0, control.Width, control.Height, rounding, rounding));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        /// <summary>Rounds the region of the control.</summary>
+        /// <param name="form">The form control to round.</param>
+        /// <param name="rounding">The amount of rounding.</param>
+        public static void RoundRegion(Form form, int rounding)
+        {
+            try
+            {
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.Region = Region.FromHrgn(Native.CreateRoundRectRgn(0, 0, form.Width, form.Height, rounding, rounding));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         /// <summary>Set's the container controls BackColor.</summary>
@@ -560,6 +678,24 @@
             Bitmap drawArea = new Bitmap(new PictureBox { SizeMode = pictureBoxSizeMode }.Size.Width, new PictureBox { SizeMode = pictureBoxSizeMode }.Size.Height);
             new PictureBox { SizeMode = pictureBoxSizeMode }.Image = drawArea;
             return Graphics.FromImage(drawArea);
+        }
+
+        /// <summary>Draws the rounded rectangle from a rectangle shape.</summary>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="curve">The curve.</param>
+        /// <returns>The <see cref="GraphicsPath" />.</returns>
+        internal static GraphicsPath CreateFormPath(Rectangle rectangle, int curve)
+        {
+            GraphicsPath _graphicsPath = new GraphicsPath();
+            _graphicsPath.StartFigure();
+            _graphicsPath.AddArc(rectangle.X, rectangle.Y, curve, curve, 180F, 90F);
+            _graphicsPath.AddLine(curve, rectangle.Y, rectangle.Width - curve, 90F);
+            _graphicsPath.AddArc(rectangle.Width - curve, rectangle.Y, curve, curve, 270F, 90F);
+            _graphicsPath.AddLine(rectangle.Width, curve, rectangle.Width, rectangle.Height - curve);
+            _graphicsPath.AddArc(rectangle.Width - curve, rectangle.Height - curve, curve, curve, 90F, 90F);
+            _graphicsPath.AddLine(rectangle.Width - curve, rectangle.Height, curve, rectangle.Height);
+            _graphicsPath.AddArc(rectangle.X, rectangle.Height - curve, curve, curve, 90F, 90F);
+            return _graphicsPath;
         }
 
         /// <summary>Draw background image.</summary>
@@ -631,24 +767,6 @@
 
             var gradientPoints = GetGradientPoints(rectangle);
             return Gradient.CreateGradientBrush(tempGradient.Colors, gradientPoints, tempGradient.Angle, tempGradient.Positions);
-        }
-
-        /// <summary>Draws the rounded rectangle from a rectangle shape.</summary>
-        /// <param name="rectangle">The rectangle.</param>
-        /// <param name="curve">The curve.</param>
-        /// <returns>The <see cref="GraphicsPath" />.</returns>
-        internal static GraphicsPath RoundForm(Rectangle rectangle, int curve)
-        {
-            GraphicsPath _graphicsPath = new GraphicsPath();
-            _graphicsPath.StartFigure();
-            _graphicsPath.AddArc(rectangle.X, rectangle.Y, curve, curve, 180F, 90F);
-            _graphicsPath.AddLine(curve, rectangle.Y, rectangle.Width - curve, 90F);
-            _graphicsPath.AddArc(rectangle.Width - curve, rectangle.Y, curve, curve, 270F, 90F);
-            _graphicsPath.AddLine(rectangle.Width, curve, rectangle.Width, rectangle.Height - curve);
-            _graphicsPath.AddArc(rectangle.Width - curve, rectangle.Height - curve, curve, curve, 90F, 90F);
-            _graphicsPath.AddLine(rectangle.Width - curve, rectangle.Height, curve, rectangle.Height);
-            _graphicsPath.AddArc(rectangle.X, rectangle.Height - curve, curve, curve, 90F, 90F);
-            return _graphicsPath;
         }
 
         #endregion

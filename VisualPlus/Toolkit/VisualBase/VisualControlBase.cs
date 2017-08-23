@@ -34,7 +34,7 @@
         private Color _backgroundDisabledColor;
         private Color _foreColorDisabled;
         private MouseStates _mouseState;
-        private StyleManager _styleManager;
+        private VisualStyleManager _styleManager;
         private TextRenderingHint _textRenderingHint;
 
         #endregion
@@ -60,7 +60,7 @@
 
             _textRenderingHint = Settings.DefaultValue.TextRenderingHint;
 
-            _styleManager = new StyleManager(Settings.DefaultValue.DefaultStyle);
+            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
         }
 
         [Category(Event.Appearance)]
@@ -178,7 +178,7 @@
 
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public StyleManager StyleManager
+        public VisualStyleManager StyleManager
         {
             get
             {

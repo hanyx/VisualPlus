@@ -7,7 +7,7 @@
 [![All Releases](https://img.shields.io/github/downloads/DarkByte7/VisualPlus/total.svg?style=flat)](https://github.com/DarkByte7/VisualPlus/releases)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/VisualPlusUI/General)
  
-VisualPlus allows you the developer to quickly build professional looking .NET applications. With these easily customizable controls to meet your development needs.
+The VisualPlus Framework (VPF), VisualPlus UI for WinForms allows you to rapidly deploy professional .NET applications with customizable controls.
 
 | Service | Stable | Beta |
 | :---- | :---- | :------ |
@@ -50,6 +50,9 @@ BitCoin donations are also welcome: `1KKghRonJu6orcu7rf4r1wSnsnAPbnC8B7`
 - Request a new feature on [GitHub](https://github.com/DarkByte7/VisualPlus/blob/beta/CONTRIBUTE.md).
 - Vote for [popular feature requests](https://github.com/DarkByte7/VisualPlus/issues?q=is:open+is:issue+label:feature-request+sort:reactions-B1-desc).
 - File a bug in [GitHub Issues](https://github.com/DarkByte7/VisualPlus/issues?q=is:open+is:issue).
+
+## Tutorial
+[![](http://youronline.biz/wp-content/uploads/2012/08/Play-Video-Now.jpg)](https://youtu.be/QulNVudD9o8)
 
 ## Projects that use VisualPlus
 Send me a message to add a project to this list:

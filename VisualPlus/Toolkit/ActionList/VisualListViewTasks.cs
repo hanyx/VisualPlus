@@ -8,7 +8,7 @@ namespace VisualPlus.Toolkit.ActionList
     using System.Windows.Forms;
     using System.Windows.Forms.Design;
 
-    using VisualPlus.Toolkit.Controls;
+    using VisualPlus.Toolkit.Controls.DataManagement;
 
     #endregion
 

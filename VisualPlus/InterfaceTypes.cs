@@ -68,7 +68,7 @@ namespace VisualPlus
     {
         #region Properties
 
-        StyleManager StyleManager { get; set; }
+        VisualStyleManager StyleManager { get; set; }
 
         #endregion
     }

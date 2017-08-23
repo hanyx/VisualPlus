@@ -83,8 +83,8 @@
     <Compile Include="Toolkit\Components\VisualGradient.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Toolkit\Controls\VisualGauge.cs" />
-    <Compile Include="Toolkit\Controls\VisualRangeBar.cs" />
+    <Compile Include="Toolkit\Controls\DataVisualization\VisualGauge.cs" />
+    <Compile Include="Toolkit\Controls\Interactivity\VisualRangeBar.cs" />
     <Compile Include="Toolkit\VisualBase\BadgeLabel.cs" />
     <Compile Include="Toolkit\Components\Expander.cs">
       <SubType>Component</SubType>
@@ -106,9 +106,9 @@
     <Compile Include="Toolkit\Components\VisualBadge.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Toolkit\Controls\VisualListBox.cs" />
-    <Compile Include="Toolkit\Controls\VisualListView.cs" />
-    <Compile Include="Toolkit\Controls\VisualScrollBar.cs" />
+    <Compile Include="Toolkit\Controls\DataManagement\VisualListBox.cs" />
+    <Compile Include="Toolkit\Controls\DataManagement\VisualListView.cs" />
+    <Compile Include="Toolkit\Controls\Layout\VisualScrollBar.cs" />
     <Compile Include="Toolkit\VisualBase\FixedContentValues.cs" />
     <Compile Include="Toolkit\VisualBase\ToggleBase.cs" />
     <Compile Include="Toolkit\VisualBase\NestedControlsBase.cs" />
@@ -145,22 +145,22 @@
     <Compile Include="Toolkit\PropertyFilter\VisualComboBoxDesigner.cs" />
     <Compile Include="Toolkit\PropertyFilter\VisualButtonDesigner.cs" />
     <Compile Include="Toolkit\PropertyFilter\VisualCheckBoxDesigner.cs" />
-    <Compile Include="Toolkit\Controls\VisualButton.cs" />
-    <Compile Include="Toolkit\Controls\VisualCheckBox.cs" />
-    <Compile Include="Toolkit\Controls\VisualColorPicker.cs" />
+    <Compile Include="Toolkit\Controls\Interactivity\VisualButton.cs" />
+    <Compile Include="Toolkit\Controls\Interactivity\VisualCheckBox.cs" />
+    <Compile Include="Toolkit\Controls\Editors\VisualColorPicker.cs" />
     <Compile Include="Toolkit\Components\VisualContainer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Toolkit\Controls\VisualContextMenu.cs">
+    <Compile Include="Toolkit\Controls\Navigation\VisualContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Toolkit\Controls\VisualForm.cs">
+    <Compile Include="Toolkit\Controls\Layout\VisualForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Toolkit\Controls\VisualLabel.cs" />
-    <Compile Include="Toolkit\Controls\VisualRating.cs" />
-    <Compile Include="Toolkit\Controls\VisualShape.cs" />
-    <Compile Include="Toolkit\Controls\VisualToolTip.cs">
+    <Compile Include="Toolkit\Controls\Interactivity\VisualLabel.cs" />
+    <Compile Include="Toolkit\Controls\Interactivity\VisualRating.cs" />
+    <Compile Include="Toolkit\Controls\Interactivity\VisualShape.cs" />
+    <Compile Include="Toolkit\Components\VisualToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Enumerators\Alignment.cs" />
@@ -185,24 +185,24 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Styles\Visual.cs" />
     <Compile Include="Enumerators\Animation.cs" />
-    <Compile Include="Toolkit\Controls\VisualComboBox.cs">
+    <Compile Include="Toolkit\Controls\Interactivity\VisualComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Toolkit\Controls\VisualGroupBox.cs" />
-    <Compile Include="Toolkit\Controls\VisualNumericUpDown.cs" />
-    <Compile Include="Toolkit\Controls\VisualPanel.cs" />
-    <Compile Include="Toolkit\Controls\VisualProgressBar.cs" />
-    <Compile Include="Toolkit\Controls\VisualProgressIndicator.cs" />
-    <Compile Include="Toolkit\Controls\VisualRadioButton.cs" />
-    <Compile Include="Toolkit\Controls\VisualRichTextBox.cs" />
-    <Compile Include="Toolkit\Controls\VisualCircleProgressBar.cs" />
-    <Compile Include="Toolkit\Controls\VisualSeparator.cs" />
-    <Compile Include="Toolkit\Controls\VisualTabControl.cs">
+    <Compile Include="Toolkit\Controls\Layout\VisualGroupBox.cs" />
+    <Compile Include="Toolkit\Controls\Interactivity\VisualNumericUpDown.cs" />
+    <Compile Include="Toolkit\Controls\Layout\VisualPanel.cs" />
+    <Compile Include="Toolkit\Controls\DataVisualization\VisualProgressBar.cs" />
+    <Compile Include="Toolkit\Controls\DataVisualization\VisualProgressIndicator.cs" />
+    <Compile Include="Toolkit\Controls\Interactivity\VisualRadioButton.cs" />
+    <Compile Include="Toolkit\Controls\Editors\VisualRichTextBox.cs" />
+    <Compile Include="Toolkit\Controls\DataVisualization\VisualCircleProgressBar.cs" />
+    <Compile Include="Toolkit\Controls\Layout\VisualSeparator.cs" />
+    <Compile Include="Toolkit\Controls\Navigation\VisualTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Toolkit\Controls\VisualTextBox.cs" />
-    <Compile Include="Toolkit\Controls\VisualToggle.cs" />
-    <Compile Include="Toolkit\Controls\VisualTrackBar.cs">
+    <Compile Include="Toolkit\Controls\Editors\VisualTextBox.cs" />
+    <Compile Include="Toolkit\Controls\Interactivity\VisualToggle.cs" />
+    <Compile Include="Toolkit\Controls\Interactivity\VisualTrackBar.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GDI.cs" />
@@ -212,7 +212,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Toolkit\Controls\VisualKnob.cs">
+    <Compile Include="Toolkit\Controls\Interactivity\VisualKnob.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Toolkit\VisualBase\VisualToolStripMenuItem.cs">
@@ -234,7 +234,9 @@
   <ItemGroup>
     <None Include="Resources\Icon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Toolkit\Dialogs\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

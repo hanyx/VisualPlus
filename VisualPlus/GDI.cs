@@ -11,7 +11,7 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Controls;
+    using VisualPlus.Toolkit.Controls.DataVisualization;
 
     #endregion
 

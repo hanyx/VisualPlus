@@ -8,7 +8,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.EventArgs;
-    using VisualPlus.Toolkit.Controls;
+    using VisualPlus.Toolkit.Controls.Interactivity;
 
     #endregion
 

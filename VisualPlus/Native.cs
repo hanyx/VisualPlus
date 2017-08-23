@@ -8,7 +8,7 @@
     using System.Runtime.InteropServices;
     using System.Text;
 
-    using VisualPlus.Toolkit.Controls;
+    using VisualPlus.Toolkit.Controls.Layout;
 
     #endregion
 

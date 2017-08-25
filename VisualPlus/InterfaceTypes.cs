@@ -1,13 +1,25 @@
+#region Namespace
+
+using System.Drawing;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
 namespace VisualPlus
 {
     #region Namespace
 
-    using System.Drawing;
-
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-
     #endregion
+
+    public interface IStyleControl
+    {
+        #region Events
+
+        void UpdateTheme(Enumerators.Styles style);
+
+        #endregion
+    }
 
     /// <summary>Exposes access to content values.</summary>
     public interface IContentValues

@@ -451,7 +451,7 @@
                     ControlPaint.LightLight(Color.Gainsboro),
                     ControlPaint.Light(Color.Gainsboro),
                     Color.FromArgb(66, 64, 65),
-                    Color.FromArgb(241, 244, 249)
+                    Color.FromArgb(32, 32, 33)
                 };
 
             return list;

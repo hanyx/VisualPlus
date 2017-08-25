@@ -194,82 +194,43 @@ namespace VisualPlus.Toolkit.Components
         /// <param name="style">The style to update the controls with.</param>
         protected virtual void UpdateControl(Control _control, Enumerators.Styles style)
         {
-            if (_control is VisualListBox _)
-            {
-                ((VisualListBox) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualListView _)
-            {
-                ((VisualListView) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualCircleProgressBar _)
-            {
-                ((VisualCircleProgressBar) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualGauge _)
-            {
-                ((VisualGauge) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualProgressBar _)
-            {
-                ((VisualProgressBar) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualRichTextBox _)
-            {
-                ((VisualRichTextBox) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualTextBox _)
-            {
-                ((VisualTextBox) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualButton _)
-            {
-                ((VisualButton) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualCheckBox _)
-            {
-                ((VisualCheckBox) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualComboBox _)
-            {
-                ((VisualComboBox) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualLabel _)
-            {
-                ((VisualLabel) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualNumericUpDown _)
-            {
-                ((VisualNumericUpDown) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualRadioButton _)
-            {
-                ((VisualRadioButton) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualShape _)
-            {
-                ((VisualShape) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualToggle _)
-            {
-                ((VisualToggle) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualTrackBar _)
-            {
-                ((VisualTrackBar) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualGroupBox _)
-            {
-                ((VisualGroupBox) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualPanel _)
-            {
-                ((VisualPanel) _control).UpdateTheme(style);
-            }
-            else if (_control is VisualSeparator _)
-            {
-                ((VisualSeparator) _control).UpdateTheme(style);
-            }
+            (_control as VisualListBox)?.UpdateTheme(style);
+
+            (_control as VisualListView)?.UpdateTheme(style);
+
+            (_control as VisualCircleProgressBar)?.UpdateTheme(style);
+
+            (_control as VisualGauge)?.UpdateTheme(style);
+
+            (_control as VisualProgressBar)?.UpdateTheme(style);
+
+            (_control as VisualRichTextBox)?.UpdateTheme(style);
+
+            (_control as VisualTextBox)?.UpdateTheme(style);
+
+            (_control as VisualButton)?.UpdateTheme(style);
+
+            (_control as VisualCheckBox)?.UpdateTheme(style);
+
+            (_control as VisualComboBox)?.UpdateTheme(style);
+
+            (_control as VisualLabel)?.UpdateTheme(style);
+
+            (_control as VisualNumericUpDown)?.UpdateTheme(style);
+
+            (_control as VisualRadioButton)?.UpdateTheme(style);
+
+            (_control as VisualShape)?.UpdateTheme(style);
+
+            (_control as VisualToggle)?.UpdateTheme(style);
+
+            (_control as VisualTrackBar)?.UpdateTheme(style);
+
+            (_control as VisualGroupBox)?.UpdateTheme(style);
+
+            (_control as VisualPanel)?.UpdateTheme(style);
+
+            (_control as VisualSeparator)?.UpdateTheme(style);
         }
 
         /// <summary>Update the form collection controls style.</summary>

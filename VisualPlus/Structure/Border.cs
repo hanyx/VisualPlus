@@ -57,11 +57,11 @@
             ConstructBorder(styleManager.BorderStyle.HoverColor, true);
         }
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event BorderHoverColorChangedEventHandler HoverColorChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event BorderHoverVisibleChangedEventHandler HoverVisibleChanged;
 

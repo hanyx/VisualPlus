@@ -29,7 +29,7 @@
 
         #region Constructors
 
-        [Category(Event.PropertyChanged)]
+        [Category(Localization.Category.Events.PropertyChanged)]
         [Description(Property.Description.Checkmark.Checked)]
         public event EventHandler CheckStateChanged;
 
@@ -38,7 +38,7 @@
         #region Properties
 
         [DefaultValue(typeof(CheckState), "Unchecked")]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Localization.Category.Propertys.Behavior)]
         [Description(Property.Description.Checkmark.Checked)]
         public CheckState CheckState
         {
@@ -71,7 +71,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Localization.Category.Propertys.Behavior)]
         [Description(Property.Description.Common.Toggle)]
         [DefaultValue(false)]
         public bool ThreeState

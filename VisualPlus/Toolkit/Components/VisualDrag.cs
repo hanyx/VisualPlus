@@ -84,15 +84,15 @@
             _horizontal = true;
         }
 
-        [Category(Event.DragDrop)]
+        [Category(Localization.Category.Events.DragDrop)]
         [Description(Localization.Descriptions.Event.ControlDragChanged)]
         public event ControlDragEventHandler ControlDrag;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Localization.Category.Events.PropertyChanged)]
         [Description(Localization.Descriptions.Event.CursorChanged)]
         public event ControlDragCursorChangedEventHandler ControlDragCursorChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Localization.Category.Events.PropertyChanged)]
         [Description(Localization.Descriptions.Event.ControlDragToggleChanged)]
         public event ControlDragToggleEventHandler ControlDragToggle;
 
@@ -102,7 +102,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description("The control to attach this component.")]
         public Control Control
         {
@@ -119,7 +119,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Cursor)]
         public Cursor CursorMove
         {
@@ -142,7 +142,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
         public bool Enabled
         {
@@ -173,7 +173,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
         public bool Horizontal
         {
@@ -189,14 +189,14 @@
         }
 
         [Browsable(false)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.IsDragging)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public bool IsDragging { get; private set; }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
         public bool Vertical
         {

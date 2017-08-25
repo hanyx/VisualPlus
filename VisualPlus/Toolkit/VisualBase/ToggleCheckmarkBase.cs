@@ -56,7 +56,7 @@ namespace VisualPlus.Toolkit.VisualBase
         #region Properties
 
         [DefaultValue(Settings.DefaultValue.Animation)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Animation)]
         public bool Animation
         {
@@ -81,7 +81,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
@@ -97,7 +97,7 @@ namespace VisualPlus.Toolkit.VisualBase
         }
 
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         public Size Box
         {
             get
@@ -117,7 +117,7 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Spacing)]
         public int BoxSpacing
         {
@@ -134,7 +134,7 @@ namespace VisualPlus.Toolkit.VisualBase
         }
 
         [DefaultValue(false)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Checkmark.Checked)]
         public bool Checked
         {
@@ -161,7 +161,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         [TypeConverter(typeof(CheckMarkConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Checkmark CheckMark
         {
             get
@@ -177,7 +177,7 @@ namespace VisualPlus.Toolkit.VisualBase
         }
 
         [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Gradient DisabledGradient
         {
             get
@@ -192,7 +192,7 @@ namespace VisualPlus.Toolkit.VisualBase
         }
 
         [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Gradient EnabledGradient
         {
             get
@@ -207,7 +207,7 @@ namespace VisualPlus.Toolkit.VisualBase
         }
 
         [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Gradient HoverGradient
         {
             get
@@ -226,7 +226,7 @@ namespace VisualPlus.Toolkit.VisualBase
         public bool IsBoxLarger { get; set; }
 
         [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Gradient PressedGradient
         {
             get

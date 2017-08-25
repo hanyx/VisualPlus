@@ -123,7 +123,7 @@
             MouseMessageFilter.MouseMove += OnGlobalMouseMove;
         }
 
-        [Category(Event.Appearance)]
+        [Category(Localization.Category.Events.Appearance)]
         [Description(Property.Description.Common.Color)]
         public event BackgroundChangedEventHandler BackgroundChanged;
 
@@ -155,7 +155,7 @@
 
         #region Properties
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Localization.Category.Propertys.Appearance)]
         [Description(Property.Description.Common.Color)]
         public Color Background
         {
@@ -174,7 +174,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Localization.Category.Propertys.Appearance)]
         public Border Border
         {
             get
@@ -189,7 +189,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Localization.Category.Propertys.Appearance)]
         [Description(Property.Description.Common.Color)]
         public Color ButtonBackHoverColor
         {
@@ -205,7 +205,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Localization.Category.Propertys.Appearance)]
         [Description(Property.Description.Common.Color)]
         public Color ButtonBackPressedColor
         {
@@ -221,7 +221,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Localization.Category.Propertys.Appearance)]
         [Description(Property.Description.Common.Color)]
         public Color ButtonCloseColor
         {
@@ -237,7 +237,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Localization.Category.Propertys.Appearance)]
         [Description(Property.Description.Common.Color)]
         public Color ButtonMaximizeColor
         {
@@ -253,7 +253,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Localization.Category.Propertys.Appearance)]
         [Description(Property.Description.Common.Color)]
         public Color ButtonMinimizeColor
         {
@@ -269,7 +269,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Localization.Category.Propertys.Layout)]
         [Description(Property.Description.Common.Size)]
         public Size ButtonSize
         {
@@ -302,7 +302,7 @@
 
         [TypeConverter(typeof(VisualBitmapConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Localization.Category.Propertys.Appearance)]
         public VisualBitmap Image
         {
             get
@@ -318,7 +318,7 @@
         }
 
         [DefaultValue(true)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Localization.Category.Propertys.Behavior)]
         [Description("Snap window snaps toggles snapping to screen edges.")]
         public bool Magnetic
         {
@@ -334,7 +334,7 @@
         }
 
         [DefaultValue(100)]
-        [Category(Localization.Category.Property.Behavior)]
+        [Category(Localization.Category.Propertys.Behavior)]
         [Description("The snap radius determines the distance to trigger the snap.")]
         public int MagneticRadius
         {
@@ -349,7 +349,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.WindowStyle)]
+        [Category(Localization.Category.Propertys.WindowStyle)]
         [Description(Property.ShowIcon)]
         public new bool ShowIcon
         {
@@ -366,7 +366,7 @@
 
         public bool Sizable { get; set; }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Localization.Category.Propertys.Appearance)]
         [Description(Property.Description.Common.MouseState)]
         public MouseStates State
         {
@@ -382,7 +382,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Localization.Category.Propertys.Appearance)]
         [Description(Property.Description.Common.Alignment)]
         public Alignment.TextAlignment TitleAlignment
         {
@@ -398,7 +398,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Localization.Category.Propertys.Appearance)]
         [Description(Property.Description.Common.Color)]
         public Color WindowBarColor
         {
@@ -414,7 +414,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Localization.Category.Propertys.Layout)]
         [Description(Property.Description.Common.Size)]
         public int WindowBarHeight
         {

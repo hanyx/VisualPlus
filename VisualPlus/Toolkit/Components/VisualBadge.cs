@@ -162,7 +162,7 @@
 
         #region Properties
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Color Background
         {
             get
@@ -179,7 +179,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description("The control to attach this component.")]
         public Control Control
         {
@@ -210,7 +210,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
         public bool Enabled
         {
@@ -239,7 +239,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Font Font
         {
             get
@@ -254,7 +254,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Color ForeColor
         {
             get
@@ -287,7 +287,7 @@
 
         [TypeConverter(typeof(ShapeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Shape Shape
         {
             get

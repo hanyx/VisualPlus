@@ -74,7 +74,7 @@
         #region Properties
 
         [DefaultValue(true)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool BackCircleVisible
         {
@@ -90,7 +90,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color BackgroundCircle
         {
@@ -107,7 +107,7 @@
         }
 
         [DefaultValue(true)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool ForeCircleVisible
         {
@@ -123,7 +123,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ForegroundCircle
         {
@@ -139,7 +139,7 @@
             }
         }
 
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Rotation)]
         public float GradientRotation
         {
@@ -155,7 +155,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Image)]
         public Point IconPoint
         {
@@ -171,7 +171,7 @@
             }
         }
 
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public Size IconSize
         {
@@ -187,7 +187,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Image)]
         public Image Image
         {
@@ -203,7 +203,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ProgressGradient1
         {
@@ -219,7 +219,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ProgressGradient2
         {
@@ -236,7 +236,7 @@
         }
 
         [DefaultValue(Settings.DefaultValue.ProgressSize)]
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public float ProgressSize
         {
@@ -252,7 +252,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public ProgressShape Shape
         {
@@ -269,7 +269,7 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool TextVisible
         {

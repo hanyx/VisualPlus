@@ -71,7 +71,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         #region Properties
 
         [DefaultValue(Settings.DefaultValue.Animation)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Animation)]
         public bool Animation
         {
@@ -97,7 +97,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Gradient BackgroundGradient
         {
             get
@@ -114,7 +114,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
@@ -129,7 +129,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description("The type of shape.")]
         public ShapeType ShapeForm
         {

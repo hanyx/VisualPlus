@@ -63,27 +63,27 @@
             _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
         }
 
-        [Category(Event.Appearance)]
+        [Category(Localization.Category.Events.Appearance)]
         [Description(Property.Description.Common.Color)]
         public event BackgroundChangedEventHandler BackgroundChanged;
 
-        [Category(Event.Appearance)]
+        [Category(Localization.Category.Events.Appearance)]
         [Description(Property.Description.Common.Color)]
         public event BackgroundChangedEventHandler BackgroundDisabledChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Localization.Category.Events.PropertyChanged)]
         [Description("Occours when the ForeColorDisabled property for the control has changed.")]
         public event ForeColorDisabledChangedEventHandler ForeColorDisabledChanged;
 
-        [Category(Event.Mouse)]
+        [Category(Localization.Category.Events.Mouse)]
         [Description("Occours when the MouseState of the control has changed.")]
         public event MouseStateChangedEventHandler MouseStateChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Localization.Category.Events.PropertyChanged)]
         [Description("Occours when the TextRenderingHint property has changed.")]
         public event TextRenderingChangedEventHandler TextRenderingHintChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Localization.Category.Events.PropertyChanged)]
         [Description("Occours when the theme changed for the control.")]
         public event ThemeChangedEventHandler ThemeChanged;
 
@@ -91,11 +91,11 @@
 
         #region Properties
 
-        [Category(Localization.Category.Property.Layout)]
+        [Category(Localization.Category.Propertys.Layout)]
         [Description(Property.Description.Common.AutoSize)]
         public new bool AutoSize { get; set; }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Localization.Category.Propertys.Appearance)]
         [Description(Property.Description.Common.Color)]
         public Color Background
         {
@@ -112,7 +112,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Localization.Category.Propertys.Appearance)]
         [Description(Property.Description.Common.Color)]
         public Color BackgroundDisabled
         {
@@ -143,7 +143,7 @@
 
         public override Color ForeColor { get; set; }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Localization.Category.Propertys.Appearance)]
         [Description(Property.Description.Common.Color)]
         public Color ForeColorDisabled
         {
@@ -160,7 +160,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Localization.Category.Propertys.Appearance)]
         [Description(Property.Description.Common.MouseState)]
         public MouseStates MouseState
         {
@@ -191,7 +191,7 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
+        [Category(Localization.Category.Propertys.Appearance)]
         [Description(Property.Description.Strings.TextRenderingHint)]
         public TextRenderingHint TextRenderingHint
         {

@@ -59,11 +59,11 @@
     <Compile Include="EventArgs\ToggleEventArgs.cs" />
     <Compile Include="Extensibility\ColorExtension.cs" />
     <Compile Include="Extensibility\StringExtension.cs" />
-    <Compile Include="Localization\Category\Event.cs" />
+    <Compile Include="Localization\Category\Events.cs" />
     <Compile Include="Localization\Descriptions\Event.cs" />
     <Compile Include="Localization\Descriptions\Property.cs" />
     <Compile Include="Localization\GlobalStrings.cs" />
-    <Compile Include="Localization\Category\Property.cs" />
+    <Compile Include="Localization\Category\Propertys.cs" />
     <Compile Include="Renders\VisualBackgroundRenderer.cs" />
     <Compile Include="Renders\VisualBadgeRenderer.cs" />
     <Compile Include="Renders\VisualBorderRenderer.cs" />

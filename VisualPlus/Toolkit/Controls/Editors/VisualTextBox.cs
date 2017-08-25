@@ -132,7 +132,7 @@
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Localizable(true)]
         [Browsable(true)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.AutoCompleteCustomSource)]
         public AutoCompleteStringCollection AutoCompleteCustomSource
         {
@@ -150,7 +150,7 @@
         [DefaultValue(typeof(AutoCompleteMode), "None")]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.AutoCompleteMode)]
         public AutoCompleteMode AutoCompleteMode
         {
@@ -168,7 +168,7 @@
         [DefaultValue(typeof(AutoCompleteSource), "None")]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.AutoCompleteSource)]
         public AutoCompleteSource AutoCompleteSource
         {
@@ -199,7 +199,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
@@ -216,7 +216,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border ButtonBorder
         {
             get
@@ -233,7 +233,7 @@
 
         [TypeConverter(typeof(ControlColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public ControlColorState ButtonColor
         {
             get
@@ -249,7 +249,7 @@
         }
 
         [Description(Localization.Descriptions.Property.Description.Strings.Font)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Font ButtonFont
         {
             get
@@ -292,7 +292,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool ButtonVisible
         {
@@ -348,7 +348,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Image)]
         public Image Image
         {
@@ -364,7 +364,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Image)]
         public bool ImageVisible
         {
@@ -383,7 +383,7 @@
             }
         }
 
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public int ImageWidth
         {
@@ -402,7 +402,7 @@
         [DefaultValue(32767)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.MaxLength)]
         public int MaxLength
         {
@@ -422,7 +422,7 @@
         [Description("Gets whether the mouse is on the button.")]
         public bool MouseOnButton { get; private set; }
 
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.MultiLine)]
         [DefaultValue(false)]
         public virtual bool MultiLine
@@ -442,7 +442,7 @@
         [DefaultValue('*')]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.PasswordChar)]
         public char PasswordChar
         {
@@ -457,7 +457,7 @@
             }
         }
 
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.ReadOnly)]
         public bool ReadOnly
         {
@@ -515,7 +515,7 @@
         [DefaultValue(typeof(HorizontalAlignment), "Left")]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.TextAlign)]
         public HorizontalAlignment TextAlign
         {
@@ -531,7 +531,7 @@
         }
 
         [DefaultValue(125)]
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public int TextBoxWidth
         {
@@ -551,7 +551,7 @@
         [DefaultValue(false)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.UseSystemPasswordChar)]
         public bool UseSystemPasswordChar
         {
@@ -568,7 +568,7 @@
 
         [TypeConverter(typeof(WatermarkConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         public Watermark Watermark
         {
             get

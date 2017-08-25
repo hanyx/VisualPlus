@@ -49,12 +49,12 @@
         #region Properties
 
         [DefaultValue(typeof(Color), "Blue")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Color Background { get; set; }
 
         [TypeConverter(typeof(ShapeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Shape Shape { get; set; }
 
         #endregion

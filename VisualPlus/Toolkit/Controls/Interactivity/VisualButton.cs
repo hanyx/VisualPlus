@@ -68,7 +68,7 @@
         #region Properties
 
         [DefaultValue(Settings.DefaultValue.Animation)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Animation)]
         public bool Animation
         {
@@ -93,7 +93,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
@@ -109,7 +109,7 @@
         }
 
         [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Gradient DisabledGradient
         {
             get
@@ -124,7 +124,7 @@
         }
 
         [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Gradient EnabledGradient
         {
             get
@@ -139,7 +139,7 @@
         }
 
         [DefaultValue(true)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description("Gets or sets the color gradient toggle.")]
         public bool GradientToggle
         {
@@ -156,7 +156,7 @@
         }
 
         [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Gradient HoverGradient
         {
             get
@@ -172,7 +172,7 @@
 
         [TypeConverter(typeof(VisualBitmapConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public VisualBitmap Image
         {
             get
@@ -188,7 +188,7 @@
         }
 
         [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Gradient PressedGradient
         {
             get
@@ -202,7 +202,7 @@
             }
         }
 
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.TextImageRelation)]
         public TextImageRelation TextImageRelation
         {

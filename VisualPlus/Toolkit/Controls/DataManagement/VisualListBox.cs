@@ -137,7 +137,7 @@
         #region Properties
 
         [DefaultValue(true)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         public bool AlternateColors
         {
             get
@@ -168,7 +168,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
@@ -321,7 +321,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ItemAlternate
         {
@@ -353,7 +353,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ItemNormal
         {
@@ -383,7 +383,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ItemSelected
         {

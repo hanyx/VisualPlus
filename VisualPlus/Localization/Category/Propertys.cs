@@ -1,6 +1,6 @@
 ﻿namespace VisualPlus.Localization.Category
 {
-    public sealed class Property
+    public sealed class Propertys
     {
 #if DEBUG
         public const string Accessibility = GlobalStrings.DefaultCategoryText;

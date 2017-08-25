@@ -61,7 +61,7 @@
 
         #region Properties
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color AnimationColor
         {
@@ -76,7 +76,7 @@
             }
         }
 
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.AnimationSpeed)]
         public int AnimationSpeed
         {
@@ -91,7 +91,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color BaseColor
         {
@@ -107,7 +107,7 @@
         }
 
         [DefaultValue(45F)]
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Amount)]
         public float Circles
         {
@@ -124,7 +124,7 @@
             }
         }
 
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public Size CircleSize
         {
@@ -141,7 +141,7 @@
         }
 
         [DefaultValue(7.5F)]
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Diameter)]
         public float Diameter
         {

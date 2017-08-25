@@ -53,23 +53,23 @@
             Brush = new SolidBrush(inactiveColor);
         }
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description("Occours when the active color property has changed.")]
         public event WatermarkActiveColorChangedEventHandler ActiveColorChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description("Occours when the font property has changed.")]
         public event WatermarkFontChangedEventHandler FontChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description("Occours when the inactive property has changed.")]
         public event WatermarkInactiveColorChangedEventHandler InactiveColorChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description("Occours when the text property has changed.")]
         public event WatermarkTextChangedEventHandler TextChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description("Occours when the visible property has changed.")]
         public event WatermarkVisibleChangedEventHandler VisibleChanged;
 

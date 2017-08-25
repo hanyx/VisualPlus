@@ -80,7 +80,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Gradient BackgroundGradient
         {
             get
@@ -97,7 +97,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
@@ -114,7 +114,7 @@
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Gradient Button
         {
             get
@@ -131,7 +131,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border ButtonBorder
         {
             get
@@ -146,7 +146,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Strings.Font)]
         public Font ButtonFont
         {
@@ -162,7 +162,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ButtonForeColor
         {
@@ -178,7 +178,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Alignment)]
         public Orientation ButtonOrientation
         {
@@ -194,7 +194,7 @@
             }
         }
 
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public int ButtonWidth
         {
@@ -210,7 +210,7 @@
             }
         }
 
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         public long MaximumValue
         {
             get
@@ -234,7 +234,7 @@
             }
         }
 
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         public long MinimumValue
         {
             get
@@ -258,7 +258,7 @@
             }
         }
 
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         public long Value
         {
             get

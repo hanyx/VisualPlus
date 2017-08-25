@@ -94,7 +94,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Gradient BackgroundGradient
         {
             get
@@ -110,7 +110,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         }
 
         [DefaultValue(Settings.DefaultValue.BarAmount)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Progressbar.Bars)]
         public int BarAmount
         {
@@ -126,7 +126,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public Point BarSize
         {
@@ -142,7 +142,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Spacing)]
         public int BarSpacing
         {
@@ -158,7 +158,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public BarTypes BarStyle
         {
@@ -189,7 +189,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
@@ -204,7 +204,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color HatchBackColor
         {
@@ -220,7 +220,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color HatchForeColor
         {
@@ -236,7 +236,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [DefaultValue(Settings.DefaultValue.HatchSize)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public float HatchSize
@@ -253,7 +253,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public HatchStyle HatchStyle
         {
@@ -270,7 +270,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         }
 
         [DefaultValue(Settings.DefaultValue.HatchVisible)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool HatchVisible
         {
@@ -287,7 +287,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Visible)]
         public bool PercentageVisible
         {
@@ -305,7 +305,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Gradient Progress
         {
             get
@@ -321,7 +321,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         }
 
         [DefaultValue(typeof(ProgressBarStyle))]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description("This property allows the user to set the style of the ProgressBar.")]
         public ProgressBarStyle Style
         {
@@ -337,7 +337,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Alignment)]
         public StringAlignment ValueAlignment
         {

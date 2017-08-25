@@ -123,7 +123,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
@@ -160,7 +160,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ColumnHeaderColor
         {
@@ -248,7 +248,7 @@
             }
         }
 
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [Description(Localization.Descriptions.Property.Description.Strings.Font)]
         public Font HeaderFont
         {
@@ -280,7 +280,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color HeaderText
         {
@@ -344,7 +344,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ItemBackground
         {
@@ -360,7 +360,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public int ItemPadding
         {
             get
@@ -389,7 +389,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color ItemSelectedColor
         {
@@ -507,7 +507,7 @@
         }
 
         [DefaultValue(false)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description("Draws the background of the column header.")]
         public bool StandardHeader
         {

@@ -19,19 +19,19 @@
         #region Properties
 
         [DefaultValue(typeof(Color), "Black")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Color Color { get; set; }
 
         [DefaultValue(typeof(int), "0")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public int ContractedHeight { get; set; }
 
         [DefaultValue(typeof(Size), "0, 0")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Size Original { get; set; }
 
         [DefaultValue(typeof(bool), "true")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public bool State { get; set; }
 
         #endregion

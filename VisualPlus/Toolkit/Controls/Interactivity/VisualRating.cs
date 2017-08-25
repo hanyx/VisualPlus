@@ -76,7 +76,7 @@
         #region Properties
 
         [Description("Determines whether the user can rate with a half a star of specificity")]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [DefaultValue(false)]
         public bool AllowHalfStar
         {
@@ -99,7 +99,7 @@
         }
 
         [Description("The number of stars to display")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [DefaultValue(5)]
         public int Maximum
         {
@@ -134,7 +134,7 @@
         ///     Gets or sets the preset appearance of the star
         /// </summary>
         [Description("The star style to use")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [DefaultValue(StarType.Thick)]
         public StarType RatingType
         {
@@ -151,7 +151,7 @@
         }
 
         [Description("The color to use for the star borders when they are illuminated")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [DefaultValue(typeof(Color), "Gold")]
         public Color StarBorderColor
         {
@@ -171,7 +171,7 @@
         ///     Gets or sets the width of the border around the star (including the dull version)
         /// </summary>
         [Description("The width of the star border")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [DefaultValue(3f)]
         public float StarBorderWidth
         {
@@ -204,7 +204,7 @@
         }
 
         [Description("The color to use for the star when they are illuminated")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [DefaultValue(typeof(Color), "Yellow")]
         public Color StarColor
         {
@@ -221,7 +221,7 @@
         }
 
         [Description("The color to use for the star borders when they are not illuminated")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [DefaultValue(typeof(Color), "Gray")]
         public Color StarDullBorderColor
         {
@@ -252,7 +252,7 @@
         }
 
         [Description("The color to use for the stars when they are not illuminated")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [DefaultValue(typeof(Color), "Silver")]
         public Color StarDullColor
         {
@@ -283,7 +283,7 @@
         }
 
         [Description("The amount of space between each star")]
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [DefaultValue(1)]
         public int StarSpacing
         {
@@ -315,7 +315,7 @@
         }
 
         [Description("The width and height of the star in pixels (not including the border)")]
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [DefaultValue(25)]
         public int StarWidth
         {
@@ -333,7 +333,7 @@
         }
 
         [Description("The number of stars selected (Note: 0 is considered un-rated")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [DefaultValue(0f)]
         public float Value
         {

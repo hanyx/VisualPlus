@@ -76,23 +76,23 @@
             ConstructShape(shapeType, color, rounding, thickness, visible);
         }
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event BorderColorChangedEventHandler ColorChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event BorderRoundingChangedEventHandler RoundingChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event BorderThicknessChangedEventHandler ThicknessChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event BorderTypeChangedEventHandler TypeChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event BorderVisibleChangedEventHandler VisibleChanged;
 

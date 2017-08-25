@@ -94,7 +94,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
@@ -111,7 +111,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border ButtonBorder
         {
             get
@@ -128,7 +128,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Gradient ButtonDisabled
         {
             get
@@ -145,7 +145,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         [TypeConverter(typeof(GradientConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Gradient ButtonGradient
         {
             get
@@ -160,7 +160,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [Description(Localization.Descriptions.Property.Description.Common.Size)]
         public Size ButtonSize
         {
@@ -177,7 +177,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         }
 
         [DefaultValue(false)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
         public bool Toggled
         {
@@ -194,7 +194,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Type)]
         public ToggleTypes Type
         {

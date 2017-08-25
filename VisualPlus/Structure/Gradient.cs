@@ -61,15 +61,15 @@
             ConstructGradient(colors, positions, angle);
         }
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event GradientAngleChangedEventHandler AngleChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event GradientColorChangedEventHandler ColorsChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description(Localization.Descriptions.Event.PropertyEventChanged)]
         public event GradientPositionsChangedEventHandler PositionsChanged;
 

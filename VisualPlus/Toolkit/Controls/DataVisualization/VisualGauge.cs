@@ -59,7 +59,7 @@
         #region Properties
 
         [DefaultValue(typeof(Color), "Green")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Color)]
         public Color Progress
         {
@@ -76,7 +76,7 @@
         }
 
         [DefaultValue(30)]
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [Description(Localization.Descriptions.Property.Description.Border.Thickness)]
         public int Thickness
         {
@@ -93,7 +93,7 @@
         }
 
         [DefaultValue(0)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         public new int Value
         {
             get

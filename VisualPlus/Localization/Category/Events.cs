@@ -1,6 +1,6 @@
 ﻿namespace VisualPlus.Localization.Category
 {
-    public sealed class Event
+    public sealed class Events
     {
 #if DEBUG
         public const string Action = GlobalStrings.DefaultCategoryText;

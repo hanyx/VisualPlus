@@ -42,7 +42,7 @@
 
         #region Properties
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [Description(Localization.Descriptions.Property.Description.Common.Orientation)]
         public Orientation Orientation
         {

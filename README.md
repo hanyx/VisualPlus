@@ -59,7 +59,7 @@ Send me a message to add a project to this list:
 - [VisualPlus](https://github.com/DarkByte7/VisualPlus)
 
 ## Screenshots
-![ToolBox](http://i.imgur.com/5m9rzBl.jpg)
+![ToolBox](http://i.imgur.com/IUZEEiS.jpg)
 
 ## License
 This repository is licensed with the [GPLv3](LICENSE) license.

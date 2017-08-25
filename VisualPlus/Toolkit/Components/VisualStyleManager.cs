@@ -194,103 +194,81 @@ namespace VisualPlus.Toolkit.Components
         /// <param name="style">The style to update the controls with.</param>
         protected virtual void UpdateControl(Control _control, Enumerators.Styles style)
         {
-            switch (_control)
+            if (_control is VisualListBox _)
             {
-                case VisualListBox _:
-                {
-                    ((VisualListBox) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualListView _:
-                {
-                    ((VisualListView) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualCircleProgressBar _:
-                {
-                    ((VisualCircleProgressBar) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualGauge _:
-                {
-                    ((VisualGauge) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualProgressBar _:
-                {
-                    ((VisualProgressBar) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualRichTextBox _:
-                {
-                    ((VisualRichTextBox) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualTextBox _:
-                {
-                    ((VisualTextBox) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualButton _:
-                {
-                    ((VisualButton) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualCheckBox _:
-                {
-                    ((VisualCheckBox) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualComboBox _:
-                {
-                    ((VisualComboBox) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualLabel _:
-                {
-                    ((VisualLabel) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualNumericUpDown _:
-                {
-                    ((VisualNumericUpDown) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualRadioButton _:
-                {
-                    ((VisualRadioButton) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualShape _:
-                {
-                    ((VisualShape) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualToggle _:
-                {
-                    ((VisualToggle) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualTrackBar _:
-                {
-                    ((VisualTrackBar) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualGroupBox _:
-                {
-                    ((VisualGroupBox) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualPanel _:
-                {
-                    ((VisualPanel) _control).UpdateTheme(style);
-                    break;
-                }
-                case VisualSeparator _:
-                {
-                    ((VisualSeparator) _control).UpdateTheme(style);
-                    break;
-                }
+                ((VisualListBox) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualListView _)
+            {
+                ((VisualListView) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualCircleProgressBar _)
+            {
+                ((VisualCircleProgressBar) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualGauge _)
+            {
+                ((VisualGauge) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualProgressBar _)
+            {
+                ((VisualProgressBar) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualRichTextBox _)
+            {
+                ((VisualRichTextBox) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualTextBox _)
+            {
+                ((VisualTextBox) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualButton _)
+            {
+                ((VisualButton) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualCheckBox _)
+            {
+                ((VisualCheckBox) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualComboBox _)
+            {
+                ((VisualComboBox) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualLabel _)
+            {
+                ((VisualLabel) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualNumericUpDown _)
+            {
+                ((VisualNumericUpDown) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualRadioButton _)
+            {
+                ((VisualRadioButton) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualShape _)
+            {
+                ((VisualShape) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualToggle _)
+            {
+                ((VisualToggle) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualTrackBar _)
+            {
+                ((VisualTrackBar) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualGroupBox _)
+            {
+                ((VisualGroupBox) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualPanel _)
+            {
+                ((VisualPanel) _control).UpdateTheme(style);
+            }
+            else if (_control is VisualSeparator _)
+            {
+                ((VisualSeparator) _control).UpdateTheme(style);
             }
         }
 

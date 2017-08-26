@@ -1,14 +1,13 @@
-﻿namespace VisualPlus.Toolkit.VisualBase
+﻿#region Namespace
+
+using System.Drawing;
+using System.Windows.Forms;
+using VisualPlus.Toolkit.Controls.Navigation;
+
+#endregion
+
+namespace VisualPlus.Toolkit.VisualBase
 {
-    #region Namespace
-
-    using System.Drawing;
-    using System.Windows.Forms;
-
-    using VisualPlus.Toolkit.Controls.Navigation;
-
-    #endregion
-
     public sealed class VisualToolStripMenuItem : ToolStripMenuItem
     {
         #region Constructors

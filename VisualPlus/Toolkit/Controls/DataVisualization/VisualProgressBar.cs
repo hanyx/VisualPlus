@@ -1,23 +1,23 @@
+#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using VisualPlus.Enumerators;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
 namespace VisualPlus.Toolkit.Controls.DataVisualization
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ProgressBar))]
     [DefaultEvent("Click")]
@@ -63,7 +63,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualProgressBar"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualProgressBar" /> class.</summary>
         public VisualProgressBar()
         {
             Maximum = 100;
@@ -97,10 +97,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Category(Propertys.Appearance)]
         public Gradient BackgroundGradient
         {
-            get
-            {
-                return backgroundGradient;
-            }
+            get { return backgroundGradient; }
 
             set
             {
@@ -111,13 +108,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         [DefaultValue(Settings.DefaultValue.BarAmount)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Progressbar.Bars)]
+        [Description(Property.Bars)]
         public int BarAmount
         {
-            get
-            {
-                return bars;
-            }
+            get { return bars; }
 
             set
             {
@@ -127,13 +121,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public Point BarSize
         {
-            get
-            {
-                return barSize;
-            }
+            get { return barSize; }
 
             set
             {
@@ -143,13 +134,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Spacing)]
+        [Description(Property.Spacing)]
         public int BarSpacing
         {
-            get
-            {
-                return barSpacing;
-            }
+            get { return barSpacing; }
 
             set
             {
@@ -159,13 +147,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         }
 
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Type)]
+        [Description(Property.Type)]
         public BarTypes BarStyle
         {
-            get
-            {
-                return barStyle;
-            }
+            get { return barStyle; }
 
             set
             {
@@ -181,7 +166,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
                 }
 
                 // Resize check
-                OnResize(EventArgs.Empty);
+                OnResize(System.EventArgs.Empty);
 
                 Invalidate();
             }
@@ -192,10 +177,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get
-            {
-                return _border;
-            }
+            get { return _border; }
 
             set
             {
@@ -205,13 +187,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color HatchBackColor
         {
-            get
-            {
-                return hatchBackColor;
-            }
+            get { return hatchBackColor; }
 
             set
             {
@@ -221,13 +200,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color HatchForeColor
         {
-            get
-            {
-                return hatchForeColor;
-            }
+            get { return hatchForeColor; }
 
             set
             {
@@ -238,13 +214,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         [Category(Propertys.Layout)]
         [DefaultValue(Settings.DefaultValue.HatchSize)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public float HatchSize
         {
-            get
-            {
-                return hatchSize;
-            }
+            get { return hatchSize; }
 
             set
             {
@@ -254,13 +227,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Type)]
+        [Description(Property.Type)]
         public HatchStyle HatchStyle
         {
-            get
-            {
-                return hatchStyle;
-            }
+            get { return hatchStyle; }
 
             set
             {
@@ -271,13 +241,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         [DefaultValue(Settings.DefaultValue.HatchVisible)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool HatchVisible
         {
-            get
-            {
-                return hatchVisible;
-            }
+            get { return hatchVisible; }
 
             set
             {
@@ -288,13 +255,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool PercentageVisible
         {
-            get
-            {
-                return percentageVisible;
-            }
+            get { return percentageVisible; }
 
             set
             {
@@ -308,10 +272,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Category(Propertys.Appearance)]
         public Gradient Progress
         {
-            get
-            {
-                return progressGradient;
-            }
+            get { return progressGradient; }
 
             set
             {
@@ -325,10 +286,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description("This property allows the user to set the style of the ProgressBar.")]
         public ProgressBarStyle Style
         {
-            get
-            {
-                return progressBarStyle;
-            }
+            get { return progressBarStyle; }
 
             set
             {
@@ -338,13 +296,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Alignment)]
+        [Description(Property.Alignment)]
         public StringAlignment ValueAlignment
         {
-            get
-            {
-                return valueAlignment;
-            }
+            get { return valueAlignment; }
 
             set
             {
@@ -355,33 +310,24 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         private int ProgressBarMarqueeHeight
         {
-            get
-            {
-                return ClientRectangle.Height / 3;
-            }
+            get { return ClientRectangle.Height / 3; }
         }
 
         private int ProgressBarMarqueeWidth
         {
-            get
-            {
-                return ClientRectangle.Width / 3;
-            }
+            get { return ClientRectangle.Width / 3; }
         }
 
         private double ProgressBarWidth
         {
-            get
-            {
-                return ((double)Value / Maximum) * ClientRectangle.Width;
-            }
+            get { return ((double) Value / Maximum) * ClientRectangle.Width; }
         }
 
         #endregion
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Enumerators.Styles style)
         {
             StyleManager = new VisualStyleManager(style);
 
@@ -410,7 +356,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
             Graphics graphics = e.Graphics;
 
-            gradientPoints = new[] { new Point { X = ClientRectangle.Width, Y = 0 }, new Point { X = ClientRectangle.Width, Y = ClientRectangle.Height } };
+            gradientPoints = new[] {new Point {X = ClientRectangle.Width, Y = 0}, new Point {X = ClientRectangle.Width, Y = ClientRectangle.Height}};
 
             if ((barStyle == BarTypes.Horizontal) || (barStyle == BarTypes.Vertical))
             {
@@ -436,28 +382,28 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             graphics.ResetClip();
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(System.EventArgs e)
         {
             switch (barStyle)
             {
                 case BarTypes.Bars:
-                    {
-                        Height = barSize.Y;
-                        MinimumSize = new Size(bars * barSize.X, barSize.Y + 2);
-                        break;
-                    }
+                {
+                    Height = barSize.Y;
+                    MinimumSize = new Size(bars * barSize.X, barSize.Y + 2);
+                    break;
+                }
 
                 case BarTypes.Horizontal:
-                    {
-                        MinimumSize = minimumSize;
-                        break;
-                    }
+                {
+                    MinimumSize = minimumSize;
+                    break;
+                }
 
                 case BarTypes.Vertical:
-                    {
-                        MinimumSize = new Size(minimumSize.Height, minimumSize.Width);
-                        break;
-                    }
+                {
+                    MinimumSize = new Size(minimumSize.Height, minimumSize.Width);
+                    break;
+                }
             }
         }
 
@@ -495,37 +441,37 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
                 switch (style)
                 {
                     case BarTypes.Horizontal:
-                        {
-                            i1 = (int)Math.Round(((Value - Minimum) / (double)(Maximum - Minimum)) * (Width - 2));
+                    {
+                        i1 = (int) Math.Round(((Value - Minimum) / (double) (Maximum - Minimum)) * (Width - 2));
 
-                            if (_border.Type == ShapeType.Rectangle)
-                            {
-                                progressPath = new GraphicsPath();
-                                progressPath.AddRectangle(new Rectangle(0, 0, i1 + 1, Height));
-                                progressPath.CloseAllFigures();
-                            }
-                            else
-                            {
-                                progressPath = GDI.DrawRoundedRectangle(new Rectangle(1, 1, i1, Height - 2), _border.Rounding);
-                            }
+                        if (_border.Type == ShapeType.Rectangle)
+                        {
+                            progressPath = new GraphicsPath();
+                            progressPath.AddRectangle(new Rectangle(0, 0, i1 + 1, Height));
+                            progressPath.CloseAllFigures();
                         }
+                        else
+                        {
+                            progressPath = GDI.DrawRoundedRectangle(new Rectangle(1, 1, i1, Height - 2), _border.Rounding);
+                        }
+                    }
 
                         break;
                     case BarTypes.Vertical:
-                        {
-                            i1 = (int)Math.Round(((Value - Minimum) / (double)(Maximum - Minimum)) * (Height - 2));
+                    {
+                        i1 = (int) Math.Round(((Value - Minimum) / (double) (Maximum - Minimum)) * (Height - 2));
 
-                            if (_border.Type == ShapeType.Rectangle)
-                            {
-                                progressPath = new GraphicsPath();
-                                progressPath.AddRectangle(new Rectangle(0, Height - i1 - 2, Width, i1));
-                                progressPath.CloseAllFigures();
-                            }
-                            else
-                            {
-                                progressPath = GDI.DrawRoundedRectangle(new Rectangle(0, Height - i1 - 2, Width, i1), _border.Rounding);
-                            }
+                        if (_border.Type == ShapeType.Rectangle)
+                        {
+                            progressPath = new GraphicsPath();
+                            progressPath.AddRectangle(new Rectangle(0, Height - i1 - 2, Width, i1));
+                            progressPath.CloseAllFigures();
                         }
+                        else
+                        {
+                            progressPath = GDI.DrawRoundedRectangle(new Rectangle(0, Height - i1 - 2, Width, i1), _border.Rounding);
+                        }
+                    }
 
                         break;
                 }
@@ -577,10 +523,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             if (percentageVisible)
             {
                 StringFormat stringFormat = new StringFormat
-                    {
-                        Alignment = valueAlignment,
-                        LineAlignment = StringAlignment.Center
-                    };
+                {
+                    Alignment = valueAlignment,
+                    LineAlignment = StringAlignment.Center
+                };
 
                 graphics.DrawString(
                     percentValue,
@@ -599,7 +545,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             graphics.SetClip(graphicsDefaultBorderPath);
 
             LinearGradientBrush progressGradientBrush = Gradient.CreateGradientBrush(progressGradient.Colors, gradientPoints, progressGradient.Angle, progressGradient.Positions);
-            graphics.FillRectangle(progressGradientBrush, 0, 0, (int)ProgressBarWidth, ClientRectangle.Height);
+            graphics.FillRectangle(progressGradientBrush, 0, 0, (int) ProgressBarWidth, ClientRectangle.Height);
 
             graphics.ResetClip();
         }
@@ -664,35 +610,35 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
                 switch (barStyle)
                 {
                     case BarTypes.Bars:
+                    {
+                        // Create bars
+                        if (_border.Type == ShapeType.Rounded)
                         {
-                            // Create bars
-                            if (_border.Type == ShapeType.Rounded)
-                            {
-                                // Rounded rectangle - makes it possible to make circles with full roundness.
-                                barStylePath.AddPath(GDI.DrawRoundedRectangle(barLocation.X, barLocation.Y, barSize.X, barSize.Y, _border.Rounding), true);
-                            }
-                            else
-                            {
-                                // Rectangle
-                                barStylePath.AddRectangle(new Rectangle(barLocation.X, barLocation.Y, barSize.X, barSize.Y));
-                            }
-
-                            barStylePath.CloseAllFigures();
-                            break;
+                            // Rounded rectangle - makes it possible to make circles with full roundness.
+                            barStylePath.AddPath(GDI.DrawRoundedRectangle(barLocation.X, barLocation.Y, barSize.X, barSize.Y, _border.Rounding), true);
                         }
+                        else
+                        {
+                            // Rectangle
+                            barStylePath.AddRectangle(new Rectangle(barLocation.X, barLocation.Y, barSize.X, barSize.Y));
+                        }
+
+                        barStylePath.CloseAllFigures();
+                        break;
+                    }
 
                     case BarTypes.Horizontal:
-                        {
-                            // Default progress bar
-                            barStylePath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
-                            break;
-                        }
+                    {
+                        // Default progress bar
+                        barStylePath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
+                        break;
+                    }
 
                     case BarTypes.Vertical:
-                        {
-                            barStylePath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
-                            break;
-                        }
+                    {
+                        barStylePath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
+                        break;
+                    }
 
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -731,7 +677,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        private void MarqueeTimer_Tick(object sender, EventArgs e)
+        private void MarqueeTimer_Tick(object sender, System.EventArgs e)
         {
             if (barStyle == BarTypes.Horizontal)
             {
@@ -760,22 +706,22 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             switch (style)
             {
                 case BarTypes.Bars:
-                    {
-                        barLocation = new Point(0, 0);
-                        barSize = new Point(10, 10);
-                        barSpacing = 15;
-                        break;
-                    }
+                {
+                    barLocation = new Point(0, 0);
+                    barSize = new Point(10, 10);
+                    barSpacing = 15;
+                    break;
+                }
 
                 case BarTypes.Horizontal:
-                    {
-                        break;
-                    }
+                {
+                    break;
+                }
 
                 case BarTypes.Vertical:
-                    {
-                        break;
-                    }
+                {
+                    break;
+                }
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(style), style, null);
@@ -791,7 +737,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
             if (marqueeTimer == null)
             {
-                marqueeTimer = new Timer { Interval = 10 };
+                marqueeTimer = new Timer {Interval = 10};
                 marqueeTimer.Tick += MarqueeTimer_Tick;
             }
 

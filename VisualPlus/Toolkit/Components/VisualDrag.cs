@@ -1,19 +1,19 @@
-﻿namespace VisualPlus.Toolkit.Components
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Globalization;
+using System.Windows.Forms;
+using VisualPlus.Delegates;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Components
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Globalization;
-    using System.Windows.Forms;
-
-    using VisualPlus.Delegates;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-
-    #endregion
-
     [ToolboxItem(true)]
     [Description("The VisualPlus drag component enables controls to be dragged.")]
     [TypeConverter(typeof(DragConverter))]
@@ -85,15 +85,15 @@
         }
 
         [Category(Localization.Category.Events.DragDrop)]
-        [Description(Localization.Descriptions.Event.ControlDragChanged)]
+        [Description(Event.ControlDragChanged)]
         public event ControlDragEventHandler ControlDrag;
 
         [Category(Localization.Category.Events.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.CursorChanged)]
+        [Description(Event.CursorChanged)]
         public event ControlDragCursorChangedEventHandler ControlDragCursorChanged;
 
         [Category(Localization.Category.Events.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.ControlDragToggleChanged)]
+        [Description(Event.ControlDragToggleChanged)]
         public event ControlDragToggleEventHandler ControlDragToggle;
 
         #endregion
@@ -106,27 +106,18 @@
         [Description("The control to attach this component.")]
         public Control Control
         {
-            get
-            {
-                return _control;
-            }
+            get { return _control; }
 
-            set
-            {
-                _control = value;
-            }
+            set { _control = value; }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Cursor)]
+        [Description(Property.Cursor)]
         public Cursor CursorMove
         {
-            get
-            {
-                return _cursorMove;
-            }
+            get { return _cursorMove; }
 
             set
             {
@@ -143,13 +134,10 @@
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
+        [Description(Property.Toggle)]
         public bool Enabled
         {
-            get
-            {
-                return _enabled;
-            }
+            get { return _enabled; }
 
             set
             {
@@ -174,41 +162,29 @@
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
+        [Description(Property.Toggle)]
         public bool Horizontal
         {
-            get
-            {
-                return _horizontal;
-            }
+            get { return _horizontal; }
 
-            set
-            {
-                _horizontal = value;
-            }
+            set { _horizontal = value; }
         }
 
         [Browsable(false)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.IsDragging)]
+        [Description(Property.IsDragging)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public bool IsDragging { get; private set; }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
+        [Description(Property.Toggle)]
         public bool Vertical
         {
-            get
-            {
-                return _vertical;
-            }
+            get { return _vertical; }
 
-            set
-            {
-                _vertical = value;
-            }
+            set { _vertical = value; }
         }
 
         #endregion

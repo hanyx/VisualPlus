@@ -1,20 +1,20 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataVisualization
+﻿#region Namespace
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Managers;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataVisualization
 {
-    #region Namespace
-
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Windows.Forms;
-
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Managers;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ProgressBar))]
     [Designer(ControlManager.FilterProperties.VisualProgressIndicator)]
@@ -45,7 +45,7 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualProgressIndicator"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualProgressIndicator" /> class.</summary>
         public VisualProgressIndicator()
         {
             SetStyle(ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor, true);
@@ -62,59 +62,38 @@
         #region Properties
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color AnimationColor
         {
-            get
-            {
-                return animationColor.Color;
-            }
+            get { return animationColor.Color; }
 
-            set
-            {
-                animationColor.Color = value;
-            }
+            set { animationColor.Color = value; }
         }
 
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.AnimationSpeed)]
+        [Description(Property.AnimationSpeed)]
         public int AnimationSpeed
         {
-            get
-            {
-                return animationSpeed.Interval;
-            }
+            get { return animationSpeed.Interval; }
 
-            set
-            {
-                animationSpeed.Interval = value;
-            }
+            set { animationSpeed.Interval = value; }
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color BaseColor
         {
-            get
-            {
-                return baseColor.Color;
-            }
+            get { return baseColor.Color; }
 
-            set
-            {
-                baseColor.Color = value;
-            }
+            set { baseColor.Color = value; }
         }
 
         [DefaultValue(45F)]
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Amount)]
+        [Description(Property.Amount)]
         public float Circles
         {
-            get
-            {
-                return circles;
-            }
+            get { return circles; }
 
             set
             {
@@ -125,13 +104,10 @@
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public Size CircleSize
         {
-            get
-            {
-                return circleSize;
-            }
+            get { return circleSize; }
 
             set
             {
@@ -142,13 +118,10 @@
 
         [DefaultValue(7.5F)]
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Diameter)]
+        [Description(Property.Diameter)]
         public float Diameter
         {
-            get
-            {
-                return diameter;
-            }
+            get { return diameter; }
 
             set
             {
@@ -173,13 +146,13 @@
 
         #region Events
 
-        protected override void OnEnabledChanged(EventArgs e)
+        protected override void OnEnabledChanged(System.EventArgs e)
         {
             base.OnEnabledChanged(e);
             animationSpeed.Enabled = Enabled;
         }
 
-        protected override void OnHandleCreated(EventArgs e)
+        protected override void OnHandleCreated(System.EventArgs e)
         {
             base.OnHandleCreated(e);
             animationSpeed.Tick += AnimationSpeedTick;
@@ -212,7 +185,7 @@
             buffGraphics.Render(e.Graphics);
         }
 
-        protected override void OnSizeChanged(EventArgs e)
+        protected override void OnSizeChanged(System.EventArgs e)
         {
             base.OnSizeChanged(e);
             SetStandardSize();
@@ -226,7 +199,7 @@
             return length;
         }
 
-        private void AnimationSpeedTick(object sender, EventArgs e)
+        private void AnimationSpeedTick(object sender, System.EventArgs e)
         {
             if (indicatorIndex.Equals(0))
             {
@@ -246,7 +219,7 @@
             startingFloatPoint = new PointF(Width / 2f, Height / 2f);
             for (var i = 0f; i < 360f; i += circles)
             {
-                SetValue(startingFloatPoint, (int)Math.Round((Width / 2.0) - 15.0), i);
+                SetValue(startingFloatPoint, (int) Math.Round((Width / 2.0) - 15.0), i);
                 PointF endPoint = EndPoint;
                 endPoint = new PointF(endPoint.X - diameter, endPoint.Y - diameter);
                 stack.Push(endPoint);

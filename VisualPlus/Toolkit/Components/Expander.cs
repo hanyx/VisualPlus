@@ -1,17 +1,15 @@
-﻿namespace VisualPlus.Toolkit.Components
+﻿#region Namespace
+
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+using VisualPlus.Localization.Category;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Components
 {
-    #region Namespace
-
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Windows.Forms;
-
-    using VisualPlus.Localization.Category;
-
-    #endregion
-
     [ToolboxItem(false)]
     [Description("The VisualPlus expander component enables controls to be expandable.")]
     public class Expander : Label
@@ -285,7 +283,7 @@
             }
         }
 
-        protected override void OnClick(EventArgs e)
+        protected override void OnClick(System.EventArgs e)
         {
             base.OnClick(e);
 
@@ -343,17 +341,17 @@
         private static void ConstructExpander(Control control, Color color, Rectangle rectangle, int contractedHeight, Cursor cursor, bool state)
         {
             Expander _expander = new Expander
-                {
-                    AutoSize = false,
-                    BackColor = Color.Transparent,
-                    Color = color,
-                    Location = rectangle.Location,
-                    Size = rectangle.Size,
-                    Original = control.Size,
-                    ContractedHeight = contractedHeight,
-                    Cursor = cursor,
-                    State = state
-                };
+            {
+                AutoSize = false,
+                BackColor = Color.Transparent,
+                Color = color,
+                Location = rectangle.Location,
+                Size = rectangle.Size,
+                Original = control.Size,
+                ContractedHeight = contractedHeight,
+                Cursor = cursor,
+                State = state
+            };
 
             Attach(control, _expander);
             SetPosition(control, rectangle.Location);

@@ -1,24 +1,23 @@
+#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
 namespace VisualPlus.Toolkit.Controls.Interactivity
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(Control))]
     [DefaultEvent("ToggleChanged")]
@@ -30,9 +29,9 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         #region Variables
 
         private readonly Timer animationTimer = new Timer
-            {
-                Interval = 1
-            };
+        {
+            Interval = 1
+        };
 
         private Border _border;
 
@@ -64,14 +63,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             buttonSize = new Size(20, 20);
 
             _border = new Border
-                {
-                    Rounding = Settings.DefaultValue.Rounding.ToggleBorder
-                };
+            {
+                Rounding = Settings.DefaultValue.Rounding.ToggleBorder
+            };
 
             buttonBorder = new Border
-                {
-                    Rounding = Settings.DefaultValue.Rounding.ToggleButton
-                };
+            {
+                Rounding = Settings.DefaultValue.Rounding.ToggleButton
+            };
 
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
@@ -97,10 +96,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get
-            {
-                return _border;
-            }
+            get { return _border; }
 
             set
             {
@@ -114,10 +110,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Category(Propertys.Appearance)]
         public Border ButtonBorder
         {
-            get
-            {
-                return buttonBorder;
-            }
+            get { return buttonBorder; }
 
             set
             {
@@ -131,10 +124,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Category(Propertys.Appearance)]
         public Gradient ButtonDisabled
         {
-            get
-            {
-                return buttonDisabledGradient;
-            }
+            get { return buttonDisabledGradient; }
 
             set
             {
@@ -148,10 +138,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Category(Propertys.Appearance)]
         public Gradient ButtonGradient
         {
-            get
-            {
-                return buttonGradient;
-            }
+            get { return buttonGradient; }
 
             set
             {
@@ -161,13 +148,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public Size ButtonSize
         {
-            get
-            {
-                return buttonSize;
-            }
+            get { return buttonSize; }
 
             set
             {
@@ -178,13 +162,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         [DefaultValue(false)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
+        [Description(Property.Toggle)]
         public bool Toggled
         {
-            get
-            {
-                return Toggle;
-            }
+            get { return Toggle; }
 
             set
             {
@@ -195,13 +176,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Type)]
+        [Description(Property.Type)]
         public ToggleTypes Type
         {
-            get
-            {
-                return toggleType;
-            }
+            get { return toggleType; }
 
             set
             {
@@ -214,7 +192,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Enumerators.Styles style)
         {
             StyleManager = new VisualStyleManager(style);
 
@@ -233,20 +211,20 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             Invalidate();
         }
 
-        protected override void OnHandleCreated(EventArgs e)
+        protected override void OnHandleCreated(System.EventArgs e)
         {
             base.OnHandleCreated(e);
             animationTimer.Start();
         }
 
-        protected override void OnMouseEnter(EventArgs e)
+        protected override void OnMouseEnter(System.EventArgs e)
         {
             base.OnMouseEnter(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;
@@ -274,7 +252,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
             Gradient buttonTemp = Enabled ? buttonGradient : buttonDisabledGradient;
 
-            var gradientPoints = new[] { new Point { X = ClientRectangle.Width, Y = 0 }, new Point { X = ClientRectangle.Width, Y = ClientRectangle.Height } };
+            var gradientPoints = new[] {new Point {X = ClientRectangle.Width, Y = 0}, new Point {X = ClientRectangle.Width, Y = ClientRectangle.Height}};
             LinearGradientBrush buttonGradientBrush = Gradient.CreateGradientBrush(buttonTemp.Colors, gradientPoints, buttonTemp.Angle, buttonTemp.Positions);
 
             // Determines button state to draw
@@ -293,7 +271,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         /// <summary>Create a slide animation when toggled.</summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        private void AnimationTimerTick(object sender, EventArgs e)
+        private void AnimationTimerTick(object sender, System.EventArgs e)
         {
             if (Toggle)
             {
@@ -318,25 +296,25 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             switch (toggleType)
             {
                 case ToggleTypes.YesNo:
-                    {
-                        textProcessor = Toggled ? "No" : "Yes";
+                {
+                    textProcessor = Toggled ? "No" : "Yes";
 
-                        break;
-                    }
+                    break;
+                }
 
                 case ToggleTypes.OnOff:
-                    {
-                        textProcessor = Toggled ? "Off" : "On";
+                {
+                    textProcessor = Toggled ? "Off" : "On";
 
-                        break;
-                    }
+                    break;
+                }
 
                 case ToggleTypes.IO:
-                    {
-                        textProcessor = Toggled ? "O" : "I";
+                {
+                    textProcessor = Toggled ? "O" : "I";
 
-                        break;
-                    }
+                    break;
+                }
             }
 
             // Draw string
@@ -356,10 +334,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
 
             StringFormat stringFormat = new StringFormat
-                {
-                    // Alignment = StringAlignment.Center,
-                    LineAlignment = StringAlignment.Center
-                };
+            {
+                // Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
 
             graphics.DrawString(
                 textProcessor,

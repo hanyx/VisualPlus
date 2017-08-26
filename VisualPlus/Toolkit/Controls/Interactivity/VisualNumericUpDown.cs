@@ -1,23 +1,23 @@
-﻿namespace VisualPlus.Toolkit.Controls.Interactivity
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using VisualPlus.Enumerators;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Interactivity
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(NumericUpDown))]
     [DefaultEvent("Click")]
@@ -52,7 +52,7 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualNumericUpDown"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualNumericUpDown" /> class.</summary>
         public VisualNumericUpDown()
         {
             BackColor = Color.Transparent;
@@ -64,10 +64,10 @@
             buttonOrientation = Orientation.Horizontal;
 
             buttonBorder = new Border
-                {
-                    HoverVisible = false,
-                    Type = ShapeType.Rectangle
-                };
+            {
+                HoverVisible = false,
+                Type = ShapeType.Rectangle
+            };
 
             _border = new Border();
 
@@ -83,10 +83,7 @@
         [Category(Propertys.Appearance)]
         public Gradient BackgroundGradient
         {
-            get
-            {
-                return backgroundGradient;
-            }
+            get { return backgroundGradient; }
 
             set
             {
@@ -100,10 +97,7 @@
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get
-            {
-                return _border;
-            }
+            get { return _border; }
 
             set
             {
@@ -117,10 +111,7 @@
         [Category(Propertys.Appearance)]
         public Gradient Button
         {
-            get
-            {
-                return buttonGradient;
-            }
+            get { return buttonGradient; }
 
             set
             {
@@ -134,10 +125,7 @@
         [Category(Propertys.Appearance)]
         public Border ButtonBorder
         {
-            get
-            {
-                return buttonBorder;
-            }
+            get { return buttonBorder; }
 
             set
             {
@@ -147,13 +135,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Strings.Font)]
+        [Description(Property.Font)]
         public Font ButtonFont
         {
-            get
-            {
-                return buttonFont;
-            }
+            get { return buttonFont; }
 
             set
             {
@@ -163,13 +148,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color ButtonForeColor
         {
-            get
-            {
-                return buttonForeColor;
-            }
+            get { return buttonForeColor; }
 
             set
             {
@@ -179,13 +161,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Alignment)]
+        [Description(Property.Alignment)]
         public Orientation ButtonOrientation
         {
-            get
-            {
-                return buttonOrientation;
-            }
+            get { return buttonOrientation; }
 
             set
             {
@@ -195,13 +174,10 @@
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public int ButtonWidth
         {
-            get
-            {
-                return buttonWidth;
-            }
+            get { return buttonWidth; }
 
             set
             {
@@ -213,10 +189,7 @@
         [Category(Propertys.Behavior)]
         public long MaximumValue
         {
-            get
-            {
-                return maximumValue;
-            }
+            get { return maximumValue; }
 
             set
             {
@@ -237,10 +210,7 @@
         [Category(Propertys.Behavior)]
         public long MinimumValue
         {
-            get
-            {
-                return minimumValue;
-            }
+            get { return minimumValue; }
 
             set
             {
@@ -261,10 +231,7 @@
         [Category(Propertys.Behavior)]
         public long Value
         {
-            get
-            {
-                return numericValue;
-            }
+            get { return numericValue; }
 
             set
             {
@@ -293,7 +260,7 @@
             Invalidate();
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Enumerators.Styles style)
         {
             StyleManager = new VisualStyleManager(style);
 
@@ -303,12 +270,12 @@
             buttonFont = new Font(StyleManager.Font.FontFamily, 14, FontStyle.Bold);
 
             ControlBrushCollection = new[]
-                {
-                    StyleManager.ControlStatesStyle.ControlEnabled,
-                    StyleManager.ControlStatesStyle.ControlHover,
-                    StyleManager.ControlStatesStyle.ControlPressed,
-                    StyleManager.ControlStatesStyle.ControlDisabled
-                };
+            {
+                StyleManager.ControlStatesStyle.ControlEnabled,
+                StyleManager.ControlStatesStyle.ControlHover,
+                StyleManager.ControlStatesStyle.ControlPressed,
+                StyleManager.ControlStatesStyle.ControlDisabled
+            };
 
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
@@ -368,82 +335,82 @@
             switch (buttonOrientation)
             {
                 case Orientation.Vertical:
+                {
+                    // Check if mouse in X position.
+                    if ((xValue > Width - buttonRectangle.Width) && (xValue < Width))
                     {
-                        // Check if mouse in X position.
-                        if ((xValue > Width - buttonRectangle.Width) && (xValue < Width))
+                        // Determine the button middle separator by checking for the Y position.
+                        if ((yValue > buttonRectangle.Y) && (yValue < Height / 2))
                         {
-                            // Determine the button middle separator by checking for the Y position.
-                            if ((yValue > buttonRectangle.Y) && (yValue < Height / 2))
+                            if (Value + 1 <= maximumValue)
                             {
-                                if (Value + 1 <= maximumValue)
-                                {
-                                    numericValue++;
-                                }
-                            }
-                            else if ((yValue > Height / 2) && (yValue < Height))
-                            {
-                                if (Value - 1 >= minimumValue)
-                                {
-                                    numericValue--;
-                                }
+                                numericValue++;
                             }
                         }
-                        else
+                        else if ((yValue > Height / 2) && (yValue < Height))
                         {
-                            keyboardNum = !keyboardNum;
-                            Focus();
+                            if (Value - 1 >= minimumValue)
+                            {
+                                numericValue--;
+                            }
                         }
-
-                        break;
                     }
+                    else
+                    {
+                        keyboardNum = !keyboardNum;
+                        Focus();
+                    }
+
+                    break;
+                }
 
                 case Orientation.Horizontal:
+                {
+                    // Check if mouse in X position.
+                    if ((xValue > Width - buttonRectangle.Width) && (xValue < Width))
                     {
-                        // Check if mouse in X position.
-                        if ((xValue > Width - buttonRectangle.Width) && (xValue < Width))
+                        // Determine the button middle separator by checking for the X position.
+                        if ((xValue > buttonRectangle.X) && (xValue < buttonRectangle.X + (buttonRectangle.Width / 2)))
                         {
-                            // Determine the button middle separator by checking for the X position.
-                            if ((xValue > buttonRectangle.X) && (xValue < buttonRectangle.X + (buttonRectangle.Width / 2)))
+                            if (Value + 1 <= maximumValue)
                             {
-                                if (Value + 1 <= maximumValue)
-                                {
-                                    numericValue++;
-                                }
-                            }
-                            else if ((xValue > buttonRectangle.X + (buttonRectangle.Width / 2)) && (xValue < Width))
-                            {
-                                if (Value - 1 >= minimumValue)
-                                {
-                                    numericValue--;
-                                }
+                                numericValue++;
                             }
                         }
-                        else
+                        else if ((xValue > buttonRectangle.X + (buttonRectangle.Width / 2)) && (xValue < Width))
                         {
-                            keyboardNum = !keyboardNum;
-                            Focus();
+                            if (Value - 1 >= minimumValue)
+                            {
+                                numericValue--;
+                            }
                         }
-
-                        break;
                     }
+                    else
+                    {
+                        keyboardNum = !keyboardNum;
+                        Focus();
+                    }
+
+                    break;
+                }
 
                 default:
-                    {
-                        throw new ArgumentOutOfRangeException();
-                    }
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
             }
 
             Invalidate();
         }
 
-        protected override void OnMouseEnter(EventArgs e)
+        protected override void OnMouseEnter(System.EventArgs e)
         {
             base.OnMouseEnter(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;
@@ -523,23 +490,23 @@
             switch (buttonOrientation)
             {
                 case Orientation.Vertical:
-                    {
-                        toggleInt = 0;
-                        tempSeparator = verticalSeparator;
-                        break;
-                    }
+                {
+                    toggleInt = 0;
+                    tempSeparator = verticalSeparator;
+                    break;
+                }
 
                 case Orientation.Horizontal:
-                    {
-                        toggleInt = 1;
-                        tempSeparator = horizontalSeparator;
-                        break;
-                    }
+                {
+                    toggleInt = 1;
+                    tempSeparator = horizontalSeparator;
+                    break;
+                }
 
                 default:
-                    {
-                        throw new ArgumentOutOfRangeException();
-                    }
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
             }
 
             buttonPath = new GraphicsPath();
@@ -574,10 +541,10 @@
             Rectangle textBoxRectangle = new Rectangle(6, 0, Width - 1, Height - 1);
 
             StringFormat stringFormat = new StringFormat
-                {
-                    // Alignment = StringAlignment.Center,
-                    LineAlignment = StringAlignment.Center
-                };
+            {
+                // Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
 
             graphics.DrawString(Convert.ToString(Value), Font, new SolidBrush(ForeColor), textBoxRectangle, stringFormat);
         }

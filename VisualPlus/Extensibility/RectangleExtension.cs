@@ -1,11 +1,11 @@
-﻿namespace VisualPlus.Extensibility
+﻿#region Namespace
+
+using System.Drawing;
+
+#endregion
+
+namespace VisualPlus.Extensibility
 {
-    #region Namespace
-
-    using System.Drawing;
-
-    #endregion
-
     public static class RectangleExtension
     {
         #region Events

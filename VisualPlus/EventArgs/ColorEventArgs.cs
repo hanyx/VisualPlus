@@ -1,13 +1,12 @@
-﻿namespace VisualPlus.EventArgs
+﻿#region Namespace
+
+using System.Drawing;
+
+#endregion
+
+namespace VisualPlus.EventArgs
 {
-    #region Namespace
-
-    using System;
-    using System.Drawing;
-
-    #endregion
-
-    public class ColorEventArgs : EventArgs
+    public class ColorEventArgs : System.EventArgs
     {
         #region Variables
 
@@ -28,15 +27,9 @@
 
         public Color Color
         {
-            get
-            {
-                return _color;
-            }
+            get { return _color; }
 
-            set
-            {
-                _color = value;
-            }
+            set { _color = value; }
         }
 
         #endregion

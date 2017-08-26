@@ -1,24 +1,22 @@
-﻿namespace VisualPlus.Structure
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Globalization;
+using System.Runtime.InteropServices;
+using VisualPlus.Delegates;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Managers;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Structure
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Globalization;
-    using System.Runtime.InteropServices;
-
-    using VisualPlus.Delegates;
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Managers;
-    using VisualPlus.Toolkit.Components;
-
-    using Property = VisualPlus.Localization.Descriptions.Property;
-
-    #endregion
-
     [TypeConverter(typeof(ShapeConverter))]
     [ToolboxItem(false)]
     [DesignerCategory("code")]
@@ -77,23 +75,23 @@
         }
 
         [Category(Events.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
+        [Description(Event.PropertyEventChanged)]
         public event BorderColorChangedEventHandler ColorChanged;
 
         [Category(Events.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
+        [Description(Event.PropertyEventChanged)]
         public event BorderRoundingChangedEventHandler RoundingChanged;
 
         [Category(Events.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
+        [Description(Event.PropertyEventChanged)]
         public event BorderThicknessChangedEventHandler ThicknessChanged;
 
         [Category(Events.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
+        [Description(Event.PropertyEventChanged)]
         public event BorderTypeChangedEventHandler TypeChanged;
 
         [Category(Events.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
+        [Description(Event.PropertyEventChanged)]
         public event BorderVisibleChangedEventHandler VisibleChanged;
 
         #endregion
@@ -102,13 +100,10 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color Color
         {
-            get
-            {
-                return _color;
-            }
+            get { return _color; }
 
             set
             {
@@ -119,13 +114,10 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Border.Rounding)]
+        [Description(Property.Rounding)]
         public int Rounding
         {
-            get
-            {
-                return _rounding;
-            }
+            get { return _rounding; }
 
             set
             {
@@ -139,13 +131,10 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Border.Thickness)]
+        [Description(Property.Thickness)]
         public int Thickness
         {
-            get
-            {
-                return _thickness;
-            }
+            get { return _thickness; }
 
             set
             {
@@ -159,13 +148,10 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Border.Shape)]
+        [Description(Property.Shape)]
         public ShapeType Type
         {
-            get
-            {
-                return _shapeType;
-            }
+            get { return _shapeType; }
 
             set
             {
@@ -176,13 +162,10 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool Visible
         {
-            get
-            {
-                return _visible;
-            }
+            get { return _visible; }
 
             set
             {

@@ -1,23 +1,22 @@
+#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using VisualPlus.Enumerators;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
 namespace VisualPlus.Toolkit.Controls.Interactivity
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(Control))]
     [DefaultEvent("Click")]
@@ -72,13 +71,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         [DefaultValue(Settings.DefaultValue.Animation)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Animation)]
+        [Description(Property.Animation)]
         public bool Animation
         {
-            get
-            {
-                return animation;
-            }
+            get { return animation; }
 
             set
             {
@@ -100,10 +96,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Category(Propertys.Appearance)]
         public Gradient BackgroundGradient
         {
-            get
-            {
-                return _background;
-            }
+            get { return _background; }
 
             set
             {
@@ -117,10 +110,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get
-            {
-                return _border;
-            }
+            get { return _border; }
 
             set
             {
@@ -133,10 +123,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description("The type of shape.")]
         public ShapeType ShapeForm
         {
-            get
-            {
-                return shapeType;
-            }
+            get { return shapeType; }
 
             set
             {
@@ -149,7 +136,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Enumerators.Styles style)
         {
             StyleManager = new VisualStyleManager(style);
 
@@ -161,12 +148,12 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _background = StyleManager.ControlStatesStyle.ControlEnabled;
 
             ControlBrushCollection = new[]
-                {
-                    StyleManager.ControlStatesStyle.ControlEnabled,
-                    StyleManager.ControlStatesStyle.ControlHover,
-                    StyleManager.ControlStatesStyle.ControlPressed,
-                    StyleManager.ControlStatesStyle.ControlDisabled
-                };
+            {
+                StyleManager.ControlStatesStyle.ControlEnabled,
+                StyleManager.ControlStatesStyle.ControlHover,
+                StyleManager.ControlStatesStyle.ControlPressed,
+                StyleManager.ControlStatesStyle.ControlDisabled
+            };
             _border.Color = StyleManager.BorderStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
             Invalidate();
@@ -182,40 +169,40 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
             MouseState = MouseStates.Normal;
             MouseEnter += (sender, args) =>
-                {
-                    MouseState = MouseStates.Hover;
-                    hoverEffectsManager.StartNewAnimation(AnimationDirection.In);
-                    Invalidate();
-                };
+            {
+                MouseState = MouseStates.Hover;
+                hoverEffectsManager.StartNewAnimation(AnimationDirection.In);
+                Invalidate();
+            };
             MouseLeave += (sender, args) =>
-                {
-                    MouseState = MouseStates.Normal;
-                    hoverEffectsManager.StartNewAnimation(AnimationDirection.Out);
-                    Invalidate();
-                };
+            {
+                MouseState = MouseStates.Normal;
+                hoverEffectsManager.StartNewAnimation(AnimationDirection.Out);
+                Invalidate();
+            };
             MouseDown += (sender, args) =>
+            {
+                if (args.Button == MouseButtons.Left)
                 {
-                    if (args.Button == MouseButtons.Left)
-                    {
-                        MouseState = MouseStates.Down;
-                        effectsManager.StartNewAnimation(AnimationDirection.In, args.Location);
-                        Invalidate();
-                    }
-                };
-            MouseUp += (sender, args) =>
-                {
-                    MouseState = MouseStates.Hover;
+                    MouseState = MouseStates.Down;
+                    effectsManager.StartNewAnimation(AnimationDirection.In, args.Location);
                     Invalidate();
-                };
+                }
+            };
+            MouseUp += (sender, args) =>
+            {
+                MouseState = MouseStates.Hover;
+                Invalidate();
+            };
         }
 
-        protected override void OnMouseEnter(EventArgs e)
+        protected override void OnMouseEnter(System.EventArgs e)
         {
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             MouseState = MouseStates.Normal;
             Invalidate();
@@ -235,16 +222,16 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         private void ConfigureAnimation()
         {
             effectsManager = new VFXManager(false)
-                {
-                    Increment = 0.03,
-                    EffectType = EffectType.EaseOut
-                };
+            {
+                Increment = 0.03,
+                EffectType = EffectType.EaseOut
+            };
 
             hoverEffectsManager = new VFXManager
-                {
-                    Increment = 0.07,
-                    EffectType = EffectType.Linear
-                };
+            {
+                Increment = 0.07,
+                EffectType = EffectType.Linear
+            };
 
             hoverEffectsManager.OnAnimationProgress += sender => Invalidate();
             effectsManager.OnAnimationProgress += sender => Invalidate();
@@ -252,49 +239,49 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         private void ConfigureComponents(Graphics graphics)
         {
-            var gradientPoints = new[] { new Point { X = ClientRectangle.Width, Y = 0 }, new Point { X = ClientRectangle.Width, Y = ClientRectangle.Height } };
+            var gradientPoints = new[] {new Point {X = ClientRectangle.Width, Y = 0}, new Point {X = ClientRectangle.Width, Y = ClientRectangle.Height}};
             LinearGradientBrush gradientBrush = Gradient.CreateGradientBrush(_background.Colors, gradientPoints, _background.Angle, _background.Positions);
             controlGraphicsPath = new GraphicsPath();
 
             switch (shapeType)
             {
                 case ShapeType.Circle:
-                    {
-                        Rectangle circleRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+                {
+                    Rectangle circleRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
 
-                        graphics.FillEllipse(gradientBrush, circleRectangle);
-                        controlGraphicsPath.AddEllipse(circleRectangle);
+                    graphics.FillEllipse(gradientBrush, circleRectangle);
+                    controlGraphicsPath.AddEllipse(circleRectangle);
 
-                        break;
-                    }
+                    break;
+                }
 
                 case ShapeType.Rectangle:
-                    {
-                        controlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
-                        graphics.FillPath(gradientBrush, controlGraphicsPath);
+                {
+                    controlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
+                    graphics.FillPath(gradientBrush, controlGraphicsPath);
 
-                        break;
-                    }
+                    break;
+                }
 
                 case ShapeType.Triangle:
-                    {
-                        Rectangle triangleRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
-                        var points = new Point[3];
+                {
+                    Rectangle triangleRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+                    var points = new Point[3];
 
-                        points[0].X = triangleRectangle.X + (triangleRectangle.Width / 2);
-                        points[0].Y = triangleRectangle.Y;
+                    points[0].X = triangleRectangle.X + (triangleRectangle.Width / 2);
+                    points[0].Y = triangleRectangle.Y;
 
-                        points[1].X = triangleRectangle.X;
-                        points[1].Y = triangleRectangle.Y + triangleRectangle.Height;
+                    points[1].X = triangleRectangle.X;
+                    points[1].Y = triangleRectangle.Y + triangleRectangle.Height;
 
-                        points[2].X = triangleRectangle.X + triangleRectangle.Width;
-                        points[2].Y = triangleRectangle.Y + triangleRectangle.Height;
+                    points[2].X = triangleRectangle.X + triangleRectangle.Width;
+                    points[2].Y = triangleRectangle.Y + triangleRectangle.Height;
 
-                        graphics.FillPolygon(gradientBrush, points);
+                    graphics.FillPolygon(gradientBrush, points);
 
-                        controlGraphicsPath.AddPolygon(points);
-                        break;
-                    }
+                    controlGraphicsPath.AddPolygon(points);
+                    break;
+                }
             }
 
             VisualBorderRenderer.DrawBorderStyle(graphics, _border, MouseState, controlGraphicsPath);
@@ -310,9 +297,9 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                     double animationValue = effectsManager.GetProgress(i);
                     Point animationSource = effectsManager.GetSource(i);
 
-                    using (Brush rippleBrush = new SolidBrush(Color.FromArgb((int)(101 - (animationValue * 100)), Color.Black)))
+                    using (Brush rippleBrush = new SolidBrush(Color.FromArgb((int) (101 - (animationValue * 100)), Color.Black)))
                     {
-                        var rippleSize = (int)(animationValue * Width * 2);
+                        var rippleSize = (int) (animationValue * Width * 2);
                         graphics.SetClip(controlGraphicsPath);
                         graphics.FillEllipse(rippleBrush, new Rectangle(animationSource.X - (rippleSize / 2), animationSource.Y - (rippleSize / 2), rippleSize, rippleSize));
                     }

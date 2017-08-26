@@ -1,24 +1,24 @@
-﻿namespace VisualPlus.Toolkit.Controls.Editors
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Design;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using VisualPlus.Enumerators;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.ActionList;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Editors
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Design;
-    using System.Drawing.Drawing2D;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.ActionList;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     // TODO: Clear Button
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(TextBox))]
@@ -69,17 +69,17 @@
             _textWidth = 125;
             _border = new Border();
             _textBox = new TextBox
-                {
-                    Size = new Size(_textWidth, 25),
-                    Location = new Point(VisualBorderRenderer.GetBorderDistance(_border), VisualBorderRenderer.GetBorderDistance(_border)),
-                    Text = string.Empty,
-                    BorderStyle = BorderStyle.None,
-                    TextAlign = HorizontalAlignment.Left,
-                    Font = Font,
-                    ForeColor = ForeColor,
-                    BackColor = Background,
-                    Multiline = false
-                };
+            {
+                Size = new Size(_textWidth, 25),
+                Location = new Point(VisualBorderRenderer.GetBorderDistance(_border), VisualBorderRenderer.GetBorderDistance(_border)),
+                Text = string.Empty,
+                BorderStyle = BorderStyle.None,
+                TextAlign = HorizontalAlignment.Left,
+                Font = Font,
+                ForeColor = ForeColor,
+                BackColor = Background,
+                Multiline = false
+            };
 
             _imageWidth = 35;
             _buttonFont = Font;
@@ -133,62 +133,41 @@
         [Localizable(true)]
         [Browsable(true)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.AutoCompleteCustomSource)]
+        [Description(Property.AutoCompleteCustomSource)]
         public AutoCompleteStringCollection AutoCompleteCustomSource
         {
-            get
-            {
-                return _textBox.AutoCompleteCustomSource;
-            }
+            get { return _textBox.AutoCompleteCustomSource; }
 
-            set
-            {
-                _textBox.AutoCompleteCustomSource = value;
-            }
+            set { _textBox.AutoCompleteCustomSource = value; }
         }
 
         [DefaultValue(typeof(AutoCompleteMode), "None")]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.AutoCompleteMode)]
+        [Description(Property.AutoCompleteMode)]
         public AutoCompleteMode AutoCompleteMode
         {
-            get
-            {
-                return _textBox.AutoCompleteMode;
-            }
+            get { return _textBox.AutoCompleteMode; }
 
-            set
-            {
-                _textBox.AutoCompleteMode = value;
-            }
+            set { _textBox.AutoCompleteMode = value; }
         }
 
         [DefaultValue(typeof(AutoCompleteSource), "None")]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.AutoCompleteSource)]
+        [Description(Property.AutoCompleteSource)]
         public AutoCompleteSource AutoCompleteSource
         {
-            get
-            {
-                return _textBox.AutoCompleteSource;
-            }
+            get { return _textBox.AutoCompleteSource; }
 
-            set
-            {
-                _textBox.AutoCompleteSource = value;
-            }
+            set { _textBox.AutoCompleteSource = value; }
         }
 
         public new Color Background
         {
-            get
-            {
-                return base.Background;
-            }
+            get { return base.Background; }
 
             set
             {
@@ -202,10 +181,7 @@
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get
-            {
-                return _border;
-            }
+            get { return _border; }
 
             set
             {
@@ -219,10 +195,7 @@
         [Category(Propertys.Appearance)]
         public Border ButtonBorder
         {
-            get
-            {
-                return _buttonBorder;
-            }
+            get { return _buttonBorder; }
 
             set
             {
@@ -236,10 +209,7 @@
         [Category(Propertys.Appearance)]
         public ControlColorState ButtonColor
         {
-            get
-            {
-                return _controlColorState;
-            }
+            get { return _controlColorState; }
 
             set
             {
@@ -248,14 +218,11 @@
             }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Strings.Font)]
+        [Description(Property.Font)]
         [Category(Propertys.Appearance)]
         public Font ButtonFont
         {
-            get
-            {
-                return _buttonFont;
-            }
+            get { return _buttonFont; }
 
             set
             {
@@ -266,10 +233,7 @@
 
         public int ButtonIndent
         {
-            get
-            {
-                return _buttonIndent;
-            }
+            get { return _buttonIndent; }
 
             set
             {
@@ -280,10 +244,7 @@
 
         public string ButtonText
         {
-            get
-            {
-                return _buttontext;
-            }
+            get { return _buttontext; }
 
             set
             {
@@ -293,13 +254,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool ButtonVisible
         {
-            get
-            {
-                return _buttonVisible;
-            }
+            get { return _buttonVisible; }
 
             set
             {
@@ -314,18 +272,12 @@
         [Description("Gets access to the contained control.")]
         public TextBox ContainedControl
         {
-            get
-            {
-                return _textBox;
-            }
+            get { return _textBox; }
         }
 
         public new Font Font
         {
-            get
-            {
-                return base.Font;
-            }
+            get { return base.Font; }
 
             set
             {
@@ -336,10 +288,7 @@
 
         public new Color ForeColor
         {
-            get
-            {
-                return base.ForeColor;
-            }
+            get { return base.ForeColor; }
 
             set
             {
@@ -349,13 +298,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Image)]
+        [Description(Property.Image)]
         public Image Image
         {
-            get
-            {
-                return _image;
-            }
+            get { return _image; }
 
             set
             {
@@ -365,13 +311,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Image)]
+        [Description(Property.Image)]
         public bool ImageVisible
         {
-            get
-            {
-                return _imageVisible;
-            }
+            get { return _imageVisible; }
 
             set
             {
@@ -384,13 +327,10 @@
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public int ImageWidth
         {
-            get
-            {
-                return _imageWidth;
-            }
+            get { return _imageWidth; }
 
             set
             {
@@ -403,18 +343,12 @@
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.MaxLength)]
+        [Description(Property.MaxLength)]
         public int MaxLength
         {
-            get
-            {
-                return _textBox.MaxLength;
-            }
+            get { return _textBox.MaxLength; }
 
-            set
-            {
-                _textBox.MaxLength = value;
-            }
+            set { _textBox.MaxLength = value; }
         }
 
         [EditorBrowsable(EditorBrowsableState.Always)]
@@ -423,14 +357,11 @@
         public bool MouseOnButton { get; private set; }
 
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.MultiLine)]
+        [Description(Property.MultiLine)]
         [DefaultValue(false)]
         public virtual bool MultiLine
         {
-            get
-            {
-                return _textBox.Multiline;
-            }
+            get { return _textBox.Multiline; }
 
             set
             {
@@ -443,43 +374,28 @@
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.PasswordChar)]
+        [Description(Property.PasswordChar)]
         public char PasswordChar
         {
-            get
-            {
-                return _textBox.PasswordChar;
-            }
+            get { return _textBox.PasswordChar; }
 
-            set
-            {
-                _textBox.PasswordChar = value;
-            }
+            set { _textBox.PasswordChar = value; }
         }
 
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.ReadOnly)]
+        [Description(Property.ReadOnly)]
         public bool ReadOnly
         {
-            get
-            {
-                return _textBox.ReadOnly;
-            }
+            get { return _textBox.ReadOnly; }
 
-            set
-            {
-                _textBox.ReadOnly = value;
-            }
+            set { _textBox.ReadOnly = value; }
         }
 
         [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [Localizable(false)]
         public new string Text
         {
-            get
-            {
-                return _textBox.Text;
-            }
+            get { return _textBox.Text; }
 
             set
             {
@@ -516,29 +432,20 @@
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.TextAlign)]
+        [Description(Property.TextAlign)]
         public HorizontalAlignment TextAlign
         {
-            get
-            {
-                return _textBox.TextAlign;
-            }
+            get { return _textBox.TextAlign; }
 
-            set
-            {
-                _textBox.TextAlign = value;
-            }
+            set { _textBox.TextAlign = value; }
         }
 
         [DefaultValue(125)]
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public int TextBoxWidth
         {
-            get
-            {
-                return _textWidth;
-            }
+            get { return _textWidth; }
 
             set
             {
@@ -552,18 +459,12 @@
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.UseSystemPasswordChar)]
+        [Description(Property.UseSystemPasswordChar)]
         public bool UseSystemPasswordChar
         {
-            get
-            {
-                return _textBox.UseSystemPasswordChar;
-            }
+            get { return _textBox.UseSystemPasswordChar; }
 
-            set
-            {
-                _textBox.UseSystemPasswordChar = value;
-            }
+            set { _textBox.UseSystemPasswordChar = value; }
         }
 
         [TypeConverter(typeof(WatermarkConverter))]
@@ -571,10 +472,7 @@
         [Category(Propertys.Behavior)]
         public Watermark Watermark
         {
-            get
-            {
-                return _watermark;
-            }
+            get { return _watermark; }
 
             set
             {
@@ -706,7 +604,7 @@
             _textBox.Undo();
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Enumerators.Styles style)
         {
             StyleManager = new VisualStyleManager(style);
 
@@ -720,7 +618,7 @@
             Invalidate();
         }
 
-        protected override void OnEnter(EventArgs e)
+        protected override void OnEnter(System.EventArgs e)
         {
             base.OnEnter(e);
 
@@ -738,7 +636,7 @@
             }
         }
 
-        protected override void OnGotFocus(EventArgs e)
+        protected override void OnGotFocus(System.EventArgs e)
         {
             base.OnGotFocus(e);
             _textBox.Focus();
@@ -756,7 +654,7 @@
             }
         }
 
-        protected override void OnLeave(EventArgs e)
+        protected override void OnLeave(System.EventArgs e)
         {
             base.OnLeave(e);
 
@@ -807,7 +705,7 @@
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
 
@@ -894,7 +792,7 @@
             VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, MouseState, ControlGraphicsPath);
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(System.EventArgs e)
         {
             base.OnResize(e);
 
@@ -940,27 +838,27 @@
                 switch (MouseState)
                 {
                     case MouseStates.Normal:
-                        {
-                            _buttonColor = _controlColorState.Color;
-                            break;
-                        }
+                    {
+                        _buttonColor = _controlColorState.Color;
+                        break;
+                    }
 
                     case MouseStates.Hover:
-                        {
-                            _buttonColor = _controlColorState.Hover;
-                            break;
-                        }
+                    {
+                        _buttonColor = _controlColorState.Hover;
+                        break;
+                    }
 
                     case MouseStates.Down:
-                        {
-                            _buttonColor = _controlColorState.Pressed;
-                            break;
-                        }
+                    {
+                        _buttonColor = _controlColorState.Pressed;
+                        break;
+                    }
 
                     default:
-                        {
-                            throw new ArgumentOutOfRangeException();
-                        }
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
                 }
             }
             else
@@ -1024,12 +922,12 @@
             }
         }
 
-        private void OnEnter(object sender, EventArgs e)
+        private void OnEnter(object sender, System.EventArgs e)
         {
             MouseState = MouseStates.Hover;
         }
 
-        private void OnLeave(object sender, EventArgs e)
+        private void OnLeave(object sender, System.EventArgs e)
         {
             if (!_textBox.Focused)
             {
@@ -1063,12 +961,12 @@
             }
         }
 
-        private void TextBox_SizeChanged(object sender, EventArgs e)
+        private void TextBox_SizeChanged(object sender, System.EventArgs e)
         {
             _textWidth = _textBox.Width;
         }
 
-        private void TextBox_TextChanged(object sender, EventArgs e)
+        private void TextBox_TextChanged(object sender, System.EventArgs e)
         {
             if (_watermark.Visible)
             {
@@ -1086,7 +984,7 @@
             }
         }
 
-        private void WaterMarkContainer_Click(object sender, EventArgs e)
+        private void WaterMarkContainer_Click(object sender, System.EventArgs e)
         {
             _textBox.Focus();
         }

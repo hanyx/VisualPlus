@@ -1,15 +1,14 @@
-﻿namespace VisualPlus.Renders
+﻿#region Namespace
+
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using VisualPlus.Enumerators;
+using VisualPlus.Structure;
+
+#endregion
+
+namespace VisualPlus.Renders
 {
-    #region Namespace
-
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Structure;
-
-    #endregion
-
     public sealed class VisualBackgroundRenderer
     {
         #region Events

@@ -1,16 +1,16 @@
-﻿namespace VisualPlus.Toolkit.Controls.Layout
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Layout
 {
-    #region Namespace
-
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Windows.Forms;
-
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ToolboxItem(false)]
     [ToolboxBitmap(typeof(ScrollBar))]
     [DefaultEvent("Scroll")]
@@ -43,13 +43,10 @@
         #region Properties
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Orientation)]
+        [Description(Property.Orientation)]
         public Orientation Orientation
         {
-            get
-            {
-                return _orientation;
-            }
+            get { return _orientation; }
 
             set
             {

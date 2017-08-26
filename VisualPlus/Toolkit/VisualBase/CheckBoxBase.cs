@@ -1,19 +1,17 @@
-﻿namespace VisualPlus.Toolkit.VisualBase
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+
+#endregion
+
+namespace VisualPlus.Toolkit.VisualBase
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-
-    using Property = VisualPlus.Localization.Descriptions.Property;
-
-    #endregion
-
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -30,7 +28,7 @@
         #region Constructors
 
         [Category(Localization.Category.Events.PropertyChanged)]
-        [Description(Property.Description.Checkmark.Checked)]
+        [Description(Property.Checked)]
         public event EventHandler CheckStateChanged;
 
         #endregion
@@ -38,14 +36,11 @@
         #region Properties
 
         [DefaultValue(typeof(CheckState), "Unchecked")]
-        [Category(Localization.Category.Propertys.Behavior)]
-        [Description(Property.Description.Checkmark.Checked)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.Checked)]
         public CheckState CheckState
         {
-            get
-            {
-                return _checkState;
-            }
+            get { return _checkState; }
 
             set
             {
@@ -63,7 +58,7 @@
                         OnToggleChanged(new ToggleEventArgs(Toggle));
                     }
 
-                    OnCheckStateChanged(EventArgs.Empty);
+                    OnCheckStateChanged(System.EventArgs.Empty);
 
                     // Repaint
                     Invalidate();
@@ -71,15 +66,12 @@
             }
         }
 
-        [Category(Localization.Category.Propertys.Behavior)]
-        [Description(Property.Description.Common.Toggle)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.Toggle)]
         [DefaultValue(false)]
         public bool ThreeState
         {
-            get
-            {
-                return _threeState;
-            }
+            get { return _threeState; }
 
             set
             {
@@ -95,37 +87,37 @@
 
         #region Events
 
-        protected virtual void OnCheckStateChanged(EventArgs e)
+        protected virtual void OnCheckStateChanged(System.EventArgs e)
         {
             CheckStateChanged?.Invoke(this, e);
         }
 
-        protected override void OnClick(EventArgs e)
+        protected override void OnClick(System.EventArgs e)
         {
             switch (CheckState)
             {
                 case CheckState.Unchecked:
-                    {
-                        CheckState = CheckState.Checked;
-                        break;
-                    }
+                {
+                    CheckState = CheckState.Checked;
+                    break;
+                }
 
                 case CheckState.Checked:
-                    {
-                        CheckState = ThreeState ? CheckState.Indeterminate : CheckState.Unchecked;
-                        break;
-                    }
+                {
+                    CheckState = ThreeState ? CheckState.Indeterminate : CheckState.Unchecked;
+                    break;
+                }
 
                 case CheckState.Indeterminate:
-                    {
-                        CheckState = CheckState.Unchecked;
-                        break;
-                    }
+                {
+                    CheckState = CheckState.Unchecked;
+                    break;
+                }
 
                 default:
-                    {
-                        throw new ArgumentOutOfRangeException();
-                    }
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
             }
 
             base.OnClick(e);
@@ -135,7 +127,7 @@
         {
             base.OnToggleChanged(e);
             _checkState = Checked ? CheckState.Checked : CheckState.Unchecked;
-            OnCheckStateChanged(EventArgs.Empty);
+            OnCheckStateChanged(System.EventArgs.Empty);
             Invalidate();
         }
 

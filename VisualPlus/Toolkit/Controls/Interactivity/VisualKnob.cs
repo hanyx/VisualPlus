@@ -1,23 +1,23 @@
-﻿namespace VisualPlus.Toolkit.Controls.Interactivity
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
+using System.Windows.Forms;
+using VisualPlus.Enumerators;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Interactivity
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Text;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(Control))]
     [DefaultEvent("Click")]
@@ -73,7 +73,7 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualKnob"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualKnob" /> class.</summary>
         public VisualKnob()
         {
             SetStyle(
@@ -90,27 +90,27 @@
 
             knobBorder = new Border();
 
-            knobTopBorder = new Border { HoverVisible = false };
+            knobTopBorder = new Border {HoverVisible = false};
 
-            float[] gradientPosition = { 0, 1 };
+            float[] gradientPosition = {0, 1};
 
             Color[] knobColor =
-                {
-                    Color.LightGray,
-                    Color.White
-                };
+            {
+                Color.LightGray,
+                Color.White
+            };
 
             Color[] knobTopColor =
-                {
-                    Color.White,
-                    Color.LightGray
-                };
+            {
+                Color.White,
+                Color.LightGray
+            };
 
             Color[] scaleColor =
-                {
-                    Color.LightGray,
-                    Color.White
-                };
+            {
+                Color.LightGray,
+                Color.White
+            };
 
             knob.Angle = 180;
             knob.Colors = knobColor;
@@ -174,10 +174,7 @@
         [DefaultValue(false)]
         public bool DrawDivInside
         {
-            get
-            {
-                return drawDivInside;
-            }
+            get { return drawDivInside; }
 
             set
             {
@@ -191,10 +188,7 @@
         [DefaultValue(405)]
         public float EndAngle
         {
-            get
-            {
-                return endAngle;
-            }
+            get { return endAngle; }
 
             set
             {
@@ -212,10 +206,7 @@
         [Category(Propertys.Appearance)]
         public Gradient Knob
         {
-            get
-            {
-                return knob;
-            }
+            get { return knob; }
 
             set
             {
@@ -229,10 +220,7 @@
         [Category(Propertys.Appearance)]
         public Border KnobBorder
         {
-            get
-            {
-                return knobBorder;
-            }
+            get { return knobBorder; }
 
             set
             {
@@ -241,14 +229,11 @@
             }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         [Category(Propertys.Layout)]
         public int KnobDistance
         {
-            get
-            {
-                return knobDistance;
-            }
+            get { return knobDistance; }
 
             set
             {
@@ -257,14 +242,11 @@
             }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         [Category(Propertys.Layout)]
         public Size KnobSize
         {
-            get
-            {
-                return knobSize;
-            }
+            get { return knobSize; }
 
             set
             {
@@ -277,10 +259,7 @@
         [Category(Propertys.Appearance)]
         public PointerStyle KnobStyle
         {
-            get
-            {
-                return pointerStyle;
-            }
+            get { return pointerStyle; }
 
             set
             {
@@ -289,14 +268,11 @@
             }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         [Category(Propertys.Layout)]
         public Size KnobTickSize
         {
-            get
-            {
-                return knobTickSize;
-            }
+            get { return knobTickSize; }
 
             set
             {
@@ -310,10 +286,7 @@
         [Category(Propertys.Appearance)]
         public Gradient KnobTop
         {
-            get
-            {
-                return knobTop;
-            }
+            get { return knobTop; }
 
             set
             {
@@ -327,10 +300,7 @@
         [Category(Propertys.Appearance)]
         public Border KnobTopBorder
         {
-            get
-            {
-                return knobTopBorder;
-            }
+            get { return knobTopBorder; }
 
             set
             {
@@ -339,14 +309,11 @@
             }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         [Category(Propertys.Layout)]
         public Size KnobTopSize
         {
-            get
-            {
-                return knobTopSize;
-            }
+            get { return knobTopSize; }
 
             set
             {
@@ -359,10 +326,7 @@
         [Category(Propertys.Behavior)]
         public int LargeChange
         {
-            get
-            {
-                return largeChange;
-            }
+            get { return largeChange; }
 
             set
             {
@@ -375,10 +339,7 @@
         [Category(Propertys.Behavior)]
         public int Maximum
         {
-            get
-            {
-                return maximum;
-            }
+            get { return maximum; }
 
             set
             {
@@ -401,10 +362,7 @@
         [Category(Propertys.Behavior)]
         public int Minimum
         {
-            get
-            {
-                return minimum;
-            }
+            get { return minimum; }
 
             set
             {
@@ -418,10 +376,7 @@
         [DefaultValue(10)]
         public int MouseWheelBarPartitions
         {
-            get
-            {
-                return mouseWheelBarPartitions;
-            }
+            get { return mouseWheelBarPartitions; }
 
             set
             {
@@ -436,14 +391,11 @@
             }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         [Category(Propertys.Appearance)]
         public Color PointerColor
         {
-            get
-            {
-                return pointerColor;
-            }
+            get { return pointerColor; }
 
             set
             {
@@ -456,10 +408,7 @@
         [Category(Propertys.Behavior)]
         public int ScaleDivisions
         {
-            get
-            {
-                return scaleDivisions;
-            }
+            get { return scaleDivisions; }
 
             set
             {
@@ -473,10 +422,7 @@
         [Category(Propertys.Appearance)]
         public Gradient ScaleGradient
         {
-            get
-            {
-                return scale;
-            }
+            get { return scale; }
 
             set
             {
@@ -489,10 +435,7 @@
         [Category(Propertys.Behavior)]
         public int ScaleSubDivisions
         {
-            get
-            {
-                return scaleSubDivisions;
-            }
+            get { return scaleSubDivisions; }
 
             set
             {
@@ -508,10 +451,7 @@
         [Category(Propertys.Behavior)]
         public bool ShowLargeScale
         {
-            get
-            {
-                return showLargeScale;
-            }
+            get { return showLargeScale; }
 
             set
             {
@@ -528,10 +468,7 @@
         [Category(Propertys.Behavior)]
         public bool ShowSmallScale
         {
-            get
-            {
-                return showSmallScale;
-            }
+            get { return showSmallScale; }
 
             set
             {
@@ -557,10 +494,7 @@
         [Category(Propertys.Behavior)]
         public int SmallChange
         {
-            get
-            {
-                return smallChange;
-            }
+            get { return smallChange; }
 
             set
             {
@@ -574,10 +508,7 @@
         [DefaultValue(135)]
         public float StartAngle
         {
-            get
-            {
-                return startAngle;
-            }
+            get { return startAngle; }
 
             set
             {
@@ -591,13 +522,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.MouseState)]
+        [Description(Property.MouseState)]
         public MouseStates State
         {
-            get
-            {
-                return mouseState;
-            }
+            get { return mouseState; }
 
             set
             {
@@ -606,14 +534,11 @@
             }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         [Category(Propertys.Behavior)]
         public Color TickColor
         {
-            get
-            {
-                return tickColor;
-            }
+            get { return tickColor; }
 
             set
             {
@@ -626,10 +551,7 @@
         [Category(Propertys.Behavior)]
         public int Value
         {
-            get
-            {
-                return _value;
-            }
+            get { return _value; }
 
             set
             {
@@ -647,10 +569,7 @@
         [Category(Propertys.Behavior)]
         public bool ValueVisible
         {
-            get
-            {
-                return valueVisible;
-            }
+            get { return valueVisible; }
 
             set
             {
@@ -717,14 +636,14 @@
             }
         }
 
-        protected override void OnLeave(EventArgs e)
+        protected override void OnLeave(System.EventArgs e)
         {
             // unselect the control (remove dotted border)
             focused = false;
             rotating = false;
             Invalidate();
 
-            base.OnLeave(new EventArgs());
+            base.OnLeave(new System.EventArgs());
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -750,14 +669,14 @@
             }
         }
 
-        protected override void OnMouseEnter(EventArgs e)
+        protected override void OnMouseEnter(System.EventArgs e)
         {
             base.OnMouseEnter(e);
             State = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
             State = MouseStates.Normal;
@@ -809,7 +728,7 @@
                 SetValue(Value + v);
 
                 // Avoid to send MouseWheel event to the parent container
-                ((HandledMouseEventArgs)e).Handled = true;
+                ((HandledMouseEventArgs) e).Handled = true;
             }
         }
 
@@ -826,7 +745,7 @@
             offGraphics = graphics;
             offGraphics.Clear(BackColor);
 
-            gradientPoints = new[] { new Point { X = ClientRectangle.Width, Y = 0 }, new Point { X = ClientRectangle.Width, Y = ClientRectangle.Height } };
+            gradientPoints = new[] {new Point {X = ClientRectangle.Width, Y = 0}, new Point {X = ClientRectangle.Width, Y = ClientRectangle.Height}};
 
             DrawScale();
             DrawKnob();
@@ -878,12 +797,12 @@
 
                 knobFont = new Font(Font.FontFamily, fSize);
                 double val = maximum;
-                string str = string.Format("{0,0:D}", (int)val);
+                string str = string.Format("{0,0:D}", (int) val);
 
                 Graphics Gr = CreateGraphics();
                 SizeF strsize = Gr.MeasureString(str, knobFont);
-                int strw = (int)strsize.Width + 4;
-                var strh = (int)strsize.Height;
+                int strw = (int) strsize.Width + 4;
+                var strh = (int) strsize.Height;
 
                 // allow 10% gap on all side to determine size of knob    
                 // this.rKnob = new Rectangle((int)(size * 0.10), (int)(size * 0.15), (int)(size * 0.80), (int)(size * 0.80));
@@ -898,7 +817,7 @@
                 }
 
                 h = w;
-                knobRectangle = new Rectangle((int)x, (int)y, (int)w, (int)h);
+                knobRectangle = new Rectangle((int) x, (int) y, (int) w, (int) h);
                 Gr.Dispose();
             }
             else
@@ -949,11 +868,11 @@
                 for (; n < scaleDivisions; n++)
                 {
                     // draw divisions
-                    ptStart.X = (float)(cx + (radius * Math.Cos(currentAngle)));
-                    ptStart.Y = (float)(cy + (radius * Math.Sin(currentAngle)));
+                    ptStart.X = (float) (cx + (radius * Math.Cos(currentAngle)));
+                    ptStart.Y = (float) (cy + (radius * Math.Sin(currentAngle)));
 
-                    ptEnd.X = (float)(cx + ((radius + (w / 50)) * Math.Cos(currentAngle)));
-                    ptEnd.Y = (float)(cy + ((radius + (w / 50)) * Math.Sin(currentAngle)));
+                    ptEnd.X = (float) (cx + ((radius + (w / 50)) * Math.Cos(currentAngle)));
+                    ptEnd.Y = (float) (cy + ((radius + (w / 50)) * Math.Sin(currentAngle)));
 
                     graphics.DrawLine(penL, ptStart, ptEnd);
 
@@ -967,27 +886,27 @@
                     Font font = new Font(Font.FontFamily, fSize);
 
                     double val = Math.Round(rulerValue);
-                    string str = string.Format("{0,0:D}", (int)val);
+                    string str = string.Format("{0,0:D}", (int) val);
                     SizeF size = graphics.MeasureString(str, font);
 
                     if (drawDivInside)
                     {
                         // graduations strings inside the knob
-                        tx = (float)(cx + ((radius - (11 * drawRatio)) * Math.Cos(currentAngle)));
-                        ty = (float)(cy + ((radius - (11 * drawRatio)) * Math.Sin(currentAngle)));
+                        tx = (float) (cx + ((radius - (11 * drawRatio)) * Math.Cos(currentAngle)));
+                        ty = (float) (cy + ((radius - (11 * drawRatio)) * Math.Sin(currentAngle)));
                     }
                     else
                     {
                         // graduation strings outside the knob
-                        tx = (float)(cx + ((radius + (11 * drawRatio)) * Math.Cos(currentAngle)));
-                        ty = (float)(cy + ((radius + (11 * drawRatio)) * Math.Sin(currentAngle)));
+                        tx = (float) (cx + ((radius + (11 * drawRatio)) * Math.Cos(currentAngle)));
+                        ty = (float) (cy + ((radius + (11 * drawRatio)) * Math.Sin(currentAngle)));
                     }
 
                     graphics.DrawString(str,
                         font,
                         br,
-                        tx - (float)(size.Width * 0.5),
-                        ty - (float)(size.Height * 0.5));
+                        tx - (float) (size.Width * 0.5),
+                        ty - (float) (size.Height * 0.5));
 
                     rulerValue += (maximum - minimum) / (scaleDivisions - 1);
 
@@ -1011,10 +930,10 @@
                             // if user want to display small graduations
                             if (showSmallScale)
                             {
-                                ptStart.X = (float)(cx + (radius * Math.Cos(currentAngle)));
-                                ptStart.Y = (float)(cy + (radius * Math.Sin(currentAngle)));
-                                ptEnd.X = (float)(cx + ((radius + (w / 50)) * Math.Cos(currentAngle)));
-                                ptEnd.Y = (float)(cy + ((radius + (w / 50)) * Math.Sin(currentAngle)));
+                                ptStart.X = (float) (cx + (radius * Math.Cos(currentAngle)));
+                                ptStart.Y = (float) (cy + (radius * Math.Sin(currentAngle)));
+                                ptEnd.X = (float) (cx + ((radius + (w / 50)) * Math.Cos(currentAngle)));
+                                ptEnd.Y = (float) (cy + ((radius + (w / 50)) * Math.Sin(currentAngle)));
 
                                 graphics.DrawLine(penS, ptStart, ptEnd);
                             }
@@ -1073,11 +992,11 @@
             for (; n < buttonDivisions; n++)
             {
                 // draw divisions
-                ptStart.X = (float)(cx + (radius * Math.Cos(currentAngle)));
-                ptStart.Y = (float)(cy + (radius * Math.Sin(currentAngle)));
+                ptStart.X = (float) (cx + (radius * Math.Cos(currentAngle)));
+                ptStart.Y = (float) (cy + (radius * Math.Sin(currentAngle)));
 
-                ptEnd.X = (float)(cx + ((radius + (w / 50)) * Math.Cos(currentAngle)));
-                ptEnd.Y = (float)(cy + ((radius + (w / 50)) * Math.Sin(currentAngle)));
+                ptEnd.X = (float) (cx + ((radius + (w / 50)) * Math.Cos(currentAngle)));
+                ptEnd.Y = (float) (cy + ((radius + (w / 50)) * Math.Sin(currentAngle)));
 
                 // TODO: draw lines along button border
                 // gOffScreen.DrawLine(penL, ptStart, ptEnd);
@@ -1122,7 +1041,7 @@
                 {
                     float radius = knobRectangle.Width / 2;
 
-                    int l = ((int)radius / 2) + lineSize.Height;
+                    int l = ((int) radius / 2) + lineSize.Height;
                     int w = (l / 4) + lineSize.Width;
                     var pt = GetKnobLine(l);
 
@@ -1176,13 +1095,13 @@
 
             Point Pos = new Point(0, 0);
 
-            Pos.X = (int)(cx + ((radius - (drawRatio * 10)) * Math.Cos(degree)));
-            Pos.Y = (int)(cy + ((radius - (drawRatio * 10)) * Math.Sin(degree)));
+            Pos.X = (int) (cx + ((radius - (drawRatio * 10)) * Math.Cos(degree)));
+            Pos.Y = (int) (cy + ((radius - (drawRatio * 10)) * Math.Sin(degree)));
 
             pret[0] = new Point(Pos.X, Pos.Y);
 
-            Pos.X = (int)(cx + ((radius - (drawRatio * 10) - l) * Math.Cos(degree)));
-            Pos.Y = (int)(cy + ((radius - (drawRatio * 10) - l) * Math.Sin(degree)));
+            Pos.X = (int) (cx + ((radius - (drawRatio * 10) - l) * Math.Cos(degree)));
+            Pos.Y = (int) (cy + ((radius - (drawRatio * 10) - l) * Math.Sin(degree)));
 
             pret[1] = new Point(Pos.X, Pos.Y);
 
@@ -1200,10 +1119,10 @@
             degree = MathManager.DegreeToRadians(degree + startAngle);
 
             Point Pos = new Point(0, 0)
-                {
-                    X = (int)(cx + ((radius - (KnobDistance * drawRatio)) * Math.Cos(degree))),
-                    Y = (int)(cy + ((radius - (KnobDistance * drawRatio)) * Math.Sin(degree)))
-                };
+            {
+                X = (int) (cx + ((radius - (KnobDistance * drawRatio)) * Math.Cos(degree))),
+                Y = (int) (cy + ((radius - (KnobDistance * drawRatio)) * Math.Sin(degree)))
+            };
 
             return Pos;
         }
@@ -1215,21 +1134,21 @@
 
             if (point.X <= knobPoint.X)
             {
-                degree = (knobPoint.Y - point.Y) / (float)(knobPoint.X - point.X);
-                degree = (float)Math.Atan(degree);
+                degree = (knobPoint.Y - point.Y) / (float) (knobPoint.X - point.X);
+                degree = (float) Math.Atan(degree);
 
-                degree = (degree * (float)(180 / Math.PI)) + (180 - startAngle);
+                degree = (degree * (float) (180 / Math.PI)) + (180 - startAngle);
             }
             else if (point.X > knobPoint.X)
             {
-                degree = (point.Y - knobPoint.Y) / (float)(point.X - knobPoint.X);
-                degree = (float)Math.Atan(degree);
+                degree = (point.Y - knobPoint.Y) / (float) (point.X - knobPoint.X);
+                degree = (float) Math.Atan(degree);
 
-                degree = ((degree * (float)(180 / Math.PI)) + 360) - startAngle;
+                degree = ((degree * (float) (180 / Math.PI)) + 360) - startAngle;
             }
 
             // round to the nearest value (when you click just before or after a graduation!)
-            v = (int)Math.Round((degree * (maximum - minimum)) / deltaAngle);
+            v = (int) Math.Round((degree * (maximum - minimum)) / deltaAngle);
 
             if (v > maximum)
             {
@@ -1251,7 +1170,7 @@
             Resize += KnobControl_Resize;
         }
 
-        private void KnobControl_Resize(object sender, EventArgs e)
+        private void KnobControl_Resize(object sender, System.EventArgs e)
         {
             ConfigureDimensions();
 

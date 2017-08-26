@@ -1,31 +1,29 @@
-﻿namespace VisualPlus.Toolkit.Controls.Layout
+﻿#region Namespace
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using VisualPlus.Delegates;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Managers;
+using VisualPlus.Properties;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Layout
 {
-    #region Namespace
-
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Text;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Delegates;
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Managers;
-    using VisualPlus.Properties;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-
-    using Property = VisualPlus.Localization.Descriptions.Property;
-
-    #endregion
-
     [ToolboxItem(false)]
     [ToolboxBitmap(typeof(Form))]
     [Description("The Visual Form")]
@@ -35,18 +33,18 @@
         #region Variables
 
         private readonly Dictionary<int, int> _resizingLocationsToCmd = new Dictionary<int, int>
-            {
-                { HTTOP, WMSZ_TOP },
-                { HTTOPLEFT, WMSZ_TOPLEFT },
-                { HTTOPRIGHT, WMSZ_TOPRIGHT },
-                { HTLEFT, WMSZ_LEFT },
-                { HTRIGHT, WMSZ_RIGHT },
-                { HTBOTTOM, WMSZ_BOTTOM },
-                { HTBOTTOMLEFT, WMSZ_BOTTOMLEFT },
-                { HTBOTTOMRIGHT, WMSZ_BOTTOMRIGHT }
-            };
+        {
+            {HTTOP, WMSZ_TOP},
+            {HTTOPLEFT, WMSZ_TOPLEFT},
+            {HTTOPRIGHT, WMSZ_TOPRIGHT},
+            {HTLEFT, WMSZ_LEFT},
+            {HTRIGHT, WMSZ_RIGHT},
+            {HTBOTTOM, WMSZ_BOTTOM},
+            {HTBOTTOMLEFT, WMSZ_BOTTOMLEFT},
+            {HTBOTTOMRIGHT, WMSZ_BOTTOMRIGHT}
+        };
 
-        private readonly Cursor[] resizeCursors = { Cursors.SizeNESW, Cursors.SizeWE, Cursors.SizeNWSE, Cursors.SizeWE, Cursors.SizeNS };
+        private readonly Cursor[] resizeCursors = {Cursors.SizeNESW, Cursors.SizeWE, Cursors.SizeNWSE, Cursors.SizeWE, Cursors.SizeNS};
 
         private Color _background;
         private bool _magnetic;
@@ -83,7 +81,8 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualForm"/> class.</summary>
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Layout.VisualForm" /> class.</summary>
         public VisualForm()
         {
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
@@ -111,12 +110,12 @@
             Padding = new Padding(5, 0, 0, 0);
 
             border = new Border
-                {
-                    Thickness = 3,
-                    Type = ShapeType.Rectangle
-                };
+            {
+                Thickness = 3,
+                Type = ShapeType.Rectangle
+            };
 
-            vsImage = new VisualBitmap(Resources.Icon, new Size(16, 16)) { Visible = true };
+            vsImage = new VisualBitmap(Resources.Icon, new Size(16, 16)) {Visible = true};
 
             // This enables the form to trigger the MouseMove event even when mouse is over another control
             Application.AddMessageFilter(new MouseMessageFilter());
@@ -124,7 +123,7 @@
         }
 
         [Category(Localization.Category.Events.Appearance)]
-        [Description(Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public event BackgroundChangedEventHandler BackgroundChanged;
 
         public enum ButtonState
@@ -155,14 +154,11 @@
 
         #region Properties
 
-        [Category(Localization.Category.Propertys.Appearance)]
-        [Description(Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color Background
         {
-            get
-            {
-                return _background;
-            }
+            get { return _background; }
 
             set
             {
@@ -174,13 +170,10 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Propertys.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
-            get
-            {
-                return border;
-            }
+            get { return border; }
 
             set
             {
@@ -189,14 +182,11 @@
             }
         }
 
-        [Category(Localization.Category.Propertys.Appearance)]
-        [Description(Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color ButtonBackHoverColor
         {
-            get
-            {
-                return buttonBackHoverColor;
-            }
+            get { return buttonBackHoverColor; }
 
             set
             {
@@ -205,14 +195,11 @@
             }
         }
 
-        [Category(Localization.Category.Propertys.Appearance)]
-        [Description(Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color ButtonBackPressedColor
         {
-            get
-            {
-                return buttonBackPressedColor;
-            }
+            get { return buttonBackPressedColor; }
 
             set
             {
@@ -221,14 +208,11 @@
             }
         }
 
-        [Category(Localization.Category.Propertys.Appearance)]
-        [Description(Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color ButtonCloseColor
         {
-            get
-            {
-                return closeColor;
-            }
+            get { return closeColor; }
 
             set
             {
@@ -237,14 +221,11 @@
             }
         }
 
-        [Category(Localization.Category.Propertys.Appearance)]
-        [Description(Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color ButtonMaximizeColor
         {
-            get
-            {
-                return maxColor;
-            }
+            get { return maxColor; }
 
             set
             {
@@ -253,14 +234,11 @@
             }
         }
 
-        [Category(Localization.Category.Propertys.Appearance)]
-        [Description(Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color ButtonMinimizeColor
         {
-            get
-            {
-                return minColor;
-            }
+            get { return minColor; }
 
             set
             {
@@ -269,14 +247,11 @@
             }
         }
 
-        [Category(Localization.Category.Propertys.Layout)]
-        [Description(Property.Description.Common.Size)]
+        [Category(Propertys.Layout)]
+        [Description(Property.Size)]
         public Size ButtonSize
         {
-            get
-            {
-                return buttonSize;
-            }
+            get { return buttonSize; }
 
             set
             {
@@ -288,10 +263,7 @@
         [Browsable(false)]
         public new Icon Icon
         {
-            get
-            {
-                return base.Icon;
-            }
+            get { return base.Icon; }
 
             set
             {
@@ -302,13 +274,10 @@
 
         [TypeConverter(typeof(VisualBitmapConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Localization.Category.Propertys.Appearance)]
+        [Category(Propertys.Appearance)]
         public VisualBitmap Image
         {
-            get
-            {
-                return vsImage;
-            }
+            get { return vsImage; }
 
             set
             {
@@ -318,62 +287,41 @@
         }
 
         [DefaultValue(true)]
-        [Category(Localization.Category.Propertys.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description("Snap window snaps toggles snapping to screen edges.")]
         public bool Magnetic
         {
-            get
-            {
-                return _magnetic;
-            }
+            get { return _magnetic; }
 
-            set
-            {
-                _magnetic = value;
-            }
+            set { _magnetic = value; }
         }
 
         [DefaultValue(100)]
-        [Category(Localization.Category.Propertys.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description("The snap radius determines the distance to trigger the snap.")]
         public int MagneticRadius
         {
-            get
-            {
-                return _magneticRadius;
-            }
+            get { return _magneticRadius; }
 
-            set
-            {
-                _magneticRadius = value;
-            }
+            set { _magneticRadius = value; }
         }
 
-        [Category(Localization.Category.Propertys.WindowStyle)]
+        [Category(Propertys.WindowStyle)]
         [Description(Property.ShowIcon)]
         public new bool ShowIcon
         {
-            get
-            {
-                return vsImage.Visible;
-            }
+            get { return vsImage.Visible; }
 
-            set
-            {
-                vsImage.Visible = value;
-            }
+            set { vsImage.Visible = value; }
         }
 
         public bool Sizable { get; set; }
 
-        [Category(Localization.Category.Propertys.Appearance)]
-        [Description(Property.Description.Common.MouseState)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.MouseState)]
         public MouseStates State
         {
-            get
-            {
-                return mouseState;
-            }
+            get { return mouseState; }
 
             set
             {
@@ -382,14 +330,11 @@
             }
         }
 
-        [Category(Localization.Category.Propertys.Appearance)]
-        [Description(Property.Description.Common.Alignment)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Alignment)]
         public Alignment.TextAlignment TitleAlignment
         {
-            get
-            {
-                return titleAlignment;
-            }
+            get { return titleAlignment; }
 
             set
             {
@@ -398,14 +343,11 @@
             }
         }
 
-        [Category(Localization.Category.Propertys.Appearance)]
-        [Description(Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color WindowBarColor
         {
-            get
-            {
-                return windowBarColor;
-            }
+            get { return windowBarColor; }
 
             set
             {
@@ -414,14 +356,11 @@
             }
         }
 
-        [Category(Localization.Category.Propertys.Layout)]
-        [Description(Property.Description.Common.Size)]
+        [Category(Propertys.Layout)]
+        [Description(Property.Size)]
         public int WindowBarHeight
         {
-            get
-            {
-                return windowBarHeight;
-            }
+            get { return windowBarHeight; }
 
             set
             {
@@ -471,25 +410,25 @@
             GDI.SetControlBackColor(e.Control, Background, true);
         }
 
-        protected override void OnEnter(EventArgs e)
+        protected override void OnEnter(System.EventArgs e)
         {
             base.OnEnter(e);
             State = MouseStates.Hover;
         }
 
-        protected override void OnGotFocus(EventArgs e)
+        protected override void OnGotFocus(System.EventArgs e)
         {
             base.OnGotFocus(e);
             State = MouseStates.Hover;
         }
 
-        protected override void OnLeave(EventArgs e)
+        protected override void OnLeave(System.EventArgs e)
         {
             base.OnLeave(e);
             State = MouseStates.Normal;
         }
 
-        protected override void OnLostFocus(EventArgs e)
+        protected override void OnLostFocus(System.EventArgs e)
         {
             base.OnLostFocus(e);
             State = MouseStates.Normal;
@@ -512,7 +451,7 @@
             base.OnMouseDown(e);
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
 
@@ -572,7 +511,7 @@
                     resizeDir = ResizeDirection.None;
 
                     // Only reset the cursor when needed, this prevents it from flickering when a child control changes the cursor to its own needs
-                    if (((IList)resizeCursors).Contains(Cursor))
+                    if (((IList) resizeCursors).Contains(Cursor))
                     {
                         Cursor = Cursors.Default;
                     }
@@ -621,7 +560,7 @@
             DrawBorder(graphics);
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(System.EventArgs e)
         {
             base.OnResize(e);
             minButtonBounds = new Rectangle(Width - Padding.Right - (3 * buttonSize.Width), (Padding.Top + (windowBarHeight / 2)) - (buttonSize.Height / 2), buttonSize.Width, buttonSize.Height);
@@ -630,7 +569,7 @@
             statusBarBounds = new Rectangle(0, 0, Width, windowBarHeight);
         }
 
-        protected override void OnResizeEnd(EventArgs e)
+        protected override void OnResizeEnd(System.EventArgs e)
         {
             base.OnResizeEnd(e);
 
@@ -731,14 +670,14 @@
                 byte bFlag = 0;
 
                 // Get which side to resize from
-                if (_resizingLocationsToCmd.ContainsKey((int)m.WParam))
+                if (_resizingLocationsToCmd.ContainsKey((int) m.WParam))
                 {
-                    bFlag = (byte)_resizingLocationsToCmd[(int)m.WParam];
+                    bFlag = (byte) _resizingLocationsToCmd[(int) m.WParam];
                 }
 
                 if (bFlag != 0)
                 {
-                    Native.SendMessage(Handle, WM_SYSCOMMAND, 0xF000 | bFlag, (int)m.LParam);
+                    Native.SendMessage(Handle, WM_SYSCOMMAND, 0xF000 | bFlag, (int) m.LParam);
                 }
             }
             else if (m.Msg == WM_LBUTTONUP)
@@ -814,10 +753,10 @@
 
                 graphics.DrawLine(
                     minPen,
-                    x + (int)(minButtonBounds.Width * 0.33),
-                    y + (int)(minButtonBounds.Height * 0.66),
-                    x + (int)(minButtonBounds.Width * 0.66),
-                    y + (int)(minButtonBounds.Height * 0.66));
+                    x + (int) (minButtonBounds.Width * 0.33),
+                    y + (int) (minButtonBounds.Height * 0.66),
+                    x + (int) (minButtonBounds.Width * 0.66),
+                    y + (int) (minButtonBounds.Height * 0.66));
             }
 
             // Maximize button
@@ -825,10 +764,10 @@
             {
                 graphics.DrawRectangle(
                     maxPen,
-                    maxButtonBounds.X + (int)(maxButtonBounds.Width * 0.33),
-                    maxButtonBounds.Y + (int)(maxButtonBounds.Height * 0.36),
-                    (int)(maxButtonBounds.Width * 0.39),
-                    (int)(maxButtonBounds.Height * 0.31));
+                    maxButtonBounds.X + (int) (maxButtonBounds.Width * 0.33),
+                    maxButtonBounds.Y + (int) (maxButtonBounds.Height * 0.36),
+                    (int) (maxButtonBounds.Width * 0.39),
+                    (int) (maxButtonBounds.Height * 0.31));
             }
 
             // Close button
@@ -836,17 +775,17 @@
             {
                 graphics.DrawLine(
                     closePen,
-                    xButtonBounds.X + (int)(xButtonBounds.Width * 0.33),
-                    xButtonBounds.Y + (int)(xButtonBounds.Height * 0.33),
-                    xButtonBounds.X + (int)(xButtonBounds.Width * 0.66),
-                    xButtonBounds.Y + (int)(xButtonBounds.Height * 0.66));
+                    xButtonBounds.X + (int) (xButtonBounds.Width * 0.33),
+                    xButtonBounds.Y + (int) (xButtonBounds.Height * 0.33),
+                    xButtonBounds.X + (int) (xButtonBounds.Width * 0.66),
+                    xButtonBounds.Y + (int) (xButtonBounds.Height * 0.66));
 
                 graphics.DrawLine(
                     closePen,
-                    xButtonBounds.X + (int)(xButtonBounds.Width * 0.66),
-                    xButtonBounds.Y + (int)(xButtonBounds.Height * 0.33),
-                    xButtonBounds.X + (int)(xButtonBounds.Width * 0.33),
-                    xButtonBounds.Y + (int)(xButtonBounds.Height * 0.66));
+                    xButtonBounds.X + (int) (xButtonBounds.Width * 0.66),
+                    xButtonBounds.Y + (int) (xButtonBounds.Height * 0.33),
+                    xButtonBounds.X + (int) (xButtonBounds.Width * 0.33),
+                    xButtonBounds.Y + (int) (xButtonBounds.Height * 0.66));
             }
         }
 
@@ -897,27 +836,27 @@
             switch (titleAlignment)
             {
                 case Alignment.TextAlignment.Center:
-                    {
-                        titlePoint = new Point((Width / 2) - (titleTextSize.Width / 2), (windowBarHeight / 2) - (titleTextSize.Height / 2));
-                        break;
-                    }
+                {
+                    titlePoint = new Point((Width / 2) - (titleTextSize.Width / 2), (windowBarHeight / 2) - (titleTextSize.Height / 2));
+                    break;
+                }
 
                 case Alignment.TextAlignment.Left:
-                    {
-                        titlePoint = new Point(5 + vsImage.Size.Width + 5, (windowBarHeight / 2) - (titleTextSize.Height / 2));
-                        break;
-                    }
+                {
+                    titlePoint = new Point(5 + vsImage.Size.Width + 5, (windowBarHeight / 2) - (titleTextSize.Height / 2));
+                    break;
+                }
 
                 case Alignment.TextAlignment.Right:
-                    {
-                        titlePoint = new Point(minButtonBounds.Left - 5 - titleTextSize.Width, (windowBarHeight / 2) - (titleTextSize.Height / 2));
-                        break;
-                    }
+                {
+                    titlePoint = new Point(minButtonBounds.Left - 5 - titleTextSize.Width, (windowBarHeight / 2) - (titleTextSize.Height / 2));
+                    break;
+                }
 
                 default:
-                    {
-                        throw new ArgumentOutOfRangeException();
-                    }
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
             }
 
             Rectangle textRectangle = new Rectangle(titlePoint.X, titlePoint.Y, Width, titleTextSize.Height);
@@ -974,34 +913,34 @@
             switch (direction)
             {
                 case ResizeDirection.BottomLeft:
-                    {
-                        dir = HTBOTTOMLEFT;
-                        break;
-                    }
+                {
+                    dir = HTBOTTOMLEFT;
+                    break;
+                }
 
                 case ResizeDirection.Left:
-                    {
-                        dir = HTLEFT;
-                        break;
-                    }
+                {
+                    dir = HTLEFT;
+                    break;
+                }
 
                 case ResizeDirection.Right:
-                    {
-                        dir = HTRIGHT;
-                        break;
-                    }
+                {
+                    dir = HTRIGHT;
+                    break;
+                }
 
                 case ResizeDirection.BottomRight:
-                    {
-                        dir = HTBOTTOMRIGHT;
-                        break;
-                    }
+                {
+                    dir = HTBOTTOMRIGHT;
+                    break;
+                }
 
                 case ResizeDirection.Bottom:
-                    {
-                        dir = HTBOTTOM;
-                        break;
-                    }
+                {
+                    dir = HTBOTTOM;
+                    break;
+                }
             }
 
             Native.ReleaseCapture();
@@ -1111,8 +1050,7 @@
             public RECT rcMonitor = new RECT();
             public RECT rcWork = new RECT();
 
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
-            public char[] szDevice = new char[32];
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)] public char[] szDevice = new char[32];
 
             #endregion
         }

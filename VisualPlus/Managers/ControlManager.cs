@@ -1,15 +1,14 @@
-﻿namespace VisualPlus.Managers
+﻿#region Namespace
+
+using System;
+using System.Linq;
+using System.Windows.Forms;
+using VisualPlus.Toolkit.Controls.Interactivity;
+
+#endregion
+
+namespace VisualPlus.Managers
 {
-    #region Namespace
-
-    using System;
-    using System.Linq;
-    using System.Windows.Forms;
-
-    using VisualPlus.Toolkit.Controls.Interactivity;
-
-    #endregion
-
     internal class ControlManager
     {
         #region Events
@@ -36,7 +35,7 @@
         /// <returns>The control type.</returns>
         private static T ControlType<T>(string controlName)
         {
-            return (T)Activator.CreateInstance(Type.GetType(controlName));
+            return (T) Activator.CreateInstance(Type.GetType(controlName));
         }
 
         #endregion

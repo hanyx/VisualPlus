@@ -1,21 +1,20 @@
-﻿namespace VisualPlus.Toolkit.Controls.Navigation
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
+using System.Windows.Forms;
+using VisualPlus.Enumerators;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Navigation
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Text;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ContextMenuStrip))]
     [DefaultEvent("Opening")]
@@ -48,13 +47,10 @@
         #region Properties
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color ArrowColor
         {
-            get
-            {
-                return arrowColor;
-            }
+            get { return arrowColor; }
 
             set
             {
@@ -64,13 +60,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color ArrowDisabledColor
         {
-            get
-            {
-                return arrowDisabledColor;
-            }
+            get { return arrowDisabledColor; }
 
             set
             {
@@ -81,13 +74,10 @@
 
         [DefaultValue(Settings.DefaultValue.BorderVisible)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool ArrowVisible
         {
-            get
-            {
-                return arrowVisible;
-            }
+            get { return arrowVisible; }
 
             set
             {
@@ -97,13 +87,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color Background
         {
-            get
-            {
-                return background;
-            }
+            get { return background; }
 
             set
             {
@@ -117,10 +104,7 @@
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get
-            {
-                return border;
-            }
+            get { return border; }
 
             set
             {
@@ -131,10 +115,7 @@
 
         public new Color ForeColor
         {
-            get
-            {
-                return foreColor;
-            }
+            get { return foreColor; }
 
             set
             {
@@ -145,13 +126,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Strings.Font)]
+        [Description(Property.Font)]
         public Font MenuFont
         {
-            get
-            {
-                return contextMenuFont;
-            }
+            get { return contextMenuFont; }
 
             set
             {
@@ -161,13 +139,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color TextDisabledColor
         {
-            get
-            {
-                return textDisabledColor;
-            }
+            get { return textDisabledColor; }
 
             set
             {
@@ -199,7 +174,7 @@
             }
         }
 
-        protected override void OnMouseHover(EventArgs e)
+        protected override void OnMouseHover(System.EventArgs e)
         {
             base.OnMouseHover(e);
             Cursor = Cursors.Hand;
@@ -225,10 +200,10 @@
         private void ConfigureStyleManager()
         {
             border = new Border
-                {
-                    HoverVisible = false,
-                    Type = ShapeType.Rectangle
-                };
+            {
+                HoverVisible = false,
+                Type = ShapeType.Rectangle
+            };
 
             Font = _styleManager.Font;
             foreColor = _styleManager.FontStyle.ForeColor;
@@ -258,11 +233,11 @@
                     int arrowY = (e.ArrowRectangle.Y + e.ArrowRectangle.Height) / 2;
 
                     Point[] arrowPoints =
-                        {
-                            new Point(arrowX - 5, arrowY - 5),
-                            new Point(arrowX, arrowY),
-                            new Point(arrowX - 5, arrowY + 5)
-                        };
+                    {
+                        new Point(arrowX - 5, arrowY - 5),
+                        new Point(arrowX, arrowY),
+                        new Point(arrowX - 5, arrowY + 5)
+                    };
 
                     // Set control state color
                     foreColor = e.Item.Enabled ? foreColor : textDisabledColor;
@@ -288,10 +263,10 @@
                 foreColor = e.Item.Enabled ? foreColor : textDisabledColor;
 
                 StringFormat stringFormat = new StringFormat
-                    {
-                        // Alignment = StringAlignment.Center,
-                        LineAlignment = StringAlignment.Center
-                    };
+                {
+                    // Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
+                };
 
                 e.Graphics.DrawString(e.Text, contextMenuFont, new SolidBrush(foreColor), textRect, stringFormat);
             }

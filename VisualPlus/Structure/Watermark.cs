@@ -1,29 +1,26 @@
-﻿namespace VisualPlus.Structure
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Globalization;
+using VisualPlus.Delegates;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Styles;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Structure
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Globalization;
-
-    using VisualPlus.Delegates;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Styles;
-    using VisualPlus.Toolkit.Components;
-
-    using Property = VisualPlus.Localization.Descriptions.Property;
-
-    #endregion
-
     [Description("The watermark")]
     [TypeConverter(typeof(WatermarkConverter))]
     public class Watermark : IWatermark
     {
         #region Variables
 
-        [Browsable(false)]
-        public SolidBrush Brush;
+        [Browsable(false)] public SolidBrush Brush;
 
         #endregion
 
@@ -79,13 +76,10 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color ActiveColor
         {
-            get
-            {
-                return activeColor;
-            }
+            get { return activeColor; }
 
             set
             {
@@ -96,13 +90,10 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Strings.Font)]
+        [Description(Property.Font)]
         public Font Font
         {
-            get
-            {
-                return font;
-            }
+            get { return font; }
 
             set
             {
@@ -113,13 +104,10 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color InactiveColor
         {
-            get
-            {
-                return inactiveColor;
-            }
+            get { return inactiveColor; }
 
             set
             {
@@ -130,13 +118,10 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Strings.Text)]
+        [Description(Property.Text)]
         public string Text
         {
-            get
-            {
-                return text;
-            }
+            get { return text; }
 
             set
             {
@@ -147,13 +132,10 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool Visible
         {
-            get
-            {
-                return visible;
-            }
+            get { return visible; }
 
             set
             {

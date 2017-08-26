@@ -1,12 +1,12 @@
-﻿namespace VisualPlus.Toolkit.Components
+﻿#region Namespace
+
+using System;
+using System.Runtime.InteropServices;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Components
 {
-    #region Namespace
-
-    using System;
-    using System.Runtime.InteropServices;
-
-    #endregion
-
     public class ProgressDialog
     {
         #region Variables
@@ -89,10 +89,7 @@
 
         public string CancelMessage
         {
-            get
-            {
-                return _cancelMessage;
-            }
+            get { return _cancelMessage; }
 
             set
             {
@@ -105,10 +102,7 @@
 
         public string Line1
         {
-            get
-            {
-                return _line1;
-            }
+            get { return _line1; }
 
             set
             {
@@ -119,10 +113,7 @@
 
         public string Line2
         {
-            get
-            {
-                return _line2;
-            }
+            get { return _line2; }
 
             set
             {
@@ -133,10 +124,7 @@
 
         public string Line3
         {
-            get
-            {
-                return _line3;
-            }
+            get { return _line3; }
 
             set
             {
@@ -147,10 +135,7 @@
 
         public uint Maximum
         {
-            get
-            {
-                return _maximum;
-            }
+            get { return _maximum; }
 
             set
             {
@@ -161,10 +146,7 @@
 
         public string Title
         {
-            get
-            {
-                return _title;
-            }
+            get { return _title; }
 
             set
             {
@@ -175,10 +157,7 @@
 
         public uint Value
         {
-            get
-            {
-                return _value;
-            }
+            get { return _value; }
 
             set
             {

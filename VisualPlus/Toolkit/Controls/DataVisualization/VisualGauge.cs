@@ -1,21 +1,19 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataVisualization
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Managers;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataVisualization
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Managers;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ProgressBar))]
     [DefaultEvent("Click")]
@@ -60,13 +58,10 @@
 
         [DefaultValue(typeof(Color), "Green")]
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color Progress
         {
-            get
-            {
-                return _progress;
-            }
+            get { return _progress; }
 
             set
             {
@@ -77,13 +72,10 @@
 
         [DefaultValue(30)]
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Border.Thickness)]
+        [Description(Property.Thickness)]
         public int Thickness
         {
-            get
-            {
-                return _thickness;
-            }
+            get { return _thickness; }
 
             set
             {
@@ -96,10 +88,7 @@
         [Category(Propertys.Behavior)]
         public new int Value
         {
-            get
-            {
-                return base.Value;
-            }
+            get { return base.Value; }
 
             set
             {
@@ -112,7 +101,7 @@
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Enumerators.Styles style)
         {
             StyleManager = new VisualStyleManager(style);
 
@@ -151,7 +140,7 @@
             _labelProgress.Text = Value + @"%";
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(System.EventArgs e)
         {
             base.OnResize(e);
 
@@ -163,43 +152,43 @@
         private void ConstructDisplay()
         {
             _labelProgress = new Label
-                {
-                    AutoSize = true,
-                    Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
-                    Location = new Point(83, 34),
-                    Margin = new Padding(6, 0, 6, 0),
-                    Name = "visualLabelProgress",
-                    Size = new Size(22, 24),
-                    TabIndex = 1,
-                    Text = @"0",
-                    BackColor = Color.Transparent
-                };
+            {
+                AutoSize = true,
+                Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
+                Location = new Point(83, 34),
+                Margin = new Padding(6, 0, 6, 0),
+                Name = "visualLabelProgress",
+                Size = new Size(22, 24),
+                TabIndex = 1,
+                Text = @"0",
+                BackColor = Color.Transparent
+            };
 
             _labelMinimum = new Label
-                {
-                    AutoSize = true,
-                    Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
-                    Location = new Point(26, 86),
-                    Margin = new Padding(6, 0, 6, 0),
-                    Name = "visualLabelMinimum",
-                    Size = new Size(15, 17),
-                    TabIndex = 2,
-                    Text = @"0",
-                    BackColor = Color.Transparent
-                };
+            {
+                AutoSize = true,
+                Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
+                Location = new Point(26, 86),
+                Margin = new Padding(6, 0, 6, 0),
+                Name = "visualLabelMinimum",
+                Size = new Size(15, 17),
+                TabIndex = 2,
+                Text = @"0",
+                BackColor = Color.Transparent
+            };
 
             _labelMaximum = new Label
-                {
-                    AutoSize = true,
-                    Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
-                    Location = new Point(145, 86),
-                    Margin = new Padding(6, 0, 6, 0),
-                    Name = "visualLabelMaximum",
-                    Size = new Size(29, 17),
-                    TabIndex = 3,
-                    Text = @"100",
-                    BackColor = Color.Transparent
-                };
+            {
+                AutoSize = true,
+                Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
+                Location = new Point(145, 86),
+                Margin = new Padding(6, 0, 6, 0),
+                Name = "visualLabelMaximum",
+                Size = new Size(29, 17),
+                TabIndex = 3,
+                Text = @"100",
+                BackColor = Color.Transparent
+            };
         }
 
         #endregion

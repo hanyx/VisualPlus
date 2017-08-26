@@ -1,20 +1,19 @@
-﻿namespace VisualPlus.Toolkit.VisualBase
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using VisualPlus.Localization.Category;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Toolkit.VisualBase
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-
-    #endregion
-
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -61,7 +60,7 @@
 
         #region Events
 
-        protected override void OnClick(EventArgs e)
+        protected override void OnClick(System.EventArgs e)
         {
             ClickEvent(this);
         }

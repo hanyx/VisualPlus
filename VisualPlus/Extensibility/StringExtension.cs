@@ -1,12 +1,12 @@
-﻿namespace VisualPlus.Extensibility
+﻿#region Namespace
+
+using System.Drawing;
+using System.Windows.Forms;
+
+#endregion
+
+namespace VisualPlus.Extensibility
 {
-    #region Namespace
-
-    using System.Drawing;
-    using System.Windows.Forms;
-
-    #endregion
-
     public static class StringExtension
     {
         #region Events

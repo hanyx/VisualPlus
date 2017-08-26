@@ -1,16 +1,14 @@
-﻿namespace VisualPlus.Toolkit.VisualBase
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+using VisualPlus.Delegates;
+using VisualPlus.EventArgs;
+
+#endregion
+
+namespace VisualPlus.Toolkit.VisualBase
 {
-    #region Namespace
-
-    using System.ComponentModel;
-    using System.Runtime.InteropServices;
-
-    using VisualPlus.Delegates;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-
-    #endregion
-
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]

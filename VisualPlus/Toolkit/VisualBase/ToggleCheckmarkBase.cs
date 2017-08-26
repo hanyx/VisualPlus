@@ -1,24 +1,23 @@
+#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Extensibility;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+
+#endregion
+
 namespace VisualPlus.Toolkit.VisualBase
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Extensibility;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-
-    #endregion
-
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -57,13 +56,10 @@ namespace VisualPlus.Toolkit.VisualBase
 
         [DefaultValue(Settings.DefaultValue.Animation)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Animation)]
+        [Description(Property.Animation)]
         public bool Animation
         {
-            get
-            {
-                return animation;
-            }
+            get { return animation; }
 
             set
             {
@@ -84,10 +80,7 @@ namespace VisualPlus.Toolkit.VisualBase
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get
-            {
-                return _border;
-            }
+            get { return _border; }
 
             set
             {
@@ -96,14 +89,11 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         [Category(Propertys.Layout)]
         public Size Box
         {
-            get
-            {
-                return box.Size;
-            }
+            get { return box.Size; }
 
             set
             {
@@ -118,13 +108,10 @@ namespace VisualPlus.Toolkit.VisualBase
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Spacing)]
+        [Description(Property.Spacing)]
         public int BoxSpacing
         {
-            get
-            {
-                return boxSpacing;
-            }
+            get { return boxSpacing; }
 
             set
             {
@@ -135,13 +122,10 @@ namespace VisualPlus.Toolkit.VisualBase
 
         [DefaultValue(false)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Checkmark.Checked)]
+        [Description(Property.Checked)]
         public bool Checked
         {
-            get
-            {
-                return Toggle;
-            }
+            get { return Toggle; }
 
             set
             {
@@ -164,10 +148,7 @@ namespace VisualPlus.Toolkit.VisualBase
         [Category(Propertys.Appearance)]
         public Checkmark CheckMark
         {
-            get
-            {
-                return checkMark;
-            }
+            get { return checkMark; }
 
             set
             {
@@ -176,68 +157,44 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Description(Property.ColorGradient)]
         [Category(Propertys.Appearance)]
         public Gradient DisabledGradient
         {
-            get
-            {
-                return ControlBrushCollection[3];
-            }
+            get { return ControlBrushCollection[3]; }
 
-            set
-            {
-                ControlBrushCollection[3] = value;
-            }
+            set { ControlBrushCollection[3] = value; }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Description(Property.ColorGradient)]
         [Category(Propertys.Appearance)]
         public Gradient EnabledGradient
         {
-            get
-            {
-                return ControlBrushCollection[0];
-            }
+            get { return ControlBrushCollection[0]; }
 
-            set
-            {
-                ControlBrushCollection[0] = value;
-            }
+            set { ControlBrushCollection[0] = value; }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Description(Property.ColorGradient)]
         [Category(Propertys.Appearance)]
         public Gradient HoverGradient
         {
-            get
-            {
-                return ControlBrushCollection[1];
-            }
+            get { return ControlBrushCollection[1]; }
 
-            set
-            {
-                ControlBrushCollection[1] = value;
-            }
+            set { ControlBrushCollection[1] = value; }
         }
 
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool IsBoxLarger { get; set; }
 
-        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Description(Property.ColorGradient)]
         [Category(Propertys.Appearance)]
         public Gradient PressedGradient
         {
-            get
-            {
-                return ControlBrushCollection[2];
-            }
+            get { return ControlBrushCollection[2]; }
 
-            set
-            {
-                ControlBrushCollection[2] = value;
-            }
+            set { ControlBrushCollection[2] = value; }
         }
 
         [Browsable(false)]
@@ -251,16 +208,16 @@ namespace VisualPlus.Toolkit.VisualBase
         public void ConfigureAnimation()
         {
             VFXManager effectsManager = new VFXManager
-                {
-                    Increment = 0.05,
-                    EffectType = EffectType.EaseInOut
-                };
+            {
+                Increment = 0.05,
+                EffectType = EffectType.EaseInOut
+            };
             rippleEffectsManager = new VFXManager(false)
-                {
-                    Increment = 0.10,
-                    SecondaryIncrement = 0.08,
-                    EffectType = EffectType.Linear
-                };
+            {
+                Increment = 0.10,
+                SecondaryIncrement = 0.08,
+                EffectType = EffectType.Linear
+            };
 
             effectsManager.OnAnimationProgress += sender => Invalidate();
             rippleEffectsManager.OnAnimationProgress += sender => Invalidate();
@@ -276,10 +233,10 @@ namespace VisualPlus.Toolkit.VisualBase
                     double animationValue = rippleEffectsManager.GetProgress(i);
 
                     Point animationSource = new Point(box.X + (box.Width / 2), box.Y + (box.Height / 2));
-                    SolidBrush animationBrush = new SolidBrush(Color.FromArgb((int)(animationValue * 40), (bool)rippleEffectsManager.GetData(i)[0] ? Color.Black : checkMark.EnabledGradient.Colors[0]));
+                    SolidBrush animationBrush = new SolidBrush(Color.FromArgb((int) (animationValue * 40), (bool) rippleEffectsManager.GetData(i)[0] ? Color.Black : checkMark.EnabledGradient.Colors[0]));
 
                     int height = box.Height;
-                    int size = rippleEffectsManager.GetDirection(i) == AnimationDirection.InOutIn ? (int)(height * (0.8d + (0.2d * animationValue))) : height;
+                    int size = rippleEffectsManager.GetDirection(i) == AnimationDirection.InOutIn ? (int) (height * (0.8d + (0.2d * animationValue))) : height;
 
                     GraphicsPath path = GDI.DrawRoundedRectangle(animationSource.X - (size / 2), animationSource.Y - (size / 2), size, size, size / 2);
                     graphics.FillPath(animationBrush, path);
@@ -306,34 +263,34 @@ namespace VisualPlus.Toolkit.VisualBase
 
             MouseState = MouseStates.Normal;
             MouseEnter += (sender, args) =>
-                {
-                    MouseState = MouseStates.Hover;
-                };
+            {
+                MouseState = MouseStates.Hover;
+            };
             MouseLeave += (sender, args) =>
-                {
-                    mouseLocation = new Point(-1, -1);
-                    MouseState = MouseStates.Normal;
-                };
+            {
+                mouseLocation = new Point(-1, -1);
+                MouseState = MouseStates.Normal;
+            };
             MouseDown += (sender, args) =>
-                {
-                    MouseState = MouseStates.Down;
+            {
+                MouseState = MouseStates.Down;
 
-                    if (animation && (args.Button == MouseButtons.Left) && GDI.IsMouseInBounds(mouseLocation, box))
-                    {
-                        rippleEffectsManager.SecondaryIncrement = 0;
-                        rippleEffectsManager.StartNewAnimation(AnimationDirection.InOutIn, new object[] { Toggle });
-                    }
-                };
+                if (animation && (args.Button == MouseButtons.Left) && GDI.IsMouseInBounds(mouseLocation, box))
+                {
+                    rippleEffectsManager.SecondaryIncrement = 0;
+                    rippleEffectsManager.StartNewAnimation(AnimationDirection.InOutIn, new object[] {Toggle});
+                }
+            };
             MouseUp += (sender, args) =>
-                {
-                    MouseState = MouseStates.Hover;
-                    rippleEffectsManager.SecondaryIncrement = 0.08;
-                };
+            {
+                MouseState = MouseStates.Hover;
+                rippleEffectsManager.SecondaryIncrement = 0.08;
+            };
             MouseMove += (sender, args) =>
-                {
-                    mouseLocation = args.Location;
-                    Cursor = GDI.IsMouseInBounds(mouseLocation, box) ? Cursors.Hand : Cursors.Default;
-                };
+            {
+                mouseLocation = args.Location;
+                Cursor = GDI.IsMouseInBounds(mouseLocation, box) ? Cursors.Hand : Cursors.Default;
+            };
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -343,14 +300,14 @@ namespace VisualPlus.Toolkit.VisualBase
             Invalidate();
         }
 
-        protected override void OnMouseHover(EventArgs e)
+        protected override void OnMouseHover(System.EventArgs e)
         {
             base.OnMouseHover(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;

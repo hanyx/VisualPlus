@@ -1,17 +1,15 @@
-﻿namespace VisualPlus.Toolkit.VisualBase
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using VisualPlus.EventArgs;
+using VisualPlus.Toolkit.Controls.Interactivity;
+
+#endregion
+
+namespace VisualPlus.Toolkit.VisualBase
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.EventArgs;
-    using VisualPlus.Toolkit.Controls.Interactivity;
-
-    #endregion
-
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -20,7 +18,7 @@
     {
         #region Events
 
-        protected override void OnClick(EventArgs e)
+        protected override void OnClick(System.EventArgs e)
         {
             if (!Checked)
             {
@@ -52,7 +50,7 @@
                         if ((control != this) && control is VisualRadioButton)
                         {
                             // Cast to correct type
-                            VisualRadioButton radioButton = (VisualRadioButton)control;
+                            VisualRadioButton radioButton = (VisualRadioButton) control;
 
                             // If target allows auto check changed and is currently checked
                             if (radioButton.Checked)

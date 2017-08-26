@@ -1,18 +1,16 @@
-﻿namespace VisualPlus.Toolkit.VisualBase
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+
+#endregion
+
+namespace VisualPlus.Toolkit.VisualBase
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.ComponentModel.Design;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-
-    #endregion
-
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -47,14 +45,14 @@
             GDI.SetControlBackColor(e.Control, Background, true);
         }
 
-        protected override void OnMouseHover(EventArgs e)
+        protected override void OnMouseHover(System.EventArgs e)
         {
             base.OnMouseHover(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;

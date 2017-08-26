@@ -1,12 +1,12 @@
-﻿namespace VisualPlus.Toolkit.VisualBase
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+
+#endregion
+
+namespace VisualPlus.Toolkit.VisualBase
 {
-    #region Namespace
-
-    using System.ComponentModel;
-    using System.Drawing;
-
-    #endregion
-
     /// <summary>Stores a text/extraText/Image triple of values as a content values source.</summary>
     public class FixedContentValue : IContentValues
     {

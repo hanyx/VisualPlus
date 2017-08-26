@@ -1,21 +1,19 @@
-﻿namespace VisualPlus.Toolkit.Controls.Layout
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using VisualPlus.Localization.Category;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Layout
 {
-    #region Namespace
-
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(Panel))]
     [DefaultEvent("Paint")]
@@ -31,7 +29,7 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualPanel"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualPanel" /> class.</summary>
         public VisualPanel()
         {
             Size = new Size(187, 117);
@@ -50,10 +48,7 @@
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get
-            {
-                return _border;
-            }
+            get { return _border; }
 
             set
             {
@@ -66,7 +61,7 @@
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Enumerators.Styles style)
         {
             StyleManager = new VisualStyleManager(style);
 

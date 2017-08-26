@@ -1,13 +1,12 @@
-﻿namespace VisualPlus.Styles
+﻿#region Namespace
+
+using System.Drawing;
+using VisualPlus.Structure;
+
+#endregion
+
+namespace VisualPlus.Styles
 {
-    #region Namespace
-
-    using System.Drawing;
-
-    using VisualPlus.Structure;
-
-    #endregion
-
     public interface IBorder
     {
         #region Properties

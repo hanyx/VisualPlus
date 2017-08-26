@@ -1,21 +1,20 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataVisualization
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Managers;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataVisualization
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Managers;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ProgressBar))]
     [DefaultEvent("Click")]
@@ -46,7 +45,7 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualCircleProgressBar"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualCircleProgressBar" /> class.</summary>
         public VisualCircleProgressBar()
         {
             BackColor = Color.Transparent;
@@ -75,13 +74,10 @@
 
         [DefaultValue(true)]
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool BackCircleVisible
         {
-            get
-            {
-                return backgroundCircleVisible;
-            }
+            get { return backgroundCircleVisible; }
 
             set
             {
@@ -91,13 +87,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color BackgroundCircle
         {
-            get
-            {
-                return backgroundCircleColor;
-            }
+            get { return backgroundCircleColor; }
 
             set
             {
@@ -108,13 +101,10 @@
 
         [DefaultValue(true)]
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool ForeCircleVisible
         {
-            get
-            {
-                return foregroundCircleVisible;
-            }
+            get { return foregroundCircleVisible; }
 
             set
             {
@@ -124,13 +114,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color ForegroundCircle
         {
-            get
-            {
-                return foregroundCircleColor;
-            }
+            get { return foregroundCircleColor; }
 
             set
             {
@@ -140,13 +127,10 @@
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Rotation)]
+        [Description(Property.Rotation)]
         public float GradientRotation
         {
-            get
-            {
-                return gradientRotation;
-            }
+            get { return gradientRotation; }
 
             set
             {
@@ -156,13 +140,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Image)]
+        [Description(Property.Image)]
         public Point IconPoint
         {
-            get
-            {
-                return iconPoint;
-            }
+            get { return iconPoint; }
 
             set
             {
@@ -172,13 +153,10 @@
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public Size IconSize
         {
-            get
-            {
-                return iconSize;
-            }
+            get { return iconSize; }
 
             set
             {
@@ -188,13 +166,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Image)]
+        [Description(Property.Image)]
         public Image Image
         {
-            get
-            {
-                return image;
-            }
+            get { return image; }
 
             set
             {
@@ -204,13 +179,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color ProgressGradient1
         {
-            get
-            {
-                return progressGradient1;
-            }
+            get { return progressGradient1; }
 
             set
             {
@@ -220,13 +192,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color ProgressGradient2
         {
-            get
-            {
-                return progressGradient2;
-            }
+            get { return progressGradient2; }
 
             set
             {
@@ -237,13 +206,10 @@
 
         [DefaultValue(Settings.DefaultValue.ProgressSize)]
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public float ProgressSize
         {
-            get
-            {
-                return progressSize;
-            }
+            get { return progressSize; }
 
             set
             {
@@ -253,13 +219,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Type)]
+        [Description(Property.Type)]
         public ProgressShape Shape
         {
-            get
-            {
-                return progressShapeVal;
-            }
+            get { return progressShapeVal; }
 
             set
             {
@@ -270,13 +233,10 @@
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool TextVisible
         {
-            get
-            {
-                return textVisible;
-            }
+            get { return textVisible; }
 
             set
             {
@@ -289,7 +249,7 @@
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Enumerators.Styles style)
         {
             StyleManager = new VisualStyleManager(style);
 
@@ -320,13 +280,13 @@
             DrawText(graphics);
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(System.EventArgs e)
         {
             base.OnResize(e);
             SetStandardSize();
         }
 
-        protected override void OnSizeChanged(EventArgs e)
+        protected override void OnSizeChanged(System.EventArgs e)
         {
             base.OnSizeChanged(e);
             SetStandardSize();
@@ -352,22 +312,22 @@
                     switch (progressShapeVal)
                     {
                         case ProgressShape.Round:
-                            {
-                                progressPen.StartCap = LineCap.Round;
-                                progressPen.EndCap = LineCap.Round;
-                                break;
-                            }
+                        {
+                            progressPen.StartCap = LineCap.Round;
+                            progressPen.EndCap = LineCap.Round;
+                            break;
+                        }
 
                         case ProgressShape.Flat:
-                            {
-                                progressPen.StartCap = LineCap.Flat;
-                                progressPen.EndCap = LineCap.Flat;
-                                break;
-                            }
+                        {
+                            progressPen.StartCap = LineCap.Flat;
+                            progressPen.EndCap = LineCap.Flat;
+                            break;
+                        }
                     }
 
                     // Draw progress
-                    graphics.DrawArc(progressPen, progressSize + 2, progressSize + 2, Width - (progressSize * 2), Height - (progressSize * 2), -90, (int)Math.Round((360.0 / Maximum) * Value));
+                    graphics.DrawArc(progressPen, progressSize + 2, progressSize + 2, Width - (progressSize * 2), Height - (progressSize * 2), -90, (int) Math.Round((360.0 / Maximum) * Value));
                 }
             }
 

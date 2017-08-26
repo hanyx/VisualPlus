@@ -1,24 +1,24 @@
-﻿namespace VisualPlus.Toolkit.Controls.Interactivity
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
+using System.Windows.Forms;
+using VisualPlus.Enumerators;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.ActionList;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Interactivity
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Text;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.ActionList;
-    using VisualPlus.Toolkit.Components;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ComboBox))]
     [DefaultEvent("SelectedIndexChanged")]
@@ -62,7 +62,7 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualComboBox"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualComboBox" /> class.</summary>
         public VisualComboBox()
         {
             SetStyle(
@@ -70,7 +70,7 @@
                 ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor,
                 true);
 
-            SetStyle((ControlStyles)139286, true);
+            SetStyle((ControlStyles) 139286, true);
             SetStyle(ControlStyles.Selectable, false);
 
             _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
@@ -111,10 +111,7 @@
         [Category(Propertys.Appearance)]
         public Gradient Background
         {
-            get
-            {
-                return controlGradient;
-            }
+            get { return controlGradient; }
 
             set
             {
@@ -128,10 +125,7 @@
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get
-            {
-                return border;
-            }
+            get { return border; }
 
             set
             {
@@ -141,13 +135,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color ButtonColor
         {
-            get
-            {
-                return buttonColor;
-            }
+            get { return buttonColor; }
 
             set
             {
@@ -157,13 +148,10 @@
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Direction)]
+        [Description(Property.Direction)]
         public Alignment.Horizontal ButtonHorizontal
         {
-            get
-            {
-                return buttonHorizontal;
-            }
+            get { return buttonHorizontal; }
 
             set
             {
@@ -173,13 +161,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Type)]
+        [Description(Property.Type)]
         public DropDownButtons ButtonStyles
         {
-            get
-            {
-                return buttonStyles;
-            }
+            get { return buttonStyles; }
 
             set
             {
@@ -190,13 +175,10 @@
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool ButtonVisible
         {
-            get
-            {
-                return buttonVisible;
-            }
+            get { return buttonVisible; }
 
             set
             {
@@ -206,13 +188,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public int ButtonWidth
         {
-            get
-            {
-                return buttonWidth;
-            }
+            get { return buttonWidth; }
 
             set
             {
@@ -226,10 +205,7 @@
         [Category(Propertys.Appearance)]
         public Gradient DisabledBackground
         {
-            get
-            {
-                return controlDisabledGradient;
-            }
+            get { return controlDisabledGradient; }
 
             set
             {
@@ -240,10 +216,7 @@
 
         public new Color ForeColor
         {
-            get
-            {
-                return foreColor;
-            }
+            get { return foreColor; }
 
             set
             {
@@ -254,13 +227,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color MenuItemHover
         {
-            get
-            {
-                return menuItemHover;
-            }
+            get { return menuItemHover; }
 
             set
             {
@@ -270,13 +240,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color MenuItemNormal
         {
-            get
-            {
-                return menuItemNormal;
-            }
+            get { return menuItemNormal; }
 
             set
             {
@@ -286,13 +253,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color MenuTextColor
         {
-            get
-            {
-                return menuTextColor;
-            }
+            get { return menuTextColor; }
 
             set
             {
@@ -302,13 +266,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color SeparatorColor
         {
-            get
-            {
-                return separatorColor;
-            }
+            get { return separatorColor; }
 
             set
             {
@@ -318,13 +279,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color SeparatorShadowColor
         {
-            get
-            {
-                return separatorShadowColor;
-            }
+            get { return separatorShadowColor; }
 
             set
             {
@@ -335,13 +293,10 @@
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool SeparatorVisible
         {
-            get
-            {
-                return separatorVisible;
-            }
+            get { return separatorVisible; }
 
             set
             {
@@ -351,13 +306,10 @@
         }
 
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.StartIndex)]
+        [Description(Property.StartIndex)]
         public int StartIndex
         {
-            get
-            {
-                return startIndex;
-            }
+            get { return startIndex; }
 
             set
             {
@@ -376,13 +328,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.MouseState)]
+        [Description(Property.MouseState)]
         public MouseStates State
         {
-            get
-            {
-                return mouseState;
-            }
+            get { return mouseState; }
 
             set
             {
@@ -392,13 +341,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Alignment)]
+        [Description(Property.Alignment)]
         public StringAlignment TextAlignment
         {
-            get
-            {
-                return textAlignment;
-            }
+            get { return textAlignment; }
 
             set
             {
@@ -408,13 +354,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color TextDisabledColor
         {
-            get
-            {
-                return textDisabledColor;
-            }
+            get { return textDisabledColor; }
 
             set
             {
@@ -424,13 +367,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Strings.TextRenderingHint)]
+        [Description(Property.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
-            get
-            {
-                return textRendererHint;
-            }
+            get { return textRendererHint; }
 
             set
             {
@@ -444,10 +384,7 @@
         [Category(Propertys.Behavior)]
         public Watermark Watermark
         {
-            get
-            {
-                return watermark;
-            }
+            get { return watermark; }
 
             set
             {
@@ -462,13 +399,13 @@
 
         /// <summary>Update the style of the control.</summary>
         /// <param name="style">The visual style.</param>
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Enumerators.Styles style)
         {
             _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
             border.Color = _styleManager.BorderStyle.Color;
             border.HoverColor = _styleManager.BorderStyle.HoverColor;
-           
+
             Font = _styleManager.Font;
             foreColor = _styleManager.FontStyle.ForeColor;
             textDisabledColor = _styleManager.FontStyle.ForeColorDisabled;
@@ -505,7 +442,7 @@
             }
         }
 
-        protected override void OnEnter(EventArgs e)
+        protected override void OnEnter(System.EventArgs e)
         {
             base.OnEnter(e);
             watermark.Brush = new SolidBrush(watermark.ActiveColor);
@@ -513,7 +450,7 @@
             Invalidate();
         }
 
-        protected override void OnLeave(EventArgs e)
+        protected override void OnLeave(System.EventArgs e)
         {
             base.OnLeave(e);
             watermark.Brush = new SolidBrush(watermark.InactiveColor);
@@ -521,7 +458,7 @@
             Invalidate();
         }
 
-        protected override void OnLostFocus(EventArgs e)
+        protected override void OnLostFocus(System.EventArgs e)
         {
             SuspendLayout();
             Update();
@@ -530,14 +467,14 @@
             Invalidate();
         }
 
-        protected override void OnMouseHover(EventArgs e)
+        protected override void OnMouseHover(System.EventArgs e)
         {
             base.OnMouseHover(e);
             mouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
             mouseState = MouseStates.Normal;
@@ -566,7 +503,7 @@
                 controlCheckTemp = controlDisabledGradient;
             }
 
-            var gradientPoints = new[] { new Point { X = ClientRectangle.Width, Y = 0 }, new Point { X = ClientRectangle.Width, Y = ClientRectangle.Height } };
+            var gradientPoints = new[] {new Point {X = ClientRectangle.Width, Y = 0}, new Point {X = ClientRectangle.Width, Y = ClientRectangle.Height}};
             LinearGradientBrush gradientBackgroundBrush = Gradient.CreateGradientBrush(controlCheckTemp.Colors, gradientPoints, controlCheckTemp.Angle, controlCheckTemp.Positions);
             graphics.FillPath(gradientBackgroundBrush, controlGraphicsPath);
 
@@ -594,10 +531,10 @@
             DrawSeparator(graphics, buttonRectangle);
 
             StringFormat stringFormat = new StringFormat
-                {
-                    Alignment = textAlignment,
-                    LineAlignment = StringAlignment.Center
-                };
+            {
+                Alignment = textAlignment,
+                LineAlignment = StringAlignment.Center
+            };
 
             ConfigureDirection(textBoxRectangle, buttonRectangle);
             graphics.DrawString(Text, Font, new SolidBrush(foreColor), textBoxRectangle, stringFormat);
@@ -608,7 +545,7 @@
             }
         }
 
-        protected override void OnSelectionChangeCommitted(EventArgs e)
+        protected override void OnSelectionChangeCommitted(System.EventArgs e)
         {
             OnLostFocus(e);
         }
@@ -650,20 +587,20 @@
                 switch (buttonStyles)
                 {
                     case DropDownButtons.Arrow:
-                        {
-                            buttonImageSize = new Size(10, 8);
-                            buttonImagePoint = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - (buttonImageSize.Height / 2));
-                            GDI.DrawTriangle(graphics, new Rectangle(buttonImagePoint, buttonImageSize), new SolidBrush(buttonColor), false);
-                            break;
-                        }
+                    {
+                        buttonImageSize = new Size(10, 8);
+                        buttonImagePoint = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - (buttonImageSize.Height / 2));
+                        GDI.DrawTriangle(graphics, new Rectangle(buttonImagePoint, buttonImageSize), new SolidBrush(buttonColor), false);
+                        break;
+                    }
 
                     case DropDownButtons.Bars:
-                        {
-                            buttonImageSize = new Size(18, 10);
-                            buttonImagePoint = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - buttonImageSize.Height);
-                            Bars.DrawBars(graphics, buttonImagePoint, buttonImageSize, buttonColor, 3, 5);
-                            break;
-                        }
+                    {
+                        buttonImageSize = new Size(18, 10);
+                        buttonImagePoint = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - buttonImageSize.Height);
+                        Bars.DrawBars(graphics, buttonImagePoint, buttonImageSize, buttonColor, 3, 5);
+                        break;
+                    }
                 }
             }
         }

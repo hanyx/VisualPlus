@@ -1,12 +1,12 @@
-﻿namespace VisualPlus.Managers
+﻿#region Namespace
+
+using System;
+using System.Globalization;
+
+#endregion
+
+namespace VisualPlus.Managers
 {
-    #region Namespace
-
-    using System;
-    using System.Globalization;
-
-    #endregion
-
     internal class MathManager
     {
         #region Events
@@ -16,7 +16,7 @@
         /// <returns>Returns radian.</returns>
         public static float DegreeToRadians(float angle)
         {
-            return (float)((angle * Math.PI) / 180);
+            return (float) ((angle * Math.PI) / 180);
         }
 
         /// <summary>Gets the progress fraction.</summary>
@@ -50,7 +50,7 @@
         /// <returns>Returns degree.</returns>
         public static float RadianToDegree(float angle)
         {
-            return (float)(angle * (180.0 / Math.PI));
+            return (float) (angle * (180.0 / Math.PI));
         }
 
         #endregion

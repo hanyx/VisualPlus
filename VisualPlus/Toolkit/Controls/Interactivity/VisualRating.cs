@@ -1,19 +1,18 @@
-﻿namespace VisualPlus.Toolkit.Controls.Interactivity
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using VisualPlus.Localization.Category;
+using VisualPlus.Managers;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Interactivity
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Windows.Forms;
-
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Managers;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(Control))]
     [DefaultEvent("RatingChanged")]
@@ -43,7 +42,7 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualRating"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualRating" /> class.</summary>
         public VisualRating()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer, true);
@@ -80,10 +79,7 @@
         [DefaultValue(false)]
         public bool AllowHalfStar
         {
-            get
-            {
-                return allowHalfStar;
-            }
+            get { return allowHalfStar; }
 
             set
             {
@@ -93,7 +89,7 @@
                 if (disabled)
                 {
                     // Only set rating if half star was enabled and now disabled
-                    Value = (int)(Value + 0.5);
+                    Value = (int) (Value + 0.5);
                 }
             }
         }
@@ -103,10 +99,7 @@
         [DefaultValue(5)]
         public int Maximum
         {
-            get
-            {
-                return maximum;
-            }
+            get { return maximum; }
 
             set
             {
@@ -124,10 +117,7 @@
         [Browsable(false)]
         public float MouseOverStarIndex
         {
-            get
-            {
-                return mouseOverIndex;
-            }
+            get { return mouseOverIndex; }
         }
 
         /// <summary>
@@ -138,10 +128,7 @@
         [DefaultValue(StarType.Thick)]
         public StarType RatingType
         {
-            get
-            {
-                return ratingType;
-            }
+            get { return ratingType; }
 
             set
             {
@@ -155,10 +142,7 @@
         [DefaultValue(typeof(Color), "Gold")]
         public Color StarBorderColor
         {
-            get
-            {
-                return starStroke.Color;
-            }
+            get { return starStroke.Color; }
 
             set
             {
@@ -175,10 +159,7 @@
         [DefaultValue(3f)]
         public float StarBorderWidth
         {
-            get
-            {
-                return starStroke.Width;
-            }
+            get { return starStroke.Width; }
 
             set
             {
@@ -192,15 +173,9 @@
         [Browsable(false)]
         public SolidBrush StarBrush
         {
-            get
-            {
-                return starBrush;
-            }
+            get { return starBrush; }
 
-            set
-            {
-                starBrush = value;
-            }
+            set { starBrush = value; }
         }
 
         [Description("The color to use for the star when they are illuminated")]
@@ -208,10 +183,7 @@
         [DefaultValue(typeof(Color), "Yellow")]
         public Color StarColor
         {
-            get
-            {
-                return starBrush.Color;
-            }
+            get { return starBrush.Color; }
 
             set
             {
@@ -225,10 +197,7 @@
         [DefaultValue(typeof(Color), "Gray")]
         public Color StarDullBorderColor
         {
-            get
-            {
-                return starDullStroke.Color;
-            }
+            get { return starDullStroke.Color; }
 
             set
             {
@@ -240,15 +209,9 @@
         [Browsable(false)]
         public SolidBrush StarDullBrush
         {
-            get
-            {
-                return starDullBrush;
-            }
+            get { return starDullBrush; }
 
-            set
-            {
-                starDullBrush = value;
-            }
+            set { starDullBrush = value; }
         }
 
         [Description("The color to use for the stars when they are not illuminated")]
@@ -256,10 +219,7 @@
         [DefaultValue(typeof(Color), "Silver")]
         public Color StarDullColor
         {
-            get
-            {
-                return starDullBrush.Color;
-            }
+            get { return starDullBrush.Color; }
 
             set
             {
@@ -271,15 +231,9 @@
         [Browsable(false)]
         public Pen StarDullStroke
         {
-            get
-            {
-                return starDullStroke;
-            }
+            get { return starDullStroke; }
 
-            set
-            {
-                starDullStroke = value;
-            }
+            set { starDullStroke = value; }
         }
 
         [Description("The amount of space between each star")]
@@ -287,10 +241,7 @@
         [DefaultValue(1)]
         public int StarSpacing
         {
-            get
-            {
-                return starSpacing;
-            }
+            get { return starSpacing; }
 
             set
             {
@@ -303,15 +254,9 @@
         [Browsable(false)]
         public Pen StarStroke
         {
-            get
-            {
-                return starStroke;
-            }
+            get { return starStroke; }
 
-            set
-            {
-                starStroke = value;
-            }
+            set { starStroke = value; }
         }
 
         [Description("The width and height of the star in pixels (not including the border)")]
@@ -319,10 +264,7 @@
         [DefaultValue(25)]
         public int StarWidth
         {
-            get
-            {
-                return starWidth;
-            }
+            get { return starWidth; }
 
             set
             {
@@ -337,10 +279,7 @@
         [DefaultValue(0f)]
         public float Value
         {
-            get
-            {
-                return value;
-            }
+            get { return value; }
 
             set
             {
@@ -361,7 +300,7 @@
                     }
                     else
                     {
-                        value = (int)(value + 0.5f);
+                        value = (int) (value + 0.5f);
                     }
                 }
 
@@ -388,28 +327,19 @@
         /// <summary>Gets all of the spacing between the stars.</summary>
         private int TotalSpacing
         {
-            get
-            {
-                return (maximum - 1) * starSpacing;
-            }
+            get { return (maximum - 1) * starSpacing; }
         }
 
         /// <summary>Gets the sum of all star widths.</summary>
         private int TotalStarWidth
         {
-            get
-            {
-                return maximum * starWidth;
-            }
+            get { return maximum * starWidth; }
         }
 
         /// <summary>Gets the sum of the width of the stroke for each star.</summary>
         private float TotalStrokeWidth
         {
-            get
-            {
-                return maximum * starStroke.Width;
-            }
+            get { return maximum * starStroke.Width; }
         }
 
         #endregion
@@ -429,7 +359,7 @@
             }
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
             if (value > 0)
@@ -469,7 +399,7 @@
             bufferedGraphics.Render(e.Graphics);
         }
 
-        protected override void OnSizeChanged(EventArgs e)
+        protected override void OnSizeChanged(System.EventArgs e)
         {
             UpdateSize();
             UpdateGraphicsBuffer();
@@ -481,17 +411,17 @@
         private static PointF[] GetDetailedSemiStar(RectangleF rect)
         {
             return new[]
-                {
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f)),
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 1f)),
-                    new PointF(rect.X + (rect.Width * 0.4f), rect.Y + (rect.Height * 0.73f)),
-                    new PointF(rect.X + (rect.Width * 0.17f), rect.Y + (rect.Height * 0.83f)),
-                    new PointF(rect.X + (rect.Width * 0.27f), rect.Y + (rect.Height * 0.6f)),
-                    new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.5f)),
-                    new PointF(rect.X + (rect.Width * 0.27f), rect.Y + (rect.Height * 0.4f)),
-                    new PointF(rect.X + (rect.Width * 0.17f), rect.Y + (rect.Height * 0.17f)),
-                    new PointF(rect.X + (rect.Width * 0.4f), rect.Y + (rect.Height * 0.27f))
-                };
+            {
+                new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f)),
+                new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 1f)),
+                new PointF(rect.X + (rect.Width * 0.4f), rect.Y + (rect.Height * 0.73f)),
+                new PointF(rect.X + (rect.Width * 0.17f), rect.Y + (rect.Height * 0.83f)),
+                new PointF(rect.X + (rect.Width * 0.27f), rect.Y + (rect.Height * 0.6f)),
+                new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.5f)),
+                new PointF(rect.X + (rect.Width * 0.27f), rect.Y + (rect.Height * 0.4f)),
+                new PointF(rect.X + (rect.Width * 0.17f), rect.Y + (rect.Height * 0.17f)),
+                new PointF(rect.X + (rect.Width * 0.4f), rect.Y + (rect.Height * 0.27f))
+            };
         }
 
         /// <summary>Gets a detailed star polygon as a point[].</summary>
@@ -500,24 +430,24 @@
         private static PointF[] GetDetailedStar(RectangleF rect)
         {
             return new[]
-                {
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f)),
-                    new PointF(rect.X + (rect.Width * 0.6f), rect.Y + (rect.Height * 0.27f)),
-                    new PointF(rect.X + (rect.Width * 0.83f), rect.Y + (rect.Height * 0.17f)),
-                    new PointF(rect.X + (rect.Width * 0.73f), rect.Y + (rect.Height * 0.4f)),
-                    new PointF(rect.X + (rect.Width * 1f), rect.Y + (rect.Height * 0.5f)),
-                    new PointF(rect.X + (rect.Width * 0.73f), rect.Y + (rect.Height * 0.6f)),
-                    new PointF(rect.X + (rect.Width * 0.83f), rect.Y + (rect.Height * 0.83f)),
-                    new PointF(rect.X + (rect.Width * 0.6f), rect.Y + (rect.Height * 0.73f)),
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 1f)),
-                    new PointF(rect.X + (rect.Width * 0.4f), rect.Y + (rect.Height * 0.73f)),
-                    new PointF(rect.X + (rect.Width * 0.17f), rect.Y + (rect.Height * 0.83f)),
-                    new PointF(rect.X + (rect.Width * 0.27f), rect.Y + (rect.Height * 0.6f)),
-                    new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.5f)),
-                    new PointF(rect.X + (rect.Width * 0.27f), rect.Y + (rect.Height * 0.4f)),
-                    new PointF(rect.X + (rect.Width * 0.17f), rect.Y + (rect.Height * 0.17f)),
-                    new PointF(rect.X + (rect.Width * 0.4f), rect.Y + (rect.Height * 0.27f))
-                };
+            {
+                new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f)),
+                new PointF(rect.X + (rect.Width * 0.6f), rect.Y + (rect.Height * 0.27f)),
+                new PointF(rect.X + (rect.Width * 0.83f), rect.Y + (rect.Height * 0.17f)),
+                new PointF(rect.X + (rect.Width * 0.73f), rect.Y + (rect.Height * 0.4f)),
+                new PointF(rect.X + (rect.Width * 1f), rect.Y + (rect.Height * 0.5f)),
+                new PointF(rect.X + (rect.Width * 0.73f), rect.Y + (rect.Height * 0.6f)),
+                new PointF(rect.X + (rect.Width * 0.83f), rect.Y + (rect.Height * 0.83f)),
+                new PointF(rect.X + (rect.Width * 0.6f), rect.Y + (rect.Height * 0.73f)),
+                new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 1f)),
+                new PointF(rect.X + (rect.Width * 0.4f), rect.Y + (rect.Height * 0.73f)),
+                new PointF(rect.X + (rect.Width * 0.17f), rect.Y + (rect.Height * 0.83f)),
+                new PointF(rect.X + (rect.Width * 0.27f), rect.Y + (rect.Height * 0.6f)),
+                new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.5f)),
+                new PointF(rect.X + (rect.Width * 0.27f), rect.Y + (rect.Height * 0.4f)),
+                new PointF(rect.X + (rect.Width * 0.17f), rect.Y + (rect.Height * 0.17f)),
+                new PointF(rect.X + (rect.Width * 0.4f), rect.Y + (rect.Height * 0.27f))
+            };
         }
 
         /// <summary>Gets half of a fat star polygon as a point[].</summary>
@@ -526,14 +456,14 @@
         private static PointF[] GetFatSemiStar(RectangleF rect)
         {
             return new[]
-                {
-                    new PointF(rect.X + (rect.Width * 0.31f), rect.Y + (rect.Height * 0.33f)),
-                    new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.37f)),
-                    new PointF(rect.X + (rect.Width * 0.25f), rect.Y + (rect.Height * 0.62f)),
-                    new PointF(rect.X + (rect.Width * 0.19f), rect.Y + (rect.Height * 1f)),
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0.81f)),
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f))
-                };
+            {
+                new PointF(rect.X + (rect.Width * 0.31f), rect.Y + (rect.Height * 0.33f)),
+                new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.37f)),
+                new PointF(rect.X + (rect.Width * 0.25f), rect.Y + (rect.Height * 0.62f)),
+                new PointF(rect.X + (rect.Width * 0.19f), rect.Y + (rect.Height * 1f)),
+                new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0.81f)),
+                new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f))
+            };
         }
 
         /// <summary>Gets a fat star polygon as a point[].</summary>
@@ -542,18 +472,18 @@
         private static PointF[] GetFatStar(RectangleF rect)
         {
             return new[]
-                {
-                    new PointF(rect.X + (rect.Width * 0.31f), rect.Y + (rect.Height * 0.33f)),
-                    new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.37f)),
-                    new PointF(rect.X + (rect.Width * 0.25f), rect.Y + (rect.Height * 0.62f)),
-                    new PointF(rect.X + (rect.Width * 0.19f), rect.Y + (rect.Height * 1f)),
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0.81f)),
-                    new PointF(rect.X + (rect.Width * 0.81f), rect.Y + (rect.Height * 1f)),
-                    new PointF(rect.X + (rect.Width * 0.75f), rect.Y + (rect.Height * 0.62f)),
-                    new PointF(rect.X + (rect.Width * 1f), rect.Y + (rect.Height * 0.37f)),
-                    new PointF(rect.X + (rect.Width * 0.69f), rect.Y + (rect.Height * 0.33f)),
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f))
-                };
+            {
+                new PointF(rect.X + (rect.Width * 0.31f), rect.Y + (rect.Height * 0.33f)),
+                new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.37f)),
+                new PointF(rect.X + (rect.Width * 0.25f), rect.Y + (rect.Height * 0.62f)),
+                new PointF(rect.X + (rect.Width * 0.19f), rect.Y + (rect.Height * 1f)),
+                new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0.81f)),
+                new PointF(rect.X + (rect.Width * 0.81f), rect.Y + (rect.Height * 1f)),
+                new PointF(rect.X + (rect.Width * 0.75f), rect.Y + (rect.Height * 0.62f)),
+                new PointF(rect.X + (rect.Width * 1f), rect.Y + (rect.Height * 0.37f)),
+                new PointF(rect.X + (rect.Width * 0.69f), rect.Y + (rect.Height * 0.33f)),
+                new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f))
+            };
         }
 
         /// <summary>Gets half of a typical thin star polygon as a point[].</summary>
@@ -562,14 +492,14 @@
         private static PointF[] GetNormalSemiStar(RectangleF rect)
         {
             return new[]
-                {
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f)),
-                    new PointF(rect.X + (rect.Width * 0.38f), rect.Y + (rect.Height * 0.38f)),
-                    new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.38f)),
-                    new PointF(rect.X + (rect.Width * 0.31f), rect.Y + (rect.Height * 0.61f)),
-                    new PointF(rect.X + (rect.Width * 0.19f), rect.Y + (rect.Height * 1f)),
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0.77f))
-                };
+            {
+                new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f)),
+                new PointF(rect.X + (rect.Width * 0.38f), rect.Y + (rect.Height * 0.38f)),
+                new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.38f)),
+                new PointF(rect.X + (rect.Width * 0.31f), rect.Y + (rect.Height * 0.61f)),
+                new PointF(rect.X + (rect.Width * 0.19f), rect.Y + (rect.Height * 1f)),
+                new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0.77f))
+            };
         }
 
         /// <summary>Gets a typical thin star polygon as a point[].</summary>
@@ -578,18 +508,18 @@
         private static PointF[] GetNormalStar(RectangleF rect)
         {
             return new[]
-                {
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f)),
-                    new PointF(rect.X + (rect.Width * 0.38f), rect.Y + (rect.Height * 0.38f)),
-                    new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.38f)),
-                    new PointF(rect.X + (rect.Width * 0.31f), rect.Y + (rect.Height * 0.61f)),
-                    new PointF(rect.X + (rect.Width * 0.19f), rect.Y + (rect.Height * 1f)),
-                    new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0.77f)),
-                    new PointF(rect.X + (rect.Width * 0.8f), rect.Y + (rect.Height * 1f)),
-                    new PointF(rect.X + (rect.Width * 0.69f), rect.Y + (rect.Height * 0.61f)),
-                    new PointF(rect.X + (rect.Width * 1f), rect.Y + (rect.Height * 0.38f)),
-                    new PointF(rect.X + (rect.Width * 0.61f), rect.Y + (rect.Height * 0.38f))
-                };
+            {
+                new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0f)),
+                new PointF(rect.X + (rect.Width * 0.38f), rect.Y + (rect.Height * 0.38f)),
+                new PointF(rect.X + (rect.Width * 0f), rect.Y + (rect.Height * 0.38f)),
+                new PointF(rect.X + (rect.Width * 0.31f), rect.Y + (rect.Height * 0.61f)),
+                new PointF(rect.X + (rect.Width * 0.19f), rect.Y + (rect.Height * 1f)),
+                new PointF(rect.X + (rect.Width * 0.5f), rect.Y + (rect.Height * 0.77f)),
+                new PointF(rect.X + (rect.Width * 0.8f), rect.Y + (rect.Height * 1f)),
+                new PointF(rect.X + (rect.Width * 0.69f), rect.Y + (rect.Height * 0.61f)),
+                new PointF(rect.X + (rect.Width * 1f), rect.Y + (rect.Height * 0.38f)),
+                new PointF(rect.X + (rect.Width * 0.61f), rect.Y + (rect.Height * 0.38f))
+            };
         }
 
         /// <summary>Rounds precise numbers to a number no more precise than .5.</summary>
@@ -597,7 +527,7 @@
         /// <returns>Star shape.</returns>
         private static float RoundToNearestHalf(float f)
         {
-            return (float)Math.Round(f / 5.0, 1) * 5f;
+            return (float) Math.Round(f / 5.0, 1) * 5f;
         }
 
         private void DrawDullStars()
@@ -681,7 +611,7 @@
         {
             if (allowHalfStar)
             {
-                float widthSection = Width / (float)maximum / 2f;
+                float widthSection = Width / (float) maximum / 2f;
 
                 for (var i = 0f; i < maximum; i += 0.5f)
                 {
@@ -698,7 +628,7 @@
             }
             else
             {
-                var widthSection = (int)((Width / (double)maximum) + 0.5);
+                var widthSection = (int) ((Width / (double) maximum) + 0.5);
 
                 for (var i = 0; i < maximum; i++)
                 {
@@ -739,12 +669,12 @@
 
         private void OnRatingChanged()
         {
-            RatingChanged?.Invoke(this, EventArgs.Empty);
+            RatingChanged?.Invoke(this, System.EventArgs.Empty);
         }
 
         private void OnStarsPanned()
         {
-            StarsPanned?.Invoke(this, EventArgs.Empty);
+            StarsPanned?.Invoke(this, System.EventArgs.Empty);
         }
 
         private void SetPenBrushDefaults()
@@ -767,8 +697,8 @@
 
         private void UpdateSize()
         {
-            var height = (int)(starWidth + starStroke.Width + 0.5);
-            var width = (int)(TotalStarWidth + TotalSpacing + TotalStrokeWidth + 0.5);
+            var height = (int) (starWidth + starStroke.Width + 0.5);
+            var width = (int) (TotalStarWidth + TotalSpacing + TotalStrokeWidth + 0.5);
             Size = new Size(width, height);
         }
 

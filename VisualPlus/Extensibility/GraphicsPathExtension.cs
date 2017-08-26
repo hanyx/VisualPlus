@@ -1,15 +1,14 @@
-﻿namespace VisualPlus.Extensibility
+﻿#region Namespace
+
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+
+#endregion
+
+namespace VisualPlus.Extensibility
 {
-    #region Namespace
-
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-
-    #endregion
-
     public static class GraphicsPathExtension
     {
         #region Events

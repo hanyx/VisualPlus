@@ -1,20 +1,18 @@
-﻿namespace VisualPlus.Structure
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Globalization;
+using VisualPlus.Delegates;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+
+#endregion
+
+namespace VisualPlus.Structure
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Globalization;
-
-    using VisualPlus.Delegates;
-    using VisualPlus.Localization.Category;
-
-    using Property = VisualPlus.Localization.Descriptions.Property;
-
-    #endregion
-
     [Description("The gradient.")]
     [TypeConverter(typeof(GradientConverter))]
     public class Gradient
@@ -33,13 +31,13 @@
         public Gradient()
         {
             var _defaultColors = new[]
-                {
-                    Color.Red,
-                    Color.Green,
-                    Color.Blue
-                };
+            {
+                Color.Red,
+                Color.Green,
+                Color.Blue
+            };
 
-            var _defaultPosition = new[] { 0, 1 / 2f, 1 };
+            var _defaultPosition = new[] {0, 1 / 2f, 1};
 
             ConstructGradient(_defaultColors, _defaultPosition, 0);
         }
@@ -62,15 +60,15 @@
         }
 
         [Category(Events.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
+        [Description(Event.PropertyEventChanged)]
         public event GradientAngleChangedEventHandler AngleChanged;
 
         [Category(Events.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
+        [Description(Event.PropertyEventChanged)]
         public event GradientColorChangedEventHandler ColorsChanged;
 
         [Category(Events.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
+        [Description(Event.PropertyEventChanged)]
         public event GradientPositionsChangedEventHandler PositionsChanged;
 
         #endregion
@@ -79,13 +77,10 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Gradient.Angle)]
+        [Description(Property.Angle)]
         public float Angle
         {
-            get
-            {
-                return _angle;
-            }
+            get { return _angle; }
 
             set
             {
@@ -96,13 +91,10 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Gradient.Colors)]
+        [Description(Property.Colors)]
         public Color[] Colors
         {
-            get
-            {
-                return _colors;
-            }
+            get { return _colors; }
 
             set
             {
@@ -113,13 +105,10 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Gradient.Positions)]
+        [Description(Property.Positions)]
         public float[] Positions
         {
-            get
-            {
-                return _positions;
-            }
+            get { return _positions; }
 
             set
             {
@@ -143,10 +132,10 @@
             LinearGradientBrush linearGradientBrush = new LinearGradientBrush(points[0], points[1], Color.Black, Color.Black);
 
             ColorBlend colorBlend = new ColorBlend
-                {
-                    Positions = positions,
-                    Colors = colors
-                };
+            {
+                Positions = positions,
+                Colors = colors
+            };
 
             linearGradientBrush.InterpolationColors = colorBlend;
             linearGradientBrush.RotateTransform(angle);

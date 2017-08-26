@@ -1,18 +1,17 @@
-﻿namespace VisualPlus.Renders
+﻿#region Namespace
+
+using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
+using VisualPlus.Enumerators;
+using VisualPlus.Extensibility;
+using VisualPlus.Structure;
+
+#endregion
+
+namespace VisualPlus.Renders
 {
-    #region Namespace
-
-    using System;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Text;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Extensibility;
-    using VisualPlus.Structure;
-
-    #endregion
-
     public sealed class VisualToggleRenderer
     {
         #region Events
@@ -103,27 +102,27 @@
             switch (checkmark.Style)
             {
                 case Checkmark.CheckType.Character:
-                    {
-                        graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
-                        graphics.DrawString(checkmark.Character.ToString(), checkmark.Font, checkmarkBrush, tempPoint);
-                        graphics.TextRenderingHint = TextRenderingHint.SystemDefault;
-                        break;
-                    }
+                {
+                    graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+                    graphics.DrawString(checkmark.Character.ToString(), checkmark.Font, checkmarkBrush, tempPoint);
+                    graphics.TextRenderingHint = TextRenderingHint.SystemDefault;
+                    break;
+                }
 
                 case Checkmark.CheckType.Image:
-                    {
-                        Rectangle checkImageRectangle = new Rectangle(tempPoint, checkmark.ImageSize);
-                        graphics.DrawImage(checkImage, checkImageRectangle);
-                        break;
-                    }
+                {
+                    Rectangle checkImageRectangle = new Rectangle(tempPoint, checkmark.ImageSize);
+                    graphics.DrawImage(checkImage, checkImageRectangle);
+                    break;
+                }
 
                 case Checkmark.CheckType.Shape:
-                    {
-                        Rectangle shapeRectangle = new Rectangle(tempPoint, checkmark.ShapeSize);
-                        GraphicsPath shapePath = VisualBorderRenderer.GetBorderShape(shapeRectangle, checkmark.ShapeType, checkmark.ShapeRounding);
-                        graphics.FillPath(checkmarkBrush, shapePath);
-                        break;
-                    }
+                {
+                    Rectangle shapeRectangle = new Rectangle(tempPoint, checkmark.ShapeSize);
+                    GraphicsPath shapePath = VisualBorderRenderer.GetBorderShape(shapeRectangle, checkmark.ShapeType, checkmark.ShapeRounding);
+                    graphics.FillPath(checkmarkBrush, shapePath);
+                    break;
+                }
 
                 default:
                     throw new ArgumentOutOfRangeException();

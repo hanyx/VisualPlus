@@ -1,24 +1,24 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataManagement
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Design;
+using System.Drawing.Drawing2D;
+using System.Globalization;
+using System.Windows.Forms;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.ActionList;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataManagement
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Design;
-    using System.Drawing.Drawing2D;
-    using System.Globalization;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.ActionList;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
+   
 
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ListView))]
@@ -44,7 +44,7 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualListView"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualListView" /> class.</summary>
         public VisualListView()
         {
             // Contains another control
@@ -56,21 +56,21 @@
             headerFont = StyleManager.Font;
             _border = new Border();
             _listView = new ListView
-                {
-                    BackColor = Background,
-                    Size = GetInternalControlSize(Size, _border),
-                    BorderStyle = BorderStyle.None,
-                    View = View.Details,
-                    MultiSelect = false,
-                    LabelEdit = false,
-                    AllowColumnReorder = false,
-                    CheckBoxes = false,
-                    FullRowSelect = true,
-                    GridLines = true,
-                    HeaderStyle = ColumnHeaderStyle.Nonclickable,
-                    OwnerDraw = true,
-                    Location = GetInternalControlLocation(_border)
-                };
+            {
+                BackColor = Background,
+                Size = GetInternalControlSize(Size, _border),
+                BorderStyle = BorderStyle.None,
+                View = View.Details,
+                MultiSelect = false,
+                LabelEdit = false,
+                AllowColumnReorder = false,
+                CheckBoxes = false,
+                FullRowSelect = true,
+                GridLines = true,
+                HeaderStyle = ColumnHeaderStyle.Nonclickable,
+                OwnerDraw = true,
+                Location = GetInternalControlLocation(_border)
+            };
 
             AutoSize = true;
             BackColor = Color.Transparent;
@@ -96,23 +96,14 @@
         [DefaultValue(false)]
         public virtual bool AllowColumnReorder
         {
-            get
-            {
-                return _listView.AllowColumnReorder;
-            }
+            get { return _listView.AllowColumnReorder; }
 
-            set
-            {
-                _listView.AllowColumnReorder = value;
-            }
+            set { _listView.AllowColumnReorder = value; }
         }
 
         public new Color Background
         {
-            get
-            {
-                return base.Background;
-            }
+            get { return base.Background; }
 
             set
             {
@@ -126,10 +117,7 @@
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get
-            {
-                return _border;
-            }
+            get { return _border; }
 
             set
             {
@@ -143,10 +131,7 @@
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public virtual ListView.CheckedIndexCollection CheckedIndices
         {
-            get
-            {
-                return _listView.CheckedIndices;
-            }
+            get { return _listView.CheckedIndices; }
         }
 
         [Browsable(false)]
@@ -154,20 +139,14 @@
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public virtual ListView.CheckedListViewItemCollection CheckedItems
         {
-            get
-            {
-                return _listView.CheckedItems;
-            }
+            get { return _listView.CheckedItems; }
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color ColumnHeaderColor
         {
-            get
-            {
-                return _columnHeaderColor;
-            }
+            get { return _columnHeaderColor; }
 
             set
             {
@@ -184,10 +163,7 @@
         [Localizable(true)]
         public virtual ListView.ColumnHeaderCollection Columns
         {
-            get
-            {
-                return _listView.Columns;
-            }
+            get { return _listView.Columns; }
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -196,10 +172,7 @@
         [Description("Gets access to the contained control.")]
         public ListView ContainedControl
         {
-            get
-            {
-                return _listView;
-            }
+            get { return _listView; }
         }
 
         [Category("Appearance")]
@@ -207,15 +180,9 @@
         [DefaultValue(true)]
         public virtual bool FullRowSelect
         {
-            get
-            {
-                return _listView.FullRowSelect;
-            }
+            get { return _listView.FullRowSelect; }
 
-            set
-            {
-                _listView.FullRowSelect = value;
-            }
+            set { _listView.FullRowSelect = value; }
         }
 
         [Category("Appearance")]
@@ -223,15 +190,9 @@
         [DefaultValue(true)]
         public virtual bool GridLines
         {
-            get
-            {
-                return _listView.GridLines;
-            }
+            get { return _listView.GridLines; }
 
-            set
-            {
-                _listView.GridLines = value;
-            }
+            set { _listView.GridLines = value; }
         }
 
         [Category("Data")]
@@ -242,20 +203,14 @@
         [Localizable(true)]
         public virtual ListViewGroupCollection Groups
         {
-            get
-            {
-                return _listView.Groups;
-            }
+            get { return _listView.Groups; }
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Strings.Font)]
+        [Description(Property.Font)]
         public Font HeaderFont
         {
-            get
-            {
-                return headerFont;
-            }
+            get { return headerFont; }
 
             set
             {
@@ -269,25 +224,16 @@
         [DefaultValue(true)]
         public virtual ColumnHeaderStyle HeaderStyle
         {
-            get
-            {
-                return _listView.HeaderStyle;
-            }
+            get { return _listView.HeaderStyle; }
 
-            set
-            {
-                _listView.HeaderStyle = value;
-            }
+            set { _listView.HeaderStyle = value; }
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color HeaderText
         {
-            get
-            {
-                return headerText;
-            }
+            get { return headerText; }
 
             set
             {
@@ -301,15 +247,9 @@
         [DefaultValue(true)]
         public virtual bool HideSelection
         {
-            get
-            {
-                return _listView.HideSelection;
-            }
+            get { return _listView.HideSelection; }
 
-            set
-            {
-                _listView.HideSelection = value;
-            }
+            set { _listView.HideSelection = value; }
         }
 
         [Category("Behaviour")]
@@ -317,15 +257,9 @@
         [DefaultValue(false)]
         public virtual bool HotTracking
         {
-            get
-            {
-                return _listView.HotTracking;
-            }
+            get { return _listView.HotTracking; }
 
-            set
-            {
-                _listView.HotTracking = value;
-            }
+            set { _listView.HotTracking = value; }
         }
 
         [Category("Behaviour")]
@@ -333,25 +267,16 @@
         [DefaultValue(false)]
         public virtual bool HoverSelection
         {
-            get
-            {
-                return _listView.HoverSelection;
-            }
+            get { return _listView.HoverSelection; }
 
-            set
-            {
-                _listView.HoverSelection = value;
-            }
+            set { _listView.HoverSelection = value; }
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color ItemBackground
         {
-            get
-            {
-                return itemBackground;
-            }
+            get { return itemBackground; }
 
             set
             {
@@ -363,10 +288,7 @@
         [Category(Propertys.Appearance)]
         public int ItemPadding
         {
-            get
-            {
-                return itemPadding;
-            }
+            get { return itemPadding; }
 
             set
             {
@@ -383,20 +305,14 @@
         [Localizable(true)]
         public virtual ListView.ListViewItemCollection Items
         {
-            get
-            {
-                return _listView.Items;
-            }
+            get { return _listView.Items; }
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color ItemSelectedColor
         {
-            get
-            {
-                return _itemSelected;
-            }
+            get { return _itemSelected; }
 
             set
             {
@@ -410,15 +326,9 @@
         [DefaultValue(false)]
         public virtual bool LabelEdit
         {
-            get
-            {
-                return _listView.LabelEdit;
-            }
+            get { return _listView.LabelEdit; }
 
-            set
-            {
-                _listView.LabelEdit = value;
-            }
+            set { _listView.LabelEdit = value; }
         }
 
         [Category("Behaviour")]
@@ -426,15 +336,9 @@
         [DefaultValue(false)]
         public virtual bool LabelWrap
         {
-            get
-            {
-                return _listView.LabelWrap;
-            }
+            get { return _listView.LabelWrap; }
 
-            set
-            {
-                _listView.LabelWrap = value;
-            }
+            set { _listView.LabelWrap = value; }
         }
 
         [Category("Behaviour")]
@@ -442,15 +346,9 @@
         [DefaultValue(false)]
         public virtual bool MultiSelect
         {
-            get
-            {
-                return _listView.MultiSelect;
-            }
+            get { return _listView.MultiSelect; }
 
-            set
-            {
-                _listView.MultiSelect = value;
-            }
+            set { _listView.MultiSelect = value; }
         }
 
         [Browsable(false)]
@@ -458,20 +356,14 @@
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ListView.SelectedIndexCollection SelectedIndices
         {
-            get
-            {
-                return _listView.SelectedIndices;
-            }
+            get { return _listView.SelectedIndices; }
         }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ListView.SelectedListViewItemCollection SelectedItems
         {
-            get
-            {
-                return _listView.SelectedItems;
-            }
+            get { return _listView.SelectedItems; }
         }
 
         [Category("Behaviour")]
@@ -479,15 +371,9 @@
         [DefaultValue(false)]
         public virtual bool ShowGroups
         {
-            get
-            {
-                return _listView.ShowGroups;
-            }
+            get { return _listView.ShowGroups; }
 
-            set
-            {
-                _listView.ShowGroups = value;
-            }
+            set { _listView.ShowGroups = value; }
         }
 
         [Category("Behavior")]
@@ -495,15 +381,9 @@
         [DefaultValue(false)]
         public virtual SortOrder Sorting
         {
-            get
-            {
-                return _listView.Sorting;
-            }
+            get { return _listView.Sorting; }
 
-            set
-            {
-                _listView.Sorting = value;
-            }
+            set { _listView.Sorting = value; }
         }
 
         [DefaultValue(false)]
@@ -511,10 +391,7 @@
         [Description("Draws the background of the column header.")]
         public bool StandardHeader
         {
-            get
-            {
-                return _standardHeader;
-            }
+            get { return _standardHeader; }
 
             set
             {
@@ -528,15 +405,9 @@
         [DefaultValue(false)]
         public virtual Size TileSize
         {
-            get
-            {
-                return _listView.TileSize;
-            }
+            get { return _listView.TileSize; }
 
-            set
-            {
-                _listView.TileSize = value;
-            }
+            set { _listView.TileSize = value; }
         }
 
         [Browsable(false)]
@@ -544,15 +415,9 @@
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ListViewItem TopItem
         {
-            get
-            {
-                return _listView.TopItem;
-            }
+            get { return _listView.TopItem; }
 
-            set
-            {
-                _listView.TopItem = value;
-            }
+            set { _listView.TopItem = value; }
         }
 
         [Category("Appearance")]
@@ -560,22 +425,16 @@
         [DefaultValue(false)]
         public virtual View View
         {
-            get
-            {
-                return _listView.View;
-            }
+            get { return _listView.View; }
 
-            set
-            {
-                _listView.View = value;
-            }
+            set { _listView.View = value; }
         }
 
         #endregion
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Enumerators.Styles style)
         {
             StyleManager = new VisualStyleManager(style);
             _border.Color = StyleManager.BorderStyle.Color;
@@ -614,7 +473,7 @@
             VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, MouseState, ControlGraphicsPath);
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(System.EventArgs e)
         {
             base.OnResize(e);
             _listView.Location = GetInternalControlLocation(_border);
@@ -624,12 +483,12 @@
         private static StringFormat GetStringFormat()
         {
             return new StringFormat
-                {
-                    FormatFlags = StringFormatFlags.LineLimit,
-                    Trimming = StringTrimming.EllipsisCharacter,
-                    Alignment = StringAlignment.Near,
-                    LineAlignment = StringAlignment.Center
-                };
+            {
+                FormatFlags = StringFormatFlags.LineLimit,
+                Trimming = StringTrimming.EllipsisCharacter,
+                Alignment = StringAlignment.Near,
+                LineAlignment = StringAlignment.Center
+            };
         }
 
         private void ListView_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
@@ -651,10 +510,10 @@
             }
 
             StringFormat _stringFormat = new StringFormat
-                {
-                    Alignment = StringAlignment.Center,
-                    LineAlignment = StringAlignment.Center
-                };
+            {
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
 
             Rectangle _textRectangle = new Rectangle(e.Bounds.X + itemPadding, e.Bounds.Y + itemPadding, e.Bounds.Width - (itemPadding * 2), e.Bounds.Height - (itemPadding * 2));
 
@@ -691,7 +550,7 @@
                 e.DrawText();
             }
 
-            e.Graphics.DrawImage((Image)bitmap.Clone(), new Point(0, e.Item.Bounds.Location.Y));
+            e.Graphics.DrawImage((Image) bitmap.Clone(), new Point(0, e.Item.Bounds.Location.Y));
             graphics.Dispose();
             bitmap.Dispose();
         }

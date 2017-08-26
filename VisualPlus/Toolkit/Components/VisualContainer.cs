@@ -1,15 +1,15 @@
-﻿namespace VisualPlus.Toolkit.Components
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Threading;
+using System.Windows.Forms;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Components
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Threading;
-    using System.Windows.Forms;
-
-    #endregion
-
     [ToolboxItem(false)]
     [Description("The Visual Container Component")]
     public class VisualContainer : ToolStripDropDown
@@ -39,18 +39,18 @@
             }
 
             ToolStripControlHost controlHost = new ToolStripControlHost(contextControl)
-                {
-                    AutoSize = false
-                };
+            {
+                AutoSize = false
+            };
 
             Padding = Margin = controlHost.Padding = controlHost.Margin = Padding.Empty;
             contextControl.Location = Point.Empty;
             Items.Add(controlHost);
             contextControl.Disposed += delegate
-                {
-                    contextControl = null;
-                    Dispose(true);
-                };
+            {
+                contextControl = null;
+                Dispose(true);
+            };
         }
 
         /// <summary>Prevents a default instance of the <see cref="VisualContainer" /> class from being created.</summary>
@@ -67,28 +67,16 @@
 
         public int Frames
         {
-            get
-            {
-                return _frames;
-            }
+            get { return _frames; }
 
-            set
-            {
-                _frames = value;
-            }
+            set { _frames = value; }
         }
 
         public int TotalDuration
         {
-            get
-            {
-                return _totalDuration;
-            }
+            get { return _totalDuration; }
 
-            set
-            {
-                _totalDuration = value;
-            }
+            set { _totalDuration = value; }
         }
 
         #endregion
@@ -115,7 +103,7 @@
             Show(form, new Rectangle(point, new Size(0, 0)));
         }
 
-        protected override void OnOpened(EventArgs e)
+        protected override void OnOpened(System.EventArgs e)
         {
             _userControl.Focus();
             base.OnOpened(e);

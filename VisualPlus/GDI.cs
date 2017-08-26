@@ -1,20 +1,19 @@
-﻿namespace VisualPlus
+﻿#region Namespace
+
+using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
+using System.Globalization;
+using System.Windows.Forms;
+using VisualPlus.Enumerators;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Controls.DataVisualization;
+
+#endregion
+
+namespace VisualPlus
 {
-    #region Namespace
-
-    using System;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Text;
-    using System.Globalization;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Controls.DataVisualization;
-
-    #endregion
-
     public sealed class GDI
     {
         #region Events
@@ -32,32 +31,32 @@
             switch (anchorStyle)
             {
                 case TabAlignment.Top:
-                    {
-                        anchoredLocation = new Point(baseRectangle.X, baseRectangle.Y);
-                        anchoredSize = new Size(baseRectangle.Width, anchorWidth);
-                        break;
-                    }
+                {
+                    anchoredLocation = new Point(baseRectangle.X, baseRectangle.Y);
+                    anchoredSize = new Size(baseRectangle.Width, anchorWidth);
+                    break;
+                }
 
                 case TabAlignment.Bottom:
-                    {
-                        anchoredLocation = new Point(baseRectangle.X, baseRectangle.Bottom - anchorWidth);
-                        anchoredSize = new Size(baseRectangle.Width, anchorWidth);
-                        break;
-                    }
+                {
+                    anchoredLocation = new Point(baseRectangle.X, baseRectangle.Bottom - anchorWidth);
+                    anchoredSize = new Size(baseRectangle.Width, anchorWidth);
+                    break;
+                }
 
                 case TabAlignment.Left:
-                    {
-                        anchoredLocation = new Point(baseRectangle.X, baseRectangle.Y);
-                        anchoredSize = new Size(anchorWidth, baseRectangle.Height);
-                        break;
-                    }
+                {
+                    anchoredLocation = new Point(baseRectangle.X, baseRectangle.Y);
+                    anchoredSize = new Size(anchorWidth, baseRectangle.Height);
+                    break;
+                }
 
                 case TabAlignment.Right:
-                    {
-                        anchoredLocation = new Point(baseRectangle.Right - anchorWidth, baseRectangle.Y);
-                        anchoredSize = new Size(anchorWidth, baseRectangle.Height);
-                        break;
-                    }
+                {
+                    anchoredLocation = new Point(baseRectangle.Right - anchorWidth, baseRectangle.Y);
+                    anchoredSize = new Size(anchorWidth, baseRectangle.Height);
+                    break;
+                }
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(anchorStyle), anchorStyle, null);
@@ -76,7 +75,7 @@
             {
                 if (control != null)
                 {
-                    ((Control)control).BackColor = backgroundColor;
+                    ((Control) control).BackColor = backgroundColor;
                 }
             }
         }
@@ -118,80 +117,80 @@
             switch (relation)
             {
                 case TextImageRelation.Overlay:
-                    {
-                        // Set center
-                        newPosition.X = outerBounds.Width / 2;
-                        newPosition.Y = outerBounds.Height / 2;
+                {
+                    // Set center
+                    newPosition.X = outerBounds.Width / 2;
+                    newPosition.Y = outerBounds.Height / 2;
 
-                        // Set image
-                        newImagePoint.X = newPosition.X - (imageRectangle.Width / 2);
-                        newImagePoint.Y = newPosition.Y - (imageRectangle.Height / 2);
+                    // Set image
+                    newImagePoint.X = newPosition.X - (imageRectangle.Width / 2);
+                    newImagePoint.Y = newPosition.Y - (imageRectangle.Height / 2);
 
-                        // Set text
-                        newTextPoint.X = newPosition.X - (textSize.Width / 2);
-                        newTextPoint.Y = newPosition.Y - (textSize.Height / 2);
-                        break;
-                    }
+                    // Set text
+                    newTextPoint.X = newPosition.X - (textSize.Width / 2);
+                    newTextPoint.Y = newPosition.Y - (textSize.Height / 2);
+                    break;
+                }
 
                 case TextImageRelation.ImageBeforeText:
-                    {
-                        // Set center
-                        newPosition.Y = outerBounds.Height / 2;
+                {
+                    // Set center
+                    newPosition.Y = outerBounds.Height / 2;
 
-                        // Set image
-                        newImagePoint.X = newPosition.X + 4;
-                        newImagePoint.Y = newPosition.Y - (imageRectangle.Height / 2);
+                    // Set image
+                    newImagePoint.X = newPosition.X + 4;
+                    newImagePoint.Y = newPosition.Y - (imageRectangle.Height / 2);
 
-                        // Set text
-                        newTextPoint.X = newImagePoint.X + imageRectangle.Width;
-                        newTextPoint.Y = newPosition.Y - (textSize.Height / 2);
-                        break;
-                    }
+                    // Set text
+                    newTextPoint.X = newImagePoint.X + imageRectangle.Width;
+                    newTextPoint.Y = newPosition.Y - (textSize.Height / 2);
+                    break;
+                }
 
                 case TextImageRelation.TextBeforeImage:
-                    {
-                        // Set center
-                        newPosition.Y = outerBounds.Height / 2;
+                {
+                    // Set center
+                    newPosition.Y = outerBounds.Height / 2;
 
-                        // Set text
-                        newTextPoint.X = newPosition.X + 4;
-                        newTextPoint.Y = newPosition.Y - (textSize.Height / 2);
+                    // Set text
+                    newTextPoint.X = newPosition.X + 4;
+                    newTextPoint.Y = newPosition.Y - (textSize.Height / 2);
 
-                        // Set image
-                        newImagePoint.X = newTextPoint.X + textSize.Width;
-                        newImagePoint.Y = newPosition.Y - (imageRectangle.Height / 2);
-                        break;
-                    }
+                    // Set image
+                    newImagePoint.X = newTextPoint.X + textSize.Width;
+                    newImagePoint.Y = newPosition.Y - (imageRectangle.Height / 2);
+                    break;
+                }
 
                 case TextImageRelation.ImageAboveText:
-                    {
-                        // Set center
-                        newPosition.X = outerBounds.Width / 2;
+                {
+                    // Set center
+                    newPosition.X = outerBounds.Width / 2;
 
-                        // Set image
-                        newImagePoint.X = newPosition.X - (imageRectangle.Width / 2);
-                        newImagePoint.Y = newPosition.Y + 4;
+                    // Set image
+                    newImagePoint.X = newPosition.X - (imageRectangle.Width / 2);
+                    newImagePoint.Y = newPosition.Y + 4;
 
-                        // Set text
-                        newTextPoint.X = newPosition.X - (textSize.Width / 2);
-                        newTextPoint.Y = newImagePoint.Y + imageRectangle.Height;
-                        break;
-                    }
+                    // Set text
+                    newTextPoint.X = newPosition.X - (textSize.Width / 2);
+                    newTextPoint.Y = newImagePoint.Y + imageRectangle.Height;
+                    break;
+                }
 
                 case TextImageRelation.TextAboveImage:
-                    {
-                        // Set center
-                        newPosition.X = outerBounds.Width / 2;
+                {
+                    // Set center
+                    newPosition.X = outerBounds.Width / 2;
 
-                        // Set text
-                        newTextPoint.X = newPosition.X - (textSize.Width / 2);
-                        newTextPoint.Y = newImagePoint.Y + 4;
+                    // Set text
+                    newTextPoint.X = newPosition.X - (textSize.Width / 2);
+                    newTextPoint.Y = newImagePoint.Y + 4;
 
-                        // Set image
-                        newImagePoint.X = newPosition.X - (imageRectangle.Width / 2);
-                        newImagePoint.Y = newPosition.Y + textSize.Height + 4;
-                        break;
-                    }
+                    // Set image
+                    newImagePoint.X = newPosition.X - (imageRectangle.Width / 2);
+                    newImagePoint.Y = newPosition.Y + textSize.Height + 4;
+                    break;
+                }
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(relation), relation, null);
@@ -220,13 +219,13 @@
             const double Ang72 = 2.0 * Ang36; // 72Â° x PI/180
 
             // some sine and cosine values we need
-            var sin36 = (float)Math.Sin(Ang36);
-            var sin72 = (float)Math.Sin(Ang72);
-            var cos36 = (float)Math.Cos(Ang36);
-            var cos72 = (float)Math.Cos(Ang72);
+            var sin36 = (float) Math.Sin(Ang36);
+            var sin72 = (float) Math.Sin(Ang72);
+            var cos36 = (float) Math.Cos(Ang36);
+            var cos72 = (float) Math.Cos(Ang72);
 
             // Fill array with 10 originF points
-            PointF[] pointsArray = { originF, originF, originF, originF, originF, originF, originF, originF, originF, originF };
+            PointF[] pointsArray = {originF, originF, originF, originF, originF, originF, originF, originF, originF, originF};
             pointsArray[0].Y -= outerRadius; // top off the star, or on a clock this is 12:00 or 0:00 hours
             pointsArray[1].X += innerRadius * sin36;
             pointsArray[1].Y -= innerRadius * cos36; // 0:06 hours
@@ -271,10 +270,10 @@
 
             for (var i = 0; i < _bitmap.Width; i++)
             {
-                Color _xColor = GetTransitionColor(int.Parse(Math.Round((i / (double)_bitmap.Width) * 100.0, 0).ToString(CultureInfo.CurrentCulture)), topLeft, topRight);
+                Color _xColor = GetTransitionColor(int.Parse(Math.Round((i / (double) _bitmap.Width) * 100.0, 0).ToString(CultureInfo.CurrentCulture)), topLeft, topRight);
                 for (var j = 0; j < _bitmap.Height; j++)
                 {
-                    Color _yColor = GetTransitionColor(int.Parse(Math.Round((j / (double)_bitmap.Height) * 100.0, 0).ToString(CultureInfo.CurrentCulture)), bottomLeft, bottomRight);
+                    Color _yColor = GetTransitionColor(int.Parse(Math.Round((j / (double) _bitmap.Height) * 100.0, 0).ToString(CultureInfo.CurrentCulture)), bottomLeft, bottomRight);
                     _bitmap.SetPixel(i, j, InsertColor(_xColor, _yColor));
                 }
             }
@@ -416,13 +415,13 @@
 
             // Prepare for drawing Text
             StringFormat stringFormat = new StringFormat
-                {
-                    FormatFlags = StringFormatFlags.NoWrap,
-                    LineAlignment = StringAlignment.Center,
-                    Alignment = StringAlignment.Center,
-                    Trimming = StringTrimming.EllipsisCharacter,
-                    HotkeyPrefix = HotkeyPrefix.Show
-                };
+            {
+                FormatFlags = StringFormatFlags.NoWrap,
+                LineAlignment = StringAlignment.Center,
+                Alignment = StringAlignment.Center,
+                Trimming = StringTrimming.EllipsisCharacter,
+                HotkeyPrefix = HotkeyPrefix.Show
+            };
 
             Brush brush = new SolidBrush(foreColor);
             string text;
@@ -530,7 +529,7 @@
         /// <returns>Gradient points.</returns>
         public static Point[] GetGradientPoints(Rectangle rectangle)
         {
-            return new[] { new Point { X = rectangle.Width, Y = 0 }, new Point { X = rectangle.Width, Y = rectangle.Height } };
+            return new[] {new Point {X = rectangle.Width, Y = 0}, new Point {X = rectangle.Width, Y = rectangle.Height}};
         }
 
         /// <summary>Retrieves the transition color between two other colors.</summary>
@@ -675,8 +674,8 @@
         /// <returns>Graphics controller.</returns>
         public Graphics SetPictureBoxSizeMode(PictureBoxSizeMode pictureBoxSizeMode)
         {
-            Bitmap drawArea = new Bitmap(new PictureBox { SizeMode = pictureBoxSizeMode }.Size.Width, new PictureBox { SizeMode = pictureBoxSizeMode }.Size.Height);
-            new PictureBox { SizeMode = pictureBoxSizeMode }.Image = drawArea;
+            Bitmap drawArea = new Bitmap(new PictureBox {SizeMode = pictureBoxSizeMode}.Size.Width, new PictureBox {SizeMode = pictureBoxSizeMode}.Size.Height);
+            new PictureBox {SizeMode = pictureBoxSizeMode}.Image = drawArea;
             return Graphics.FromImage(drawArea);
         }
 
@@ -736,28 +735,28 @@
                 switch (mouseState)
                 {
                     case MouseStates.Normal:
-                        {
-                            tempGradient = controlStates[0];
-                            break;
-                        }
+                    {
+                        tempGradient = controlStates[0];
+                        break;
+                    }
 
                     case MouseStates.Hover:
-                        {
-                            tempGradient = controlStates[1];
-                            break;
-                        }
+                    {
+                        tempGradient = controlStates[1];
+                        break;
+                    }
 
                     case MouseStates.Down:
-                        {
-                            tempGradient = controlStates[2];
-                            break;
-                        }
+                    {
+                        tempGradient = controlStates[2];
+                        break;
+                    }
 
                     default:
-                        {
-                            tempGradient = controlStates[0];
-                            break;
-                        }
+                    {
+                        tempGradient = controlStates[0];
+                        break;
+                    }
                 }
             }
             else

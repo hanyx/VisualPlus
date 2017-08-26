@@ -1,22 +1,21 @@
-﻿namespace VisualPlus.Structure
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
+using VisualPlus.Enumerators;
+using VisualPlus.Extensibility;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Renders;
+using VisualPlus.Styles;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Structure
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Globalization;
-    using System.IO;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Extensibility;
-    using VisualPlus.Localization.Descriptions;
-    using VisualPlus.Renders;
-    using VisualPlus.Styles;
-    using VisualPlus.Toolkit.Components;
-
-    #endregion
-
     [Description("The checkmark.")]
     [TypeConverter(typeof(CheckMarkConverter))]
     public class Checkmark : ICheckmark
@@ -86,210 +85,132 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.AutoSize)]
+        [Description(Property.AutoSize)]
         public bool AutoSize
         {
-            get
-            {
-                return autoSize;
-            }
+            get { return autoSize; }
 
-            set
-            {
-                autoSize = value;
-            }
+            set { autoSize = value; }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Checkmark.Character)]
+        [Description(Property.Character)]
         public char Character
         {
-            get
-            {
-                return checkCharacter;
-            }
+            get { return checkCharacter; }
 
-            set
-            {
-                checkCharacter = value;
-            }
+            set { checkCharacter = value; }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.ColorGradient)]
+        [Description(Property.ColorGradient)]
         public Gradient DisabledGradient
         {
-            get
-            {
-                return disabledGradient;
-            }
+            get { return disabledGradient; }
 
-            set
-            {
-                disabledGradient = value;
-            }
+            set { disabledGradient = value; }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Image)]
+        [Description(Property.Image)]
         public Bitmap DisabledImage
         {
-            get
-            {
-                return disabledImage;
-            }
+            get { return disabledImage; }
 
-            set
-            {
-                disabledImage = value;
-            }
+            set { disabledImage = value; }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.ColorGradient)]
+        [Description(Property.ColorGradient)]
         public Gradient EnabledGradient
         {
-            get
-            {
-                return enabledGradient;
-            }
+            get { return enabledGradient; }
 
-            set
-            {
-                enabledGradient = value;
-            }
+            set { enabledGradient = value; }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Image)]
+        [Description(Property.Image)]
         public Bitmap EnabledImage
         {
-            get
-            {
-                return enabledImage;
-            }
+            get { return enabledImage; }
 
-            set
-            {
-                enabledImage = value;
-            }
+            set { enabledImage = value; }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Strings.Font)]
+        [Description(Property.Font)]
         public Font Font
         {
-            get
-            {
-                return checkCharacterFont;
-            }
+            get { return checkCharacterFont; }
 
-            set
-            {
-                checkCharacterFont = value;
-            }
+            set { checkCharacterFont = value; }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public Size ImageSize
         {
-            get
-            {
-                return imageSize;
-            }
+            get { return imageSize; }
 
-            set
-            {
-                imageSize = value;
-            }
+            set { imageSize = value; }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Point)]
+        [Description(Property.Point)]
         public Point Location
         {
-            get
-            {
-                return checkLocation;
-            }
+            get { return checkLocation; }
 
-            set
-            {
-                checkLocation = value;
-            }
+            set { checkLocation = value; }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Border.Rounding)]
+        [Description(Property.Rounding)]
         public int ShapeRounding
         {
-            get
-            {
-                return shapeRounding;
-            }
+            get { return shapeRounding; }
 
-            set
-            {
-                shapeRounding = value;
-            }
+            set { shapeRounding = value; }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public Size ShapeSize
         {
-            get
-            {
-                return shapeSize;
-            }
+            get { return shapeSize; }
 
-            set
-            {
-                shapeSize = value;
-            }
+            set { shapeSize = value; }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Type)]
+        [Description(Property.Type)]
         public ShapeType ShapeType
         {
-            get
-            {
-                return shapeType;
-            }
+            get { return shapeType; }
 
-            set
-            {
-                shapeType = value;
-            }
+            set { shapeType = value; }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Checkmark.CheckType)]
+        [Description(Property.CheckType)]
         public CheckType Style
         {
-            get
-            {
-                return checkType;
-            }
+            get { return checkType; }
 
-            set
-            {
-                checkType = value;
-            }
+            set { checkType = value; }
         }
 
         #endregion

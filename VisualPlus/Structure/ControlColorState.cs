@@ -1,18 +1,17 @@
-﻿namespace VisualPlus.Structure
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Structure
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Globalization;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Toolkit.Components;
-
-    #endregion
-
     [TypeConverter(typeof(ControlColorStateConverter))]
     [ToolboxItem(false)]
     [DesignerCategory("code")]
@@ -50,60 +49,36 @@
         [RefreshProperties(RefreshProperties.Repaint)]
         public Color Color
         {
-            get
-            {
-                return _color;
-            }
+            get { return _color; }
 
-            set
-            {
-                _color = value;
-            }
+            set { _color = value; }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         public Color Disabled
         {
-            get
-            {
-                return _disabled;
-            }
+            get { return _disabled; }
 
-            set
-            {
-                _disabled = value;
-            }
+            set { _disabled = value; }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         public Color Hover
         {
-            get
-            {
-                return _hover;
-            }
+            get { return _hover; }
 
-            set
-            {
-                _hover = value;
-            }
+            set { _hover = value; }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         public Color Pressed
         {
-            get
-            {
-                return _pressed;
-            }
+            get { return _pressed; }
 
-            set
-            {
-                _pressed = value;
-            }
+            set { _pressed = value; }
         }
 
         #endregion

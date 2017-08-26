@@ -1,23 +1,24 @@
-﻿namespace VisualPlus.Toolkit.Controls.DataManagement
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Design;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.ActionList;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.DataManagement
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Design;
-    using System.Drawing.Drawing2D;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.ActionList;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
+ 
 
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ListBox))]
@@ -43,7 +44,7 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualListBox"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualListBox" /> class.</summary>
         public VisualListBox()
         {
             // Contains another control
@@ -55,16 +56,16 @@
             _border = new Border();
 
             _listBox = new ListBox
-                {
-                    BackColor = Background,
-                    Size = GetInternalControlSize(Size, _border),
-                    BorderStyle = BorderStyle.None,
-                    IntegralHeight = false,
-                    MultiColumn = false,
-                    DrawMode = DrawMode.OwnerDrawVariable,
-                    ItemHeight = 18,
-                    Location = GetInternalControlLocation(_border)
-                };
+            {
+                BackColor = Background,
+                Size = GetInternalControlSize(Size, _border),
+                BorderStyle = BorderStyle.None,
+                IntegralHeight = false,
+                MultiColumn = false,
+                DrawMode = DrawMode.OwnerDrawVariable,
+                ItemHeight = 18,
+                Location = GetInternalControlLocation(_border)
+            };
 
             AutoSize = true;
             BackColor = Color.Transparent;
@@ -140,10 +141,7 @@
         [Category(Propertys.Behavior)]
         public bool AlternateColors
         {
-            get
-            {
-                return _alternateColors;
-            }
+            get { return _alternateColors; }
 
             set
             {
@@ -154,10 +152,7 @@
 
         public new Color Background
         {
-            get
-            {
-                return base.Background;
-            }
+            get { return base.Background; }
 
             set
             {
@@ -171,10 +166,7 @@
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get
-            {
-                return _border;
-            }
+            get { return _border; }
 
             set
             {
@@ -189,10 +181,7 @@
         [Description("Gets access to the contained control.")]
         public ListBox ContainedControl
         {
-            get
-            {
-                return _listBox;
-            }
+            get { return _listBox; }
         }
 
         [Category("Data")]
@@ -202,15 +191,9 @@
         [DefaultValue(null)]
         public virtual object DataSource
         {
-            get
-            {
-                return _listBox.DataSource;
-            }
+            get { return _listBox.DataSource; }
 
-            set
-            {
-                _listBox.DataSource = value;
-            }
+            set { _listBox.DataSource = value; }
         }
 
         [Category("Data")]
@@ -220,15 +203,9 @@
         [DefaultValue("")]
         public virtual string DisplayMember
         {
-            get
-            {
-                return _listBox.DisplayMember;
-            }
+            get { return _listBox.DisplayMember; }
 
-            set
-            {
-                _listBox.DisplayMember = value;
-            }
+            set { _listBox.DisplayMember = value; }
         }
 
         [Category("Behavior")]
@@ -236,15 +213,9 @@
         [DefaultValue(typeof(DrawMode), "OwnerDrawVariable")]
         public DrawMode DrawMode
         {
-            get
-            {
-                return _listBox.DrawMode;
-            }
+            get { return _listBox.DrawMode; }
 
-            set
-            {
-                _listBox.DrawMode = value;
-            }
+            set { _listBox.DrawMode = value; }
         }
 
         /// <summary>Gets or sets the format specifier characters that indicate how a value is to be displayed.</summary>
@@ -254,15 +225,9 @@
         [DefaultValue("")]
         public string FormatString
         {
-            get
-            {
-                return _listBox.FormatString;
-            }
+            get { return _listBox.FormatString; }
 
-            set
-            {
-                _listBox.FormatString = value;
-            }
+            set { _listBox.FormatString = value; }
         }
 
         /// <summary>
@@ -273,15 +238,12 @@
         [DefaultValue(false)]
         public bool FormattingEnabled
         {
-            get
-            {
-                return _listBox.FormattingEnabled;
-            }
+            get { return _listBox.FormattingEnabled; }
 
             set
             {
                 _listBox.FormattingEnabled = value;
-                OnFormattingEnabledChanged(EventArgs.Empty);
+                OnFormattingEnabledChanged(System.EventArgs.Empty);
             }
         }
 
@@ -292,15 +254,9 @@
         [DefaultValue(0)]
         public virtual int HorizontalExtent
         {
-            get
-            {
-                return _listBox.HorizontalExtent;
-            }
+            get { return _listBox.HorizontalExtent; }
 
-            set
-            {
-                _listBox.HorizontalExtent = value;
-            }
+            set { _listBox.HorizontalExtent = value; }
         }
 
         /// <summary>Gets or sets a value indicating whether a horizontal scroll bar is displayed in the control.</summary>
@@ -310,25 +266,16 @@
         [DefaultValue(false)]
         public virtual bool HorizontalScrollBar
         {
-            get
-            {
-                return _listBox.HorizontalScrollbar;
-            }
+            get { return _listBox.HorizontalScrollbar; }
 
-            set
-            {
-                _listBox.HorizontalScrollbar = value;
-            }
+            set { _listBox.HorizontalScrollbar = value; }
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color ItemAlternate
         {
-            get
-            {
-                return _itemAlternate;
-            }
+            get { return _itemAlternate; }
 
             set
             {
@@ -342,25 +289,16 @@
         [DefaultValue(typeof(int), "13")]
         public int ItemHeight
         {
-            get
-            {
-                return _listBox.ItemHeight;
-            }
+            get { return _listBox.ItemHeight; }
 
-            set
-            {
-                _listBox.ItemHeight = value;
-            }
+            set { _listBox.ItemHeight = value; }
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color ItemNormal
         {
-            get
-            {
-                return _itemNormal;
-            }
+            get { return _itemNormal; }
 
             set
             {
@@ -377,20 +315,14 @@
         [Localizable(true)]
         public virtual ListBox.ObjectCollection Items
         {
-            get
-            {
-                return _listBox.Items;
-            }
+            get { return _listBox.Items; }
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color ItemSelected
         {
-            get
-            {
-                return _itemSelected;
-            }
+            get { return _itemSelected; }
 
             set
             {
@@ -405,15 +337,9 @@
         [DefaultValue(false)]
         public virtual bool ScrollAlwaysVisible
         {
-            get
-            {
-                return _listBox.ScrollAlwaysVisible;
-            }
+            get { return _listBox.ScrollAlwaysVisible; }
 
-            set
-            {
-                _listBox.ScrollAlwaysVisible = value;
-            }
+            set { _listBox.ScrollAlwaysVisible = value; }
         }
 
         [Bindable(true)]
@@ -422,15 +348,9 @@
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int SelectedIndex
         {
-            get
-            {
-                return _listBox.SelectedIndex;
-            }
+            get { return _listBox.SelectedIndex; }
 
-            set
-            {
-                _listBox.SelectedIndex = value;
-            }
+            set { _listBox.SelectedIndex = value; }
         }
 
         [Browsable(false)]
@@ -438,10 +358,7 @@
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ListBox.SelectedIndexCollection SelectedIndices
         {
-            get
-            {
-                return _listBox.SelectedIndices;
-            }
+            get { return _listBox.SelectedIndices; }
         }
 
         [Bindable(true)]
@@ -449,25 +366,16 @@
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object SelectedItem
         {
-            get
-            {
-                return _listBox.SelectedItem;
-            }
+            get { return _listBox.SelectedItem; }
 
-            set
-            {
-                _listBox.SelectedItem = value;
-            }
+            set { _listBox.SelectedItem = value; }
         }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ListBox.SelectedObjectCollection SelectedItems
         {
-            get
-            {
-                return _listBox.SelectedItems;
-            }
+            get { return _listBox.SelectedItems; }
         }
 
         [Category("Data")]
@@ -477,15 +385,9 @@
         [DefaultValue(null)]
         public object SelectedValue
         {
-            get
-            {
-                return _listBox.SelectedValue;
-            }
+            get { return _listBox.SelectedValue; }
 
-            set
-            {
-                _listBox.SelectedValue = value;
-            }
+            set { _listBox.SelectedValue = value; }
         }
 
         [Category("Behavior")]
@@ -493,15 +395,9 @@
         [DefaultValue(typeof(SelectionMode), "One")]
         public virtual SelectionMode SelectionMode
         {
-            get
-            {
-                return _listBox.SelectionMode;
-            }
+            get { return _listBox.SelectionMode; }
 
-            set
-            {
-                _listBox.SelectionMode = value;
-            }
+            set { _listBox.SelectionMode = value; }
         }
 
         [Category("Behavior")]
@@ -509,15 +405,9 @@
         [DefaultValue(false)]
         public virtual bool Sorted
         {
-            get
-            {
-                return _listBox.Sorted;
-            }
+            get { return _listBox.Sorted; }
 
-            set
-            {
-                _listBox.Sorted = value;
-            }
+            set { _listBox.Sorted = value; }
         }
 
         [Browsable(false)]
@@ -525,15 +415,9 @@
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int TopIndex
         {
-            get
-            {
-                return _listBox.TopIndex;
-            }
+            get { return _listBox.TopIndex; }
 
-            set
-            {
-                _listBox.TopIndex = value;
-            }
+            set { _listBox.TopIndex = value; }
         }
 
         [Category("Data")]
@@ -542,15 +426,9 @@
         [DefaultValue("")]
         public virtual string ValueMember
         {
-            get
-            {
-                return _listBox.ValueMember;
-            }
+            get { return _listBox.ValueMember; }
 
-            set
-            {
-                _listBox.ValueMember = value;
-            }
+            set { _listBox.ValueMember = value; }
         }
 
         #endregion
@@ -698,7 +576,7 @@
             _listBox.SetSelected(index, value);
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Enumerators.Styles style)
         {
             StyleManager = new VisualStyleManager(style);
             _border.Color = StyleManager.BorderStyle.Color;
@@ -716,18 +594,18 @@
             Invalidate();
         }
 
-        protected override void OnClick(EventArgs e)
+        protected override void OnClick(System.EventArgs e)
         {
             base.OnClick(e);
             Invalidate();
         }
 
-        protected virtual void OnDataSourceChanged(EventArgs e)
+        protected virtual void OnDataSourceChanged(System.EventArgs e)
         {
             DataSourceChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnDisplayMemberChanged(EventArgs e)
+        protected virtual void OnDisplayMemberChanged(System.EventArgs e)
         {
             DisplayMemberChanged?.Invoke(this, e);
         }
@@ -737,17 +615,17 @@
             Format?.Invoke(this, e);
         }
 
-        protected virtual void OnFormatInfoChanged(EventArgs e)
+        protected virtual void OnFormatInfoChanged(System.EventArgs e)
         {
             FormatInfoChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnFormatStringChanged(EventArgs e)
+        protected virtual void OnFormatStringChanged(System.EventArgs e)
         {
             FormatStringChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnFormattingEnabledChanged(EventArgs e)
+        protected virtual void OnFormattingEnabledChanged(System.EventArgs e)
         {
             FormattingEnabledChanged?.Invoke(this, e);
         }
@@ -772,34 +650,34 @@
             VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, MouseState, ControlGraphicsPath);
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(System.EventArgs e)
         {
             base.OnResize(e);
             _listBox.Location = GetInternalControlLocation(_border);
             _listBox.Size = GetInternalControlSize(Size, _border);
         }
 
-        protected virtual void OnSelectedIndexChanged(EventArgs e)
+        protected virtual void OnSelectedIndexChanged(System.EventArgs e)
         {
             SelectedIndexChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnSelectedValueChanged(EventArgs e)
+        protected virtual void OnSelectedValueChanged(System.EventArgs e)
         {
             SelectedValueChanged?.Invoke(this, e);
         }
 
-        protected virtual void OnValueMemberChanged(EventArgs e)
+        protected virtual void OnValueMemberChanged(System.EventArgs e)
         {
             ValueMemberChanged?.Invoke(this, e);
         }
 
-        private void ListBox_DataSourceChanged(object sender, EventArgs e)
+        private void ListBox_DataSourceChanged(object sender, System.EventArgs e)
         {
             OnDataSourceChanged(e);
         }
 
-        private void ListBox_DisplayMemberChanged(object sender, EventArgs e)
+        private void ListBox_DisplayMemberChanged(object sender, System.EventArgs e)
         {
             OnDisplayMemberChanged(e);
         }
@@ -881,17 +759,17 @@
             OnFormat(e);
         }
 
-        private void ListBox_FormatInfoChanged(object sender, EventArgs e)
+        private void ListBox_FormatInfoChanged(object sender, System.EventArgs e)
         {
             OnFormatInfoChanged(e);
         }
 
-        private void ListBox_FormatStringChanged(object sender, EventArgs e)
+        private void ListBox_FormatStringChanged(object sender, System.EventArgs e)
         {
             OnFormatStringChanged(e);
         }
 
-        private void ListBox_GotFocus(object sender, EventArgs e)
+        private void ListBox_GotFocus(object sender, System.EventArgs e)
         {
             _listBox.Invalidate();
             OnGotFocus(e);
@@ -913,7 +791,7 @@
             OnKeyUp(e);
         }
 
-        private void ListBox_LostFocus(object sender, EventArgs e)
+        private void ListBox_LostFocus(object sender, System.EventArgs e)
         {
             _listBox.Invalidate();
             OnLostFocus(e);
@@ -931,7 +809,7 @@
             }
         }
 
-        private void ListBox_MouseDown(object sender, EventArgs e)
+        private void ListBox_MouseDown(object sender, System.EventArgs e)
         {
             _listBox.Invalidate();
         }
@@ -941,17 +819,17 @@
             OnPreviewKeyDown(e);
         }
 
-        private void ListBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBox_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             OnSelectedIndexChanged(e);
         }
 
-        private void ListBox_SelectedValueChanged(object sender, EventArgs e)
+        private void ListBox_SelectedValueChanged(object sender, System.EventArgs e)
         {
             OnSelectedValueChanged(e);
         }
 
-        private void ListBox_Validated(object sender, EventArgs e)
+        private void ListBox_Validated(object sender, System.EventArgs e)
         {
             OnValidated(e);
         }
@@ -961,7 +839,7 @@
             OnValidating(e);
         }
 
-        private void ListBox_ValueMemberChanged(object sender, EventArgs e)
+        private void ListBox_ValueMemberChanged(object sender, System.EventArgs e)
         {
             OnValueMemberChanged(e);
         }

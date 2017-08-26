@@ -1,13 +1,12 @@
+#region Namespace
+
+using System.Drawing.Text;
+using VisualPlus.Enumerators;
+
+#endregion
+
 namespace VisualPlus
 {
-    #region Namespace
-
-    using System.Drawing.Text;
-
-    using VisualPlus.Enumerators;
-
-    #endregion
-
     internal class Settings
     {
         #region Variables

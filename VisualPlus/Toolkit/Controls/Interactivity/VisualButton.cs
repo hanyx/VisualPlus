@@ -1,24 +1,23 @@
-﻿namespace VisualPlus.Toolkit.Controls.Interactivity
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using VisualPlus.Enumerators;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Managers;
+using VisualPlus.Properties;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Interactivity
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Managers;
-    using VisualPlus.Properties;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(Button))]
     [DefaultEvent("Click")]
@@ -41,7 +40,7 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualButton"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualButton" /> class.</summary>
         public VisualButton()
         {
             Size = new Size(140, 45);
@@ -49,10 +48,10 @@
             ColorGradientToggle = true;
 
             _visualBitmap = new VisualBitmap(Resources.Icon, new Size(24, 24))
-                {
-                    Visible = false,
-                    Image = Resources.Icon
-                };
+            {
+                Visible = false,
+                Image = Resources.Icon
+            };
 
             _border = new Border();
             _visualBitmap.Point = new Point(0, (Height / 2) - (_visualBitmap.Size.Height / 2));
@@ -69,13 +68,10 @@
 
         [DefaultValue(Settings.DefaultValue.Animation)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Animation)]
+        [Description(Property.Animation)]
         public bool Animation
         {
-            get
-            {
-                return _animation;
-            }
+            get { return _animation; }
 
             set
             {
@@ -96,10 +92,7 @@
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get
-            {
-                return _border;
-            }
+            get { return _border; }
 
             set
             {
@@ -108,34 +101,22 @@
             }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Description(Property.ColorGradient)]
         [Category(Propertys.Appearance)]
         public Gradient DisabledGradient
         {
-            get
-            {
-                return ControlBrushCollection[3];
-            }
+            get { return ControlBrushCollection[3]; }
 
-            set
-            {
-                ControlBrushCollection[3] = value;
-            }
+            set { ControlBrushCollection[3] = value; }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Description(Property.ColorGradient)]
         [Category(Propertys.Appearance)]
         public Gradient EnabledGradient
         {
-            get
-            {
-                return ControlBrushCollection[0];
-            }
+            get { return ControlBrushCollection[0]; }
 
-            set
-            {
-                ControlBrushCollection[0] = value;
-            }
+            set { ControlBrushCollection[0] = value; }
         }
 
         [DefaultValue(true)]
@@ -143,10 +124,7 @@
         [Description("Gets or sets the color gradient toggle.")]
         public bool GradientToggle
         {
-            get
-            {
-                return ColorGradientToggle;
-            }
+            get { return ColorGradientToggle; }
 
             set
             {
@@ -155,19 +133,13 @@
             }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Description(Property.ColorGradient)]
         [Category(Propertys.Appearance)]
         public Gradient HoverGradient
         {
-            get
-            {
-                return ControlBrushCollection[1];
-            }
+            get { return ControlBrushCollection[1]; }
 
-            set
-            {
-                ControlBrushCollection[1] = value;
-            }
+            set { ControlBrushCollection[1] = value; }
         }
 
         [TypeConverter(typeof(VisualBitmapConverter))]
@@ -175,10 +147,7 @@
         [Category(Propertys.Appearance)]
         public VisualBitmap Image
         {
-            get
-            {
-                return _visualBitmap;
-            }
+            get { return _visualBitmap; }
 
             set
             {
@@ -187,29 +156,20 @@
             }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
+        [Description(Property.ColorGradient)]
         [Category(Propertys.Appearance)]
         public Gradient PressedGradient
         {
-            get
-            {
-                return ControlBrushCollection[2];
-            }
+            get { return ControlBrushCollection[2]; }
 
-            set
-            {
-                ControlBrushCollection[2] = value;
-            }
+            set { ControlBrushCollection[2] = value; }
         }
 
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.TextImageRelation)]
+        [Description(Property.TextImageRelation)]
         public TextImageRelation TextImageRelation
         {
-            get
-            {
-                return _textImageRelation;
-            }
+            get { return _textImageRelation; }
 
             set
             {
@@ -227,15 +187,15 @@
         public void ConfigureAnimation()
         {
             _effectsManager = new VFXManager(false)
-                {
-                    Increment = 0.03,
-                    EffectType = EffectType.EaseOut
-                };
+            {
+                Increment = 0.03,
+                EffectType = EffectType.EaseOut
+            };
             _hoverEffectsManager = new VFXManager
-                {
-                    Increment = 0.07,
-                    EffectType = EffectType.Linear
-                };
+            {
+                Increment = 0.07,
+                EffectType = EffectType.Linear
+            };
 
             _hoverEffectsManager.OnAnimationProgress += sender => Invalidate();
             _effectsManager.OnAnimationProgress += sender => Invalidate();
@@ -251,9 +211,9 @@
                     double animationValue = _effectsManager.GetProgress(i);
                     Point animationSource = _effectsManager.GetSource(i);
 
-                    using (Brush rippleBrush = new SolidBrush(Color.FromArgb((int)(101 - (animationValue * 100)), Color.Black)))
+                    using (Brush rippleBrush = new SolidBrush(Color.FromArgb((int) (101 - (animationValue * 100)), Color.Black)))
                     {
-                        var rippleSize = (int)(animationValue * Width * 2);
+                        var rippleSize = (int) (animationValue * Width * 2);
                         graphics.SetClip(ControlGraphicsPath);
                         graphics.FillEllipse(rippleBrush, new Rectangle(animationSource.X - (rippleSize / 2), animationSource.Y - (rippleSize / 2), rippleSize, rippleSize));
                     }
@@ -263,7 +223,7 @@
             }
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Enumerators.Styles style)
         {
             StyleManager = new VisualStyleManager(style);
             _border.Color = StyleManager.BorderStyle.Color;
@@ -275,12 +235,12 @@
             BackgroundDisabled = StyleManager.ControlStyle.Background(0);
 
             ControlBrushCollection = new[]
-                {
-                    StyleManager.ControlStatesStyle.ControlEnabled,
-                    StyleManager.ControlStatesStyle.ControlHover,
-                    StyleManager.ControlStatesStyle.ControlPressed,
-                    StyleManager.ControlStatesStyle.ControlDisabled
-                };
+            {
+                StyleManager.ControlStatesStyle.ControlEnabled,
+                StyleManager.ControlStatesStyle.ControlHover,
+                StyleManager.ControlStatesStyle.ControlPressed,
+                StyleManager.ControlStatesStyle.ControlDisabled
+            };
 
             Invalidate();
         }
@@ -295,31 +255,31 @@
 
             MouseState = MouseStates.Normal;
             MouseEnter += (sender, args) =>
-                {
-                    MouseState = MouseStates.Hover;
-                    _hoverEffectsManager.StartNewAnimation(AnimationDirection.In);
-                    Invalidate();
-                };
+            {
+                MouseState = MouseStates.Hover;
+                _hoverEffectsManager.StartNewAnimation(AnimationDirection.In);
+                Invalidate();
+            };
             MouseLeave += (sender, args) =>
-                {
-                    MouseState = MouseStates.Normal;
-                    _hoverEffectsManager.StartNewAnimation(AnimationDirection.Out);
-                    Invalidate();
-                };
+            {
+                MouseState = MouseStates.Normal;
+                _hoverEffectsManager.StartNewAnimation(AnimationDirection.Out);
+                Invalidate();
+            };
             MouseDown += (sender, args) =>
+            {
+                if (args.Button == MouseButtons.Left)
                 {
-                    if (args.Button == MouseButtons.Left)
-                    {
-                        MouseState = MouseStates.Down;
-                        _effectsManager.StartNewAnimation(AnimationDirection.In, args.Location);
-                        Invalidate();
-                    }
-                };
-            MouseUp += (sender, args) =>
-                {
-                    MouseState = MouseStates.Hover;
+                    MouseState = MouseStates.Down;
+                    _effectsManager.StartNewAnimation(AnimationDirection.In, args.Location);
                     Invalidate();
-                };
+                }
+            };
+            MouseUp += (sender, args) =>
+            {
+                MouseState = MouseStates.Hover;
+                Invalidate();
+            };
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -329,7 +289,7 @@
             Invalidate();
         }
 
-        protected override void OnMouseHover(EventArgs e)
+        protected override void OnMouseHover(System.EventArgs e)
         {
             base.OnMouseHover(e);
             MouseState = MouseStates.Hover;

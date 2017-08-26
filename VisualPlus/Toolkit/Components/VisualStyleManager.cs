@@ -19,10 +19,6 @@ using VisualPlus.Toolkit.VisualBase;
 
 namespace VisualPlus.Toolkit.Components
 {
-    #region Namespace
-
-    #endregion
-
     [ToolboxItem(true)]
     [Description("The VisualPlus style manager component enables you to change the control themes.")]
     public class VisualStyleManager : Component

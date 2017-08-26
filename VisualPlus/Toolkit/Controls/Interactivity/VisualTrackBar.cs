@@ -1,23 +1,23 @@
-﻿namespace VisualPlus.Toolkit.Controls.Interactivity
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
+using System.Windows.Forms;
+using VisualPlus.Enumerators;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Managers;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Interactivity
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Text;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Managers;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(TrackBar))]
     [DefaultEvent("ValueChanged")]
@@ -133,10 +133,7 @@
         [Category(Propertys.Appearance)]
         public Gradient Background
         {
-            get
-            {
-                return backgroundGradient;
-            }
+            get { return backgroundGradient; }
 
             set
             {
@@ -146,13 +143,10 @@
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public int BarThickness
         {
-            get
-            {
-                return barThickness;
-            }
+            get { return barThickness; }
 
             set
             {
@@ -162,13 +156,10 @@
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public int BarTickSpacing
         {
-            get
-            {
-                return barTickSpacing;
-            }
+            get { return barTickSpacing; }
 
             set
             {
@@ -179,13 +170,10 @@
 
         [DefaultValue(true)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.AutoSize)]
+        [Description(Property.AutoSize)]
         public bool ButtonAutoSize
         {
-            get
-            {
-                return buttonAutoSize;
-            }
+            get { return buttonAutoSize; }
 
             set
             {
@@ -199,10 +187,7 @@
         [Category(Propertys.Appearance)]
         public Border ButtonBorder
         {
-            get
-            {
-                return buttonBorder;
-            }
+            get { return buttonBorder; }
 
             set
             {
@@ -216,10 +201,7 @@
         [Category(Propertys.Appearance)]
         public Gradient ButtonGradient
         {
-            get
-            {
-                return buttonGradient;
-            }
+            get { return buttonGradient; }
 
             set
             {
@@ -229,13 +211,10 @@
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public Size ButtonSize
         {
-            get
-            {
-                return buttonSize;
-            }
+            get { return buttonSize; }
 
             set
             {
@@ -245,13 +224,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color ButtonTextColor
         {
-            get
-            {
-                return buttonTextColor;
-            }
+            get { return buttonTextColor; }
 
             set
             {
@@ -262,13 +238,10 @@
 
         [DefaultValue(true)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool ButtonVisible
         {
-            get
-            {
-                return buttonVisible;
-            }
+            get { return buttonVisible; }
 
             set
             {
@@ -282,10 +255,7 @@
         [Category(Propertys.Appearance)]
         public Gradient Disabled
         {
-            get
-            {
-                return trackBarDisabledGradient;
-            }
+            get { return trackBarDisabledGradient; }
 
             set
             {
@@ -298,10 +268,7 @@
         [Description("Experiemental: Filling Value.")]
         public int FillingValue
         {
-            get
-            {
-                return fillingValue;
-            }
+            get { return fillingValue; }
 
             set
             {
@@ -312,10 +279,7 @@
 
         public new Font Font
         {
-            get
-            {
-                return textFont;
-            }
+            get { return textFont; }
 
             set
             {
@@ -327,10 +291,7 @@
 
         public new Color ForeColor
         {
-            get
-            {
-                return foreColor;
-            }
+            get { return foreColor; }
 
             set
             {
@@ -341,13 +302,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color HatchBackColor
         {
-            get
-            {
-                return hatchBackColor;
-            }
+            get { return hatchBackColor; }
 
             set
             {
@@ -357,13 +315,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color HatchForeColor
         {
-            get
-            {
-                return hatchForeColor;
-            }
+            get { return hatchForeColor; }
 
             set
             {
@@ -374,13 +329,10 @@
 
         [Category(Propertys.Layout)]
         [DefaultValue(Settings.DefaultValue.HatchSize)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public float HatchSize
         {
-            get
-            {
-                return hatchSize;
-            }
+            get { return hatchSize; }
 
             set
             {
@@ -390,13 +342,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Type)]
+        [Description(Property.Type)]
         public HatchStyle HatchStyle
         {
-            get
-            {
-                return hatchStyle;
-            }
+            get { return hatchStyle; }
 
             set
             {
@@ -407,13 +356,10 @@
 
         [DefaultValue(Settings.DefaultValue.HatchVisible)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool HatchVisible
         {
-            get
-            {
-                return hatchVisible;
-            }
+            get { return hatchVisible; }
 
             set
             {
@@ -423,13 +369,10 @@
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public int IndentHeight
         {
-            get
-            {
-                return indentHeight;
-            }
+            get { return indentHeight; }
 
             set
             {
@@ -439,13 +382,10 @@
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public int IndentWidth
         {
-            get
-            {
-                return indentWidth;
-            }
+            get { return indentWidth; }
 
             set
             {
@@ -456,13 +396,10 @@
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool LineTicksVisible
         {
-            get
-            {
-                return lineTicksVisible;
-            }
+            get { return lineTicksVisible; }
 
             set
             {
@@ -472,13 +409,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Orientation)]
+        [Description(Property.Orientation)]
         public new Orientation Orientation
         {
-            get
-            {
-                return orientation;
-            }
+            get { return orientation; }
 
             set
             {
@@ -489,13 +423,10 @@
         }
 
         [Category(Propertys.Data)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public string Prefix
         {
-            get
-            {
-                return prefix;
-            }
+            get { return prefix; }
 
             set
             {
@@ -509,10 +440,7 @@
         [Category(Propertys.Appearance)]
         public Gradient Progress
         {
-            get
-            {
-                return progressGradient;
-            }
+            get { return progressGradient; }
 
             set
             {
@@ -522,13 +450,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool ProgressFilling
         {
-            get
-            {
-                return progressFilling;
-            }
+            get { return progressFilling; }
 
             set
             {
@@ -539,13 +464,10 @@
 
         [DefaultValue(false)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool ProgressValueVisible
         {
-            get
-            {
-                return progressValueVisible;
-            }
+            get { return progressValueVisible; }
 
             set
             {
@@ -556,13 +478,10 @@
 
         [DefaultValue(true)]
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool ProgressVisible
         {
-            get
-            {
-                return progressVisible;
-            }
+            get { return progressVisible; }
 
             set
             {
@@ -572,13 +491,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.MouseState)]
+        [Description(Property.MouseState)]
         public MouseStates State
         {
-            get
-            {
-                return mouseState;
-            }
+            get { return mouseState; }
 
             set
             {
@@ -588,13 +504,10 @@
         }
 
         [Category(Propertys.Data)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public string Suffix
         {
-            get
-            {
-                return suffix;
-            }
+            get { return suffix; }
 
             set
             {
@@ -604,13 +517,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color TextDisabledColor
         {
-            get
-            {
-                return textDisabledColor;
-            }
+            get { return textDisabledColor; }
 
             set
             {
@@ -620,13 +530,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Strings.TextRenderingHint)]
+        [Description(Property.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
-            get
-            {
-                return textRendererHint;
-            }
+            get { return textRendererHint; }
 
             set
             {
@@ -636,13 +543,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color TickColor
         {
-            get
-            {
-                return tickColor;
-            }
+            get { return tickColor; }
 
             set
             {
@@ -652,13 +556,10 @@
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public int TickHeight
         {
-            get
-            {
-                return tickHeight;
-            }
+            get { return tickHeight; }
 
             set
             {
@@ -672,10 +573,7 @@
         [Category(Propertys.Appearance)]
         public Border TrackBar
         {
-            get
-            {
-                return trackBarBorder;
-            }
+            get { return trackBarBorder; }
 
             set
             {
@@ -685,13 +583,10 @@
         }
 
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.ValueDivisor)]
+        [Description(Property.ValueDivisor)]
         public ValueDivisor ValueDivision
         {
-            get
-            {
-                return dividedValue;
-            }
+            get { return dividedValue; }
 
             set
             {
@@ -702,13 +597,10 @@
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool ValueTicksVisible
         {
-            get
-            {
-                return valueTicksVisible;
-            }
+            get { return valueTicksVisible; }
 
             set
             {
@@ -745,7 +637,7 @@
         /// <returns>Formatted progress value.</returns>
         public string GetFormattedProgressValue()
         {
-            var value = (float)(Value / (double)dividedValue);
+            var value = (float) (Value / (double) dividedValue);
             string formattedString = $"{Prefix}{value}{Suffix}";
 
             return formattedString;
@@ -798,7 +690,7 @@
             Invalidate();
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Enumerators.Styles style)
         {
             VisualStyleManager _styleManager = new VisualStyleManager(style);
 
@@ -841,18 +733,18 @@
                     switch (orientation)
                     {
                         case Orientation.Horizontal:
-                            {
-                                mouseStartPos = currentPoint.X - trackerRectangle.X;
-                                Invalidate();
-                                break;
-                            }
+                        {
+                            mouseStartPos = currentPoint.X - trackerRectangle.X;
+                            Invalidate();
+                            break;
+                        }
 
                         case Orientation.Vertical:
-                            {
-                                mouseStartPos = currentPoint.Y - trackerRectangle.Y;
-                                Invalidate();
-                                break;
-                            }
+                        {
+                            mouseStartPos = currentPoint.Y - trackerRectangle.Y;
+                            Invalidate();
+                            break;
+                        }
                     }
                 }
             }
@@ -861,40 +753,40 @@
                 switch (orientation)
                 {
                     case Orientation.Horizontal:
+                    {
+                        if ((currentPoint.X + buttonSize.Width) / 2 >= Width - indentWidth)
                         {
-                            if ((currentPoint.X + buttonSize.Width) / 2 >= Width - indentWidth)
-                            {
-                                offsetValue = Maximum - Minimum;
-                            }
-                            else if ((currentPoint.X - buttonSize.Width) / 2 <= indentWidth)
-                            {
-                                offsetValue = 0;
-                            }
-                            else
-                            {
-                                offsetValue = (int)(((((currentPoint.X - indentWidth - buttonSize.Width) / 2) * (Maximum - Minimum)) / (Width - (2 * indentWidth) - buttonSize.Width)) + 0.5);
-                            }
-
-                            break;
+                            offsetValue = Maximum - Minimum;
                         }
+                        else if ((currentPoint.X - buttonSize.Width) / 2 <= indentWidth)
+                        {
+                            offsetValue = 0;
+                        }
+                        else
+                        {
+                            offsetValue = (int) (((((currentPoint.X - indentWidth - buttonSize.Width) / 2) * (Maximum - Minimum)) / (Width - (2 * indentWidth) - buttonSize.Width)) + 0.5);
+                        }
+
+                        break;
+                    }
 
                     case Orientation.Vertical:
+                    {
+                        if ((currentPoint.Y + buttonSize.Width) / 2 >= Height - indentHeight)
                         {
-                            if ((currentPoint.Y + buttonSize.Width) / 2 >= Height - indentHeight)
-                            {
-                                offsetValue = 0;
-                            }
-                            else if ((currentPoint.Y - buttonSize.Width) / 2 <= indentHeight)
-                            {
-                                offsetValue = Maximum - Minimum;
-                            }
-                            else
-                            {
-                                offsetValue = (int)(((((Height - currentPoint.Y - indentHeight - buttonSize.Width) / 2) * (Maximum - Minimum)) / (Height - (2 * indentHeight) - buttonSize.Width)) + 0.5);
-                            }
-
-                            break;
+                            offsetValue = 0;
                         }
+                        else if ((currentPoint.Y - buttonSize.Width) / 2 <= indentHeight)
+                        {
+                            offsetValue = Maximum - Minimum;
+                        }
+                        else
+                        {
+                            offsetValue = (int) (((((Height - currentPoint.Y - indentHeight - buttonSize.Width) / 2) * (Maximum - Minimum)) / (Height - (2 * indentHeight) - buttonSize.Width)) + 0.5);
+                        }
+
+                        break;
+                    }
                 }
 
                 int oldValue = Value;
@@ -910,21 +802,21 @@
             }
         }
 
-        protected override void OnMouseEnter(EventArgs e)
+        protected override void OnMouseEnter(System.EventArgs e)
         {
             OnEnter(e);
             State = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseHover(EventArgs e)
+        protected override void OnMouseHover(System.EventArgs e)
         {
             base.OnMouseHover(e);
             Cursor = orientation == Orientation.Vertical ? Cursors.SizeNS : Cursors.SizeWE;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             OnLeave(e);
             State = MouseStates.Normal;
@@ -944,40 +836,40 @@
                     switch (orientation)
                     {
                         case Orientation.Horizontal:
+                        {
+                            if ((currentPoint.X + buttonSize.Width) - mouseStartPos >= Width - indentWidth)
                             {
-                                if ((currentPoint.X + buttonSize.Width) - mouseStartPos >= Width - indentWidth)
-                                {
-                                    offsetValue = Maximum - Minimum;
-                                }
-                                else if (currentPoint.X - mouseStartPos <= indentWidth)
-                                {
-                                    offsetValue = 0;
-                                }
-                                else
-                                {
-                                    offsetValue = (int)((((currentPoint.X - mouseStartPos - indentWidth) * (Maximum - Minimum)) / (Width - (2 * indentWidth) - buttonSize.Width)) + 0.5);
-                                }
-
-                                break;
+                                offsetValue = Maximum - Minimum;
                             }
+                            else if (currentPoint.X - mouseStartPos <= indentWidth)
+                            {
+                                offsetValue = 0;
+                            }
+                            else
+                            {
+                                offsetValue = (int) ((((currentPoint.X - mouseStartPos - indentWidth) * (Maximum - Minimum)) / (Width - (2 * indentWidth) - buttonSize.Width)) + 0.5);
+                            }
+
+                            break;
+                        }
 
                         case Orientation.Vertical:
+                        {
+                            if ((currentPoint.Y + buttonSize.Height) / 2 >= Height - indentHeight)
                             {
-                                if ((currentPoint.Y + buttonSize.Height) / 2 >= Height - indentHeight)
-                                {
-                                    offsetValue = 0;
-                                }
-                                else if ((currentPoint.Y + buttonSize.Height) / 2 <= indentHeight)
-                                {
-                                    offsetValue = Maximum - Minimum;
-                                }
-                                else
-                                {
-                                    offsetValue = (int)(((((((Height - currentPoint.Y) + buttonSize.Height) / 2) - mouseStartPos - indentHeight) * (Maximum - Minimum)) / (Height - (2 * indentHeight))) + 0.5);
-                                }
-
-                                break;
+                                offsetValue = 0;
                             }
+                            else if ((currentPoint.Y + buttonSize.Height) / 2 <= indentHeight)
+                            {
+                                offsetValue = Maximum - Minimum;
+                            }
+                            else
+                            {
+                                offsetValue = (int) (((((((Height - currentPoint.Y) + buttonSize.Height) / 2) - mouseStartPos - indentHeight) * (Maximum - Minimum)) / (Height - (2 * indentHeight))) + 0.5);
+                            }
+
+                            break;
+                        }
                     }
                 }
                 catch (Exception)
@@ -1053,16 +945,16 @@
                     switch (Orientation)
                     {
                         case Orientation.Horizontal:
-                            {
-                                progressValueLocation = new Point(trackerRectangle.X, (trackBarRectangle.Y + (trackBarRectangle.Height / 2)) - (formattedProgressValue.Height / 2));
-                                break;
-                            }
+                        {
+                            progressValueLocation = new Point(trackerRectangle.X, (trackBarRectangle.Y + (trackBarRectangle.Height / 2)) - (formattedProgressValue.Height / 2));
+                            break;
+                        }
 
                         case Orientation.Vertical:
-                            {
-                                progressValueLocation = new Point(trackBarRectangle.X, trackerRectangle.Y);
-                                break;
-                            }
+                        {
+                            progressValueLocation = new Point(trackBarRectangle.X, trackerRectangle.Y);
+                            break;
+                        }
                     }
                 }
 
@@ -1071,18 +963,18 @@
             }
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(System.EventArgs e)
         {
             Invalidate();
         }
 
-        protected override void OnScroll(EventArgs e)
+        protected override void OnScroll(System.EventArgs e)
         {
             base.OnScroll(e);
             Invalidate();
         }
 
-        protected override void OnValueChanged(EventArgs e)
+        protected override void OnValueChanged(System.EventArgs e)
         {
             Invalidate();
         }
@@ -1107,47 +999,47 @@
                 {
                     case Keys.Left:
                     case Keys.Down:
-                        {
-                            Decrement(SmallChange);
-                            break;
-                        }
+                    {
+                        Decrement(SmallChange);
+                        break;
+                    }
 
                     case Keys.Right:
                     case Keys.Up:
-                        {
-                            Increment(SmallChange);
-                            break;
-                        }
+                    {
+                        Increment(SmallChange);
+                        break;
+                    }
 
                     case Keys.PageUp:
-                        {
-                            Increment(LargeChange);
-                            break;
-                        }
+                    {
+                        Increment(LargeChange);
+                        break;
+                    }
 
                     case Keys.PageDown:
-                        {
-                            Decrement(LargeChange);
-                            break;
-                        }
+                    {
+                        Decrement(LargeChange);
+                        break;
+                    }
 
                     case Keys.Home:
-                        {
-                            Value = Maximum;
-                            break;
-                        }
+                    {
+                        Value = Maximum;
+                        break;
+                    }
 
                     case Keys.End:
-                        {
-                            Value = Minimum;
-                            break;
-                        }
+                    {
+                        Value = Minimum;
+                        break;
+                    }
 
                     default:
-                        {
-                            result = base.ProcessCmdKey(ref msg, keyData);
-                            break;
-                        }
+                    {
+                        result = base.ProcessCmdKey(ref msg, keyData);
+                        break;
+                    }
                 }
             }
 
@@ -1171,7 +1063,7 @@
             // Draw tick by orientation
             if (orientation == Orientation.Horizontal)
             {
-                gradientPoints = new[] { new Point { X = ClientRectangle.Width, Y = 0 }, new Point { X = ClientRectangle.Width, Y = ClientRectangle.Width } };
+                gradientPoints = new[] {new Point {X = ClientRectangle.Width, Y = 0}, new Point {X = ClientRectangle.Width, Y = ClientRectangle.Width}};
 
                 // Start location
                 currentUsedPos = indentHeight;
@@ -1192,62 +1084,62 @@
                 switch (TickStyle)
                 {
                     case TickStyle.TopLeft:
+                    {
+                        if (buttonVisible)
                         {
-                            if (buttonVisible)
-                            {
-                                trackBarLocation = new Point(0, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing);
-                                Size = new Size(ClientRectangle.Width, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing + barThickness + (buttonSize.Height / 2));
-                            }
-                            else
-                            {
-                                trackBarLocation = new Point(0, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing);
-                                Size = new Size(ClientRectangle.Width, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing + barThickness);
-                            }
-
-                            break;
+                            trackBarLocation = new Point(0, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing);
+                            Size = new Size(ClientRectangle.Width, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing + barThickness + (buttonSize.Height / 2));
                         }
+                        else
+                        {
+                            trackBarLocation = new Point(0, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing);
+                            Size = new Size(ClientRectangle.Width, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing + barThickness);
+                        }
+
+                        break;
+                    }
 
                     case TickStyle.BottomRight:
+                    {
+                        if (buttonVisible)
                         {
-                            if (buttonVisible)
-                            {
-                                trackBarLocation = new Point(0, indentHeight + (buttonSize.Height / 2));
-                                Size = new Size(ClientRectangle.Width, indentHeight + barThickness + barTickSpacing + tickHeight + textAreaSize.Height + (textAreaSize.Height / 2));
-                            }
-                            else
-                            {
-                                trackBarLocation = new Point(0, indentHeight);
-                                Size = new Size(ClientRectangle.Width, indentHeight + barThickness + barTickSpacing + tickHeight + textAreaSize.Height);
-                            }
-
-                            break;
+                            trackBarLocation = new Point(0, indentHeight + (buttonSize.Height / 2));
+                            Size = new Size(ClientRectangle.Width, indentHeight + barThickness + barTickSpacing + tickHeight + textAreaSize.Height + (textAreaSize.Height / 2));
                         }
+                        else
+                        {
+                            trackBarLocation = new Point(0, indentHeight);
+                            Size = new Size(ClientRectangle.Width, indentHeight + barThickness + barTickSpacing + tickHeight + textAreaSize.Height);
+                        }
+
+                        break;
+                    }
 
                     case TickStyle.None:
+                    {
+                        if (buttonVisible)
                         {
-                            if (buttonVisible)
-                            {
-                                trackBarLocation = new Point(0, indentHeight + (buttonSize.Height / 2));
-                                Size = new Size(ClientRectangle.Width, indentHeight + barThickness + buttonSize.Height);
-                            }
-                            else
-                            {
-                                trackBarLocation = new Point(0, indentHeight);
-                                Size = new Size(ClientRectangle.Width, indentHeight + barThickness);
-                            }
-
-                            break;
+                            trackBarLocation = new Point(0, indentHeight + (buttonSize.Height / 2));
+                            Size = new Size(ClientRectangle.Width, indentHeight + barThickness + buttonSize.Height);
                         }
+                        else
+                        {
+                            trackBarLocation = new Point(0, indentHeight);
+                            Size = new Size(ClientRectangle.Width, indentHeight + barThickness);
+                        }
+
+                        break;
+                    }
 
                     case TickStyle.Both:
-                        {
-                            int totalHeight = indentHeight + textAreaSize.Height + tickHeight + barTickSpacing + barThickness + barTickSpacing + tickHeight + textAreaSize.Height + (textAreaSize.Height / 2);
+                    {
+                        int totalHeight = indentHeight + textAreaSize.Height + tickHeight + barTickSpacing + barThickness + barTickSpacing + tickHeight + textAreaSize.Height + (textAreaSize.Height / 2);
 
-                            trackBarLocation = new Point(0, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing);
-                            Size = new Size(ClientRectangle.Width, totalHeight);
+                        trackBarLocation = new Point(0, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing);
+                        Size = new Size(ClientRectangle.Width, totalHeight);
 
-                            break;
-                        }
+                        break;
+                    }
                 }
 
                 trackBarSize = new Size(workingRectangle.Width, barThickness);
@@ -1281,7 +1173,7 @@
             }
             else
             {
-                gradientPoints = new[] { new Point { X = ClientRectangle.Width, Y = 0 }, new Point { X = ClientRectangle.Width, Y = ClientRectangle.Height } };
+                gradientPoints = new[] {new Point {X = ClientRectangle.Width, Y = 0}, new Point {X = ClientRectangle.Width, Y = ClientRectangle.Height}};
 
                 // Start location
                 currentUsedPos = indentWidth;
@@ -1302,62 +1194,62 @@
                 switch (TickStyle)
                 {
                     case TickStyle.TopLeft:
+                    {
+                        if (buttonVisible)
                         {
-                            if (buttonVisible)
-                            {
-                                trackBarLocation = new Point(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing, 0);
-                                Size = new Size(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing + barThickness + (buttonSize.Width / 2), ClientRectangle.Height);
-                            }
-                            else
-                            {
-                                trackBarLocation = new Point(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing, 0);
-                                Size = new Size(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing + barThickness, ClientRectangle.Height);
-                            }
-
-                            break;
+                            trackBarLocation = new Point(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing, 0);
+                            Size = new Size(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing + barThickness + (buttonSize.Width / 2), ClientRectangle.Height);
                         }
+                        else
+                        {
+                            trackBarLocation = new Point(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing, 0);
+                            Size = new Size(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing + barThickness, ClientRectangle.Height);
+                        }
+
+                        break;
+                    }
 
                     case TickStyle.BottomRight:
+                    {
+                        if (buttonVisible)
                         {
-                            if (buttonVisible)
-                            {
-                                trackBarLocation = new Point(indentWidth + (buttonSize.Width / 2), 0);
-                                Size = new Size(indentWidth + barThickness + barTickSpacing + tickHeight + textAreaSize.Width + (buttonSize.Width / 2), ClientRectangle.Height);
-                            }
-                            else
-                            {
-                                trackBarLocation = new Point(0, indentWidth);
-                                Size = new Size(indentWidth + barThickness + barTickSpacing + tickHeight + textAreaSize.Width, ClientRectangle.Height);
-                            }
-
-                            break;
+                            trackBarLocation = new Point(indentWidth + (buttonSize.Width / 2), 0);
+                            Size = new Size(indentWidth + barThickness + barTickSpacing + tickHeight + textAreaSize.Width + (buttonSize.Width / 2), ClientRectangle.Height);
                         }
+                        else
+                        {
+                            trackBarLocation = new Point(0, indentWidth);
+                            Size = new Size(indentWidth + barThickness + barTickSpacing + tickHeight + textAreaSize.Width, ClientRectangle.Height);
+                        }
+
+                        break;
+                    }
 
                     case TickStyle.None:
+                    {
+                        if (buttonVisible)
                         {
-                            if (buttonVisible)
-                            {
-                                trackBarLocation = new Point(indentWidth + (buttonSize.Width / 2), indentHeight);
-                                Size = new Size(indentWidth + barThickness + buttonSize.Width, ClientRectangle.Height);
-                            }
-                            else
-                            {
-                                trackBarLocation = new Point(indentWidth, indentHeight);
-                                Size = new Size(indentWidth + barThickness, ClientRectangle.Height);
-                            }
-
-                            break;
+                            trackBarLocation = new Point(indentWidth + (buttonSize.Width / 2), indentHeight);
+                            Size = new Size(indentWidth + barThickness + buttonSize.Width, ClientRectangle.Height);
                         }
+                        else
+                        {
+                            trackBarLocation = new Point(indentWidth, indentHeight);
+                            Size = new Size(indentWidth + barThickness, ClientRectangle.Height);
+                        }
+
+                        break;
+                    }
 
                     case TickStyle.Both:
-                        {
-                            int totalWidth = indentWidth + textAreaSize.Width + tickHeight + barTickSpacing + barThickness + barTickSpacing + tickHeight + textAreaSize.Width;
+                    {
+                        int totalWidth = indentWidth + textAreaSize.Width + tickHeight + barTickSpacing + barThickness + barTickSpacing + tickHeight + textAreaSize.Width;
 
-                            trackBarLocation = new Point(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing, 0);
-                            Size = new Size(totalWidth, ClientRectangle.Height);
+                        trackBarLocation = new Point(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing, 0);
+                        Size = new Size(totalWidth, ClientRectangle.Height);
 
-                            break;
-                        }
+                        break;
+                    }
                 }
 
                 trackBarSize = new Size(barThickness, ClientRectangle.Height - indentHeight);
@@ -1434,36 +1326,36 @@
             switch (Orientation)
             {
                 case Orientation.Horizontal:
+                {
+                    buttonLocation = new Point(trackerRectangle.X, (trackBarRectangle.Top + (barThickness / 2)) - (buttonSize.Height / 2));
+
+                    if (buttonAutoSize)
                     {
-                        buttonLocation = new Point(trackerRectangle.X, (trackBarRectangle.Top + (barThickness / 2)) - (buttonSize.Height / 2));
-
-                        if (buttonAutoSize)
-                        {
-                            buttonSize = new Size(progressValue.Width, buttonSize.Height);
-                        }
-                        else
-                        {
-                            buttonSize = new Size(buttonSize.Width, buttonSize.Height);
-                        }
-
-                        break;
+                        buttonSize = new Size(progressValue.Width, buttonSize.Height);
                     }
+                    else
+                    {
+                        buttonSize = new Size(buttonSize.Width, buttonSize.Height);
+                    }
+
+                    break;
+                }
 
                 case Orientation.Vertical:
+                {
+                    buttonLocation = new Point((trackBarRectangle.Left + (barThickness / 2)) - (buttonSize.Width / 2), trackerRectangle.Y);
+
+                    if (buttonAutoSize)
                     {
-                        buttonLocation = new Point((trackBarRectangle.Left + (barThickness / 2)) - (buttonSize.Width / 2), trackerRectangle.Y);
-
-                        if (buttonAutoSize)
-                        {
-                            buttonSize = new Size(buttonSize.Width, progressValue.Height);
-                        }
-                        else
-                        {
-                            buttonSize = new Size(buttonSize.Width, buttonSize.Height);
-                        }
-
-                        break;
+                        buttonSize = new Size(buttonSize.Width, progressValue.Height);
                     }
+                    else
+                    {
+                        buttonSize = new Size(buttonSize.Width, buttonSize.Height);
+                    }
+
+                    break;
+                }
             }
 
             buttonRectangle = new Rectangle(buttonLocation, buttonSize);
@@ -1493,49 +1385,49 @@
             switch (Orientation)
             {
                 case Orientation.Horizontal:
+                {
+                    // Draws the progress to the middle of the button
+                    barProgress = buttonRectangle.X + (buttonRectangle.Width / 2);
+
+                    progressLocation = new Point(0, 0);
+                    progressSize = new Size(barProgress, Height);
+
+                    if ((Value == Minimum) && progressFilling)
                     {
-                        // Draws the progress to the middle of the button
-                        barProgress = buttonRectangle.X + (buttonRectangle.Width / 2);
-
-                        progressLocation = new Point(0, 0);
-                        progressSize = new Size(barProgress, Height);
-
-                        if ((Value == Minimum) && progressFilling)
-                        {
-                            progressLocation = new Point(barProgress, Height);
-                        }
-
-                        if ((Value == Maximum) && progressFilling)
-                        {
-                            progressSize = new Size(barProgress + fillingValue, Height);
-                        }
-
-                        progressRectangle = new Rectangle(progressLocation, progressSize);
-                        progressPath = VisualBorderRenderer.GetBorderShape(progressRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
+                        progressLocation = new Point(barProgress, Height);
                     }
+
+                    if ((Value == Maximum) && progressFilling)
+                    {
+                        progressSize = new Size(barProgress + fillingValue, Height);
+                    }
+
+                    progressRectangle = new Rectangle(progressLocation, progressSize);
+                    progressPath = VisualBorderRenderer.GetBorderShape(progressRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
+                }
 
                     break;
                 case Orientation.Vertical:
+                {
+                    // Draws the progress to the middle of the button
+                    barProgress = buttonRectangle.Y + (buttonRectangle.Height / 2);
+
+                    progressLocation = new Point(0, barProgress);
+
+                    if ((Value == Minimum) && progressFilling)
                     {
-                        // Draws the progress to the middle of the button
-                        barProgress = buttonRectangle.Y + (buttonRectangle.Height / 2);
-
-                        progressLocation = new Point(0, barProgress);
-
-                        if ((Value == Minimum) && progressFilling)
-                        {
-                            progressLocation = new Point(0, barProgress + fillingValue);
-                        }
-
-                        if ((Value == Maximum) && progressFilling)
-                        {
-                            progressLocation = new Point(0, barProgress - fillingValue);
-                        }
-
-                        progressSize = new Size(Width, Height + textAreaSize.Height);
-                        progressRectangle = new Rectangle(progressLocation, progressSize);
-                        progressPath = VisualBorderRenderer.GetBorderShape(progressRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
+                        progressLocation = new Point(0, barProgress + fillingValue);
                     }
+
+                    if ((Value == Maximum) && progressFilling)
+                    {
+                        progressLocation = new Point(0, barProgress - fillingValue);
+                    }
+
+                    progressSize = new Size(Width, Height + textAreaSize.Height);
+                    progressRectangle = new Rectangle(progressLocation, progressSize);
+                    progressPath = VisualBorderRenderer.GetBorderShape(progressRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
+                }
 
                     break;
             }

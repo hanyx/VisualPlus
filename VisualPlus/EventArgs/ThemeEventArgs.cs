@@ -1,24 +1,16 @@
 ﻿namespace VisualPlus.EventArgs
 {
-    #region Namespace
-
-    using System;
-
-    using VisualPlus.Enumerators;
-
-    #endregion
-
-    public class ThemeEventArgs : EventArgs
+    public class ThemeEventArgs : System.EventArgs
     {
         #region Variables
 
-        private Styles _style;
+        private Enumerators.Styles _style;
 
         #endregion
 
         #region Constructors
 
-        public ThemeEventArgs(Styles style)
+        public ThemeEventArgs(Enumerators.Styles style)
         {
             _style = style;
         }
@@ -27,17 +19,11 @@
 
         #region Properties
 
-        public Styles Style
+        public Enumerators.Styles Style
         {
-            get
-            {
-                return _style;
-            }
+            get { return _style; }
 
-            set
-            {
-                _style = value;
-            }
+            set { _style = value; }
         }
 
         #endregion

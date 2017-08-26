@@ -1,22 +1,21 @@
-﻿namespace VisualPlus.Toolkit.Controls.Layout
+﻿#region Namespace
+
+using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Managers;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+using VisualPlus.Toolkit.VisualBase;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Layout
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Managers;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.VisualBase;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(Control))]
     [DefaultEvent("Click")]
@@ -54,10 +53,7 @@
         [Category(Propertys.Appearance)]
         public Gradient Line
         {
-            get
-            {
-                return lineGradient;
-            }
+            get { return lineGradient; }
 
             set
             {
@@ -67,13 +63,10 @@
         }
 
         [Category(Propertys.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Orientation)]
+        [Description(Property.Orientation)]
         public Orientation Orientation
         {
-            get
-            {
-                return separatorOrientation;
-            }
+            get { return separatorOrientation; }
 
             set
             {
@@ -108,10 +101,7 @@
         [Category(Propertys.Appearance)]
         public Gradient Shadow
         {
-            get
-            {
-                return shadowGradient;
-            }
+            get { return shadowGradient; }
 
             set
             {
@@ -121,13 +111,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool ShadowVisible
         {
-            get
-            {
-                return shadowVisible;
-            }
+            get { return shadowVisible; }
 
             set
             {
@@ -140,7 +127,7 @@
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Enumerators.Styles style)
         {
             StyleManager = new VisualStyleManager(style);
 
@@ -156,22 +143,22 @@
             Background = StyleManager.ControlStatesStyle.ControlEnabled.Colors[0];
             BackgroundDisabled = StyleManager.ControlStyle.Background(0);
 
-            float[] gradientPosition = { 0, 1 / 2f, 1 };
+            float[] gradientPosition = {0, 1 / 2f, 1};
             float angle = 90;
 
             Color[] lineColor =
-                {
-                    StyleManager.ControlStyle.Line,
-                    ControlPaint.Light(StyleManager.ControlStyle.Line),
-                    StyleManager.ControlStyle.Line
-                };
+            {
+                StyleManager.ControlStyle.Line,
+                ControlPaint.Light(StyleManager.ControlStyle.Line),
+                StyleManager.ControlStyle.Line
+            };
 
             Color[] shadowColor =
-                {
-                    ControlPaint.Light(StyleManager.ControlStyle.Shadow),
-                    StyleManager.ControlStyle.Shadow,
-                    ControlPaint.Light(StyleManager.ControlStyle.Shadow)
-                };
+            {
+                ControlPaint.Light(StyleManager.ControlStyle.Shadow),
+                StyleManager.ControlStyle.Shadow,
+                ControlPaint.Light(StyleManager.ControlStyle.Shadow)
+            };
 
             lineGradient.Angle = angle;
             lineGradient.Colors = lineColor;
@@ -201,28 +188,28 @@
             switch (separatorOrientation)
             {
                 case Orientation.Horizontal:
-                    {
-                        linePosition = new Point(0, 1);
-                        lineSize = new Size(Width, 1);
+                {
+                    linePosition = new Point(0, 1);
+                    lineSize = new Size(Width, 1);
 
-                        shadowPosition = new Point(0, 2);
-                        shadowSize = new Size(Width, 2);
+                    shadowPosition = new Point(0, 2);
+                    shadowSize = new Size(Width, 2);
 
-                        gradientPoints = new[] { new Point { X = ClientRectangle.Width, Y = 0 }, new Point { X = ClientRectangle.Width, Y = ClientRectangle.Width } };
-                        break;
-                    }
+                    gradientPoints = new[] {new Point {X = ClientRectangle.Width, Y = 0}, new Point {X = ClientRectangle.Width, Y = ClientRectangle.Width}};
+                    break;
+                }
 
                 case Orientation.Vertical:
-                    {
-                        linePosition = new Point(1, 0);
-                        lineSize = new Size(1, Height);
+                {
+                    linePosition = new Point(1, 0);
+                    lineSize = new Size(1, Height);
 
-                        shadowPosition = new Point(2, 0);
-                        shadowSize = new Size(2, Height);
+                    shadowPosition = new Point(2, 0);
+                    shadowSize = new Size(2, Height);
 
-                        gradientPoints = new[] { new Point { X = ClientRectangle.Width, Y = 0 }, new Point { X = ClientRectangle.Width, Y = ClientRectangle.Height } };
-                        break;
-                    }
+                    gradientPoints = new[] {new Point {X = ClientRectangle.Width, Y = 0}, new Point {X = ClientRectangle.Width, Y = ClientRectangle.Height}};
+                    break;
+                }
 
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -241,7 +228,7 @@
             }
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(System.EventArgs e)
         {
             base.OnResize(e);
 

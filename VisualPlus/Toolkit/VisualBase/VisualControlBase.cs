@@ -1,26 +1,23 @@
-﻿namespace VisualPlus.Toolkit.VisualBase
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using VisualPlus.Delegates;
+using VisualPlus.Enumerators;
+using VisualPlus.EventArgs;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Toolkit.VisualBase
 {
-    #region Namespace
-
-    using System;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Text;
-    using System.Runtime.InteropServices;
-    using System.Windows.Forms;
-
-    using VisualPlus.Delegates;
-    using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-
-    using Property = VisualPlus.Localization.Descriptions.Property;
-
-    #endregion
-
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -64,11 +61,11 @@
         }
 
         [Category(Localization.Category.Events.Appearance)]
-        [Description(Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public event BackgroundChangedEventHandler BackgroundChanged;
 
         [Category(Localization.Category.Events.Appearance)]
-        [Description(Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public event BackgroundChangedEventHandler BackgroundDisabledChanged;
 
         [Category(Localization.Category.Events.PropertyChanged)]
@@ -91,18 +88,15 @@
 
         #region Properties
 
-        [Category(Localization.Category.Propertys.Layout)]
-        [Description(Property.Description.Common.AutoSize)]
+        [Category(Propertys.Layout)]
+        [Description(Property.AutoSize)]
         public new bool AutoSize { get; set; }
 
-        [Category(Localization.Category.Propertys.Appearance)]
-        [Description(Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color Background
         {
-            get
-            {
-                return _backgroundColor;
-            }
+            get { return _backgroundColor; }
 
             set
             {
@@ -112,14 +106,11 @@
             }
         }
 
-        [Category(Localization.Category.Propertys.Appearance)]
-        [Description(Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color BackgroundDisabled
         {
-            get
-            {
-                return _backgroundDisabledColor;
-            }
+            get { return _backgroundDisabledColor; }
 
             set
             {
@@ -143,14 +134,11 @@
 
         public override Color ForeColor { get; set; }
 
-        [Category(Localization.Category.Propertys.Appearance)]
-        [Description(Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color ForeColorDisabled
         {
-            get
-            {
-                return _foreColorDisabled;
-            }
+            get { return _foreColorDisabled; }
 
             set
             {
@@ -160,14 +148,11 @@
             }
         }
 
-        [Category(Localization.Category.Propertys.Appearance)]
-        [Description(Property.Description.Common.MouseState)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.MouseState)]
         public MouseStates MouseState
         {
-            get
-            {
-                return _mouseState;
-            }
+            get { return _mouseState; }
 
             set
             {
@@ -180,25 +165,16 @@
         [EditorBrowsable(EditorBrowsableState.Never)]
         public VisualStyleManager StyleManager
         {
-            get
-            {
-                return _styleManager;
-            }
+            get { return _styleManager; }
 
-            set
-            {
-                _styleManager = value;
-            }
+            set { _styleManager = value; }
         }
 
-        [Category(Localization.Category.Propertys.Appearance)]
-        [Description(Property.Description.Strings.TextRenderingHint)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.TextRenderingHint)]
         public TextRenderingHint TextRenderingHint
         {
-            get
-            {
-                return _textRenderingHint;
-            }
+            get { return _textRenderingHint; }
 
             set
             {
@@ -251,14 +227,14 @@
             ForeColorDisabledChanged?.Invoke(e);
         }
 
-        protected override void OnMouseHover(EventArgs e)
+        protected override void OnMouseHover(System.EventArgs e)
         {
             base.OnMouseHover(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;

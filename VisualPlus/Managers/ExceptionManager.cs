@@ -1,11 +1,11 @@
-﻿namespace VisualPlus.Managers
+﻿#region Namespace
+
+using System;
+
+#endregion
+
+namespace VisualPlus.Managers
 {
-    #region Namespace
-
-    using System;
-
-    #endregion
-
     internal class ExceptionManager
     {
         #region Events

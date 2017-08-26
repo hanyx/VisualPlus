@@ -1,16 +1,15 @@
-﻿namespace VisualPlus.Renders
+﻿#region Namespace
+
+using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using VisualPlus.Enumerators;
+using VisualPlus.Structure;
+
+#endregion
+
+namespace VisualPlus.Renders
 {
-    #region Namespace
-
-    using System;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Structure;
-
-    #endregion
-
     public sealed class VisualBorderRenderer
     {
         #region Events
@@ -119,24 +118,24 @@
             switch (borderType)
             {
                 case ShapeType.Rectangle:
-                    {
-                        borderShape.AddRectangle(borderRectangle);
-                        break;
-                    }
+                {
+                    borderShape.AddRectangle(borderRectangle);
+                    break;
+                }
 
                 case ShapeType.Rounded:
-                    {
-                        borderShape.AddArc(borderRectangle.X, borderRectangle.Y, borderRounding, borderRounding, 180.0F, 90.0F);
-                        borderShape.AddArc(borderRectangle.Right - borderRounding, borderRectangle.Y, borderRounding, borderRounding, 270.0F, 90.0F);
-                        borderShape.AddArc(borderRectangle.Right - borderRounding, borderRectangle.Bottom - borderRounding, borderRounding, borderRounding, 0.0F, 90.0F);
-                        borderShape.AddArc(borderRectangle.X, borderRectangle.Bottom - borderRounding, borderRounding, borderRounding, 90.0F, 90.0F);
-                        break;
-                    }
+                {
+                    borderShape.AddArc(borderRectangle.X, borderRectangle.Y, borderRounding, borderRounding, 180.0F, 90.0F);
+                    borderShape.AddArc(borderRectangle.Right - borderRounding, borderRectangle.Y, borderRounding, borderRounding, 270.0F, 90.0F);
+                    borderShape.AddArc(borderRectangle.Right - borderRounding, borderRectangle.Bottom - borderRounding, borderRounding, borderRounding, 0.0F, 90.0F);
+                    borderShape.AddArc(borderRectangle.X, borderRectangle.Bottom - borderRounding, borderRounding, borderRounding, 90.0F, 90.0F);
+                    break;
+                }
 
                 default:
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(borderType), borderType, null);
-                    }
+                {
+                    throw new ArgumentOutOfRangeException(nameof(borderType), borderType, null);
+                }
             }
 
             borderShape.CloseAllFigures();

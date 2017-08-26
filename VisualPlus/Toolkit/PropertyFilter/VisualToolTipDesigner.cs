@@ -1,12 +1,12 @@
-﻿namespace VisualPlus.Toolkit.PropertyFilter
+﻿#region Namespace
+
+using System.Collections;
+using System.ComponentModel.Design;
+
+#endregion
+
+namespace VisualPlus.Toolkit.PropertyFilter
 {
-    #region Namespace
-
-    using System.Collections;
-    using System.ComponentModel.Design;
-
-    #endregion
-
     internal class VisualToolTipDesigner : ComponentDesigner
     {
         #region Events

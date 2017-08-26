@@ -1,24 +1,24 @@
-﻿namespace VisualPlus.Toolkit.Controls.Navigation
+﻿#region Namespace
+
+using System;
+using System.Collections;
+using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
+using System.Linq;
+using System.Windows.Forms;
+using VisualPlus.Enumerators;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+using VisualPlus.Renders;
+using VisualPlus.Structure;
+using VisualPlus.Toolkit.Components;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Controls.Navigation
 {
-    #region Namespace
-
-    using System;
-    using System.Collections;
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Text;
-    using System.Linq;
-    using System.Windows.Forms;
-
-    using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Renders;
-    using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
-
-    #endregion
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(TabControl))]
     [DefaultEvent("SelectedIndexChanged")]
@@ -87,25 +87,25 @@
 
             tabPageBorder = new Border();
 
-            float[] gradientPosition = { 0, 1 };
+            float[] gradientPosition = {0, 1};
 
             Color[] tabHover =
-                {
-                    ControlPaint.Light(_styleManager.TabStyle.TabSelected),
-                    _styleManager.TabStyle.TabSelected
-                };
+            {
+                ControlPaint.Light(_styleManager.TabStyle.TabSelected),
+                _styleManager.TabStyle.TabSelected
+            };
 
             Color[] tabNormal =
-                {
-                    ControlPaint.Light(_styleManager.TabStyle.TabEnabled),
-                    _styleManager.TabStyle.TabEnabled
-                };
+            {
+                ControlPaint.Light(_styleManager.TabStyle.TabEnabled),
+                _styleManager.TabStyle.TabEnabled
+            };
 
             Color[] tabSelected =
-                {
-                    ControlPaint.Light(_styleManager.TabStyle.TabSelected),
-                    _styleManager.TabStyle.TabSelected
-                };
+            {
+                ControlPaint.Light(_styleManager.TabStyle.TabSelected),
+                _styleManager.TabStyle.TabSelected
+            };
 
             normal.Colors = tabNormal;
             normal.Positions = gradientPosition;
@@ -128,13 +128,10 @@
         #region Properties
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Alignment)]
+        [Description(Property.Alignment)]
         public new TabAlignment Alignment
         {
-            get
-            {
-                return alignment;
-            }
+            get { return alignment; }
 
             set
             {
@@ -146,25 +143,25 @@
                 {
                     case TabAlignment.Top:
                     case TabAlignment.Bottom:
+                    {
+                        if (itemSize.Width < itemSize.Height)
                         {
-                            if (itemSize.Width < itemSize.Height)
-                            {
-                                ItemSize = new Size(itemSize.Height, itemSize.Width);
-                            }
-
-                            break;
+                            ItemSize = new Size(itemSize.Height, itemSize.Width);
                         }
+
+                        break;
+                    }
 
                     case TabAlignment.Left:
                     case TabAlignment.Right:
+                    {
+                        if (itemSize.Width > itemSize.Height)
                         {
-                            if (itemSize.Width > itemSize.Height)
-                            {
-                                ItemSize = new Size(itemSize.Height, itemSize.Width);
-                            }
-
-                            break;
+                            ItemSize = new Size(itemSize.Height, itemSize.Width);
                         }
+
+                        break;
+                    }
                 }
 
                 UpdateArrowLocation();
@@ -173,13 +170,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool ArrowSelectorVisible
         {
-            get
-            {
-                return arrowSelectorVisible;
-            }
+            get { return arrowSelectorVisible; }
 
             set
             {
@@ -189,13 +183,10 @@
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Spacing)]
+        [Description(Property.Spacing)]
         public int ArrowSpacing
         {
-            get
-            {
-                return arrowSpacing;
-            }
+            get { return arrowSpacing; }
 
             set
             {
@@ -205,13 +196,10 @@
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public int ArrowThickness
         {
-            get
-            {
-                return arrowThickness;
-            }
+            get { return arrowThickness; }
 
             set
             {
@@ -221,13 +209,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color BackgroundColor
         {
-            get
-            {
-                return backgroundColor;
-            }
+            get { return backgroundColor; }
 
             set
             {
@@ -246,10 +231,7 @@
         [Category(Propertys.Appearance)]
         public Gradient HoverGradient
         {
-            get
-            {
-                return hover;
-            }
+            get { return hover; }
 
             set
             {
@@ -259,13 +241,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public new Size ItemSize
         {
-            get
-            {
-                return itemSize;
-            }
+            get { return itemSize; }
 
             set
             {
@@ -278,10 +257,7 @@
         [Category(Propertys.Appearance)]
         public StringAlignment LineAlignment
         {
-            get
-            {
-                return lineAlignment;
-            }
+            get { return lineAlignment; }
 
             set
             {
@@ -295,10 +271,7 @@
         [Category(Propertys.Appearance)]
         public Gradient NormalGradient
         {
-            get
-            {
-                return normal;
-            }
+            get { return normal; }
 
             set
             {
@@ -312,10 +285,7 @@
         [Category(Propertys.Appearance)]
         public Gradient SelectedGradient
         {
-            get
-            {
-                return selected;
-            }
+            get { return selected; }
 
             set
             {
@@ -325,13 +295,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Alignment)]
+        [Description(Property.Alignment)]
         public TabAlignment SelectorAlignment
         {
-            get
-            {
-                return selectorAlignment;
-            }
+            get { return selectorAlignment; }
 
             set
             {
@@ -341,13 +308,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Alignment)]
+        [Description(Property.Alignment)]
         public TabAlignment SelectorAlignment2
         {
-            get
-            {
-                return selectorAlignment2;
-            }
+            get { return selectorAlignment2; }
 
             set
             {
@@ -357,13 +321,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public int SelectorThickness
         {
-            get
-            {
-                return selectorThickness;
-            }
+            get { return selectorThickness; }
 
             set
             {
@@ -373,13 +334,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool SelectorVisible
         {
-            get
-            {
-                return selectorVisible;
-            }
+            get { return selectorVisible; }
 
             set
             {
@@ -389,13 +347,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool SelectorVisible2
         {
-            get
-            {
-                return selectorVisible2;
-            }
+            get { return selectorVisible2; }
 
             set
             {
@@ -405,13 +360,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color Separator
         {
-            get
-            {
-                return separator;
-            }
+            get { return separator; }
 
             set
             {
@@ -421,13 +373,10 @@
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Spacing)]
+        [Description(Property.Spacing)]
         public int SeparatorSpacing
         {
-            get
-            {
-                return separatorSpacing;
-            }
+            get { return separatorSpacing; }
 
             set
             {
@@ -437,13 +386,10 @@
         }
 
         [Category(Propertys.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public float SeparatorThickness
         {
-            get
-            {
-                return separatorThickness;
-            }
+            get { return separatorThickness; }
 
             set
             {
@@ -456,10 +402,7 @@
         [Category(Propertys.Behavior)]
         public bool SeparatorVisible
         {
-            get
-            {
-                return separatorVisible;
-            }
+            get { return separatorVisible; }
 
             set
             {
@@ -469,13 +412,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.MouseState)]
+        [Description(Property.MouseState)]
         public MouseStates State
         {
-            get
-            {
-                return mouseState;
-            }
+            get { return mouseState; }
 
             set
             {
@@ -485,13 +425,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color TabMenu
         {
-            get
-            {
-                return tabMenu;
-            }
+            get { return tabMenu; }
 
             set
             {
@@ -505,10 +442,7 @@
         [Category(Propertys.Appearance)]
         public Border TabPageBorder
         {
-            get
-            {
-                return tabPageBorder;
-            }
+            get { return tabPageBorder; }
 
             set
             {
@@ -518,13 +452,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color TabSelector
         {
-            get
-            {
-                return tabSelector;
-            }
+            get { return tabSelector; }
 
             set
             {
@@ -536,10 +467,7 @@
         [Category(Propertys.Appearance)]
         public StringAlignment TextAlignment
         {
-            get
-            {
-                return textAlignment;
-            }
+            get { return textAlignment; }
 
             set
             {
@@ -549,13 +477,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color TextNormal
         {
-            get
-            {
-                return textNormal;
-            }
+            get { return textNormal; }
 
             set
             {
@@ -565,13 +490,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Strings.TextRenderingHint)]
+        [Description(Property.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
-            get
-            {
-                return textRendererHint;
-            }
+            get { return textRendererHint; }
 
             set
             {
@@ -581,13 +503,10 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color TextSelected
         {
-            get
-            {
-                return textSelected;
-            }
+            get { return textSelected; }
 
             set
             {
@@ -634,14 +553,14 @@
             }
         }
 
-        protected override void OnMouseEnter(EventArgs e)
+        protected override void OnMouseEnter(System.EventArgs e)
         {
             base.OnMouseEnter(e);
             State = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(EventArgs e)
+        protected override void OnMouseLeave(System.EventArgs e)
         {
             State = MouseStates.Normal;
             if (TabPages.Cast<TabPage>().Any(Tab => Tab.DisplayRectangle.Contains(mouseLocation)))
@@ -683,7 +602,7 @@
             {
                 ConfigureAlignmentStyle(tabIndex);
 
-                var gradientPoints = new[] { new Point { X = GetTabRect(tabIndex).Width, Y = 0 }, new Point { X = GetTabRect(tabIndex).Width, Y = GetTabRect(tabIndex).Height } };
+                var gradientPoints = new[] {new Point {X = GetTabRect(tabIndex).Width, Y = 0}, new Point {X = GetTabRect(tabIndex).Width, Y = GetTabRect(tabIndex).Height}};
 
                 LinearGradientBrush normalBrush = Gradient.CreateGradientBrush(normal.Colors, gradientPoints, normal.Angle, normal.Positions);
                 LinearGradientBrush hoverBrush = Gradient.CreateGradientBrush(hover.Colors, gradientPoints, hover.Angle, hover.Positions);
@@ -694,10 +613,10 @@
                 Rectangle selectorRectangle2 = GDI.ApplyAnchor(SelectorAlignment2, GetTabRect(tabIndex), selectorThickness);
 
                 StringFormat stringFormat = new StringFormat
-                    {
-                        Alignment = textAlignment,
-                        LineAlignment = lineAlignment
-                    };
+                {
+                    Alignment = textAlignment,
+                    LineAlignment = lineAlignment
+                };
 
                 if (tabIndex == SelectedIndex)
                 {
@@ -821,56 +740,56 @@
             switch (Alignment)
             {
                 case TabAlignment.Left:
-                    {
-                        points[0].X = selectedRectangle.Right - ArrowThickness;
-                        points[0].Y = selectedRectangle.Y + (selectedRectangle.Height / 2);
+                {
+                    points[0].X = selectedRectangle.Right - ArrowThickness;
+                    points[0].Y = selectedRectangle.Y + (selectedRectangle.Height / 2);
 
-                        points[1].X = selectedRectangle.Right + ArrowSpacing;
-                        points[1].Y = selectedRectangle.Top + ArrowSpacing;
+                    points[1].X = selectedRectangle.Right + ArrowSpacing;
+                    points[1].Y = selectedRectangle.Top + ArrowSpacing;
 
-                        points[2].X = selectedRectangle.Right + ArrowSpacing;
-                        points[2].Y = selectedRectangle.Bottom - ArrowSpacing;
-                        break;
-                    }
+                    points[2].X = selectedRectangle.Right + ArrowSpacing;
+                    points[2].Y = selectedRectangle.Bottom - ArrowSpacing;
+                    break;
+                }
 
                 case TabAlignment.Top:
-                    {
-                        points[0].X = selectedRectangle.X + (selectedRectangle.Width / 2);
-                        points[0].Y = selectedRectangle.Bottom - ArrowThickness;
+                {
+                    points[0].X = selectedRectangle.X + (selectedRectangle.Width / 2);
+                    points[0].Y = selectedRectangle.Bottom - ArrowThickness;
 
-                        points[1].X = selectedRectangle.Left + ArrowSpacing;
-                        points[1].Y = selectedRectangle.Bottom + ArrowSpacing;
+                    points[1].X = selectedRectangle.Left + ArrowSpacing;
+                    points[1].Y = selectedRectangle.Bottom + ArrowSpacing;
 
-                        points[2].X = selectedRectangle.Right - ArrowSpacing;
-                        points[2].Y = selectedRectangle.Bottom + ArrowSpacing;
-                        break;
-                    }
+                    points[2].X = selectedRectangle.Right - ArrowSpacing;
+                    points[2].Y = selectedRectangle.Bottom + ArrowSpacing;
+                    break;
+                }
 
                 case TabAlignment.Bottom:
-                    {
-                        points[0].X = selectedRectangle.X + (selectedRectangle.Width / 2);
-                        points[0].Y = selectedRectangle.Top + ArrowThickness;
+                {
+                    points[0].X = selectedRectangle.X + (selectedRectangle.Width / 2);
+                    points[0].Y = selectedRectangle.Top + ArrowThickness;
 
-                        points[1].X = selectedRectangle.Left + ArrowSpacing;
-                        points[1].Y = selectedRectangle.Top - ArrowSpacing;
+                    points[1].X = selectedRectangle.Left + ArrowSpacing;
+                    points[1].Y = selectedRectangle.Top - ArrowSpacing;
 
-                        points[2].X = selectedRectangle.Right - ArrowSpacing;
-                        points[2].Y = selectedRectangle.Top - ArrowSpacing;
-                        break;
-                    }
+                    points[2].X = selectedRectangle.Right - ArrowSpacing;
+                    points[2].Y = selectedRectangle.Top - ArrowSpacing;
+                    break;
+                }
 
                 case TabAlignment.Right:
-                    {
-                        points[0].X = selectedRectangle.Left + ArrowThickness;
-                        points[0].Y = selectedRectangle.Y + (selectedRectangle.Height / 2);
+                {
+                    points[0].X = selectedRectangle.Left + ArrowThickness;
+                    points[0].Y = selectedRectangle.Y + (selectedRectangle.Height / 2);
 
-                        points[1].X = selectedRectangle.Left - ArrowSpacing;
-                        points[1].Y = selectedRectangle.Top + ArrowSpacing;
+                    points[1].X = selectedRectangle.Left - ArrowSpacing;
+                    points[1].Y = selectedRectangle.Top + ArrowSpacing;
 
-                        points[2].X = selectedRectangle.Left - ArrowSpacing;
-                        points[2].Y = selectedRectangle.Bottom - ArrowSpacing;
-                        break;
-                    }
+                    points[2].X = selectedRectangle.Left - ArrowSpacing;
+                    points[2].Y = selectedRectangle.Bottom - ArrowSpacing;
+                    break;
+                }
             }
 
             e.Graphics.FillPolygon(new SolidBrush(backgroundColor), points);
@@ -887,33 +806,33 @@
             switch (Alignment)
             {
                 case TabAlignment.Top:
-                    {
-                        e.Graphics.DrawLine(new Pen(separator, separatorThickness), 0, ItemSize.Height + separatorSpacing, Width, ItemSize.Height + separatorSpacing);
-                        break;
-                    }
+                {
+                    e.Graphics.DrawLine(new Pen(separator, separatorThickness), 0, ItemSize.Height + separatorSpacing, Width, ItemSize.Height + separatorSpacing);
+                    break;
+                }
 
                 case TabAlignment.Bottom:
-                    {
-                        e.Graphics.DrawLine(new Pen(separator, separatorThickness), 0, Height - ItemSize.Height - separatorSpacing, Width, Height - ItemSize.Height - separatorSpacing);
-                        break;
-                    }
+                {
+                    e.Graphics.DrawLine(new Pen(separator, separatorThickness), 0, Height - ItemSize.Height - separatorSpacing, Width, Height - ItemSize.Height - separatorSpacing);
+                    break;
+                }
 
                 case TabAlignment.Left:
-                    {
-                        e.Graphics.DrawLine(new Pen(separator, separatorThickness), ItemSize.Height + separatorSpacing, 0, ItemSize.Height + separatorSpacing, Height);
-                        break;
-                    }
+                {
+                    e.Graphics.DrawLine(new Pen(separator, separatorThickness), ItemSize.Height + separatorSpacing, 0, ItemSize.Height + separatorSpacing, Height);
+                    break;
+                }
 
                 case TabAlignment.Right:
-                    {
-                        e.Graphics.DrawLine(new Pen(separator, separatorThickness), Width - ItemSize.Height - separatorSpacing, 0, Width - ItemSize.Height - separatorSpacing, Height);
-                        break;
-                    }
+                {
+                    e.Graphics.DrawLine(new Pen(separator, separatorThickness), Width - ItemSize.Height - separatorSpacing, 0, Width - ItemSize.Height - separatorSpacing, Height);
+                    break;
+                }
 
                 default:
-                    {
-                        throw new ArgumentOutOfRangeException();
-                    }
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
             }
         }
 
@@ -923,19 +842,19 @@
             {
                 case TabAlignment.Top:
                 case TabAlignment.Bottom:
-                    {
-                        arrowThickness = 5;
-                        arrowSpacing = 10;
-                        break;
-                    }
+                {
+                    arrowThickness = 5;
+                    arrowSpacing = 10;
+                    break;
+                }
 
                 case TabAlignment.Left:
                 case TabAlignment.Right:
-                    {
-                        arrowThickness = 10;
-                        arrowSpacing = 3;
-                        break;
-                    }
+                {
+                    arrowThickness = 10;
+                    arrowSpacing = 3;
+                    break;
+                }
             }
         }
 

@@ -1,17 +1,17 @@
-﻿namespace VisualPlus.Extensibility
+﻿#region Namespace
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using System.Windows.Forms;
+
+#endregion
+
+namespace VisualPlus.Extensibility
 {
-    #region Namespace
-
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Diagnostics;
-    using System.Globalization;
-    using System.Linq;
-    using System.Windows.Forms;
-
-    #endregion
-
     public static class Extensions
     {
         #region Properties
@@ -90,7 +90,7 @@
         public static void ScrollDown(this Panel p, int pos)
         {
             // pos passed in should be positive
-            using (Control c = new Control { Parent = p, Height = 1, Top = p.ClientSize.Height + pos })
+            using (Control c = new Control {Parent = p, Height = 1, Top = p.ClientSize.Height + pos})
             {
                 p.ScrollControlIntoView(c);
             }
@@ -100,7 +100,7 @@
         /// <param name="panel">The panel.</param>
         public static void ScrollToBottom(this Panel panel)
         {
-            using (Control c = new Control { Parent = panel, Dock = DockStyle.Bottom })
+            using (Control c = new Control {Parent = panel, Dock = DockStyle.Bottom})
             {
                 panel.ScrollControlIntoView(c);
                 c.Parent = null;
@@ -110,7 +110,7 @@
         public static void ScrollUp(this Panel p, int pos)
         {
             // pos passed in should be negative
-            using (Control c = new Control { Parent = p, Height = 1, Top = pos })
+            using (Control c = new Control {Parent = p, Height = 1, Top = pos})
             {
                 p.ScrollControlIntoView(c);
             }
@@ -132,7 +132,7 @@
         {
             if (value is string)
             {
-                var s = (string)value;
+                var s = (string) value;
                 return int.Parse(s, NumberStyles.AllowThousands, culture);
             }
 
@@ -143,7 +143,7 @@
         {
             if (destinationType == typeof(string))
             {
-                return ((int)value).ToString("N0", culture);
+                return ((int) value).ToString("N0", culture);
             }
 
             return base.ConvertTo(context, culture, value, destinationType);

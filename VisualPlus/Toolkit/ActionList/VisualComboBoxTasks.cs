@@ -1,17 +1,16 @@
-﻿namespace VisualPlus.Toolkit.ActionList
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Drawing.Design;
+using System.Windows.Forms;
+using System.Windows.Forms.Design;
+using VisualPlus.Toolkit.Controls.Interactivity;
+
+#endregion
+
+namespace VisualPlus.Toolkit.ActionList
 {
-    #region Namespace
-
-    using System.ComponentModel;
-    using System.ComponentModel.Design;
-    using System.Drawing.Design;
-    using System.Windows.Forms;
-    using System.Windows.Forms.Design;
-
-    using VisualPlus.Toolkit.Controls.Interactivity;
-
-    #endregion
-
     internal class VisualComboBoxTasks : ControlDesigner
     {
         #region Variables
@@ -29,7 +28,7 @@
             {
                 if (actionListCollection == null)
                 {
-                    actionListCollection = new DesignerActionListCollection { new VisualComboBoxActionList(Component) };
+                    actionListCollection = new DesignerActionListCollection {new VisualComboBoxActionList(Component)};
                 }
 
                 return actionListCollection;
@@ -53,8 +52,8 @@
 
         public VisualComboBoxActionList(IComponent component) : base(component)
         {
-            buttonControl = (VisualComboBox)component;
-            designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
+            buttonControl = (VisualComboBox) component;
+            designerService = (DesignerActionUIService) GetService(typeof(DesignerActionUIService));
         }
 
         #endregion
@@ -69,10 +68,7 @@
         [Localizable(true)]
         public virtual ComboBox.ObjectCollection Items
         {
-            get
-            {
-                return buttonControl.Items;
-            }
+            get { return buttonControl.Items; }
         }
 
         #endregion
@@ -82,10 +78,10 @@
         public override DesignerActionItemCollection GetSortedActionItems()
         {
             DesignerActionItemCollection items = new DesignerActionItemCollection
-                {
-                    new DesignerActionHeaderItem("Unbound Mode"),
-                    new DesignerActionPropertyItem("Items", "Edit Items...", "Unbound Mode")
-                };
+            {
+                new DesignerActionHeaderItem("Unbound Mode"),
+                new DesignerActionPropertyItem("Items", "Edit Items...", "Unbound Mode")
+            };
 
             return items;
         }

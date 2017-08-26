@@ -1,11 +1,11 @@
-﻿namespace VisualPlus.Renders
+﻿#region Namespace
+
+using System.Drawing;
+
+#endregion
+
+namespace VisualPlus.Renders
 {
-    #region Namespace
-
-    using System.Drawing;
-
-    #endregion
-
     public class Bars
     {
         #region Events

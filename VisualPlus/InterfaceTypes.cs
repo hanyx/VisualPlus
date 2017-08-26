@@ -8,10 +8,6 @@ using VisualPlus.Toolkit.Components;
 
 namespace VisualPlus
 {
-    #region Namespace
-
-    #endregion
-
     public interface IStyleControl
     {
         #region Events

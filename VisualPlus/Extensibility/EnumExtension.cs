@@ -1,15 +1,15 @@
+#region Namespace
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
+
+#endregion
+
 namespace VisualPlus.Extensibility
 {
-    #region Namespace
-
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Linq;
-    using System.Reflection;
-
-    #endregion
-
     public static class EnumExtension
     {
         #region Events
@@ -30,7 +30,7 @@ namespace VisualPlus.Extensibility
         {
             try
             {
-                var indexCount = (int)Enum.Parse(enumerator.GetType(), value);
+                var indexCount = (int) Enum.Parse(enumerator.GetType(), value);
                 return indexCount;
             }
             catch (Exception e)
@@ -70,7 +70,7 @@ namespace VisualPlus.Extensibility
 
             try
             {
-                return (Enum)Enum.Parse(type, enumeratorString);
+                return (Enum) Enum.Parse(type, enumeratorString);
             }
             catch (Exception e)
             {

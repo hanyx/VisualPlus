@@ -1,15 +1,15 @@
-﻿namespace VisualPlus.Toolkit.Components
+﻿#region Namespace
+
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+using VisualPlus.Localization.Category;
+using VisualPlus.Localization.Descriptions;
+
+#endregion
+
+namespace VisualPlus.Toolkit.Components
 {
-    #region Namespace
-
-    using System.ComponentModel;
-    using System.Drawing;
-    using System.Windows.Forms;
-
-    using VisualPlus.Localization.Category;
-
-    #endregion
-
     [ToolboxItem(true)]
     [Description("The VisualPlus gradient component can be used to apply gradient backgrounds on controls.")]
     public class VisualGradient : Component
@@ -95,13 +95,10 @@
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color BottomLeft
         {
-            get
-            {
-                return _bottomLeft;
-            }
+            get { return _bottomLeft; }
 
             set
             {
@@ -113,13 +110,10 @@
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color BottomRight
         {
-            get
-            {
-                return _bottomRight;
-            }
+            get { return _bottomRight; }
 
             set
             {
@@ -134,10 +128,7 @@
         [Description("The control to attach this component.")]
         public Control Control
         {
-            get
-            {
-                return _control;
-            }
+            get { return _control; }
 
             set
             {
@@ -152,10 +143,7 @@
         [Description("The quality of the gradient.")]
         public int Quality
         {
-            get
-            {
-                return _quality;
-            }
+            get { return _quality; }
 
             set
             {
@@ -167,13 +155,10 @@
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color TopLeft
         {
-            get
-            {
-                return _topLeft;
-            }
+            get { return _topLeft; }
 
             set
             {
@@ -185,13 +170,10 @@
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Category(Propertys.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color TopRight
         {
-            get
-            {
-                return _topRight;
-            }
+            get { return _topRight; }
 
             set
             {

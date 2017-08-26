@@ -23,7 +23,7 @@
         public const string ContractedHeight = "The contracted height.";
         public const string Cursor = "Represents the image used to paint the mouse pointer.";
         public const string Diameter = "A unit of linear measurement.";
-        public const string Direction = "ndicates whether the Parameter object is used to bind a value to a control, or the control can be used to change the value.";
+        public const string Direction = "Indicates whether the Parameter object is used to bind a value to a control, or the control can be used to change the value.";
         public const string Expanded = "The expander toggle.";
         public const string Font = "Defines a particular format for text, including font face, size, and style attributes.";
         public const string Image = "Gets or sets the image.";

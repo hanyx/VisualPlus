@@ -2,6 +2,7 @@
 
 using System;
 using System.Globalization;
+using System.Linq;
 
 #endregion
 
@@ -17,6 +18,15 @@ namespace VisualPlus.Managers
         public static float DegreeToRadians(float angle)
         {
             return (float) ((angle * Math.PI) / 180);
+        }
+
+        /// <summary>Retrieves the number closest from the value collection.</summary>
+        /// <param name="value">The intial value to compare with.</param>
+        /// <param name="valueCollection">The value collection to search.</param>
+        /// <returns>The closest value in the collection.</returns>
+        public static int FindClosestValue(int value, int[] valueCollection)
+        {
+            return valueCollection.Aggregate((x, y) => Math.Abs(x - value) < Math.Abs(y - value) ? x : y);
         }
 
         /// <summary>Gets the progress fraction.</summary>

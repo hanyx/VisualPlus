@@ -1050,7 +1050,8 @@ namespace VisualPlus.Toolkit.Controls.Layout
             public RECT rcMonitor = new RECT();
             public RECT rcWork = new RECT();
 
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)] public char[] szDevice = new char[32];
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
+            public char[] szDevice = new char[32];
 
             #endregion
         }

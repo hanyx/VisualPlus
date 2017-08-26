@@ -121,11 +121,13 @@ namespace VisualPlus.Structure
 
             set
             {
-                if (ExceptionManager.ArgumentOutOfRangeException(value, Settings.MinimumRounding, Settings.MaximumRounding))
+                if (_rounding == value)
                 {
-                    _rounding = value;
-                    RoundingChanged?.Invoke();
+                    return;
                 }
+
+                _rounding = ExceptionManager.ArgumentOutOfRangeException(value, Settings.MinimumRounding, Settings.MaximumRounding, true);
+                RoundingChanged?.Invoke();
             }
         }
 
@@ -138,11 +140,13 @@ namespace VisualPlus.Structure
 
             set
             {
-                if (ExceptionManager.ArgumentOutOfRangeException(value, Settings.MinimumBorderSize, Settings.MaximumBorderSize))
+                if (_thickness == value)
                 {
-                    _thickness = value;
-                    ThicknessChanged?.Invoke();
+                    return;
                 }
+
+                _thickness = ExceptionManager.ArgumentOutOfRangeException(value, Settings.MinimumBorderSize, Settings.MaximumBorderSize, true);
+                ThicknessChanged?.Invoke();
             }
         }
 
@@ -202,7 +206,7 @@ namespace VisualPlus.Structure
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
-            return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
+            return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
@@ -225,7 +229,7 @@ namespace VisualPlus.Structure
             result = null;
             shape = value as Shape;
 
-            if (shape != null && destinationType == typeof(string))
+            if ((shape != null) && (destinationType == typeof(string)))
             {
                 // result = borderStyle.ToString();
                 result = "Border Shape Settings";

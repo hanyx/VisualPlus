@@ -20,7 +20,8 @@ namespace VisualPlus.Structure
     {
         #region Variables
 
-        [Browsable(false)] public SolidBrush Brush;
+        [Browsable(false)]
+        public SolidBrush Brush;
 
         #endregion
 

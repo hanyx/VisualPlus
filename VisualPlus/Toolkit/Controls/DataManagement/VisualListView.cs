@@ -18,8 +18,6 @@ using VisualPlus.Toolkit.VisualBase;
 
 namespace VisualPlus.Toolkit.Controls.DataManagement
 {
-   
-
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ListView))]
     [DefaultEvent("SelectedIndexChanged")]

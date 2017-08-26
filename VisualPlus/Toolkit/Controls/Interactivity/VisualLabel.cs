@@ -262,11 +262,12 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
             set
             {
-                if (ExceptionManager.ArgumentOutOfRangeException(value, Settings.MinimumAlpha, Settings.MaximumAlpha))
+                if (shadowOpacity == value)
                 {
-                    shadowOpacity = value;
+                    return;
                 }
 
+                shadowOpacity = ExceptionManager.ArgumentOutOfRangeException(value, Settings.MinimumAlpha, Settings.MaximumAlpha, true);
                 Invalidate();
             }
         }

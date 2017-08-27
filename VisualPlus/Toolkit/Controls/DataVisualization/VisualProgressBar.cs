@@ -374,7 +374,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
                 SetStyleSettings(barStyle);
 
                 // Draw current progressbars
-                DrawStyledProgress(graphics, MathManager.GetFactor(Convert.ToDouble(Value), bars), true);
+                DrawStyledProgress(graphics, MathManager.GetFraction(Convert.ToDouble(Value), bars), true);
             }
 
             graphics.SmoothingMode = SmoothingMode.None;

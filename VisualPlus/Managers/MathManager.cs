@@ -29,11 +29,30 @@ namespace VisualPlus.Managers
             return valueCollection.Aggregate((x, y) => Math.Abs(x - value) < Math.Abs(y - value) ? x : y);
         }
 
-        /// <summary>Gets the progress fraction.</summary>
-        /// <param name="value">Current progress value.</param>
-        /// <param name="total">Total bars.</param>
-        /// <returns>Progress fraction.</returns>
-        public static int GetFactor(double value, double total)
+        /// <summary>Gets the fraction.</summary>
+        /// <param name="value">Current value.</param>
+        /// <param name="total">Total value.</param>
+        /// <param name="digits">The number of fractional digits in the return number.</param>
+        /// <returns>The fraction of the total progress.</returns>
+        public static float GetFraction(double value, double total, int digits)
+        {
+            // Convert to double value
+            double factor = value / 100;
+
+            // Multiply by self
+            factor = total * factor;
+
+            // Round to digits
+            factor = Math.Round(factor, digits);
+
+            return (float) factor;
+        }
+
+        /// <summary>Gets the fraction.</summary>
+        /// <param name="value">Current value.</param>
+        /// <param name="total">Total value.</param>
+        /// <returns>The fraction of the total progress.</returns>
+        public static int GetFraction(double value, double total)
         {
             // Convert to decimal value
             double factor = value / 100;

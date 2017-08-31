@@ -48,14 +48,14 @@
         /// <param name="mouseStates">The mouse States.</param>
         public static void DrawCheckBox(Graphics graphics, Border border, CheckStyle checkStyle, Rectangle rectangle, bool checkState, bool enabled, Color color, Image backgroundImage, MouseStates mouseStates)
         {
-            VisualBackgroundRenderer.DrawBackground(graphics, rectangle, color, backgroundImage, border, mouseStates);
+            VisualBackgroundRenderer.DrawBackground(graphics, color, backgroundImage, mouseStates, rectangle, border);
 
             if (!checkState)
             {
                 return;
             }
 
-            GraphicsPath _boxGraphicsPath = VisualBorderRenderer.GetBorderShape(rectangle, border);
+            GraphicsPath _boxGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
             graphics.SetClip(_boxGraphicsPath);
             DrawCheckMark(graphics, checkStyle, rectangle, enabled);
             graphics.ResetClip();
@@ -82,7 +82,34 @@
             Point _tempLocation;
             if (checkStyle.AutoSize)
             {
-                int styleIndex = checkStyle.Style.GetIndexByValue(checkStyle.Style.ToString());
+                int styleIndex;
+
+                switch (checkStyle.Style)
+                {
+                    case CheckStyle.CheckType.Character:
+                        {
+                            styleIndex = 0;
+                            break;
+                        }
+
+                    case CheckStyle.CheckType.Image:
+                        {
+                            styleIndex = 1;
+                            break;
+                        }
+
+                    case CheckStyle.CheckType.Shape:
+                        {
+                            styleIndex = 2;
+                            break;
+                        }
+
+                    default:
+                        {
+                            throw new ArgumentOutOfRangeException();
+                        }
+                }
+
                 _tempLocation = _defaultLocations[styleIndex];
             }
             else
@@ -108,7 +135,7 @@
                 case CheckStyle.CheckType.Shape:
                     {
                         Rectangle shapeRectangle = new Rectangle(_tempLocation, checkStyle.Bounds.Size);
-                        GraphicsPath shapePath = VisualBorderRenderer.GetBorderShape(shapeRectangle, checkStyle.ShapeType, checkStyle.ShapeRounding);
+                        GraphicsPath shapePath = VisualBorderRenderer.CreateBorderTypePath(shapeRectangle, checkStyle.ShapeRounding, checkStyle.ShapeRounding, checkStyle.ShapeType);
                         graphics.FillPath(new SolidBrush(checkStyle.Color), shapePath);
                         break;
                     }

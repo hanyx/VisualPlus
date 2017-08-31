@@ -88,12 +88,14 @@
             base.OnPaint(e);
 
             Graphics graphics = e.Graphics;
-            graphics.Clear(Parent.BackColor);
-            graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
             graphics.SmoothingMode = SmoothingMode.HighQuality;
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
+
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+            graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
+
             Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
-            VisualBackgroundRenderer.DrawBackground(e.Graphics, ClientRectangle, _backColor, BackgroundImage, Border, MouseState);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
         }
 
         #endregion

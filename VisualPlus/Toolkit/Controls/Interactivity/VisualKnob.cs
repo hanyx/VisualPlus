@@ -1039,7 +1039,7 @@
 
             GraphicsPath borderPath = new GraphicsPath();
             borderPath.AddEllipse(knobRectangle);
-            VisualBorderRenderer.DrawBorderStyle(offGraphics, knobBorder, State, borderPath);
+            VisualBorderRenderer.DrawBorderStyle(offGraphics, knobBorder, borderPath, State);
         }
 
         private void DrawKnobTop()
@@ -1052,7 +1052,7 @@
 
             GraphicsPath borderPath = new GraphicsPath();
             borderPath.AddEllipse(knobTopRectangle);
-            VisualBorderRenderer.DrawBorderStyle(offGraphics, knobTopBorder, State, borderPath);
+            VisualBorderRenderer.DrawBorderStyle(offGraphics, knobTopBorder, borderPath, State);
 
             float cx = knobPoint.X;
             float cy = knobPoint.Y;

@@ -52,9 +52,7 @@
             _shapeType = Settings.DefaultValue.BorderType;
 
             Bitmap _bitmap = new Bitmap(Image.FromStream(new MemoryStream(Convert.FromBase64String(VisualToggleRenderer.GetBase64CheckImage()))));
-
             image = _bitmap;
-
             bounds = boundary;
         }
 

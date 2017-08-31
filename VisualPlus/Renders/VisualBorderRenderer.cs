@@ -15,132 +15,213 @@
     {
         #region Events
 
-        /// <summary>Draws a border around the rectangle.</summary>
-        /// <param name="graphics">Graphics controller.</param>
-        /// <param name="borderRectangle">The rectangle.</param>
-        /// <param name="borderThickness">The thickness.</param>
-        /// <param name="color">The color.</param>
-        public static void DrawBorder(Graphics graphics, Rectangle borderRectangle, float borderThickness, Color color)
-        {
-            using (GraphicsPath borderPath = new GraphicsPath())
-            {
-                borderPath.AddRectangle(borderRectangle);
-                DrawBorder(graphics, borderPath, borderThickness, color);
-            }
-        }
-
-        /// <summary>Draws a border around the path.</summary>
-        /// <param name="graphics">Graphics controller.</param>
-        /// <param name="borderPath">The path.</param>
-        /// <param name="borderThickness">The thickness.</param>
-        /// <param name="color">The color.</param>
-        public static void DrawBorder(Graphics graphics, GraphicsPath borderPath, float borderThickness, Color color)
-        {
-            Pen borderPen = new Pen(color, borderThickness);
-            graphics.DrawPath(borderPen, borderPath);
-        }
-
-        /// <summary>Draws a border around the path.</summary>
-        /// <param name="graphics">Graphics controller.</param>
-        /// <param name="borderPath">The path.</param>
-        /// <param name="shape">The shape type.</param>
-        public static void DrawBorder(Graphics graphics, GraphicsPath borderPath, Shape shape)
-        {
-            Pen borderPen = new Pen(shape.Color, shape.Thickness);
-            graphics.DrawPath(borderPen, borderPath);
-        }
-
-        /// <summary>Draws the border style.</summary>
-        /// <param name="graphics">Graphics controller.</param>
-        /// <param name="border">The border type.</param>
-        /// <param name="mouseState">The mouse state.</param>
-        /// <param name="borderPath">The border path.</param>
-        public static void DrawBorderStyle(Graphics graphics, Border border, MouseStates mouseState, GraphicsPath borderPath)
-        {
-            if (border.Visible)
-            {
-                if ((mouseState == MouseStates.Hover) && border.HoverVisible)
-                {
-                    DrawBorder(graphics, borderPath, border.Thickness, border.HoverColor);
-                }
-                else if ((mouseState == MouseStates.Down) && border.HoverVisible)
-                {
-                    // TODO: Create 'Down' border color.
-                    DrawBorder(graphics, borderPath, border.Thickness, border.HoverVisible ? border.HoverColor : border.Color);
-                }
-                else
-                {
-                    DrawBorder(graphics, borderPath, border.Thickness, border.Color);
-                }
-            }
-        }
-
-        /// <summary>Draws the border style.</summary>
-        /// <param name="graphics">Graphics controller.</param>
-        /// <param name="border">The border type.</param>
-        /// <param name="mouseState">The mouse state.</param>
-        /// <param name="borderRectangle">The border Rectangle.</param>
-        public static void DrawBorderStyle(Graphics graphics, Border border, MouseStates mouseState, Rectangle borderRectangle)
-        {
-            GraphicsPath borderPath = new GraphicsPath();
-            borderPath.AddRectangle(borderRectangle);
-
-            DrawBorderStyle(graphics, border, mouseState, borderPath);
-        }
-
         /// <summary>Gets the distance from the border.</summary>
         /// <param name="shape">The shape of the container control.</param>
         /// <returns>The internal control distance.</returns>
-        public static int GetBorderDistance(Shape shape)
+        public static int CalculateBorderCurve(Shape shape)
         {
             return (shape.Rounding / 2) + shape.Thickness + 1;
         }
 
-        /// <summary>Get the border shape.</summary>
+        /// <summary>Creates a border type path.</summary>
         /// <param name="rectangle">The rectangle.</param>
         /// <param name="shape">The shape.</param>
         /// <returns>Border graphics path.</returns>
-        public static GraphicsPath GetBorderShape(Rectangle rectangle, Shape shape)
+        public static GraphicsPath CreateBorderTypePath(Rectangle rectangle, Shape shape)
         {
-            return GetBorderShape(rectangle, shape.Type, shape.Rounding);
+            return CreateBorderTypePath(rectangle, shape.Rounding, shape.Thickness, shape.Type);
         }
 
-        /// <summary>Get the border shape.</summary>
+        /// <summary>Creates a border type path.</summary>
         /// <param name="rectangle">The rectangle.</param>
-        /// <param name="borderType">The shape.</param>
-        /// <param name="borderRounding">The rounding.</param>
+        /// <param name="rounding">The rounding.</param>
+        /// <param name="thickness">The thickness.</param>
+        /// <param name="type">The shape.</param>
         /// <returns>The <see cref="GraphicsPath" />.</returns>
-        public static GraphicsPath GetBorderShape(Rectangle rectangle, ShapeType borderType, int borderRounding)
+        public static GraphicsPath CreateBorderTypePath(Rectangle rectangle, int rounding, int thickness, ShapeType type)
         {
-            Rectangle borderRectangle = new Rectangle(rectangle.X, rectangle.Y, rectangle.Width - 1, rectangle.Height - 1);
+            Rectangle _borderRectangle = new Rectangle(rectangle.X, rectangle.Y, rectangle.Width - thickness, rectangle.Height - thickness);
+            GraphicsPath _borderShape = new GraphicsPath();
 
-            GraphicsPath borderShape = new GraphicsPath();
-
-            switch (borderType)
+            switch (type)
             {
                 case ShapeType.Rectangle:
                     {
-                        borderShape.AddRectangle(borderRectangle);
+                        _borderShape.AddRectangle(_borderRectangle);
                         break;
                     }
 
                 case ShapeType.Rounded:
                     {
-                        borderShape.AddArc(borderRectangle.X, borderRectangle.Y, borderRounding, borderRounding, 180.0F, 90.0F);
-                        borderShape.AddArc(borderRectangle.Right - borderRounding, borderRectangle.Y, borderRounding, borderRounding, 270.0F, 90.0F);
-                        borderShape.AddArc(borderRectangle.Right - borderRounding, borderRectangle.Bottom - borderRounding, borderRounding, borderRounding, 0.0F, 90.0F);
-                        borderShape.AddArc(borderRectangle.X, borderRectangle.Bottom - borderRounding, borderRounding, borderRounding, 90.0F, 90.0F);
+                        _borderShape.AddArc(rectangle.X, rectangle.Y, rounding, rounding, 180.0F, 90.0F);
+                        _borderShape.AddArc(rectangle.Right - rounding, rectangle.Y, rounding, rounding, 270.0F, 90.0F);
+                        _borderShape.AddArc(rectangle.Right - rounding, rectangle.Bottom - rounding, rounding, rounding, 0.0F, 90.0F);
+                        _borderShape.AddArc(rectangle.X, rectangle.Bottom - rounding, rounding, rounding, 90.0F, 90.0F);
                         break;
                     }
 
                 default:
                     {
-                        throw new ArgumentOutOfRangeException(nameof(borderType), borderType, null);
+                        throw new ArgumentOutOfRangeException(nameof(type), type, null);
                     }
             }
 
-            borderShape.CloseAllFigures();
-            return borderShape;
+            _borderShape.CloseAllFigures();
+            return _borderShape;
+        }
+
+        /// <summary>Draws a border around the rectangle, with the specified thickness.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="thickness">The thickness.</param>
+        public static void DrawBorder(Graphics graphics, Rectangle rectangle, Color color, float thickness)
+        {
+            GraphicsPath _borderGraphicsPath = new GraphicsPath();
+            _borderGraphicsPath.AddRectangle(rectangle);
+            Pen _borderPen = new Pen(color, thickness);
+            graphics.DrawPath(_borderPen, _borderGraphicsPath);
+        }
+
+        /// <summary>Draws a border around the custom graphics path, with the specified thickness.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="customPath">The custom Path.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="thickness">The thickness.</param>
+        public static void DrawBorder(Graphics graphics, GraphicsPath customPath, Color color, float thickness)
+        {
+            Pen _borderPen = new Pen(color, thickness);
+            graphics.DrawPath(_borderPen, customPath);
+        }
+
+        /// <summary>Draws a border around the rounded rectangle, with the specified rounding and thickness.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="rounding">The amount of rounding.</param>
+        /// <param name="thickness">The thickness.</param>
+        public static void DrawBorder(Graphics graphics, Rectangle rectangle, Color color, int rounding, float thickness)
+        {
+            GraphicsPath _borderGraphicsPath = GDI.DrawRoundedRectangle(rectangle, rounding);
+            Pen _borderPen = new Pen(color, thickness);
+            graphics.DrawPath(_borderPen, _borderGraphicsPath);
+        }
+
+        /// <summary>Draws a border with the specified shape settings.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="color">The color.</param>
+        /// <param name="rounding">The rounding.</param>
+        /// <param name="thickness">The thickness.</param>
+        /// <param name="shape">The shape.</param>
+        public static void DrawBorder(Graphics graphics, Rectangle rectangle, Color color, int rounding, float thickness, ShapeType shape)
+        {
+            switch (shape)
+            {
+                case ShapeType.Rectangle:
+                    {
+                        DrawBorder(graphics, rectangle, color, thickness);
+                        break;
+                    }
+
+                case ShapeType.Rounded:
+                    {
+                        DrawBorder(graphics, rectangle, color, rounding, thickness);
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(shape), shape, null);
+                    }
+            }
+        }
+
+        /// <summary>Draws a border with the specified shape.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="shape">The shape.</param>
+        public static void DrawBorder(Graphics graphics, Rectangle rectangle, Shape shape)
+        {
+            DrawBorder(graphics, rectangle, shape.Color, shape.Rounding, shape.Thickness, shape.Type);
+        }
+
+        /// <summary>Draws a border around the rectangle, with the specified mouse state.</summary>
+        /// <param name="graphics">Graphics controller.</param>
+        /// <param name="border">The border type.</param>
+        /// <param name="mouseState">The mouse state.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        public static void DrawBorder(Graphics graphics, Border border, MouseStates mouseState, Rectangle rectangle)
+        {
+            if (!border.Visible)
+            {
+                return;
+            }
+
+            switch (mouseState)
+            {
+                case MouseStates.Normal:
+                    {
+                        DrawBorder(graphics, rectangle, border.Color, border.Rounding, border.Thickness, border.Type);
+                        break;
+                    }
+
+                case MouseStates.Hover:
+                    {
+                        DrawBorder(graphics, rectangle, border.HoverVisible ? border.HoverColor : border.Color, border.Rounding, border.Thickness, border.Type);
+                        break;
+                    }
+
+                case MouseStates.Down:
+                    {
+                        DrawBorder(graphics, rectangle, border.HoverVisible ? border.HoverColor : border.Color, border.Rounding, border.Thickness, border.Type);
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(mouseState), mouseState, null);
+                    }
+            }
+        }
+
+        /// <summary>Draws a border around the custom path, with the specified mouse state.</summary>
+        /// <param name="graphics">Graphics controller.</param>
+        /// <param name="border">The border type.</param>
+        /// <param name="customPath">The custom Path.</param>
+        /// <param name="mouseState">The mouse state.</param>
+        public static void DrawBorderStyle(Graphics graphics, Border border, GraphicsPath customPath, MouseStates mouseState)
+        {
+            if (!border.Visible)
+            {
+                return;
+            }
+
+            switch (mouseState)
+            {
+                case MouseStates.Normal:
+                    {
+                        DrawBorder(graphics, customPath, border.Color, border.Thickness);
+                        break;
+                    }
+
+                case MouseStates.Hover:
+                    {
+                        DrawBorder(graphics, customPath, border.HoverVisible ? border.HoverColor : border.Color, border.Thickness);
+                        break;
+                    }
+
+                case MouseStates.Down:
+                    {
+                        DrawBorder(graphics, customPath, border.HoverVisible ? border.HoverColor : border.Color, border.Thickness);
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(mouseState), mouseState, null);
+                    }
+            }
         }
 
         #endregion

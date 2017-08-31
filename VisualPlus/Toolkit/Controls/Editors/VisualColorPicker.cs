@@ -11,6 +11,7 @@
     using System.Text;
     using System.Windows.Forms;
 
+    using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
@@ -553,7 +554,7 @@
                     }
             }
 
-            VisualBorderRenderer.DrawBorderStyle(graphics, _border, MouseState, controlGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, _border, controlGraphicsPath, MouseState);
 
             // Draws the button
             if (!Color.IsEmpty && _pickerVisible)
@@ -699,13 +700,13 @@
             }
 
             // Create the button path
-            GraphicsPath buttonGraphicsPath = GDI.DrawRoundedRectangle(new Rectangle(x, y, SelectionSize, SelectionSize), 10);
+            GraphicsPath _buttonGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(new Rectangle(x - (SelectionSize / 2), y - (SelectionSize / 2), SelectionSize, SelectionSize), 10, 1, ShapeType.Rounded);
 
             // Draw button
-            e.Graphics.FillPath(new SolidBrush(_buttonColor), buttonGraphicsPath);
+            e.Graphics.FillPath(new SolidBrush(_buttonColor), _buttonGraphicsPath);
 
             // Draw border
-            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _pickerBorder, MouseState, buttonGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _pickerBorder, _buttonGraphicsPath, MouseState);
 
             if (Focused && includeFocus)
             {

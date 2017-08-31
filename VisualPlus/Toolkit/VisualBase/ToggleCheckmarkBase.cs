@@ -33,7 +33,6 @@ namespace VisualPlus.Toolkit.VisualBase
         private Rectangle _box;
         private int _boxSpacing;
         private CheckStyle _checkStyle;
-
         private ControlColorState _colorState;
         private Point _mouseLocation;
         private VFXManager _rippleEffectsManager;
@@ -266,8 +265,10 @@ namespace VisualPlus.Toolkit.VisualBase
                     int height = _box.Height;
                     int size = _rippleEffectsManager.GetDirection(i) == AnimationDirection.InOutIn ? (int)(height * (0.8d + (0.2d * animationValue))) : height;
 
-                    GraphicsPath path = GDI.DrawRoundedRectangle(animationSource.X - (size / 2), animationSource.Y - (size / 2), size, size, size / 2);
-                    graphics.FillPath(animationBrush, path);
+                    Rectangle _animationBox = new Rectangle(animationSource.X - (size / 2), animationSource.Y - (size / 2), size, size);
+                    GraphicsPath _path = VisualBorderRenderer.CreateBorderTypePath(_animationBox, _border);
+
+                    graphics.FillPath(animationBrush, _path);
                     animationBrush.Dispose();
                 }
             }
@@ -345,6 +346,7 @@ namespace VisualPlus.Toolkit.VisualBase
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+
             if (AutoSize)
             {
                 _box = new Rectangle(new Point(Padding.Left, (ClientRectangle.Height / 2) - (_box.Height / 2)), _box.Size);
@@ -362,15 +364,16 @@ namespace VisualPlus.Toolkit.VisualBase
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.TextRenderingHint = TextRenderingHint;
 
-            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+
             _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
             _textSize = GDI.MeasureText(_graphics, Text, Font);
             Point _textLocation = new Point(_box.Right + _boxSpacing, (ClientRectangle.Height / 2) - (_textSize.Height / 2));
-
             Color _textColor = Enabled ? ForeColor : ForeColorDisabled;
-            VisualToggleRenderer.DrawCheckBox(_graphics, Border, _checkStyle, _box, Checked, Enabled, _backColor, BackgroundImage, MouseState, Text, Font, _textColor, _textLocation);
 
+            VisualToggleRenderer.DrawCheckBox(_graphics, Border, _checkStyle, _box, Checked, Enabled, _backColor, BackgroundImage, MouseState, Text, Font, _textColor, _textLocation);
             DrawAnimation(_graphics);
         }
 

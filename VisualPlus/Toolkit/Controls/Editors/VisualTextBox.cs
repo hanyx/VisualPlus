@@ -76,7 +76,7 @@
             _textBox = new TextBox
                 {
                     Size = new Size(_textWidth, 25),
-                    Location = new Point(VisualBorderRenderer.GetBorderDistance(_border), VisualBorderRenderer.GetBorderDistance(_border)),
+                    Location = new Point(VisualBorderRenderer.CalculateBorderCurve(_border), VisualBorderRenderer.CalculateBorderCurve(_border)),
                     Text = string.Empty,
                     BorderStyle = BorderStyle.None,
                     TextAlign = HorizontalAlignment.Left,
@@ -863,7 +863,9 @@
         {
             base.OnPaint(e);
             Graphics graphics = e.Graphics;
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
+
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
 
             Color _backColor = Enabled ? _backColorState.Enabled : _backColorState.Disabled;
 
@@ -872,7 +874,7 @@
                 _textBox.BackColor = _backColor;
             }
 
-            VisualBackgroundRenderer.DrawBackground(e.Graphics, ClientRectangle, _backColor, BackgroundImage, Border, MouseState);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
 
             _buttonRectangle = new Rectangle(_textBox.Right, 0, Width - _textBox.Right - 2, Height);
             _imageRectangle = new Rectangle(0, 0, _imageWidth, Height);
@@ -881,7 +883,7 @@
             {
                 if (_imageVisible)
                 {
-                    _textBox.Location = new Point(VisualBorderRenderer.GetBorderDistance(_border) + _imageRectangle.Width, _textBox.Location.Y);
+                    _textBox.Location = new Point(VisualBorderRenderer.CalculateBorderCurve(_border) + _imageRectangle.Width, _textBox.Location.Y);
 
                     DrawImage(graphics);
 
@@ -892,7 +894,7 @@
                 }
                 else
                 {
-                    _textBox.Location = new Point(VisualBorderRenderer.GetBorderDistance(_border), _textBox.Location.Y);
+                    _textBox.Location = new Point(VisualBorderRenderer.CalculateBorderCurve(_border), _textBox.Location.Y);
 
                     if (_buttonVisible)
                     {
@@ -923,11 +925,11 @@
             {
                 if (_imageVisible)
                 {
-                    _textBox.Location = new Point(VisualBorderRenderer.GetBorderDistance(_border) + _imageWidth, _textBox.Location.Y);
+                    _textBox.Location = new Point(VisualBorderRenderer.CalculateBorderCurve(_border) + _imageWidth, _textBox.Location.Y);
                 }
                 else
                 {
-                    _textBox.Location = new Point(VisualBorderRenderer.GetBorderDistance(_border), _textBox.Location.Y);
+                    _textBox.Location = new Point(VisualBorderRenderer.CalculateBorderCurve(_border), _textBox.Location.Y);
                 }
 
                 if ((!_imageVisible & !_buttonVisible) && AutoSize)
@@ -936,7 +938,7 @@
                 }
 
                 _textBox.Height = GetTextBoxHeight();
-                Size = new Size(Width, VisualBorderRenderer.GetBorderDistance(_border) + _textBox.Height + VisualBorderRenderer.GetBorderDistance(_border));
+                Size = new Size(Width, VisualBorderRenderer.CalculateBorderCurve(_border) + _textBox.Height + VisualBorderRenderer.CalculateBorderCurve(_border));
             }
             else
             {
@@ -996,7 +998,7 @@
 
             graphics.FillPath(new SolidBrush(_buttonColor), buttonPath);
 
-            VisualBorderRenderer.DrawBorderStyle(graphics, _border, MouseState, buttonPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, _border, buttonPath, MouseState);
             Size textSize = GDI.MeasureText(graphics, _buttontext, _buttonFont);
             graphics.SetClip(buttonPath);
             graphics.DrawString(_buttontext, Font, new SolidBrush(ForeColor), new PointF(_buttonRectangle.X + _buttonIndent, (Height / 2) - (textSize.Height / 2)));

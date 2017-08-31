@@ -461,7 +461,8 @@
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
             Color _backColor = Enabled ? _colorState.Enabled : _colorState.Disabled;
 
             if (_richTextBox.BackColor != _backColor)
@@ -469,7 +470,7 @@
                 _richTextBox.BackColor = _backColor;
             }
 
-            VisualBackgroundRenderer.DrawBackground(e.Graphics, ClientRectangle, _backColor, BackgroundImage, Border, MouseState);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)

@@ -478,9 +478,9 @@
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.TextRenderingHint = TextRenderingHint;
 
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
 
-            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
             _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
             _buttonRectangle = new Rectangle(Width - _buttonWidth, 1, _buttonWidth, Height);
@@ -542,11 +542,11 @@
             _buttonPath.CloseAllFigures();
 
             Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
-            VisualBackgroundRenderer.DrawBackground(e.Graphics, ClientRectangle, _backColor, BackgroundImage, Border, MouseState);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
 
             _graphics.SetClip(ControlGraphicsPath);
 
-            VisualBackgroundRenderer.DrawBackground(_graphics, _buttonRectangle, _buttonColor);
+            VisualBackgroundRenderer.DrawBackground(_graphics, _buttonColor, _buttonRectangle);
 
             _graphics.ResetClip();
 

@@ -303,22 +303,22 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.TextRenderingHint = TextRenderingHint;
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
-            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
             _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
             Color _backColor = Enabled ? _controlColorState.Enabled : _controlColorState.Disabled;
-            VisualBackgroundRenderer.DrawBackground(e.Graphics, ClientRectangle, _backColor, BackgroundImage, Border, MouseState);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
 
             // Determines button/toggle state
-            Point _startPoint = new Point(0 + 2, (ClientRectangle.Height / 2) - (_buttonSize.Height / 2));
-            Point _endPoint = new Point(ClientRectangle.Width - _buttonSize.Width - 2, (ClientRectangle.Height / 2) - (_buttonSize.Height / 2));
+            Point _startPoint = new Point(0 + 2, (_clientRectangle.Height / 2) - (_buttonSize.Height / 2));
+            Point _endPoint = new Point(_clientRectangle.Width - _buttonSize.Width - 2, (_clientRectangle.Height / 2) - (_buttonSize.Height / 2));
             Point _buttonLocation = Toggle ? _endPoint : _startPoint;
             _buttonRectangle = new Rectangle(_buttonLocation, _buttonSize);
             DrawToggleText(_graphics);
 
             Color _buttonColor = GDI.GetBackColorState(Enabled, ButtonColorState.Enabled, ButtonColorState.Hover, ButtonColorState.Pressed, ButtonColorState.Disabled, MouseState);
-            VisualBackgroundRenderer.DrawBackground(e.Graphics, _buttonRectangle, _buttonColor, _buttonBorder);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _buttonColor, _buttonRectangle, _buttonBorder);
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)

@@ -286,12 +286,12 @@
             _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.TextRenderingHint = TextRenderingHint;
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
-            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
             _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
             Color _backColor = GDI.GetBackColorState(Enabled, BackColorState.Enabled, BackColorState.Hover, BackColorState.Pressed, BackColorState.Disabled, MouseState);
-            VisualBackgroundRenderer.DrawBackground(e.Graphics, ClientRectangle, _backColor, BackgroundImage, Border, MouseState);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
 
             Color _textColor = Enabled ? ForeColor : ForeColorDisabled;
 

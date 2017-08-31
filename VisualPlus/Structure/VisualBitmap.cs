@@ -147,7 +147,7 @@
 
                     if (_border.Visible)
                     {
-                        VisualBorderRenderer.DrawBorder(graphics, imagePath, _border.Thickness, _border.Color);
+                        VisualBorderRenderer.DrawBorder(graphics, imagePath, _border.Color, thickness: _border.Thickness);
                     }
                 }
 

@@ -291,15 +291,17 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
             _graphics.TextRenderingHint = TextRenderingHint;
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
-            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
             _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
             Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
+            VisualBackgroundRenderer.DrawBackground(_graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, _border);
 
-            _graphics.SetClip(ControlGraphicsPath);
-            DrawProgress(_orientation, _graphics, _backColor);
-            _graphics.ResetClip();
+            // _graphics.SetClip(ControlGraphicsPath);
+            DrawProgress(_orientation, _graphics);
+
+            // _graphics.ResetClip();
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -331,7 +333,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        private void DrawProgress(Orientation orientation, Graphics graphics, Color backColor)
+        private void DrawProgress(Orientation orientation, Graphics graphics)
         {
             if (_progressBarStyle == ProgressBarStyle.Marquee)
             {
@@ -367,38 +369,16 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
                     case Orientation.Horizontal:
                         {
                             _indexValue = (int)Math.Round(((Value - Minimum) / (double)(Maximum - Minimum)) * (Width - 2));
-
-                            if (_border.Type == ShapeType.Rectangle)
-                            {
-                                _progressPath = new GraphicsPath();
-                                _progressPath.AddRectangle(new Rectangle(0, 0, _indexValue + 1, Height));
-                                _progressPath.CloseAllFigures();
-                            }
-                            else
-                            {
-                                _progressPath = GDI.DrawRoundedRectangle(new Rectangle(0, 1, _indexValue, Height - 2), _border.Rounding);
-                            }
-
                             _progressRectangle = new Rectangle(0, 0, _indexValue + 1, Height);
+                            _progressPath = VisualBorderRenderer.CreateBorderTypePath(_progressRectangle, _border);
                         }
 
                         break;
                     case Orientation.Vertical:
                         {
                             _indexValue = (int)Math.Round(((Value - Minimum) / (double)(Maximum - Minimum)) * (Height - 2));
-
-                            if (_border.Type == ShapeType.Rectangle)
-                            {
-                                _progressPath = new GraphicsPath();
-                                _progressPath.AddRectangle(new Rectangle(0, Height - _indexValue - 2, Width, _indexValue));
-                                _progressPath.CloseAllFigures();
-                            }
-                            else
-                            {
-                                _progressPath = GDI.DrawRoundedRectangle(new Rectangle(0, Height - _indexValue - 2, Width, _indexValue), _border.Rounding);
-                            }
-
                             _progressRectangle = new Rectangle(0, Height - _indexValue - 2, Width, _indexValue);
+                            _progressPath = VisualBorderRenderer.CreateBorderTypePath(_progressRectangle, _border);
                         }
 
                         break;
@@ -408,16 +388,14 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
                         }
                 }
 
-                VisualBackgroundRenderer.DrawBackground(graphics, ClientRectangle, backColor, BackgroundImage, _border, MouseState);
-
                 if (_indexValue > 1)
                 {
-                    VisualBackgroundRenderer.DrawBackground(graphics, _progressRectangle, _progressColor, _progressImage, _border.Rounding);
+                    VisualBackgroundRenderer.DrawBackground(graphics, _border, _progressColor, _progressRectangle);
                     VisualControlRenderer.DrawHatch(graphics, _hatch, _progressPath);
                 }
             }
 
-            VisualBorderRenderer.DrawBorderStyle(graphics, _border, MouseState, ControlGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, _border, ControlGraphicsPath, MouseState);
             DrawText(graphics);
         }
 

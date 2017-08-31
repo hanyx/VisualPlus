@@ -16,13 +16,13 @@
 
         /// <summary>Draws a background with a color filled rectangle and the specified background image.</summary>
         /// <param name="graphics">The graphics to draw on.</param>
-        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
         /// <param name="backColor">The back Color.</param>
         /// <param name="backgroundImage">The background Image.</param>
+        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
         /// <param name="rounding">The rounding.</param>
-        public static void DrawBackground(Graphics graphics, Rectangle rectangle, Color backColor, Image backgroundImage, int rounding)
+        public static void DrawBackground(Graphics graphics, Color backColor, Image backgroundImage, Rectangle rectangle, int rounding)
         {
-            GraphicsPath _controlGraphicsPath = FillBackgroundPath(graphics, rounding, rectangle, backColor);
+            GraphicsPath _controlGraphicsPath = FillBackgroundPath(graphics, backColor, rectangle, rounding);
 
             if (backgroundImage == null)
             {
@@ -38,9 +38,9 @@
 
         /// <summary>Draws a background with a color filled rectangle.</summary>
         /// <param name="graphics">The graphics to draw on.</param>
-        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
         /// <param name="backColor">The back Color.</param>
-        public static void DrawBackground(Graphics graphics, Rectangle rectangle, Color backColor)
+        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
+        public static void DrawBackground(Graphics graphics, Color backColor, Rectangle rectangle)
         {
             GraphicsPath _graphicsPath = new GraphicsPath();
             _graphicsPath.AddRectangle(rectangle);
@@ -49,15 +49,15 @@
 
         /// <summary>Draws the control background, with a BackColor and the specified BackgroundImage.</summary>
         /// <param name="graphics">The graphics to draw on.</param>
-        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
         /// <param name="backColor">The color to use for the background.</param>
         /// <param name="backgroundImage">The background image to use for the background.</param>
-        /// <param name="shape">The shape settings.</param>
         /// <param name="mouseState">The mouse state.</param>
-        public static void DrawBackground(Graphics graphics, Rectangle rectangle, Color backColor, Image backgroundImage, Border shape, MouseStates mouseState)
+        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
+        /// <param name="border">The shape settings.</param>
+        public static void DrawBackground(Graphics graphics, Color backColor, Image backgroundImage, MouseStates mouseState, Rectangle rectangle, Border border)
         {
-            GraphicsPath _controlGraphicsPath = FillBackgroundPath(graphics, shape, rectangle, backColor);
-            VisualBorderRenderer.DrawBorderStyle(graphics, shape, mouseState, _controlGraphicsPath);
+            GraphicsPath _controlGraphicsPath = FillBackgroundPath(graphics, backColor, rectangle, border);
+            VisualBorderRenderer.DrawBorderStyle(graphics, border, _controlGraphicsPath, mouseState);
 
             if (backgroundImage == null)
             {
@@ -71,77 +71,89 @@
             graphics.ResetClip();
         }
 
+        /// <summary>Draws the control background, with a BackColor and the specified BackgroundImage.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="backColor">The color to use for the background.</param>
+        /// <param name="mouseState">The mouse state.</param>
+        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
+        /// <param name="shape">The shape settings.</param>
+        public static void DrawBackground(Graphics graphics, Color backColor, MouseStates mouseState, Rectangle rectangle, Border shape)
+        {
+            GraphicsPath _controlGraphicsPath = FillBackgroundPath(graphics, backColor, rectangle, shape);
+            VisualBorderRenderer.DrawBorderStyle(graphics, shape, _controlGraphicsPath, mouseState);
+        }
+
         /// <summary>Draws a background with a border style.</summary>
         /// <param name="graphics">The graphics to draw on.</param>
-        /// <param name="border">The border type.</param>
-        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
         /// <param name="background">The background color.</param>
+        /// <param name="border">The border type.</param>
         /// <param name="mouseState">The control mouse state.</param>
-        public static void DrawBackground(Graphics graphics, Border border, Rectangle rectangle, Color background, MouseStates mouseState)
+        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
+        public static void DrawBackground(Graphics graphics, Color background, Border border, MouseStates mouseState, Rectangle rectangle)
         {
-            GraphicsPath backgroundPath = FillBackgroundPath(graphics, border, rectangle, background);
-            VisualBorderRenderer.DrawBorderStyle(graphics, border, mouseState, backgroundPath);
+            GraphicsPath backgroundPath = FillBackgroundPath(graphics, background, rectangle, border);
+            VisualBorderRenderer.DrawBorderStyle(graphics, border, backgroundPath, mouseState);
         }
 
         /// <summary>Draws a background with a still border style.</summary>
         /// <param name="graphics">The graphics to draw on.</param>
         /// <param name="border">The border type.</param>
-        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
         /// <param name="background">The background color.</param>
-        public static void DrawBackground(Graphics graphics, Border border, Rectangle rectangle, Color background)
+        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
+        public static void DrawBackground(Graphics graphics, Border border, Color background, Rectangle rectangle)
         {
-            GraphicsPath backgroundPath = FillBackgroundPath(graphics, border, rectangle, background);
-            VisualBorderRenderer.DrawBorder(graphics, backgroundPath, border.Thickness, border.Color);
+            GraphicsPath backgroundPath = FillBackgroundPath(graphics, background, rectangle, border);
+            VisualBorderRenderer.DrawBorder(graphics, backgroundPath, border.Color, thickness: border.Thickness);
         }
 
         /// <summary>Draws a background with a still border style.</summary>
         /// <param name="graphics">The graphics to draw on.</param>
-        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
         /// <param name="background">The background color.</param>
+        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
         /// <param name="shape">The shape.</param>
-        public static void DrawBackground(Graphics graphics, Rectangle rectangle, Color background, Shape shape)
+        public static void DrawBackground(Graphics graphics, Color background, Rectangle rectangle, Shape shape)
         {
-            GraphicsPath backgroundPath = VisualBorderRenderer.GetBorderShape(rectangle, shape.Type, shape.Rounding);
+            GraphicsPath backgroundPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, shape);
             graphics.SetClip(backgroundPath);
             graphics.FillRectangle(new SolidBrush(background), rectangle);
             graphics.ResetClip();
-            VisualBorderRenderer.DrawBorder(graphics, backgroundPath, shape.Thickness, shape.Color);
+            VisualBorderRenderer.DrawBorder(graphics, backgroundPath, shape.Color, thickness: shape.Thickness);
         }
 
         /// <summary>Draws a background with a linear gradient still border style.</summary>
         /// <param name="graphics">The graphics to draw on.</param>
-        /// <param name="border">The border type.</param>
-        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
         /// <param name="background">The background linear gradient.</param>
+        /// <param name="border">The border type.</param>
         /// <param name="mouseState">The control mouse state.</param>
-        public static void DrawBackground(Graphics graphics, Border border, Rectangle rectangle, LinearGradientBrush background, MouseStates mouseState)
+        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
+        public static void DrawBackground(Graphics graphics, LinearGradientBrush background, Border border, MouseStates mouseState, Rectangle rectangle)
         {
-            GraphicsPath backgroundPath = VisualBorderRenderer.GetBorderShape(rectangle, border);
+            GraphicsPath backgroundPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
             GDI.FillBackground(graphics, backgroundPath, background);
-            VisualBorderRenderer.DrawBorderStyle(graphics, border, mouseState, backgroundPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, border, backgroundPath, mouseState);
         }
 
         /// <summary>Draws a background with a linear gradient still border style.</summary>
         /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="background">The background linear gradient.</param>
         /// <param name="border">The border type.</param>
         /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
-        /// <param name="background">The background linear gradient.</param>
-        public static void DrawBackground(Graphics graphics, Border border, Rectangle rectangle, LinearGradientBrush background)
+        public static void DrawBackground(Graphics graphics, LinearGradientBrush background, Border border, Rectangle rectangle)
         {
-            GraphicsPath backgroundPath = VisualBorderRenderer.GetBorderShape(rectangle, border);
+            GraphicsPath backgroundPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
             GDI.FillBackground(graphics, backgroundPath, background);
-            VisualBorderRenderer.DrawBorder(graphics, backgroundPath, border.Thickness, border.Color);
+            VisualBorderRenderer.DrawBorder(graphics, backgroundPath, border.Color, border.Thickness);
         }
 
         /// <summary>Fills the background graphics path.</summary>
         /// <param name="graphics">The graphics to draw on.</param>
-        /// <param name="border">The border type.</param>
-        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
         /// <param name="background">The background color.</param>
+        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
+        /// <param name="border">The border type.</param>
         /// <returns>The background path filled.</returns>
-        private static GraphicsPath FillBackgroundPath(Graphics graphics, Shape border, Rectangle rectangle, Color background)
+        private static GraphicsPath FillBackgroundPath(Graphics graphics, Color background, Rectangle rectangle, Shape border)
         {
-            GraphicsPath backgroundPath = VisualBorderRenderer.GetBorderShape(rectangle, border);
+            GraphicsPath backgroundPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
             graphics.SetClip(backgroundPath);
             graphics.FillRectangle(new SolidBrush(background), rectangle);
             graphics.ResetClip();
@@ -150,11 +162,11 @@
 
         /// <summary>Fills the background graphics path.</summary>
         /// <param name="graphics">The graphics to draw on.</param>
-        /// <param name="rounding">The amount of rounding.</param>
-        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
         /// <param name="background">The background color.</param>
+        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
+        /// <param name="rounding">The amount of rounding.</param>
         /// <returns>The background path filled.</returns>
-        private static GraphicsPath FillBackgroundPath(Graphics graphics, int rounding, Rectangle rectangle, Color background)
+        private static GraphicsPath FillBackgroundPath(Graphics graphics, Color background, Rectangle rectangle, int rounding)
         {
             GraphicsPath backgroundPath = GDI.DrawRoundedRectangle(rectangle, rounding);
             graphics.SetClip(backgroundPath);

@@ -35,14 +35,17 @@
 
         #region Variables
 
+        private ControlColorState _buttonControlColorState;
+        private Color _progressColor;
+
         private VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
-        private Gradient backgroundGradient = new Gradient();
+        private ColorState _trackBarColor;
+
         private int barThickness = 10;
         private int barTickSpacing = 8;
         private bool buttonAutoSize = true;
         private Border buttonBorder;
-        private Gradient buttonGradient = new Gradient();
         private GraphicsPath buttonPath = new GraphicsPath();
         private Rectangle buttonRectangle;
         private Size buttonSize = new Size(27, 20);
@@ -65,7 +68,6 @@
         private MouseStates mouseState;
         private string prefix;
         private bool progressFilling;
-        private Gradient progressGradient = new Gradient();
         private bool progressValueVisible;
         private bool progressVisible = Settings.DefaultValue.TextVisible;
         private string suffix;
@@ -76,7 +78,7 @@
         private Color tickColor;
         private int tickHeight = 4;
         private Border trackBarBorder;
-        private Gradient trackBarDisabledGradient = new Gradient();
+
         private GraphicsPath trackBarPath;
         private Rectangle trackBarRectangle;
         private bool valueTicksVisible = Settings.DefaultValue.TextVisible;
@@ -95,6 +97,10 @@
                 true);
 
             UpdateStyles();
+
+            _buttonControlColorState = new ControlColorState();
+            _trackBarColor = new ColorState();
+
             BackColor = Color.Transparent;
             DoubleBuffered = true;
             UpdateStyles();
@@ -129,19 +135,24 @@
 
         #region Properties
 
-        [TypeConverter(typeof(GradientConverter))]
+        [TypeConverter(typeof(ControlColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(Propertys.Appearance)]
-        public Gradient Background
+        public ControlColorState BackColorState
         {
             get
             {
-                return backgroundGradient;
+                return _buttonControlColorState;
             }
 
             set
             {
-                backgroundGradient = value;
+                if (value == _buttonControlColorState)
+                {
+                    return;
+                }
+
+                _buttonControlColorState = value;
                 Invalidate();
             }
         }
@@ -212,23 +223,6 @@
             }
         }
 
-        [TypeConverter(typeof(GradientConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
-        public Gradient ButtonGradient
-        {
-            get
-            {
-                return buttonGradient;
-            }
-
-            set
-            {
-                buttonGradient = value;
-                Invalidate();
-            }
-        }
-
         [Category(Propertys.Layout)]
         [Description(Property.Size)]
         public Size ButtonSize
@@ -274,23 +268,6 @@
             set
             {
                 buttonVisible = value;
-                Invalidate();
-            }
-        }
-
-        [TypeConverter(typeof(GradientConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
-        public Gradient Disabled
-        {
-            get
-            {
-                return trackBarDisabledGradient;
-            }
-
-            set
-            {
-                trackBarDisabledGradient = value;
                 Invalidate();
             }
         }
@@ -374,7 +351,8 @@
         }
 
         [Category(Propertys.Layout)]
-      //  [DefaultValue(Settings.DefaultValue.HatchSize)]
+
+        // [DefaultValue(Settings.DefaultValue.HatchSize)]
         [Description(Property.Size)]
         public float HatchSize
         {
@@ -505,19 +483,18 @@
             }
         }
 
-        [TypeConverter(typeof(GradientConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(Propertys.Appearance)]
-        public Gradient Progress
+        [Description(Property.Color)]
+        public Color ProgressColor
         {
             get
             {
-                return progressGradient;
+                return _progressColor;
             }
 
             set
             {
-                progressGradient = value;
+                _progressColor = value;
                 Invalidate();
             }
         }
@@ -685,6 +662,28 @@
             }
         }
 
+        [TypeConverter(typeof(ColorStateConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(Propertys.Appearance)]
+        public ColorState TrackBarState
+        {
+            get
+            {
+                return _trackBarColor;
+            }
+
+            set
+            {
+                if (value == _trackBarColor)
+                {
+                    return;
+                }
+
+                _trackBarColor = value;
+                Invalidate();
+            }
+        }
+
         [Category(Propertys.Behavior)]
         [Description(Property.ValueDivisor)]
         public ValueDivisor ValueDivision
@@ -811,10 +810,16 @@
             buttonTextColor = ForeColor;
             textDisabledColor = _styleManager.FontStyle.ForeColorDisabled;
 
-            backgroundGradient = _styleManager.ProgressStyle.BackProgress;
-            trackBarDisabledGradient = _styleManager.ProgressStyle.BackProgress;
-            progressGradient = _styleManager.ProgressStyle.Progress;
-            buttonGradient = _styleManager.ControlStatesStyle.ControlEnabled;
+            _progressColor = _styleManager.ProgressStyle.Progress.Colors[0];
+
+            _buttonControlColorState.Enabled = _styleManager.ControlStyle.Background(0);
+            _buttonControlColorState.Disabled = Color.FromArgb(224, 224, 224);
+            _buttonControlColorState.Hover = Color.FromArgb(224, 224, 224);
+            _buttonControlColorState.Pressed = Color.Silver;
+
+            _trackBarColor.Enabled = _styleManager.ProgressStyle.BackProgress.Colors[0];
+            _trackBarColor.Disabled = _styleManager.ProgressStyle.BackProgress.Colors[0];
+
             hatchBackColor = _styleManager.ProgressStyle.Hatch;
             tickColor = _styleManager.ControlStyle.Line;
 
@@ -836,6 +841,7 @@
             {
                 if (!leftButtonDown)
                 {
+                    mouseState = MouseStates.Down;
                     leftButtonDown = true;
                     Capture = true;
                     switch (orientation)
@@ -1006,6 +1012,7 @@
         protected override void OnMouseUp(MouseEventArgs e)
         {
             leftButtonDown = false;
+            mouseState = MouseStates.Normal;
             Capture = false;
             Invalidate();
         }
@@ -1018,7 +1025,10 @@
             graphics.SmoothingMode = SmoothingMode.HighQuality;
             graphics.TextRenderingHint = textRendererHint;
 
-            workingRectangle = Rectangle.Inflate(ClientRectangle, -indentWidth, -indentHeight);
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            GraphicsPath controlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, trackBarBorder);
+
+            workingRectangle = Rectangle.Inflate(_clientRectangle, -indentWidth, -indentHeight);
 
             // Set control state color
             foreColor = Enabled ? foreColor : textDisabledColor;
@@ -1411,12 +1421,12 @@
             }
 
             trackBarRectangle = new Rectangle(trackLocation, trackSize);
-            trackBarPath = VisualBorderRenderer.GetBorderShape(trackBarRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
+            trackBarPath = VisualBorderRenderer.CreateBorderTypePath(trackBarRectangle, trackBarBorder);
 
-            LinearGradientBrush gradientBrush = Gradient.CreateGradientBrush(backgroundGradient.Colors, gradientPoints, backgroundGradient.Angle, backgroundGradient.Positions);
-            graphics.FillPath(gradientBrush, trackBarPath);
+            Color _backColor = Enabled ? _trackBarColor.Enabled : _trackBarColor.Disabled;
+            graphics.FillPath(new SolidBrush(_backColor), trackBarPath);
 
-            VisualBorderRenderer.DrawBorderStyle(graphics, trackBarBorder, State, trackBarPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, trackBarBorder, trackBarPath, State);
         }
 
         /// <summary>Draws the button.</summary>
@@ -1426,9 +1436,6 @@
         {
             Point buttonLocation = new Point();
             graphics.ResetClip();
-
-            // Setup button colors
-            Gradient controlCheckTemp = Enabled ? buttonGradient : trackBarDisabledGradient;
 
             // Determine button location by orientation
             switch (Orientation)
@@ -1470,11 +1477,13 @@
 
             if (buttonVisible)
             {
-                LinearGradientBrush gradientBrush = Gradient.CreateGradientBrush(controlCheckTemp.Colors, gradientPoints, controlCheckTemp.Angle, controlCheckTemp.Positions);
-                buttonPath = VisualBorderRenderer.GetBorderShape(buttonRectangle, buttonBorder.Type, buttonBorder.Rounding);
-                graphics.FillPath(gradientBrush, buttonPath);
+                // Setup button colors
+                Color _backColor = GDI.GetBackColorState(Enabled, _buttonControlColorState.Enabled, _buttonControlColorState.Hover, _buttonControlColorState.Pressed, _buttonControlColorState.Disabled, mouseState);
 
-                VisualBorderRenderer.DrawBorderStyle(graphics, buttonBorder, State, buttonPath);
+                buttonPath = VisualBorderRenderer.CreateBorderTypePath(buttonRectangle, buttonBorder);
+                graphics.FillPath(new SolidBrush(_backColor), buttonPath);
+
+                VisualBorderRenderer.DrawBorderStyle(graphics, buttonBorder, buttonPath, State);
             }
         }
 
@@ -1511,7 +1520,7 @@
                         }
 
                         progressRectangle = new Rectangle(progressLocation, progressSize);
-                        progressPath = VisualBorderRenderer.GetBorderShape(progressRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
+                        progressPath = VisualBorderRenderer.CreateBorderTypePath(progressRectangle, trackBarBorder);
                     }
 
                     break;
@@ -1534,7 +1543,7 @@
 
                         progressSize = new Size(Width, Height + textAreaSize.Height);
                         progressRectangle = new Rectangle(progressLocation, progressSize);
-                        progressPath = VisualBorderRenderer.GetBorderShape(progressRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
+                        progressPath = VisualBorderRenderer.CreateBorderTypePath(progressRectangle, trackBarBorder);
                     }
 
                     break;
@@ -1544,8 +1553,7 @@
 
             if (barProgress > 1)
             {
-                LinearGradientBrush gradientBrush = Gradient.CreateGradientBrush(progressGradient.Colors, gradientPoints, progressGradient.Angle, progressGradient.Positions);
-                graphics.FillPath(gradientBrush, progressPath);
+                graphics.FillPath(new SolidBrush(_progressColor), progressPath);
 
                 if (hatchVisible)
                 {

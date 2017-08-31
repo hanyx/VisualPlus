@@ -5,7 +5,6 @@
         #region Events
 
         public const string Alignment = "Gets or sets horizontal alignment of the content.";
-        public const string ProgressBarStyle = "This property allows the user to set the style of the ProgressBar. Specifies the style that a ProgressBar uses to indicate the progress of an operation.";
         public const string Amount = "The total number of objects.";
         public const string Angle = "The space between two intersecting lines.";
         public const string Animation = "Toggle the animation state.";
@@ -27,8 +26,8 @@
         public const string Direction = "Indicates whether the Parameter object is used to bind a value to a control, or the control can be used to change the value.";
         public const string Expanded = "The expander toggle.";
         public const string Font = "Defines a particular format for text, including font face, size, and style attributes.";
-        public const string Image = "Gets or sets the image to be displayed on the control.";
         public const string HatchStyle = "Specifies the different patterns available for HatchBrush objects.";
+        public const string Image = "Gets or sets the image to be displayed on the control.";
         public const string IsDragging = "The current drag state of the control.";
         public const string MaxLength = "Specifies the maximum number of characters that can be entered into the edit control.";
         public const string MouseState = "The state of the mouse on the control.";
@@ -40,6 +39,7 @@
         public const string PasswordChar = "Indicates the character to display for password input for single-line edit controls.";
         public const string Point = "Gets or sets the point.";
         public const string Positions = "The gradient color positioning.";
+        public const string ProgressBarStyle = "This property allows the user to set the style of the ProgressBar. Specifies the style that a ProgressBar uses to indicate the progress of an operation.";
         public const string ReadOnly = "Gets or sets a value indicating whether the text box is read-only.";
         public const string Rectangle = "Gets or set the rectangle.";
         public const string Rotation = "Applies the specified rotation to the transformation matrix of this Graphics.";

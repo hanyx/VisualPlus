@@ -604,21 +604,46 @@
             graphics.SmoothingMode = SmoothingMode.Default;
             graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-            Rectangle _rectangle = new Rectangle(ClientRectangle.Location, new Size(ClientRectangle.Width - 1, ClientRectangle.Height));
-            GraphicsPath clientRectangle = VisualBorderRenderer.GetBorderShape(_rectangle, Border);
+            Rectangle _clientRectangle;
 
-            graphics.SetClip(clientRectangle);
-            graphics.FillPath(new SolidBrush(_background), clientRectangle);
+            switch (border.Type)
+            {
+                case ShapeType.Rectangle:
+                    {
+                        _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
+                        break;
+                    }
+
+                case ShapeType.Rounded:
+                    {
+                        _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+            }
+
+            GraphicsPath _clientPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, border);
+
+            graphics.SetClip(_clientPath);
+            graphics.FillPath(new SolidBrush(_background), _clientPath);
 
             // Title box
             graphics.FillRectangle(new SolidBrush(windowBarColor), statusBarBounds);
 
             DrawButtons(graphics);
             DrawIcon(graphics);
+
+            graphics.SetClip(_clientPath);
+
             DrawTitle(graphics);
 
             graphics.ResetClip();
-            DrawBorder(graphics);
+
+            VisualBorderRenderer.DrawBorderStyle(graphics, border, _clientPath, State);
         }
 
         protected override void OnResize(EventArgs e)
@@ -781,13 +806,6 @@
         private bool DoSnap(int position, int edge)
         {
             return (position - edge > 0) && (position - edge <= _magneticRadius);
-        }
-
-        private void DrawBorder(Graphics graphics)
-        {
-            Rectangle _rectangle = new Rectangle(ClientRectangle.Location, new Size(ClientRectangle.Width - 1, ClientRectangle.Height - 1));
-            GraphicsPath _rectangleClient = VisualBorderRenderer.GetBorderShape(_rectangle, Border);
-            VisualBorderRenderer.DrawBorderStyle(graphics, border, State, _rectangleClient);
         }
 
         private void DrawButtons(Graphics graphics)

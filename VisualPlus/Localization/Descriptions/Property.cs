@@ -5,6 +5,7 @@
         #region Events
 
         public const string Alignment = "Gets or sets horizontal alignment of the content.";
+        public const string ProgressBarStyle = "This property allows the user to set the style of the ProgressBar. Specifies the style that a ProgressBar uses to indicate the progress of an operation.";
         public const string Amount = "The total number of objects.";
         public const string Angle = "The space between two intersecting lines.";
         public const string Animation = "Toggle the animation state.";
@@ -17,7 +18,7 @@
         public const string Character = "The checkmark character.";
         public const string Checked = "Indicates whether the component is in the checked state.";
         public const string CheckType = "The checkmark type.";
-        public const string Color = "Gets or sets the color.";
+        public const string Color = "Gets or sets the color of the component.";
         public const string ColorGradient = "Gets or sets the gradient.";
         public const string Colors = "The range of position-dependant colors";
         public const string ContractedHeight = "The contracted height.";
@@ -26,7 +27,8 @@
         public const string Direction = "Indicates whether the Parameter object is used to bind a value to a control, or the control can be used to change the value.";
         public const string Expanded = "The expander toggle.";
         public const string Font = "Defines a particular format for text, including font face, size, and style attributes.";
-        public const string Image = "Gets or sets the image.";
+        public const string Image = "Gets or sets the image to be displayed on the control.";
+        public const string HatchStyle = "Specifies the different patterns available for HatchBrush objects.";
         public const string IsDragging = "The current drag state of the control.";
         public const string MaxLength = "Specifies the maximum number of characters that can be entered into the edit control.";
         public const string MouseState = "The state of the mouse on the control.";
@@ -44,7 +46,7 @@
         public const string Rounding = "Gets or sets the rounding of the border in pixels.";
         public const string Shape = "Gets or sets the shape of the border.";
         public const string ShowIcon = "Indicates whether an icon is displayed in the title bar of the form.";
-        public const string Size = "Gets or sets the size.";
+        public const string Size = "Gets or sets the size in pixels.";
         public const string Spacing = "The spacing between two components.";
         public const string StartIndex = "Gets or sets the starting index.";
         public const string Text = "Gets or sets the text associated with this control.";

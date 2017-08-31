@@ -1,22 +1,24 @@
-﻿#region Namespace
-
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Text;
-using System.Windows.Forms;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Managers;
-using VisualPlus.Structure;
-using VisualPlus.Toolkit.Components;
-using VisualPlus.Toolkit.VisualBase;
-
-#endregion
-
-namespace VisualPlus.Toolkit.Controls.Interactivity
+﻿namespace VisualPlus.Toolkit.Controls.Interactivity
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Drawing.Text;
+    using System.Windows.Forms;
+
+    using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Managers;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.VisualBase;
+
+    #endregion
+
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(Label))]
     [DefaultEvent("Click")]
@@ -51,14 +53,16 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualLabel" /> class.</summary>
+        /// <inheritdoc />
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Interactivity.VisualLabel" />
+        ///     class.
+        /// </summary>
         public VisualLabel()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
 
             UpdateStyles();
-            BackColor = Color.Transparent;
-
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
@@ -71,7 +75,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Category(Propertys.Appearance)]
         public Gradient ForeGradient
         {
-            get { return _foreGradient; }
+            get
+            {
+                return _foreGradient;
+            }
 
             set
             {
@@ -85,7 +92,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Category(Propertys.Appearance)]
         public Gradient ForeGradientDisabled
         {
-            get { return _foreDisabledGradient; }
+            get
+            {
+                return _foreDisabledGradient;
+            }
 
             set
             {
@@ -99,7 +109,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Toggle)]
         public bool GradientString
         {
-            get { return gradientString; }
+            get
+            {
+                return gradientString;
+            }
 
             set
             {
@@ -112,7 +125,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Orientation)]
         public Orientation Orientation
         {
-            get { return orientation; }
+            get
+            {
+                return orientation;
+            }
 
             set
             {
@@ -126,7 +142,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Outline)]
         public bool Outline
         {
-            get { return outline; }
+            get
+            {
+                return outline;
+            }
 
             set
             {
@@ -139,7 +158,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Color)]
         public Color OutlineColor
         {
-            get { return outlineColor; }
+            get
+            {
+                return outlineColor;
+            }
 
             set
             {
@@ -152,7 +174,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Point)]
         public Point OutlineLocation
         {
-            get { return outlineLocation; }
+            get
+            {
+                return outlineLocation;
+            }
 
             set
             {
@@ -166,7 +191,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Toggle)]
         public bool Reflection
         {
-            get { return reflection; }
+            get
+            {
+                return reflection;
+            }
 
             set
             {
@@ -179,7 +207,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Color)]
         public Color ReflectionColor
         {
-            get { return reflectionColor; }
+            get
+            {
+                return reflectionColor;
+            }
 
             set
             {
@@ -192,7 +223,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Spacing)]
         public int ReflectionSpacing
         {
-            get { return reflectionSpacing; }
+            get
+            {
+                return reflectionSpacing;
+            }
 
             set
             {
@@ -206,7 +240,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Toggle)]
         public bool Shadow
         {
-            get { return shadow; }
+            get
+            {
+                return shadow;
+            }
 
             set
             {
@@ -219,7 +256,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Color)]
         public Color ShadowColor
         {
-            get { return shadowColor; }
+            get
+            {
+                return shadowColor;
+            }
 
             set
             {
@@ -232,7 +272,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Direction)]
         public int ShadowDirection
         {
-            get { return shadowDirection; }
+            get
+            {
+                return shadowDirection;
+            }
 
             set
             {
@@ -245,7 +288,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Point)]
         public Point ShadowLocation
         {
-            get { return shadowLocation; }
+            get
+            {
+                return shadowLocation;
+            }
 
             set
             {
@@ -258,7 +304,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Opacity)]
         public int ShadowOpacity
         {
-            get { return shadowOpacity; }
+            get
+            {
+                return shadowOpacity;
+            }
 
             set
             {
@@ -275,7 +324,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         // [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         public override string Text
         {
-            get { return base.Text; }
+            get
+            {
+                return base.Text;
+            }
 
             set
             {
@@ -288,29 +340,27 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Events
 
-        public void UpdateTheme(Enumerators.Styles style)
+        public void UpdateTheme(Styles style)
         {
             StyleManager = new VisualStyleManager(style);
 
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
-
-            Background = StyleManager.ControlStyle.Background(0);
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+            Font = StyleManager.Font;
 
             Color[] foreColor =
-            {
-                StyleManager.FontStyle.ForeColor,
-                StyleManager.FontStyle.ForeColor
-            };
+                {
+                    StyleManager.FontStyle.ForeColor,
+                    StyleManager.FontStyle.ForeColor
+                };
 
             Color[] textDisabledColor =
-            {
-                ControlPaint.Light(StyleManager.FontStyle.ForeColorDisabled),
-                StyleManager.FontStyle.ForeColorDisabled
-            };
+                {
+                    ControlPaint.Light(StyleManager.FontStyle.ForeColorDisabled),
+                    StyleManager.FontStyle.ForeColorDisabled
+                };
 
-            float[] gradientPosition = {0, 1};
+            float[] gradientPosition = { 0, 1 };
 
             _foreGradient.Colors = foreColor;
             _foreGradient.Positions = gradientPosition;
@@ -340,7 +390,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 textBoxRectangle = new Rectangle(0, 0, ClientRectangle.Width, ClientRectangle.Height);
             }
 
-            var gradientPoints = new[] {new Point {X = ClientRectangle.Width, Y = 0}, new Point {X = ClientRectangle.Width, Y = ClientRectangle.Height}};
+            var gradientPoints = new[] { new Point { X = ClientRectangle.Width, Y = 0 }, new Point { X = ClientRectangle.Width, Y = ClientRectangle.Height } };
             LinearGradientBrush gradientBrush = Gradient.CreateGradientBrush(foreGradient.Colors, gradientPoints, _foreGradient.Angle, _foreGradient.Positions);
 
             // Draw the text outline
@@ -379,30 +429,30 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             switch (orientation)
             {
                 case Orientation.Horizontal:
-                {
-                    outlinePath.AddString(
-                        Text,
-                        Font.FontFamily,
-                        (int) Font.Style,
-                        (graphics.DpiY * Font.SizeInPoints) / 72,
-                        outlineLocation,
-                        new StringFormat());
+                    {
+                        outlinePath.AddString(
+                            Text,
+                            Font.FontFamily,
+                            (int)Font.Style,
+                            (graphics.DpiY * Font.SizeInPoints) / 72,
+                            outlineLocation,
+                            new StringFormat());
 
-                    break;
-                }
+                        break;
+                    }
 
                 case Orientation.Vertical:
-                {
-                    outlinePath.AddString(
-                        Text,
-                        Font.FontFamily,
-                        (int) Font.Style,
-                        (graphics.DpiY * Font.SizeInPoints) / 72,
-                        outlineLocation,
-                        new StringFormat(StringFormatFlags.DirectionVertical));
+                    {
+                        outlinePath.AddString(
+                            Text,
+                            Font.FontFamily,
+                            (int)Font.Style,
+                            (graphics.DpiY * Font.SizeInPoints) / 72,
+                            outlineLocation,
+                            new StringFormat(StringFormatFlags.DirectionVertical));
 
-                    break;
-                }
+                        break;
+                    }
             }
 
             graphics.DrawPath(new Pen(OutlineColor), outlinePath);
@@ -421,20 +471,20 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             switch (Orientation)
             {
                 case Orientation.Horizontal:
-                {
-                    imageGraphics.TranslateTransform(0, GDI.MeasureText(graphics, Text, Font).Height);
-                    imageGraphics.ScaleTransform(1, -1);
+                    {
+                        imageGraphics.TranslateTransform(0, GDI.MeasureText(graphics, Text, Font).Height);
+                        imageGraphics.ScaleTransform(1, -1);
 
-                    reflectionLocation = new Point(0, textBoxRectangle.Y - (GDI.MeasureText(graphics, Text, Font).Height / 2) - reflectionSpacing);
-                    break;
-                }
+                        reflectionLocation = new Point(0, textBoxRectangle.Y - (GDI.MeasureText(graphics, Text, Font).Height / 2) - reflectionSpacing);
+                        break;
+                    }
 
                 case Orientation.Vertical:
-                {
-                    imageGraphics.ScaleTransform(-1, 1);
-                    reflectionLocation = new Point((textBoxRectangle.X - (GDI.MeasureText(graphics, Text, Font).Width / 2)) + reflectionSpacing, 0);
-                    break;
-                }
+                    {
+                        imageGraphics.ScaleTransform(-1, 1);
+                        reflectionLocation = new Point((textBoxRectangle.X - (GDI.MeasureText(graphics, Text, Font).Width / 2)) + reflectionSpacing, 0);
+                        break;
+                    }
             }
 
             // Draw reflected string
@@ -449,7 +499,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         private void DrawShadow(Graphics graphics)
         {
             // Create shadow into a bitmap
-            Bitmap shadowBitmap = new Bitmap(Math.Max((int) (Width / ShadowSmooth), 1), Math.Max((int) (Height / ShadowSmooth), 1));
+            Bitmap shadowBitmap = new Bitmap(Math.Max((int)(Width / ShadowSmooth), 1), Math.Max((int)(Height / ShadowSmooth), 1));
             Graphics imageGraphics = Graphics.FromImage(shadowBitmap);
 
             // Setup text render
@@ -458,22 +508,22 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             // Create transformation matrix
             Matrix transformMatrix = new Matrix();
             transformMatrix.Scale(1 / ShadowSmooth, 1 / ShadowSmooth);
-            transformMatrix.Translate((float) (ShadowDepth * Math.Cos(shadowDirection)), (float) (ShadowDepth * Math.Sin(shadowDirection)));
+            transformMatrix.Translate((float)(ShadowDepth * Math.Cos(shadowDirection)), (float)(ShadowDepth * Math.Sin(shadowDirection)));
             imageGraphics.Transform = transformMatrix;
 
             switch (Orientation)
             {
                 case Orientation.Horizontal:
-                {
-                    imageGraphics.DrawString(Text, Font, new SolidBrush(Color.FromArgb(shadowOpacity, shadowColor)), shadowLocation);
-                    break;
-                }
+                    {
+                        imageGraphics.DrawString(Text, Font, new SolidBrush(Color.FromArgb(shadowOpacity, shadowColor)), shadowLocation);
+                        break;
+                    }
 
                 case Orientation.Vertical:
-                {
-                    imageGraphics.DrawString(Text, Font, new SolidBrush(Color.FromArgb(shadowOpacity, shadowColor)), shadowLocation, new StringFormat(StringFormatFlags.DirectionVertical));
-                    break;
-                }
+                    {
+                        imageGraphics.DrawString(Text, Font, new SolidBrush(Color.FromArgb(shadowOpacity, shadowColor)), shadowLocation, new StringFormat(StringFormatFlags.DirectionVertical));
+                        break;
+                    }
             }
 
             graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -488,16 +538,16 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             switch (orientation)
             {
                 case Orientation.Horizontal:
-                {
-                    stringFormat = new StringFormat();
-                    break;
-                }
+                    {
+                        stringFormat = new StringFormat();
+                        break;
+                    }
 
                 case Orientation.Vertical:
-                {
-                    stringFormat = new StringFormat(StringFormatFlags.DirectionVertical);
-                    break;
-                }
+                    {
+                        stringFormat = new StringFormat(StringFormatFlags.DirectionVertical);
+                        break;
+                    }
             }
 
             return stringFormat;

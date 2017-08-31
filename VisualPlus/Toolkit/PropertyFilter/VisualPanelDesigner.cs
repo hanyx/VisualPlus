@@ -1,12 +1,12 @@
-﻿#region Namespace
-
-using System.Collections;
-using System.Windows.Forms.Design;
-
-#endregion
-
-namespace VisualPlus.Toolkit.PropertyFilter
+﻿namespace VisualPlus.Toolkit.PropertyFilter
 {
+    #region Namespace
+
+    using System.Collections;
+    using System.Windows.Forms.Design;
+
+    #endregion
+
     internal class VisualPanelDesigner : ControlDesigner
     {
         #region Events
@@ -17,23 +17,16 @@ namespace VisualPlus.Toolkit.PropertyFilter
             properties.Remove("Padding");
             properties.Remove("FlatAppearance");
             properties.Remove("FlatStyle");
-
             properties.Remove("AutoEllipsis");
             properties.Remove("UseCompatibleTextRendering");
-
             properties.Remove("Image");
             properties.Remove("ImageAlign");
             properties.Remove("ImageIndex");
             properties.Remove("ImageKey");
             properties.Remove("ImageList");
             properties.Remove("TextImageRelation");
-
-            // properties.Remove("BackColor");
-            properties.Remove("BackgroundImage");
             properties.Remove("BackgroundImageLayout");
             properties.Remove("UseVisualStyleBackColor");
-
-            // properties.Remove("ComponentFont");
             properties.Remove("ForeColor");
             properties.Remove("RightToLeft");
 

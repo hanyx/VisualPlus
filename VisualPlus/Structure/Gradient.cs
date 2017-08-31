@@ -1,18 +1,19 @@
-﻿#region Namespace
-
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Globalization;
-using VisualPlus.Delegates;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-
-#endregion
-
-namespace VisualPlus.Structure
+﻿namespace VisualPlus.Structure
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Globalization;
+
+    using VisualPlus.Delegates;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+
+    #endregion
+
     [Description("The gradient.")]
     [TypeConverter(typeof(GradientConverter))]
     public class Gradient
@@ -31,13 +32,13 @@ namespace VisualPlus.Structure
         public Gradient()
         {
             var _defaultColors = new[]
-            {
-                Color.Red,
-                Color.Green,
-                Color.Blue
-            };
+                {
+                    Color.Red,
+                    Color.Green,
+                    Color.Blue
+                };
 
-            var _defaultPosition = new[] {0, 1 / 2f, 1};
+            var _defaultPosition = new[] { 0, 1 / 2f, 1 };
 
             ConstructGradient(_defaultColors, _defaultPosition, 0);
         }
@@ -80,7 +81,10 @@ namespace VisualPlus.Structure
         [Description(Property.Angle)]
         public float Angle
         {
-            get { return _angle; }
+            get
+            {
+                return _angle;
+            }
 
             set
             {
@@ -94,7 +98,10 @@ namespace VisualPlus.Structure
         [Description(Property.Colors)]
         public Color[] Colors
         {
-            get { return _colors; }
+            get
+            {
+                return _colors;
+            }
 
             set
             {
@@ -108,7 +115,10 @@ namespace VisualPlus.Structure
         [Description(Property.Positions)]
         public float[] Positions
         {
-            get { return _positions; }
+            get
+            {
+                return _positions;
+            }
 
             set
             {
@@ -132,10 +142,10 @@ namespace VisualPlus.Structure
             LinearGradientBrush linearGradientBrush = new LinearGradientBrush(points[0], points[1], Color.Black, Color.Black);
 
             ColorBlend colorBlend = new ColorBlend
-            {
-                Positions = positions,
-                Colors = colors
-            };
+                {
+                    Positions = positions,
+                    Colors = colors
+                };
 
             linearGradientBrush.InterpolationColors = colorBlend;
             linearGradientBrush.RotateTransform(angle);

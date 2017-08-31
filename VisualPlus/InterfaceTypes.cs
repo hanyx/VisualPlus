@@ -1,17 +1,23 @@
-#region Namespace
-
-using System.Drawing;
-using VisualPlus.Structure;
-using VisualPlus.Toolkit.Components;
-
-#endregion
-
 namespace VisualPlus
 {
-    public interface IStyleControl
+    #region Namespace
+
+    using System.ComponentModel;
+    using System.Drawing;
+
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
+
+    #endregion
+
+    public interface IThemeSupport
     {
         #region Events
 
+        /// <summary>Updates the control theme.</summary>
+        /// <param name="style">The style to update the control with.</param>
         void UpdateTheme(Enumerators.Styles style);
 
         #endregion
@@ -81,18 +87,24 @@ namespace VisualPlus
         #endregion
     }
 
-    public interface IAnimate
+    public interface IAnimationSupport
     {
         #region Properties
 
+        [DefaultValue(Settings.DefaultValue.Animation)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.Animation)]
         bool Animation { get; set; }
 
         #endregion
 
         #region Events
 
+        /// <summary>Configures the animation settings.</summary>
         void ConfigureAnimation();
 
+        /// <summary>Draws the animation on the graphics.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
         void DrawAnimation(Graphics graphics);
 
         #endregion

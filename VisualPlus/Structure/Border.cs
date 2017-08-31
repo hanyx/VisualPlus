@@ -1,21 +1,22 @@
-﻿#region Namespace
-
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Globalization;
-using System.Runtime.InteropServices;
-using VisualPlus.Delegates;
-using VisualPlus.EventArgs;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Styles;
-using VisualPlus.Toolkit.Components;
-
-#endregion
-
-namespace VisualPlus.Structure
+﻿namespace VisualPlus.Structure
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Globalization;
+    using System.Runtime.InteropServices;
+
+    using VisualPlus.Delegates;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Styles;
+    using VisualPlus.Toolkit.Components;
+
+    #endregion
+
     [TypeConverter(typeof(BorderConverter))]
     [ToolboxItem(false)]
     [DesignerCategory("code")]
@@ -72,7 +73,10 @@ namespace VisualPlus.Structure
         [Description(Property.Color)]
         public Color HoverColor
         {
-            get { return _hoverColor; }
+            get
+            {
+                return _hoverColor;
+            }
 
             set
             {
@@ -86,7 +90,10 @@ namespace VisualPlus.Structure
         [Description(Property.Visible)]
         public bool HoverVisible
         {
-            get { return _hoverVisible; }
+            get
+            {
+                return _hoverVisible;
+            }
 
             set
             {

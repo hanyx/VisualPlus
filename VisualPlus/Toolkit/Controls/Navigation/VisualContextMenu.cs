@@ -1,20 +1,22 @@
-﻿#region Namespace
-
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Text;
-using System.Windows.Forms;
-using VisualPlus.Enumerators;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Structure;
-using VisualPlus.Toolkit.Components;
-
-#endregion
-
-namespace VisualPlus.Toolkit.Controls.Navigation
+﻿namespace VisualPlus.Toolkit.Controls.Navigation
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Drawing.Text;
+    using System.Windows.Forms;
+
+    using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
+
+    #endregion
+
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ContextMenuStrip))]
     [DefaultEvent("Opening")]
@@ -24,16 +26,22 @@ namespace VisualPlus.Toolkit.Controls.Navigation
     {
         #region Variables
 
-        private VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+        private VisualStyleManager _styleManager;
         private ToolStripItemClickedEventArgs clickedEventArgs;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualContextMenuStrip" /> class.</summary>
+        /// <inheritdoc />
+        /// <summary>
+        ///     Initializes a new instance of the
+        ///     <see cref="T:VisualPlus.Toolkit.Controls.Navigation.VisualContextMenuStrip" /> class.
+        /// </summary>
         public VisualContextMenuStrip()
         {
+            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+
             Renderer = new VisualToolStripRender();
             ConfigureStyleManager();
         }
@@ -50,7 +58,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Color)]
         public Color ArrowColor
         {
-            get { return arrowColor; }
+            get
+            {
+                return arrowColor;
+            }
 
             set
             {
@@ -63,7 +74,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Color)]
         public Color ArrowDisabledColor
         {
-            get { return arrowDisabledColor; }
+            get
+            {
+                return arrowDisabledColor;
+            }
 
             set
             {
@@ -77,7 +91,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Visible)]
         public bool ArrowVisible
         {
-            get { return arrowVisible; }
+            get
+            {
+                return arrowVisible;
+            }
 
             set
             {
@@ -90,7 +107,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Color)]
         public Color Background
         {
-            get { return background; }
+            get
+            {
+                return background;
+            }
 
             set
             {
@@ -104,7 +124,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get { return border; }
+            get
+            {
+                return border;
+            }
 
             set
             {
@@ -115,7 +138,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
 
         public new Color ForeColor
         {
-            get { return foreColor; }
+            get
+            {
+                return foreColor;
+            }
 
             set
             {
@@ -129,7 +155,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Font)]
         public Font MenuFont
         {
-            get { return contextMenuFont; }
+            get
+            {
+                return contextMenuFont;
+            }
 
             set
             {
@@ -142,7 +171,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Color)]
         public Color TextDisabledColor
         {
-            get { return textDisabledColor; }
+            get
+            {
+                return textDisabledColor;
+            }
 
             set
             {
@@ -174,7 +206,7 @@ namespace VisualPlus.Toolkit.Controls.Navigation
             }
         }
 
-        protected override void OnMouseHover(System.EventArgs e)
+        protected override void OnMouseHover(EventArgs e)
         {
             base.OnMouseHover(e);
             Cursor = Cursors.Hand;
@@ -200,10 +232,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         private void ConfigureStyleManager()
         {
             border = new Border
-            {
-                HoverVisible = false,
-                Type = ShapeType.Rectangle
-            };
+                {
+                    HoverVisible = false,
+                    Type = ShapeType.Rectangle
+                };
 
             Font = _styleManager.Font;
             foreColor = _styleManager.FontStyle.ForeColor;
@@ -233,11 +265,11 @@ namespace VisualPlus.Toolkit.Controls.Navigation
                     int arrowY = (e.ArrowRectangle.Y + e.ArrowRectangle.Height) / 2;
 
                     Point[] arrowPoints =
-                    {
-                        new Point(arrowX - 5, arrowY - 5),
-                        new Point(arrowX, arrowY),
-                        new Point(arrowX - 5, arrowY + 5)
-                    };
+                        {
+                            new Point(arrowX - 5, arrowY - 5),
+                            new Point(arrowX, arrowY),
+                            new Point(arrowX - 5, arrowY + 5)
+                        };
 
                     // Set control state color
                     foreColor = e.Item.Enabled ? foreColor : textDisabledColor;
@@ -263,10 +295,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
                 foreColor = e.Item.Enabled ? foreColor : textDisabledColor;
 
                 StringFormat stringFormat = new StringFormat
-                {
-                    // Alignment = StringAlignment.Center,
-                    LineAlignment = StringAlignment.Center
-                };
+                    {
+                        // Alignment = StringAlignment.Center,
+                        LineAlignment = StringAlignment.Center
+                    };
 
                 e.Graphics.DrawString(e.Text, contextMenuFont, new SolidBrush(foreColor), textRect, stringFormat);
             }

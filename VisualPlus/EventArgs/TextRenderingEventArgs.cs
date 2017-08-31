@@ -1,12 +1,13 @@
-﻿#region Namespace
-
-using System.Drawing.Text;
-
-#endregion
-
-namespace VisualPlus.EventArgs
+﻿namespace VisualPlus.EventArgs
 {
-    public class TextRenderingEventArgs : System.EventArgs
+    #region Namespace
+
+    using System;
+    using System.Drawing.Text;
+
+    #endregion
+
+    public class TextRenderingEventArgs : EventArgs
     {
         #region Variables
 
@@ -27,9 +28,15 @@ namespace VisualPlus.EventArgs
 
         public TextRenderingHint TextRenderingHint
         {
-            get { return _textRenderingHint; }
+            get
+            {
+                return _textRenderingHint;
+            }
 
-            set { _textRenderingHint = value; }
+            set
+            {
+                _textRenderingHint = value;
+            }
         }
 
         #endregion

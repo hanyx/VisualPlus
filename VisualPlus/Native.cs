@@ -1,16 +1,17 @@
-﻿#region Namespace
-
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Text;
-using VisualPlus.Toolkit.Controls.Layout;
-
-#endregion
-
-namespace VisualPlus
+﻿namespace VisualPlus
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Runtime.InteropServices;
+    using System.Text;
+
+    using VisualPlus.Toolkit.Controls.Layout;
+
+    #endregion
+
     internal sealed class Native
     {
         #region Events

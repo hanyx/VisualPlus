@@ -1,21 +1,24 @@
-﻿#region Namespace
-
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Design;
-using System.IO;
-using System.Windows.Forms;
-using VisualPlus.Localization.Category;
-using VisualPlus.Renders;
-using VisualPlus.Structure;
-using VisualPlus.Toolkit.ActionList;
-using VisualPlus.Toolkit.Components;
-using VisualPlus.Toolkit.VisualBase;
-
-#endregion
-
-namespace VisualPlus.Toolkit.Controls.Editors
+﻿namespace VisualPlus.Toolkit.Controls.Editors
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Design;
+    using System.IO;
+    using System.Windows.Forms;
+
+    using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Renders;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.ActionList;
+    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.VisualBase;
+
+    #endregion
+
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(RichTextBox))]
     [DefaultEvent("TextChanged")]
@@ -27,7 +30,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
         #region Variables
 
         private Border _border;
-
+        private ColorState _colorState;
         private RichTextBox _richTextBox;
 
         #endregion
@@ -44,20 +47,22 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
             // Cannot select this control, only the child and does not generate a click event
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
+
+            _colorState = new ColorState();
+
             _border = new Border();
             _richTextBox = new RichTextBox
-            {
-                Size = GetInternalControlSize(Size, _border),
-                Location = GetInternalControlLocation(_border),
-                Text = string.Empty,
-                BorderStyle = BorderStyle.None,
-                Font = Font,
-                ForeColor = ForeColor,
-                BackColor = Background,
-                Multiline = true
-            };
+                {
+                    Size = GetInternalControlSize(Size, _border),
+                    Location = GetInternalControlLocation(_border),
+                    Text = string.Empty,
+                    BorderStyle = BorderStyle.None,
+                    Font = Font,
+                    ForeColor = ForeColor,
+                    BackColor = _colorState.Enabled,
+                    Multiline = true
+                };
 
-            BackColor = Color.Transparent;
             AutoSize = false;
             Size = new Size(150, 100);
 
@@ -70,14 +75,20 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
         #region Properties
 
-        public new Color Background
+        [TypeConverter(typeof(ColorStateConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(Propertys.Appearance)]
+        public ColorState BackColorState
         {
-            get { return base.Background; }
+            get
+            {
+                return _colorState;
+            }
 
             set
             {
-                _richTextBox.BackColor = value;
-                base.Background = value;
+                _colorState = value;
+                Invalidate();
             }
         }
 
@@ -86,7 +97,10 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get { return _border; }
+            get
+            {
+                return _border;
+            }
 
             set
             {
@@ -101,12 +115,18 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [Description("Gets access to the contained control.")]
         public RichTextBox ContainedControl
         {
-            get { return _richTextBox; }
+            get
+            {
+                return _richTextBox;
+            }
         }
 
         public new Font Font
         {
-            get { return base.Font; }
+            get
+            {
+                return base.Font;
+            }
 
             set
             {
@@ -117,7 +137,10 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
         public new Color ForeColor
         {
-            get { return base.ForeColor; }
+            get
+            {
+                return base.ForeColor;
+            }
 
             set
             {
@@ -131,7 +154,10 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [Localizable(false)]
         public new string Text
         {
-            get { return base.Text; }
+            get
+            {
+                return base.Text;
+            }
 
             set
             {
@@ -416,15 +442,15 @@ namespace VisualPlus.Toolkit.Controls.Editors
             _richTextBox.Undo();
         }
 
-        public void UpdateTheme(Enumerators.Styles style)
+        public void UpdateTheme(Styles style)
         {
             StyleManager = new VisualStyleManager(style);
 
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            Background = StyleManager.ControlStyle.Background(3);
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+            _colorState.Enabled = StyleManager.ControlStyle.Background(3);
+            _colorState.Disabled = StyleManager.ControlStyle.Background(0);
 
             _border.Color = StyleManager.BorderStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
@@ -435,17 +461,24 @@ namespace VisualPlus.Toolkit.Controls.Editors
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            if (_richTextBox.BackColor != Background)
+            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
+            Color _backColor = Enabled ? _colorState.Enabled : _colorState.Disabled;
+
+            if (_richTextBox.BackColor != _backColor)
             {
-                _richTextBox.BackColor = Background;
+                _richTextBox.BackColor = _backColor;
             }
 
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
-            e.Graphics.FillPath(new SolidBrush(Background), ControlGraphicsPath);
-            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, MouseState, ControlGraphicsPath);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, ClientRectangle, _backColor, BackgroundImage, Border, MouseState);
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            e.Graphics.Clear(Parent.BackColor);
+        }
+
+        protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             _richTextBox.Location = GetInternalControlLocation(_border);

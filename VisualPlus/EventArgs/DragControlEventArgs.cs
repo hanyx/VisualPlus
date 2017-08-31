@@ -1,13 +1,14 @@
-﻿#region Namespace
-
-using System.Drawing;
-using System.Windows.Forms;
-
-#endregion
-
-namespace VisualPlus.EventArgs
+﻿namespace VisualPlus.EventArgs
 {
-    public class DragControlEventArgs : System.EventArgs
+    #region Namespace
+
+    using System;
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    #endregion
+
+    public class DragControlEventArgs : EventArgs
     {
         #region Variables
 
@@ -31,14 +32,23 @@ namespace VisualPlus.EventArgs
 
         public Rectangle DragRectangle
         {
-            get { return _dragRectangle; }
+            get
+            {
+                return _dragRectangle;
+            }
 
-            set { _dragRectangle = value; }
+            set
+            {
+                _dragRectangle = value;
+            }
         }
 
         public Point Point
         {
-            get { return _point; }
+            get
+            {
+                return _point;
+            }
         }
 
         #endregion

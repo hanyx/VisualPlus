@@ -1,19 +1,20 @@
-﻿#region Namespace
-
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using VisualPlus.Localization.Category;
-using VisualPlus.Renders;
-using VisualPlus.Structure;
-using VisualPlus.Toolkit.Components;
-
-#endregion
-
-namespace VisualPlus.Toolkit.VisualBase
+﻿namespace VisualPlus.Toolkit.VisualBase
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Renders;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
+
+    #endregion
+
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -28,7 +29,8 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="BadgeLabel" /> class.</summary>
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.VisualBase.BadgeLabel" /> class.</summary>
         public BadgeLabel()
         {
             VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
@@ -60,7 +62,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Events
 
-        protected override void OnClick(System.EventArgs e)
+        protected override void OnClick(EventArgs e)
         {
             ClickEvent(this);
         }

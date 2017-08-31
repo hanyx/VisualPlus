@@ -1,12 +1,12 @@
-﻿#region Namespace
-
-using System.Collections;
-using System.Windows.Forms.Design;
-
-#endregion
-
-namespace VisualPlus.Toolkit.PropertyFilter
+﻿namespace VisualPlus.Toolkit.PropertyFilter
 {
+    #region Namespace
+
+    using System.Collections;
+    using System.Windows.Forms.Design;
+
+    #endregion
+
     internal class VisualComboBoxDesigner : ControlDesigner
     {
         #region Events
@@ -26,8 +26,6 @@ namespace VisualPlus.Toolkit.PropertyFilter
             properties.Remove("ImageList");
             properties.Remove("TextImageRelation");
             properties.Remove("DropDownStyle");
-            properties.Remove("BackgroundImage");
-            properties.Remove("BackgroundImageLayout");
             properties.Remove("UseVisualStyleBackColor");
             properties.Remove("RightToLeft");
 

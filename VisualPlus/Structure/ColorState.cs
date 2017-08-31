@@ -1,4 +1,4 @@
-namespace VisualPlus.Structure
+﻿namespace VisualPlus.Structure
 {
     #region Namespace
 
@@ -13,51 +13,51 @@ namespace VisualPlus.Structure
     using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Toolkit.Components;
 
     #endregion
 
-    [TypeConverter(typeof(ControlColorStateConverter))]
+    [TypeConverter(typeof(ColorStateConverter))]
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    [Description("The control color state of a component.")]
-    public class ControlColorState : ColorState
+    [Description("The color states of a component.")]
+    public class ColorState
     {
         #region Variables
 
-        private Color _hover;
-        private Color _pressed;
+        private Color _disabled;
+        private Color _enabled;
 
         #endregion
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Structure.ControlColorState" /> class.</summary>
-        /// <param name="hover">The hover.</param>
-        /// <param name="pressed">The pressed.</param>
-        public ControlColorState(Color hover, Color pressed)
+        /// <summary>Initializes a new instance of the <see cref="ColorState" /> class.</summary>
+        /// <param name="disabled">The disabled color.</param>
+        /// <param name="enabled">The normal color.</param>
+        public ColorState(Color disabled, Color enabled)
         {
-            _hover = hover;
-            _pressed = pressed;
+            _disabled = disabled;
+            _enabled = enabled;
         }
 
-        /// <summary>Initializes a new instance of the <see cref="ControlColorState" /> class.</summary>
-        public ControlColorState()
+        /// <summary>Initializes a new instance of the <see cref="ColorState" /> class.</summary>
+        public ColorState()
         {
-            // VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
-            _hover = Color.FromArgb(224, 224, 224);
-            _pressed = Color.Silver;
+            VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _disabled = Color.FromArgb(224, 224, 224);
+            _enabled = _styleManager.ControlStyle.Background(0);
         }
 
         [Category(Events.PropertyChanged)]
         [Description(Event.PropertyEventChanged)]
-        public event BackColorStateChangedEventHandler HoverColorChanged;
+        public event BackColorStateChangedEventHandler DisabledColorChanged;
 
         [Category(Events.PropertyChanged)]
         [Description(Event.PropertyEventChanged)]
-        public event BackColorStateChangedEventHandler PressedColorChanged;
+        public event BackColorStateChangedEventHandler NormalColorChanged;
 
         #endregion
 
@@ -66,44 +66,44 @@ namespace VisualPlus.Structure
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Description(Property.Color)]
-        public Color Hover
+        public Color Disabled
         {
             get
             {
-                return _hover;
+                return _disabled;
             }
 
             set
             {
-                _hover = value;
-                OnDisabledColorChanged(new ColorEventArgs(_hover));
-            }
-        }
-
-        /// <summary>Gets a value indicating whether this <see cref="ControlColorState" /> is empty.</summary>
-        [Browsable(false)]
-        public new bool IsEmpty
-        {
-            get
-            {
-                return _hover.IsEmpty && _pressed.IsEmpty && Disabled.IsEmpty && Enabled.IsEmpty;
+                _disabled = value;
+                OnDisabledColorChanged(new ColorEventArgs(_disabled));
             }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Description(Property.Color)]
-        public Color Pressed
+        public Color Enabled
         {
             get
             {
-                return _pressed;
+                return _enabled;
             }
 
             set
             {
-                _pressed = value;
-                OnDisabledColorChanged(new ColorEventArgs(_pressed));
+                _enabled = value;
+                OnDisabledColorChanged(new ColorEventArgs(_enabled));
+            }
+        }
+
+        /// <summary>Gets a value indicating whether this <see cref="ColorState" /> is empty.</summary>
+        [Browsable(false)]
+        public bool IsEmpty
+        {
+            get
+            {
+                return _disabled.IsEmpty && _enabled.IsEmpty;
             }
         }
 
@@ -125,12 +125,8 @@ namespace VisualPlus.Structure
             {
                 _stringBuilder.Append("Disabled=");
                 _stringBuilder.Append(Disabled);
-                _stringBuilder.Append("Hover=");
-                _stringBuilder.Append(Hover);
                 _stringBuilder.Append("Normal=");
                 _stringBuilder.Append(Enabled);
-                _stringBuilder.Append("Pressed=");
-                _stringBuilder.Append(Pressed);
             }
 
             _stringBuilder.Append("]");
@@ -138,20 +134,20 @@ namespace VisualPlus.Structure
             return _stringBuilder.ToString();
         }
 
-        protected virtual void OnHoverColorChanged(ColorEventArgs e)
+        protected virtual void OnDisabledColorChanged(ColorEventArgs e)
         {
-            HoverColorChanged?.Invoke(e);
+            DisabledColorChanged?.Invoke(e);
         }
 
-        protected virtual void OnPressedColorChanged(ColorEventArgs e)
+        protected virtual void OnNormalColorChanged(ColorEventArgs e)
         {
-            PressedColorChanged?.Invoke(e);
+            NormalColorChanged?.Invoke(e);
         }
 
         #endregion
     }
 
-    public class ControlColorStateConverter : ExpandableObjectConverter
+    public class ColorStateConverter : ExpandableObjectConverter
     {
         #region Events
 
@@ -166,7 +162,7 @@ namespace VisualPlus.Structure
 
             if (stringValue != null)
             {
-                return new ObjectControlColorStateWrapper(stringValue);
+                return new ObjectColorStyleWrapper(stringValue);
             }
 
             return base.ConvertFrom(context, culture, value);
@@ -174,13 +170,13 @@ namespace VisualPlus.Structure
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            ControlColorState _controlColorState;
+            ColorState _colorState;
             object result;
 
             result = null;
-            _controlColorState = value as ControlColorState;
+            _colorState = value as ColorState;
 
-            if ((_controlColorState != null) && (destinationType == typeof(string)))
+            if ((_colorState != null) && (destinationType == typeof(string)))
             {
                 // result = borderStyle.ToString();
                 result = "Color State Settings";
@@ -192,16 +188,16 @@ namespace VisualPlus.Structure
         #endregion
     }
 
-    [TypeConverter(typeof(ControlColorStateConverter))]
-    public class ObjectControlColorStateWrapper
+    [TypeConverter(typeof(ColorStateConverter))]
+    public class ObjectColorStyleWrapper
     {
         #region Constructors
 
-        public ObjectControlColorStateWrapper()
+        public ObjectColorStyleWrapper()
         {
         }
 
-        public ObjectControlColorStateWrapper(string value)
+        public ObjectColorStyleWrapper(string value)
         {
             Value = value;
         }

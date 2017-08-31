@@ -1,24 +1,26 @@
-﻿#region Namespace
-
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-using VisualPlus.Managers;
-using VisualPlus.Structure;
-using VisualPlus.Toolkit.Components;
-using VisualPlus.Toolkit.VisualBase;
-
-#endregion
-
-namespace VisualPlus.Toolkit.Controls.Interactivity
+﻿namespace VisualPlus.Toolkit.Controls.Interactivity
 {
+    #region Namespace
+
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    using VisualPlus.Enumerators;
+    using VisualPlus.Managers;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.VisualBase;
+
+    #endregion
+
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(CheckBox))]
     [DefaultEvent("ToggleChanged")]
     [DefaultProperty("Checked")]
     [Description("The Visual CheckBox")]
     [Designer(ControlManager.FilterProperties.VisualCheckBox)]
-    public class VisualCheckBox : CheckBoxBase
+    public class VisualCheckBox : CheckBoxBase, IThemeSupport
     {
         #region Constructors
 
@@ -28,15 +30,12 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             Cursor = Cursors.Hand;
             Size = new Size(125, 23);
 
-            Border = new Border {Rounding = Settings.DefaultValue.Rounding.BoxRounding};
+            Border = new Border { Rounding = Settings.DefaultValue.Rounding.BoxRounding };
 
-            CheckMark = new Checkmark(ClientRectangle)
-            {
-                Style = Checkmark.CheckType.Character,
-                Location = new Point(-1, 5),
-                ImageSize = new Size(19, 16),
-                ShapeSize = new Size(8, 8)
-            };
+            CheckStyle = new CheckStyle(ClientRectangle)
+                {
+                    Style = CheckStyle.CheckType.Character
+                };
 
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
@@ -45,26 +44,21 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Events
 
-        public void UpdateTheme(Enumerators.Styles style)
+        public void UpdateTheme(Styles style)
         {
             StyleManager = new VisualStyleManager(style);
 
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+            Font = StyleManager.Font;
 
-            Background = StyleManager.ControlStyle.Background(0);
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+            BoxColorState.Enabled = StyleManager.ControlStyle.Background(0);
+            BoxColorState.Disabled = Color.FromArgb(224, 224, 224);
+            BoxColorState.Hover = Color.FromArgb(224, 224, 224);
+            BoxColorState.Pressed = Color.Silver;
 
-            CheckMark.EnabledGradient = StyleManager.CheckmarkStyle.EnabledGradient;
-            CheckMark.DisabledGradient = StyleManager.CheckmarkStyle.DisabledGradient;
+            CheckStyle.Color = StyleManager.CheckmarkStyle.EnabledGradient.Colors[0];
 
-            ControlBrushCollection = new[]
-            {
-                StyleManager.ControlStatesStyle.ControlEnabled,
-                StyleManager.ControlStatesStyle.ControlHover,
-                StyleManager.ControlStatesStyle.ControlPressed,
-                StyleManager.ControlStatesStyle.ControlDisabled
-            };
             Border.Color = StyleManager.BorderStyle.Color;
             Border.HoverColor = StyleManager.BorderStyle.HoverColor;
             Invalidate();

@@ -1,13 +1,14 @@
-﻿#region Namespace
-
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using VisualPlus.Structure;
-
-#endregion
-
-namespace VisualPlus.Renders
+﻿namespace VisualPlus.Renders
 {
+    #region Namespace
+
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+
+    using VisualPlus.Structure;
+
+    #endregion
+
     public sealed class VisualBadgeRenderer
     {
         #region Events

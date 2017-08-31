@@ -1,20 +1,21 @@
-﻿#region Namespace
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Windows.Forms;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Managers;
-using VisualPlus.Toolkit.VisualBase;
-
-#endregion
-
-namespace VisualPlus.Toolkit.Controls.DataVisualization
+﻿namespace VisualPlus.Toolkit.Controls.DataVisualization
 {
+    #region Namespace
+
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Windows.Forms;
+
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Managers;
+    using VisualPlus.Toolkit.VisualBase;
+
+    #endregion
+
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ProgressBar))]
     [Designer(ControlManager.FilterProperties.VisualProgressIndicator)]
@@ -65,27 +66,45 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Color)]
         public Color AnimationColor
         {
-            get { return animationColor.Color; }
+            get
+            {
+                return animationColor.Color;
+            }
 
-            set { animationColor.Color = value; }
+            set
+            {
+                animationColor.Color = value;
+            }
         }
 
         [Category(Propertys.Behavior)]
         [Description(Property.AnimationSpeed)]
         public int AnimationSpeed
         {
-            get { return animationSpeed.Interval; }
+            get
+            {
+                return animationSpeed.Interval;
+            }
 
-            set { animationSpeed.Interval = value; }
+            set
+            {
+                animationSpeed.Interval = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Color)]
         public Color BaseColor
         {
-            get { return baseColor.Color; }
+            get
+            {
+                return baseColor.Color;
+            }
 
-            set { baseColor.Color = value; }
+            set
+            {
+                baseColor.Color = value;
+            }
         }
 
         [DefaultValue(45F)]
@@ -93,7 +112,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Amount)]
         public float Circles
         {
-            get { return circles; }
+            get
+            {
+                return circles;
+            }
 
             set
             {
@@ -107,7 +129,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Size)]
         public Size CircleSize
         {
-            get { return circleSize; }
+            get
+            {
+                return circleSize;
+            }
 
             set
             {
@@ -121,7 +146,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Diameter)]
         public float Diameter
         {
-            get { return diameter; }
+            get
+            {
+                return diameter;
+            }
 
             set
             {
@@ -146,13 +174,13 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         #region Events
 
-        protected override void OnEnabledChanged(System.EventArgs e)
+        protected override void OnEnabledChanged(EventArgs e)
         {
             base.OnEnabledChanged(e);
             animationSpeed.Enabled = Enabled;
         }
 
-        protected override void OnHandleCreated(System.EventArgs e)
+        protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
             animationSpeed.Tick += AnimationSpeedTick;
@@ -185,7 +213,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             buffGraphics.Render(e.Graphics);
         }
 
-        protected override void OnSizeChanged(System.EventArgs e)
+        protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
             SetStandardSize();
@@ -199,7 +227,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             return length;
         }
 
-        private void AnimationSpeedTick(object sender, System.EventArgs e)
+        private void AnimationSpeedTick(object sender, EventArgs e)
         {
             if (indicatorIndex.Equals(0))
             {
@@ -219,7 +247,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             startingFloatPoint = new PointF(Width / 2f, Height / 2f);
             for (var i = 0f; i < 360f; i += circles)
             {
-                SetValue(startingFloatPoint, (int) Math.Round((Width / 2.0) - 15.0), i);
+                SetValue(startingFloatPoint, (int)Math.Round((Width / 2.0) - 15.0), i);
                 PointF endPoint = EndPoint;
                 endPoint = new PointF(endPoint.X - diameter, endPoint.Y - diameter);
                 stack.Push(endPoint);

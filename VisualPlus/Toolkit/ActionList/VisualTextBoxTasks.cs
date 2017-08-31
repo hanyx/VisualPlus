@@ -1,15 +1,16 @@
-﻿#region Namespace
-
-using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Drawing.Design;
-using System.Windows.Forms.Design;
-using VisualPlus.Toolkit.Controls.Editors;
-
-#endregion
-
-namespace VisualPlus.Toolkit.ActionList
+﻿namespace VisualPlus.Toolkit.ActionList
 {
+    #region Namespace
+
+    using System.ComponentModel;
+    using System.ComponentModel.Design;
+    using System.Drawing.Design;
+    using System.Windows.Forms.Design;
+
+    using VisualPlus.Toolkit.Controls.Editors;
+
+    #endregion
+
     internal class VisualTextBoxTasks : ControlDesigner
     {
         #region Variables
@@ -27,7 +28,7 @@ namespace VisualPlus.Toolkit.ActionList
             {
                 if (actionListCollection == null)
                 {
-                    actionListCollection = new DesignerActionListCollection {new VisualTextBoxActionList(Component)};
+                    actionListCollection = new DesignerActionListCollection { new VisualTextBoxActionList(Component) };
                 }
 
                 return actionListCollection;
@@ -51,8 +52,8 @@ namespace VisualPlus.Toolkit.ActionList
 
         public VisualTextBoxActionList(IComponent component) : base(component)
         {
-            buttonControl = (VisualTextBox) component;
-            designerService = (DesignerActionUIService) GetService(typeof(DesignerActionUIService));
+            buttonControl = (VisualTextBox)component;
+            designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
         }
 
         #endregion
@@ -64,7 +65,10 @@ namespace VisualPlus.Toolkit.ActionList
         [DefaultValue(false)]
         public virtual bool MultiLine
         {
-            get { return buttonControl.MultiLine; }
+            get
+            {
+                return buttonControl.MultiLine;
+            }
 
             set
             {
@@ -77,9 +81,15 @@ namespace VisualPlus.Toolkit.ActionList
         [Localizable(false)]
         public virtual string Text
         {
-            get { return buttonControl.Text; }
+            get
+            {
+                return buttonControl.Text;
+            }
 
-            set { buttonControl.Text = value; }
+            set
+            {
+                buttonControl.Text = value;
+            }
         }
 
         #endregion
@@ -89,10 +99,10 @@ namespace VisualPlus.Toolkit.ActionList
         public override DesignerActionItemCollection GetSortedActionItems()
         {
             DesignerActionItemCollection items = new DesignerActionItemCollection
-            {
-                new DesignerActionPropertyItem("MultiLine", "MultiLine"),
-                new DesignerActionPropertyItem("Text", "Edit Text:")
-            };
+                {
+                    new DesignerActionPropertyItem("MultiLine", "MultiLine"),
+                    new DesignerActionPropertyItem("Text", "Edit Text:")
+                };
 
             return items;
         }

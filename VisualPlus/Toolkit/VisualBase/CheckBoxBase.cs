@@ -1,17 +1,18 @@
-﻿#region Namespace
-
-using System;
-using System.ComponentModel;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using VisualPlus.EventArgs;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-
-#endregion
-
-namespace VisualPlus.Toolkit.VisualBase
+﻿namespace VisualPlus.Toolkit.VisualBase
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+
+    #endregion
+
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -40,7 +41,10 @@ namespace VisualPlus.Toolkit.VisualBase
         [Description(Property.Checked)]
         public CheckState CheckState
         {
-            get { return _checkState; }
+            get
+            {
+                return _checkState;
+            }
 
             set
             {
@@ -58,7 +62,7 @@ namespace VisualPlus.Toolkit.VisualBase
                         OnToggleChanged(new ToggleEventArgs(Toggle));
                     }
 
-                    OnCheckStateChanged(System.EventArgs.Empty);
+                    OnCheckStateChanged(EventArgs.Empty);
 
                     // Repaint
                     Invalidate();
@@ -71,7 +75,10 @@ namespace VisualPlus.Toolkit.VisualBase
         [DefaultValue(false)]
         public bool ThreeState
         {
-            get { return _threeState; }
+            get
+            {
+                return _threeState;
+            }
 
             set
             {
@@ -87,37 +94,37 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Events
 
-        protected virtual void OnCheckStateChanged(System.EventArgs e)
+        protected virtual void OnCheckStateChanged(EventArgs e)
         {
             CheckStateChanged?.Invoke(this, e);
         }
 
-        protected override void OnClick(System.EventArgs e)
+        protected override void OnClick(EventArgs e)
         {
             switch (CheckState)
             {
                 case CheckState.Unchecked:
-                {
-                    CheckState = CheckState.Checked;
-                    break;
-                }
+                    {
+                        CheckState = CheckState.Checked;
+                        break;
+                    }
 
                 case CheckState.Checked:
-                {
-                    CheckState = ThreeState ? CheckState.Indeterminate : CheckState.Unchecked;
-                    break;
-                }
+                    {
+                        CheckState = ThreeState ? CheckState.Indeterminate : CheckState.Unchecked;
+                        break;
+                    }
 
                 case CheckState.Indeterminate:
-                {
-                    CheckState = CheckState.Unchecked;
-                    break;
-                }
+                    {
+                        CheckState = CheckState.Unchecked;
+                        break;
+                    }
 
                 default:
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
             }
 
             base.OnClick(e);
@@ -127,7 +134,7 @@ namespace VisualPlus.Toolkit.VisualBase
         {
             base.OnToggleChanged(e);
             _checkState = Checked ? CheckState.Checked : CheckState.Unchecked;
-            OnCheckStateChanged(System.EventArgs.Empty);
+            OnCheckStateChanged(EventArgs.Empty);
             Invalidate();
         }
 

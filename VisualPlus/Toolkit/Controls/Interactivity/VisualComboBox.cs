@@ -1,24 +1,25 @@
-﻿#region Namespace
-
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Text;
-using System.Windows.Forms;
-using VisualPlus.Enumerators;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Managers;
-using VisualPlus.Renders;
-using VisualPlus.Structure;
-using VisualPlus.Toolkit.ActionList;
-using VisualPlus.Toolkit.Components;
-
-#endregion
-
-namespace VisualPlus.Toolkit.Controls.Interactivity
+﻿namespace VisualPlus.Toolkit.Controls.Interactivity
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Drawing.Text;
+    using System.Windows.Forms;
+
+    using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Managers;
+    using VisualPlus.Renders;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.ActionList;
+    using VisualPlus.Toolkit.Components;
+
+    #endregion
+
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ComboBox))]
     [DefaultEvent("SelectedIndexChanged")]
@@ -29,40 +30,40 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
     {
         #region Variables
 
+        private ColorState _backColorState;
+
+        private Border _border;
+        private Color _buttonColor;
+        private Alignment.Horizontal _buttonHorizontal;
+        private DropDownButtons _buttonStyles;
+        private bool _buttonVisible;
+        private int _buttonWidth;
+        private GraphicsPath _controlGraphicsPath;
+        private Color _foreColor;
+        private Size _itemSize;
+        private Color _menuItemHover;
+        private Color _menuItemNormal;
+        private Color _menuTextColor;
+        private MouseStates _mouseState;
+        private Color _separatorColor;
+        private Color _separatorShadowColor;
+        private bool _separatorVisible;
+        private int _startIndex;
         private VisualStyleManager _styleManager;
-
-        private Border border;
-        private Color buttonColor;
-        private Alignment.Horizontal buttonHorizontal = Alignment.Horizontal.Right;
-        private DropDownButtons buttonStyles = DropDownButtons.Arrow;
-        private bool buttonVisible = Settings.DefaultValue.TextVisible;
-        private int buttonWidth = 30;
-        private Gradient controlDisabledGradient = new Gradient();
-        private Gradient controlGradient = new Gradient();
-        private GraphicsPath controlGraphicsPath;
-        private Color foreColor;
-
-        private Size itemSize;
-        private Color menuItemHover;
-        private Color menuItemNormal;
-        private Color menuTextColor;
-
-        private MouseStates mouseState;
-        private Color separatorColor;
-        private Color separatorShadowColor;
-        private bool separatorVisible = Settings.DefaultValue.TextVisible;
-        private int startIndex;
-
-        private StringAlignment textAlignment = StringAlignment.Center;
-        private Color textDisabledColor;
-        private TextRenderingHint textRendererHint;
-        private Watermark watermark = new Watermark();
+        private StringAlignment _textAlignment;
+        private Color _textDisabledColor;
+        private TextRenderingHint _textRendererHint;
+        private Watermark _watermark;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualComboBox" /> class.</summary>
+        /// <inheritdoc />
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Interactivity.VisualComboBox" />
+        ///     class.
+        /// </summary>
         public VisualComboBox()
         {
             SetStyle(
@@ -70,12 +71,20 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor,
                 true);
 
-            SetStyle((ControlStyles) 139286, true);
+            SetStyle((ControlStyles)139286, true);
             SetStyle(ControlStyles.Selectable, false);
 
             _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
-            mouseState = MouseStates.Normal;
+            _buttonWidth = 30;
+            _buttonHorizontal = Alignment.Horizontal.Right;
+            _buttonStyles = DropDownButtons.Arrow;
+            _buttonVisible = Settings.DefaultValue.TextVisible;
+            _separatorVisible = Settings.DefaultValue.TextVisible;
+            _textAlignment = StringAlignment.Center;
+            _watermark = new Watermark();
+            _backColorState = new ColorState();
+            _mouseState = MouseStates.Normal;
             DrawMode = DrawMode.OwnerDrawFixed;
             DropDownStyle = ComboBoxStyle.DropDownList;
 
@@ -84,11 +93,11 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             UpdateStyles();
             DropDownHeight = 100;
 
-            BackColor = Color.Transparent;
+            BackColor = SystemColors.Control;
 
-            border = new Border();
+            _border = new Border();
 
-            textRendererHint = Settings.DefaultValue.TextRenderingHint;
+            _textRendererHint = Settings.DefaultValue.TextRenderingHint;
 
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
@@ -106,30 +115,40 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Properties
 
-        [TypeConverter(typeof(GradientConverter))]
+        [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(Propertys.Appearance)]
-        public Gradient Background
+        public ColorState BackColorState
         {
-            get { return controlGradient; }
+            get
+            {
+                return _backColorState;
+            }
 
             set
             {
-                controlGradient = value;
+                _backColorState = value;
                 Invalidate();
             }
         }
+
+        [Browsable(true)]
+        [Description(Property.Image)]
+        public new Image BackgroundImage { get; set; }
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get { return border; }
+            get
+            {
+                return _border;
+            }
 
             set
             {
-                border = value;
+                _border = value;
                 Invalidate();
             }
         }
@@ -138,11 +157,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Color)]
         public Color ButtonColor
         {
-            get { return buttonColor; }
+            get
+            {
+                return _buttonColor;
+            }
 
             set
             {
-                buttonColor = value;
+                _buttonColor = value;
                 Invalidate();
             }
         }
@@ -151,11 +173,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Direction)]
         public Alignment.Horizontal ButtonHorizontal
         {
-            get { return buttonHorizontal; }
+            get
+            {
+                return _buttonHorizontal;
+            }
 
             set
             {
-                buttonHorizontal = value;
+                _buttonHorizontal = value;
                 Invalidate();
             }
         }
@@ -164,11 +189,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Type)]
         public DropDownButtons ButtonStyles
         {
-            get { return buttonStyles; }
+            get
+            {
+                return _buttonStyles;
+            }
 
             set
             {
-                buttonStyles = value;
+                _buttonStyles = value;
                 Invalidate();
             }
         }
@@ -178,11 +206,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Visible)]
         public bool ButtonVisible
         {
-            get { return buttonVisible; }
+            get
+            {
+                return _buttonVisible;
+            }
 
             set
             {
-                buttonVisible = value;
+                _buttonVisible = value;
                 Invalidate();
             }
         }
@@ -191,37 +222,29 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Size)]
         public int ButtonWidth
         {
-            get { return buttonWidth; }
-
-            set
+            get
             {
-                buttonWidth = value;
-                Invalidate();
+                return _buttonWidth;
             }
-        }
-
-        [TypeConverter(typeof(GradientConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
-        public Gradient DisabledBackground
-        {
-            get { return controlDisabledGradient; }
 
             set
             {
-                controlDisabledGradient = value;
+                _buttonWidth = value;
                 Invalidate();
             }
         }
 
         public new Color ForeColor
         {
-            get { return foreColor; }
+            get
+            {
+                return _foreColor;
+            }
 
             set
             {
                 base.ForeColor = value;
-                foreColor = value;
+                _foreColor = value;
                 Invalidate();
             }
         }
@@ -230,11 +253,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Color)]
         public Color MenuItemHover
         {
-            get { return menuItemHover; }
+            get
+            {
+                return _menuItemHover;
+            }
 
             set
             {
-                menuItemHover = value;
+                _menuItemHover = value;
                 Invalidate();
             }
         }
@@ -243,11 +269,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Color)]
         public Color MenuItemNormal
         {
-            get { return menuItemNormal; }
+            get
+            {
+                return _menuItemNormal;
+            }
 
             set
             {
-                menuItemNormal = value;
+                _menuItemNormal = value;
                 Invalidate();
             }
         }
@@ -256,11 +285,30 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Color)]
         public Color MenuTextColor
         {
-            get { return menuTextColor; }
+            get
+            {
+                return _menuTextColor;
+            }
 
             set
             {
-                menuTextColor = value;
+                _menuTextColor = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Propertys.Appearance)]
+        [Description(Property.MouseState)]
+        public MouseStates MouseState
+        {
+            get
+            {
+                return _mouseState;
+            }
+
+            set
+            {
+                _mouseState = value;
                 Invalidate();
             }
         }
@@ -269,11 +317,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Color)]
         public Color SeparatorColor
         {
-            get { return separatorColor; }
+            get
+            {
+                return _separatorColor;
+            }
 
             set
             {
-                separatorColor = value;
+                _separatorColor = value;
                 Invalidate();
             }
         }
@@ -282,11 +333,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Color)]
         public Color SeparatorShadowColor
         {
-            get { return separatorShadowColor; }
+            get
+            {
+                return _separatorShadowColor;
+            }
 
             set
             {
-                separatorShadowColor = value;
+                _separatorShadowColor = value;
                 Invalidate();
             }
         }
@@ -296,11 +350,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Visible)]
         public bool SeparatorVisible
         {
-            get { return separatorVisible; }
+            get
+            {
+                return _separatorVisible;
+            }
 
             set
             {
-                separatorVisible = value;
+                _separatorVisible = value;
                 Invalidate();
             }
         }
@@ -309,11 +366,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.StartIndex)]
         public int StartIndex
         {
-            get { return startIndex; }
+            get
+            {
+                return _startIndex;
+            }
 
             set
             {
-                startIndex = value;
+                _startIndex = value;
                 try
                 {
                     SelectedIndex = value;
@@ -331,11 +391,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.MouseState)]
         public MouseStates State
         {
-            get { return mouseState; }
+            get
+            {
+                return _mouseState;
+            }
 
             set
             {
-                mouseState = value;
+                _mouseState = value;
                 Invalidate();
             }
         }
@@ -344,11 +407,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Alignment)]
         public StringAlignment TextAlignment
         {
-            get { return textAlignment; }
+            get
+            {
+                return _textAlignment;
+            }
 
             set
             {
-                textAlignment = value;
+                _textAlignment = value;
                 Invalidate();
             }
         }
@@ -357,11 +423,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Color)]
         public Color TextDisabledColor
         {
-            get { return textDisabledColor; }
+            get
+            {
+                return _textDisabledColor;
+            }
 
             set
             {
-                textDisabledColor = value;
+                _textDisabledColor = value;
                 Invalidate();
             }
         }
@@ -370,11 +439,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
-            get { return textRendererHint; }
+            get
+            {
+                return _textRendererHint;
+            }
 
             set
             {
-                textRendererHint = value;
+                _textRendererHint = value;
                 Invalidate();
             }
         }
@@ -384,11 +456,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Category(Propertys.Behavior)]
         public Watermark Watermark
         {
-            get { return watermark; }
+            get
+            {
+                return _watermark;
+            }
 
             set
             {
-                watermark = value;
+                _watermark = value;
                 Invalidate();
             }
         }
@@ -399,225 +474,242 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         /// <summary>Update the style of the control.</summary>
         /// <param name="style">The visual style.</param>
-        public void UpdateTheme(Enumerators.Styles style)
+        public void UpdateTheme(Styles style)
         {
             _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
-            border.Color = _styleManager.BorderStyle.Color;
-            border.HoverColor = _styleManager.BorderStyle.HoverColor;
+            _border.Color = _styleManager.BorderStyle.Color;
+            _border.HoverColor = _styleManager.BorderStyle.HoverColor;
 
             Font = _styleManager.Font;
-            foreColor = _styleManager.FontStyle.ForeColor;
-            textDisabledColor = _styleManager.FontStyle.ForeColorDisabled;
+            _foreColor = _styleManager.FontStyle.ForeColor;
+            _textDisabledColor = _styleManager.FontStyle.ForeColorDisabled;
 
-            controlGradient = _styleManager.ControlStyle.BoxEnabled;
-            controlDisabledGradient = _styleManager.ControlStyle.BoxDisabled;
+            _backColorState.Enabled = _styleManager.ControlStyle.BoxEnabled.Colors[0];
+            _backColorState.Disabled = _styleManager.ControlStyle.BoxDisabled.Colors[0];
 
-            buttonColor = _styleManager.ControlStyle.FlatButtonEnabled;
-            menuTextColor = _styleManager.FontStyle.ForeColor;
+            _buttonColor = _styleManager.ControlStyle.FlatButtonEnabled;
+            _menuTextColor = _styleManager.FontStyle.ForeColor;
 
-            menuItemNormal = _styleManager.ControlStyle.ItemEnabled;
-            menuItemHover = _styleManager.ControlStyle.ItemHover;
+            _menuItemNormal = _styleManager.ControlStyle.ItemEnabled;
+            _menuItemHover = _styleManager.ControlStyle.ItemHover;
 
-            separatorColor = _styleManager.ControlStyle.Line;
-            separatorShadowColor = _styleManager.ControlStyle.Shadow;
+            _separatorColor = _styleManager.ControlStyle.Line;
+            _separatorShadowColor = _styleManager.ControlStyle.Shadow;
 
             Invalidate();
         }
 
         protected override void OnDrawItem(DrawItemEventArgs e)
         {
-            e.Graphics.FillRectangle((e.State & DrawItemState.Selected) == DrawItemState.Selected ? new SolidBrush(menuItemHover) : new SolidBrush(menuItemNormal), e.Bounds);
+            e.Graphics.FillRectangle((e.State & DrawItemState.Selected) == DrawItemState.Selected ? new SolidBrush(_menuItemHover) : new SolidBrush(_menuItemNormal), e.Bounds);
 
-            itemSize = e.Bounds.Size;
+            _itemSize = e.Bounds.Size;
 
             Point itemPoint = new Point(e.Bounds.X, e.Bounds.Y);
-            Rectangle itemBorderRectangle = new Rectangle(itemPoint, itemSize);
+            Rectangle itemBorderRectangle = new Rectangle(itemPoint, _itemSize);
             GraphicsPath itemBorderPath = new GraphicsPath();
             itemBorderPath.AddRectangle(itemBorderRectangle);
 
             if (e.Index != -1)
             {
-                e.Graphics.DrawString(GetItemText(Items[e.Index]), e.Font, new SolidBrush(menuTextColor), e.Bounds);
+                e.Graphics.DrawString(GetItemText(Items[e.Index]), e.Font, new SolidBrush(_menuTextColor), e.Bounds);
             }
         }
 
-        protected override void OnEnter(System.EventArgs e)
+        protected override void OnEnter(EventArgs e)
         {
             base.OnEnter(e);
-            watermark.Brush = new SolidBrush(watermark.ActiveColor);
-            mouseState = MouseStates.Hover;
+            _watermark.Brush = new SolidBrush(_watermark.ActiveColor);
+            _mouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnLeave(System.EventArgs e)
+        protected override void OnLeave(EventArgs e)
         {
             base.OnLeave(e);
-            watermark.Brush = new SolidBrush(watermark.InactiveColor);
-            mouseState = MouseStates.Normal;
+            _watermark.Brush = new SolidBrush(_watermark.InactiveColor);
+            _mouseState = MouseStates.Normal;
             Invalidate();
         }
 
-        protected override void OnLostFocus(System.EventArgs e)
+        protected override void OnLostFocus(EventArgs e)
         {
             SuspendLayout();
             Update();
             ResumeLayout();
-            mouseState = MouseStates.Normal;
+            _mouseState = MouseStates.Normal;
             Invalidate();
         }
 
-        protected override void OnMouseHover(System.EventArgs e)
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            base.OnMouseDown(e);
+            MouseState = MouseStates.Down;
+            Invalidate();
+        }
+
+        protected override void OnMouseHover(EventArgs e)
         {
             base.OnMouseHover(e);
-            mouseState = MouseStates.Hover;
+            _mouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
-            mouseState = MouseStates.Normal;
+            _mouseState = MouseStates.Normal;
+            Invalidate();
+        }
+
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            base.OnMouseUp(e);
+            MouseState = MouseState = MouseStates.Hover;
             Invalidate();
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            Graphics graphics = e.Graphics;
-            graphics.Clear(Parent.BackColor);
-            graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.TextRenderingHint = textRendererHint;
+            Graphics _graphics = e.Graphics;
+            _graphics.Clear(Parent.BackColor);
+            _graphics.SmoothingMode = SmoothingMode.HighQuality;
+            _graphics.TextRenderingHint = _textRendererHint;
+            _graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
 
-            controlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, border.Type, border.Rounding);
+            _controlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
 
-            foreColor = Enabled ? foreColor : textDisabledColor;
-            Gradient controlCheckTemp;
+            Color _textColor = Enabled ? _foreColor : _textDisabledColor;
+            Color _backColor = Enabled ? _backColorState.Enabled : _backColorState.Disabled;
 
-            if (Enabled)
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, ClientRectangle, _backColor, BackgroundImage, Border, _mouseState);
+
+            Point _textBoxLocation;
+            Point _buttonLocation;
+            Size _buttonSize = new Size(_buttonWidth, Height);
+
+            if (_buttonHorizontal == Alignment.Horizontal.Right)
             {
-                controlCheckTemp = controlGradient;
+                _buttonLocation = new Point(Width - _buttonWidth, 0);
+                _textBoxLocation = new Point(0, 0);
             }
             else
             {
-                controlCheckTemp = controlDisabledGradient;
+                _buttonLocation = new Point(0, 0);
+                _textBoxLocation = new Point(_buttonWidth, 0);
             }
 
-            var gradientPoints = new[] {new Point {X = ClientRectangle.Width, Y = 0}, new Point {X = ClientRectangle.Width, Y = ClientRectangle.Height}};
-            LinearGradientBrush gradientBackgroundBrush = Gradient.CreateGradientBrush(controlCheckTemp.Colors, gradientPoints, controlCheckTemp.Angle, controlCheckTemp.Positions);
-            graphics.FillPath(gradientBackgroundBrush, controlGraphicsPath);
+            Rectangle _buttonRectangle = new Rectangle(_buttonLocation, _buttonSize);
+            Rectangle _textBoxRectangle = new Rectangle(_textBoxLocation.X, _textBoxLocation.Y, Width - _buttonWidth, Height);
 
-            VisualBorderRenderer.DrawBorderStyle(graphics, border, State, controlGraphicsPath);
+            DrawButton(_graphics, _buttonRectangle);
+            DrawSeparator(_graphics, _buttonRectangle);
 
-            Point textBoxPoint;
-            Point buttonPoint;
-            Size buttonSize = new Size(buttonWidth, Height);
+            StringFormat _stringFormat = new StringFormat
+                {
+                    Alignment = _textAlignment,
+                    LineAlignment = StringAlignment.Center
+                };
 
-            if (buttonHorizontal == Alignment.Horizontal.Right)
-            {
-                buttonPoint = new Point(Width - buttonWidth, 0);
-                textBoxPoint = new Point(0, 0);
-            }
-            else
-            {
-                buttonPoint = new Point(0, 0);
-                textBoxPoint = new Point(buttonWidth, 0);
-            }
-
-            Rectangle buttonRectangle = new Rectangle(buttonPoint, buttonSize);
-            Rectangle textBoxRectangle = new Rectangle(textBoxPoint.X, textBoxPoint.Y, Width - buttonWidth, Height);
-
-            DrawButton(graphics, buttonRectangle);
-            DrawSeparator(graphics, buttonRectangle);
-
-            StringFormat stringFormat = new StringFormat
-            {
-                Alignment = textAlignment,
-                LineAlignment = StringAlignment.Center
-            };
-
-            ConfigureDirection(textBoxRectangle, buttonRectangle);
-            graphics.DrawString(Text, Font, new SolidBrush(foreColor), textBoxRectangle, stringFormat);
+            ConfigureDirection(_textBoxRectangle, _buttonRectangle);
+            _graphics.DrawString(Text, Font, new SolidBrush(_textColor), _textBoxRectangle, _stringFormat);
 
             if (Text.Length == 0)
             {
-                Watermark.DrawWatermark(graphics, textBoxRectangle, stringFormat, watermark);
+                Watermark.DrawWatermark(_graphics, _textBoxRectangle, _stringFormat, _watermark);
             }
         }
 
-        protected override void OnSelectionChangeCommitted(System.EventArgs e)
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            e.Graphics.Clear(Parent.BackColor);
+        }
+
+        protected override void OnSelectionChangeCommitted(EventArgs e)
         {
             OnLostFocus(e);
         }
 
         private void ConfigureDirection(Rectangle textBoxRectangle, Rectangle buttonRectangle)
         {
-            if (buttonHorizontal == Alignment.Horizontal.Right)
+            if (_buttonHorizontal == Alignment.Horizontal.Right)
             {
-                if (textAlignment == StringAlignment.Far)
+                switch (_textAlignment)
                 {
-                    textBoxRectangle.Width -= buttonRectangle.Width;
-                }
-                else if (textAlignment == StringAlignment.Near)
-                {
-                    textBoxRectangle.X = 0;
+                    case StringAlignment.Far:
+                        textBoxRectangle.Width -= buttonRectangle.Width;
+                        break;
+                    case StringAlignment.Near:
+                        textBoxRectangle.X = 0;
+                        break;
+                    case StringAlignment.Center:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
             else
             {
-                if (textAlignment == StringAlignment.Far)
+                switch (_textAlignment)
                 {
-                    textBoxRectangle.Width -= buttonRectangle.Width;
-                    textBoxRectangle.X = Width - textBoxRectangle.Width;
-                }
-                else if (textAlignment == StringAlignment.Near)
-                {
-                    textBoxRectangle.X = buttonWidth;
+                    case StringAlignment.Far:
+                        textBoxRectangle.Width -= buttonRectangle.Width;
+                        textBoxRectangle.X = Width - textBoxRectangle.Width;
+                        break;
+                    case StringAlignment.Near:
+                        textBoxRectangle.X = _buttonWidth;
+                        break;
+                    case StringAlignment.Center:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }
 
         private void DrawButton(Graphics graphics, Rectangle buttonRectangle)
         {
-            if (buttonVisible)
+            if (_buttonVisible)
             {
-                Point buttonImagePoint;
-                Size buttonImageSize;
+                Point _buttonImageLocation;
+                Size _buttonImageSize;
 
-                switch (buttonStyles)
+                switch (_buttonStyles)
                 {
                     case DropDownButtons.Arrow:
-                    {
-                        buttonImageSize = new Size(10, 8);
-                        buttonImagePoint = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - (buttonImageSize.Height / 2));
-                        GDI.DrawTriangle(graphics, new Rectangle(buttonImagePoint, buttonImageSize), new SolidBrush(buttonColor), false);
-                        break;
-                    }
+                        {
+                            _buttonImageSize = new Size(10, 8);
+                            _buttonImageLocation = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (_buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - (_buttonImageSize.Height / 2));
+                            GDI.DrawTriangle(graphics, new Rectangle(_buttonImageLocation, _buttonImageSize), new SolidBrush(_buttonColor), false);
+                            break;
+                        }
 
                     case DropDownButtons.Bars:
-                    {
-                        buttonImageSize = new Size(18, 10);
-                        buttonImagePoint = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - buttonImageSize.Height);
-                        Bars.DrawBars(graphics, buttonImagePoint, buttonImageSize, buttonColor, 3, 5);
-                        break;
-                    }
+                        {
+                            _buttonImageSize = new Size(18, 10);
+                            _buttonImageLocation = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (_buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - _buttonImageSize.Height);
+                            Bars.DrawBars(graphics, _buttonImageLocation, _buttonImageSize, _buttonColor, 3, 5);
+                            break;
+                        }
                 }
             }
         }
 
         private void DrawSeparator(Graphics graphics, Rectangle buttonRectangle)
         {
-            if (separatorVisible)
+            if (_separatorVisible)
             {
-                if (buttonHorizontal == Alignment.Horizontal.Right)
+                if (_buttonHorizontal == Alignment.Horizontal.Right)
                 {
-                    graphics.DrawLine(new Pen(separatorColor), buttonRectangle.X - 1, 4, buttonRectangle.X - 1, Height - 5);
-                    graphics.DrawLine(new Pen(separatorShadowColor), buttonRectangle.X, 4, buttonRectangle.X, Height - 5);
+                    graphics.DrawLine(new Pen(_separatorColor), buttonRectangle.X - 1, 4, buttonRectangle.X - 1, Height - 5);
+                    graphics.DrawLine(new Pen(_separatorShadowColor), buttonRectangle.X, 4, buttonRectangle.X, Height - 5);
                 }
                 else
                 {
-                    graphics.DrawLine(new Pen(separatorColor), buttonRectangle.Width - 1, 4, buttonRectangle.Width - 1, Height - 5);
-                    graphics.DrawLine(new Pen(separatorShadowColor), buttonRectangle.Width, 4, buttonRectangle.Width, Height - 5);
+                    graphics.DrawLine(new Pen(_separatorColor), buttonRectangle.Width - 1, 4, buttonRectangle.Width - 1, Height - 5);
+                    graphics.DrawLine(new Pen(_separatorShadowColor), buttonRectangle.Width, 4, buttonRectangle.Width, Height - 5);
                 }
             }
         }

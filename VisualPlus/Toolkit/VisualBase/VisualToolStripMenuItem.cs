@@ -1,17 +1,23 @@
-﻿#region Namespace
-
-using System.Drawing;
-using System.Windows.Forms;
-using VisualPlus.Toolkit.Controls.Navigation;
-
-#endregion
-
-namespace VisualPlus.Toolkit.VisualBase
+﻿namespace VisualPlus.Toolkit.VisualBase
 {
+    #region Namespace
+
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    using VisualPlus.Toolkit.Controls.Navigation;
+
+    #endregion
+
     public sealed class VisualToolStripMenuItem : ToolStripMenuItem
     {
         #region Constructors
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.VisualBase.VisualToolStripMenuItem" />
+        ///     class.
+        /// </summary>
         public VisualToolStripMenuItem()
         {
             AutoSize = false;

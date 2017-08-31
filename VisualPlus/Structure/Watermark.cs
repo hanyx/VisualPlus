@@ -1,19 +1,20 @@
-﻿#region Namespace
-
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Globalization;
-using VisualPlus.Delegates;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Styles;
-using VisualPlus.Toolkit.Components;
-
-#endregion
-
-namespace VisualPlus.Structure
+﻿namespace VisualPlus.Structure
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Globalization;
+
+    using VisualPlus.Delegates;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Styles;
+    using VisualPlus.Toolkit.Components;
+
+    #endregion
+
     [Description("The watermark")]
     [TypeConverter(typeof(WatermarkConverter))]
     public class Watermark : IWatermark
@@ -80,7 +81,10 @@ namespace VisualPlus.Structure
         [Description(Property.Color)]
         public Color ActiveColor
         {
-            get { return activeColor; }
+            get
+            {
+                return activeColor;
+            }
 
             set
             {
@@ -94,7 +98,10 @@ namespace VisualPlus.Structure
         [Description(Property.Font)]
         public Font Font
         {
-            get { return font; }
+            get
+            {
+                return font;
+            }
 
             set
             {
@@ -108,7 +115,10 @@ namespace VisualPlus.Structure
         [Description(Property.Color)]
         public Color InactiveColor
         {
-            get { return inactiveColor; }
+            get
+            {
+                return inactiveColor;
+            }
 
             set
             {
@@ -122,7 +132,10 @@ namespace VisualPlus.Structure
         [Description(Property.Text)]
         public string Text
         {
-            get { return text; }
+            get
+            {
+                return text;
+            }
 
             set
             {
@@ -136,7 +149,10 @@ namespace VisualPlus.Structure
         [Description(Property.Visible)]
         public bool Visible
         {
-            get { return visible; }
+            get
+            {
+                return visible;
+            }
 
             set
             {

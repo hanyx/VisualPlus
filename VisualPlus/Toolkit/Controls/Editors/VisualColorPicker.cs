@@ -1,25 +1,26 @@
-﻿#region Namespace
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.Text;
-using System.Windows.Forms;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Managers;
-using VisualPlus.Renders;
-using VisualPlus.Structure;
-using VisualPlus.Toolkit.Components;
-using VisualPlus.Toolkit.VisualBase;
-
-#endregion
-
-namespace VisualPlus.Toolkit.Controls.Editors
+﻿namespace VisualPlus.Toolkit.Controls.Editors
 {
+    #region Namespace
+
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Drawing.Imaging;
+    using System.Text;
+    using System.Windows.Forms;
+
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Managers;
+    using VisualPlus.Renders;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.VisualBase;
+
+    #endregion
+
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ColorDialog))]
     [DefaultEvent("ColorChanged")]
@@ -35,55 +36,58 @@ namespace VisualPlus.Toolkit.Controls.Editors
         private static readonly object EventLargeChangeChanged = new object();
         private static readonly object EventSelectionSizeChanged = new object();
         private static readonly object EventSmallChangeChanged = new object();
-        private readonly Color buttonColor;
+        private readonly Color _buttonColor;
         private LinearGradientBrush _blackBottomGradient;
+        private Border _border;
+        private Brush _brush;
         private Bitmap _canvas;
+        private PointF _centerPoint;
+        private Color _color;
+        private int _colorStep;
+        private bool _drag;
+        private bool _drawFocusRectangle;
         private Graphics _graphicsBuffer;
+        private int _largeChange;
+        private Point _mousePosition;
+        private Border _pickerBorder;
+        private bool _pickerVisible;
+        private PickerType _pickType;
+        private float _radius;
+        private int _selectionSize;
+        private int _smallChange;
         private LinearGradientBrush _spectrumGradient;
-        private VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+        private VisualStyleManager _styleManager;
         private LinearGradientBrush _whiteTopGradient;
-        private Border border;
-        private Brush brush;
-        private PointF centerPoint;
-        private Color color;
-        private HslColorManagerStructure colorManagement;
-        private int colorStep;
-        private bool drag;
-        private bool drawFocusRectangle;
-        private int largeChange;
-        private Point mousePosition;
-        private Border pickerBorder;
-        private bool pickerVisible = true;
-        private PickerType pickType = PickerType.Rectangle;
-        private float radius;
-        private int selectionSize;
-        private int smallChange;
+        private HSLManager management;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualColorPicker" /> class.</summary>
+        /// <inheritdoc />
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Editors.VisualColorPicker" />
+        ///     class.
+        /// </summary>
         public VisualColorPicker()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.Selectable | ControlStyles.StandardClick | ControlStyles.StandardDoubleClick | ControlStyles.SupportsTransparentBackColor, true);
-
-            buttonColor = _styleManager.ControlStatesStyle.ControlEnabled.Colors[0];
-
+            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _buttonColor = _styleManager.ControlStatesStyle.ControlEnabled.Colors[0];
+            _pickType = PickerType.Rectangle;
             Color = Color.Black;
             ColorStep = 4;
             SelectionSize = 10;
             SmallChange = 1;
             LargeChange = 5;
+            _pickerVisible = true;
+            _border = new Border();
+            _pickerBorder = new Border();
 
-            border = new Border();
-            pickerBorder = new Border();
-
-            // SelectionGlyph = CreateSelectionGlyph();
             MinimumSize = new Size(130, 130);
             Size = new Size(130, 130);
 
-            pickerBorder.HoverVisible = false;
+            _pickerBorder.HoverVisible = false;
 
             Size = new Size(200, 100);
 
@@ -94,17 +98,29 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [Category("Property Changed")]
         public event EventHandler ColorChanged
         {
-            add { Events.AddHandler(EventColorChanged, value); }
+            add
+            {
+                Events.AddHandler(EventColorChanged, value);
+            }
 
-            remove { Events.RemoveHandler(EventColorChanged, value); }
+            remove
+            {
+                Events.RemoveHandler(EventColorChanged, value);
+            }
         }
 
         [Category("Property Changed")]
         public event EventHandler LargeChangeChanged
         {
-            add { Events.AddHandler(EventLargeChangeChanged, value); }
+            add
+            {
+                Events.AddHandler(EventLargeChangeChanged, value);
+            }
 
-            remove { Events.RemoveHandler(EventLargeChangeChanged, value); }
+            remove
+            {
+                Events.RemoveHandler(EventLargeChangeChanged, value);
+            }
         }
 
         public enum PickerType
@@ -125,11 +141,14 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get { return border; }
+            get
+            {
+                return _border;
+            }
 
             set
             {
-                border = value;
+                _border = value;
                 Invalidate();
             }
         }
@@ -139,14 +158,17 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [Description(Property.Color)]
         public Color Color
         {
-            get { return color; }
+            get
+            {
+                return _color;
+            }
 
             set
             {
                 if (Color != value)
                 {
-                    color = value;
-                    OnColorChanged(System.EventArgs.Empty);
+                    _color = value;
+                    OnColorChanged(EventArgs.Empty);
                 }
             }
         }
@@ -158,7 +180,10 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [Description("Gets or sets the increment for rendering the color wheel.")]
         public int ColorStep
         {
-            get { return colorStep; }
+            get
+            {
+                return _colorStep;
+            }
 
             set
             {
@@ -169,8 +194,8 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
                 if (ColorStep != value)
                 {
-                    colorStep = value;
-                    OnColorStepChanged(System.EventArgs.Empty);
+                    _colorStep = value;
+                    OnColorStepChanged(EventArgs.Empty);
                 }
             }
         }
@@ -180,30 +205,36 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [Description(Property.Visible)]
         public bool DrawFocusRectangle
         {
-            get { return drawFocusRectangle; }
+            get
+            {
+                return _drawFocusRectangle;
+            }
 
             set
             {
-                drawFocusRectangle = value;
+                _drawFocusRectangle = value;
                 Invalidate();
             }
         }
 
         [Category(Propertys.Appearance)]
-        [DefaultValue(typeof(HslColorManagerStructure), "0, 0, 0")]
+        [DefaultValue(typeof(HSLManager), "0, 0, 0")]
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public HslColorManagerStructure HslColorManager
+        public HSLManager HslManager
         {
-            get { return colorManagement; }
+            get
+            {
+                return management;
+            }
 
             set
             {
-                if (HslColorManager != value)
+                if (HslManager != value)
                 {
-                    colorManagement = value;
+                    management = value;
 
-                    OnHslColorChanged(System.EventArgs.Empty);
+                    OnHslColorChanged(EventArgs.Empty);
                 }
             }
         }
@@ -217,14 +248,17 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [DefaultValue(5)]
         public int LargeChange
         {
-            get { return largeChange; }
+            get
+            {
+                return _largeChange;
+            }
 
             set
             {
                 if (LargeChange != value)
                 {
-                    largeChange = value;
-                    OnLargeChangeChanged(System.EventArgs.Empty);
+                    _largeChange = value;
+                    OnLargeChangeChanged(EventArgs.Empty);
                 }
             }
         }
@@ -234,11 +268,14 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [Category(Propertys.Appearance)]
         public Border Picker
         {
-            get { return pickerBorder; }
+            get
+            {
+                return _pickerBorder;
+            }
 
             set
             {
-                pickerBorder = value;
+                _pickerBorder = value;
                 Invalidate();
             }
         }
@@ -247,11 +284,14 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [Description("Gets or sets the picker style.")]
         public PickerType PickerStyle
         {
-            get { return pickType; }
+            get
+            {
+                return _pickType;
+            }
 
             set
             {
-                pickType = value;
+                _pickType = value;
                 Invalidate();
             }
         }
@@ -260,11 +300,14 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [Description(Property.Visible)]
         public bool PickerVisible
         {
-            get { return pickerVisible; }
+            get
+            {
+                return _pickerVisible;
+            }
 
             set
             {
-                pickerVisible = value;
+                _pickerVisible = value;
                 Invalidate();
             }
         }
@@ -274,14 +317,17 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [Description("Gets or sets the size of the selection handle.")]
         public int SelectionSize
         {
-            get { return selectionSize; }
+            get
+            {
+                return _selectionSize;
+            }
 
             set
             {
                 if (SelectionSize != value)
                 {
-                    selectionSize = value;
-                    OnSelectionSizeChanged(System.EventArgs.Empty);
+                    _selectionSize = value;
+                    OnSelectionSizeChanged(EventArgs.Empty);
                 }
             }
         }
@@ -295,14 +341,17 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [DefaultValue(1)]
         public int SmallChange
         {
-            get { return smallChange; }
+            get
+            {
+                return _smallChange;
+            }
 
             set
             {
                 if (SmallChange != value)
                 {
-                    smallChange = value;
-                    OnSmallChangeChanged(System.EventArgs.Empty);
+                    _smallChange = value;
+                    OnSmallChangeChanged(EventArgs.Empty);
                 }
             }
         }
@@ -311,9 +360,15 @@ namespace VisualPlus.Toolkit.Controls.Editors
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public override string Text
         {
-            get { return base.Text; }
+            get
+            {
+                return base.Text;
+            }
 
-            set { base.Text = value; }
+            set
+            {
+                base.Text = value;
+            }
         }
 
         private Color[] Colors { get; set; }
@@ -337,98 +392,98 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 Focus();
             }
 
-            switch (pickType)
+            switch (_pickType)
             {
                 case PickerType.Rectangle:
-                {
-                    if ((e.Button == MouseButtons.Left) && GDI.IsMouseInBounds(e.Location, ClientRectangle))
                     {
-                        drag = true;
-                        SetColor(e.Location);
-                        Cursor = Cursors.Hand;
-                    }
+                        if ((e.Button == MouseButtons.Left) && GDI.IsMouseInBounds(e.Location, ClientRectangle))
+                        {
+                            _drag = true;
+                            SetColor(e.Location);
+                            Cursor = Cursors.Hand;
+                        }
 
-                    break;
-                }
+                        break;
+                    }
 
                 case PickerType.Wheel:
-                {
-                    if ((e.Button == MouseButtons.Left) && IsPointInWheel(e.Location))
                     {
-                        drag = true;
-                        SetColor(e.Location);
-                        Cursor = Cursors.Hand;
-                    }
+                        if ((e.Button == MouseButtons.Left) && IsPointInWheel(e.Location))
+                        {
+                            _drag = true;
+                            SetColor(e.Location);
+                            Cursor = Cursors.Hand;
+                        }
 
-                    break;
-                }
+                        break;
+                    }
             }
         }
 
-        protected override void OnMouseEnter(System.EventArgs e)
+        protected override void OnMouseEnter(EventArgs e)
         {
             // base.OnMouseEnter(e);
 
             // controlState = Mouste.Hover;
-            switch (pickType)
+            switch (_pickType)
             {
                 case PickerType.Rectangle:
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
 
                 case PickerType.Wheel:
-                {
-                    Invalidate();
-                    break;
-                }
+                    {
+                        Invalidate();
+                        break;
+                    }
             }
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             // base.OnMouseLeave(e);
 
             // controlState = ControlState.Normal;
-            switch (pickType)
+            switch (_pickType)
             {
                 case PickerType.Rectangle:
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
 
                 case PickerType.Wheel:
-                {
-                    Invalidate();
-                    break;
-                }
+                    {
+                        Invalidate();
+                        break;
+                    }
             }
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
-            mousePosition = e.Location;
+            _mousePosition = e.Location;
 
-            if ((e.Button == MouseButtons.Left) && drag)
+            if ((e.Button == MouseButtons.Left) && _drag)
             {
-                switch (pickType)
+                switch (_pickType)
                 {
                     case PickerType.Rectangle:
-                    {
-                        if (ClientRectangle.Contains(e.Location))
                         {
-                            SetColor(e.Location);
+                            if (ClientRectangle.Contains(e.Location))
+                            {
+                                SetColor(e.Location);
+                            }
+
+                            break;
                         }
 
-                        break;
-                    }
-
                     case PickerType.Wheel:
-                    {
-                        SetColor(e.Location);
-                        break;
-                    }
+                        {
+                            SetColor(e.Location);
+                            break;
+                        }
                 }
             }
         }
@@ -436,7 +491,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
         protected override void OnMouseUp(MouseEventArgs e)
         {
             base.OnMouseUp(e);
-            drag = false;
+            _drag = false;
 
             Cursor = DefaultCursor;
         }
@@ -449,71 +504,71 @@ namespace VisualPlus.Toolkit.Controls.Editors
             graphics.SmoothingMode = SmoothingMode.HighQuality;
             GraphicsPath controlGraphicsPath = new GraphicsPath();
 
-            switch (pickType)
+            switch (_pickType)
             {
                 case PickerType.Rectangle:
-                {
-                    border.HoverVisible = false;
+                    {
+                        _border.HoverVisible = false;
 
-                    _graphicsBuffer.FillRectangle(_spectrumGradient, ClientRectangle);
-                    _graphicsBuffer.FillRectangle(_blackBottomGradient, 0, (Height * 0.7f) + 1, Width, Height * 0.3f);
-                    _graphicsBuffer.FillRectangle(_whiteTopGradient, 0, 0, Width, Height * 0.3f);
-                    e.Graphics.DrawImageUnscaled(_canvas, Point.Empty);
+                        _graphicsBuffer.FillRectangle(_spectrumGradient, ClientRectangle);
+                        _graphicsBuffer.FillRectangle(_blackBottomGradient, 0, (Height * 0.7f) + 1, Width, Height * 0.3f);
+                        _graphicsBuffer.FillRectangle(_whiteTopGradient, 0, 0, Width, Height * 0.3f);
+                        e.Graphics.DrawImageUnscaled(_canvas, Point.Empty);
 
-                    controlGraphicsPath = new GraphicsPath();
-                    controlGraphicsPath.AddRectangle(new RectangleF(ClientRectangle.Location, new Size(Width - 1, Height - 1)));
-                    break;
-                }
+                        controlGraphicsPath = new GraphicsPath();
+                        controlGraphicsPath.AddRectangle(new RectangleF(ClientRectangle.Location, new Size(Width - 1, Height - 1)));
+                        break;
+                    }
 
                 case PickerType.Wheel:
-                {
-                    OnPaintBackground(e);
-
-                    // If the parent is using a transparent colorManager, it's likely to be something like a TabPage in a tab control
-                    // so we'll draw the parent background instead, to avoid having an ugly solid colorManager
-                    if ((BackgroundImage == null) && (Parent != null) && ((BackColor == Parent.BackColor) || (Parent.BackColor.A != 255)))
                     {
-                        ButtonRenderer.DrawParentBackground(e.Graphics, DisplayRectangle, this);
+                        OnPaintBackground(e);
+
+                        // If the parent is using a transparent colorManager, it's likely to be something like a TabPage in a tab control
+                        // so we'll draw the parent background instead, to avoid having an ugly solid colorManager
+                        if ((BackgroundImage == null) && (Parent != null) && ((BackColor == Parent.BackColor) || (Parent.BackColor.A != 255)))
+                        {
+                            ButtonRenderer.DrawParentBackground(e.Graphics, DisplayRectangle, this);
+                        }
+
+                        if (_brush != null)
+                        {
+                            e.Graphics.FillPie(_brush, ClientRectangle, 0, 360);
+                        }
+
+                        // Smooth out the edge of the wheel.
+                        e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                        using (Pen pen = new Pen(BackColor, 2))
+                        {
+                            e.Graphics.DrawEllipse(pen, new RectangleF(_centerPoint.X - _radius, _centerPoint.Y - _radius, _radius * 2, _radius * 2));
+                        }
+
+                        Point pointLocation = new Point(Convert.ToInt32(_centerPoint.X - _radius), Convert.ToInt32(_centerPoint.Y - _radius));
+                        Size newSize = new Size(Convert.ToInt32(_radius * 2), Convert.ToInt32(_radius * 2));
+
+                        controlGraphicsPath = new GraphicsPath();
+                        controlGraphicsPath.AddEllipse(new RectangleF(pointLocation, newSize));
+
+                        break;
                     }
-
-                    if (brush != null)
-                    {
-                        e.Graphics.FillPie(brush, ClientRectangle, 0, 360);
-                    }
-
-                    // Smooth out the edge of the wheel.
-                    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                    using (Pen pen = new Pen(BackColor, 2))
-                    {
-                        e.Graphics.DrawEllipse(pen, new RectangleF(centerPoint.X - radius, centerPoint.Y - radius, radius * 2, radius * 2));
-                    }
-
-                    Point pointLocation = new Point(Convert.ToInt32(centerPoint.X - radius), Convert.ToInt32(centerPoint.Y - radius));
-                    Size newSize = new Size(Convert.ToInt32(radius * 2), Convert.ToInt32(radius * 2));
-
-                    controlGraphicsPath = new GraphicsPath();
-                    controlGraphicsPath.AddEllipse(new RectangleF(pointLocation, newSize));
-
-                    break;
-                }
             }
 
-            VisualBorderRenderer.DrawBorderStyle(graphics, border, MouseState, controlGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(graphics, _border, MouseState, controlGraphicsPath);
 
             // Draws the button
-            if (!Color.IsEmpty && pickerVisible)
+            if (!Color.IsEmpty && _pickerVisible)
             {
-                DrawColorPicker(e, HslColorManager, drawFocusRectangle);
+                DrawColorPicker(e, HslManager, _drawFocusRectangle);
             }
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             RefreshWheel();
         }
 
-        protected override void OnSizeChanged(System.EventArgs e)
+        protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
             UpdateLinearGradientBrushes();
@@ -532,16 +587,16 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 int w = ClientSize.Width;
                 int h = ClientSize.Height;
 
-                centerPoint = new PointF(w / 2.0F, h / 2.0F);
-                radius = GetRadius(centerPoint);
+                _centerPoint = new PointF(w / 2.0F, h / 2.0F);
+                _radius = GetRadius(_centerPoint);
 
                 for (double angle = 0; angle < 360; angle += ColorStep)
                 {
                     double angleR = angle * (Math.PI / 180);
-                    PointF location = GetColorLocation(angleR, radius);
+                    PointF location = GetColorLocation(angleR, _radius);
 
                     points.Add(location);
-                    colors.Add(new HslColorManagerStructure(angle, 1, 0.5).ToRgbColor());
+                    colors.Add(new HSLManager(angle, 1, 0.5).ToRgbColor());
                 }
             }
 
@@ -558,11 +613,11 @@ namespace VisualPlus.Toolkit.Controls.Editors
             if ((Points.Length != 0) && (Points.Length == Colors.Length))
             {
                 result = new PathGradientBrush(Points, WrapMode.Clamp)
-                {
-                    CenterPoint = centerPoint,
-                    CenterColor = Color.White,
-                    SurroundColors = Colors
-                };
+                    {
+                        CenterPoint = _centerPoint,
+                        CenterColor = Color.White,
+                        SurroundColors = Colors
+                    };
             }
             else
             {
@@ -582,12 +637,12 @@ namespace VisualPlus.Toolkit.Controls.Editors
             using (Graphics g = Graphics.FromImage(image))
             {
                 var diamondOuter = new[]
-                {
-                    new Point(halfSize, 0),
-                    new Point(SelectionSize, halfSize),
-                    new Point(halfSize, SelectionSize),
-                    new Point(0, halfSize)
-                };
+                    {
+                        new Point(halfSize, 0),
+                        new Point(SelectionSize, halfSize),
+                        new Point(halfSize, SelectionSize),
+                        new Point(0, halfSize)
+                    };
 
                 g.FillPolygon(SystemBrushes.Control, diamondOuter);
                 g.DrawPolygon(SystemPens.ControlDark, diamondOuter);
@@ -611,43 +666,46 @@ namespace VisualPlus.Toolkit.Controls.Editors
             return image;
         }
 
-        private void DrawColorPicker(PaintEventArgs e, HslColorManagerStructure colorManager, bool includeFocus)
+        private void DrawColorPicker(PaintEventArgs e, HSLManager _manager, bool includeFocus)
         {
             var x = 0;
             var y = 0;
 
-            switch (pickType)
+            switch (_pickType)
             {
                 case PickerType.Rectangle:
-                {
-                    x = mousePosition.X;
-                    y = mousePosition.Y;
-
-                    break;
-                }
-
-                case PickerType.Wheel:
-                {
-                    PointF location = GetColorLocation(colorManager);
-
-                    if (!float.IsNaN(location.X) && !float.IsNaN(location.Y))
                     {
-                        x = (int) location.X - (SelectionSize / 2);
-                        y = (int) location.Y - (SelectionSize / 2);
+                        x = _mousePosition.X;
+                        y = _mousePosition.Y;
+
+                        break;
                     }
 
-                    break;
-                }
+                case PickerType.Wheel:
+                    {
+                        PointF location = GetColorLocation(_manager);
+
+                        if (!float.IsNaN(location.X) && !float.IsNaN(location.Y))
+                        {
+                            x = (int)location.X - (SelectionSize / 2);
+                            y = (int)location.Y - (SelectionSize / 2);
+                        }
+
+                        break;
+                    }
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             // Create the button path
             GraphicsPath buttonGraphicsPath = GDI.DrawRoundedRectangle(new Rectangle(x, y, SelectionSize, SelectionSize), 10);
 
             // Draw button
-            e.Graphics.FillPath(new SolidBrush(buttonColor), buttonGraphicsPath);
+            e.Graphics.FillPath(new SolidBrush(_buttonColor), buttonGraphicsPath);
 
             // Draw border
-            VisualBorderRenderer.DrawBorderStyle(e.Graphics, pickerBorder, MouseState, buttonGraphicsPath);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _pickerBorder, MouseState, buttonGraphicsPath);
 
             if (Focused && includeFocus)
             {
@@ -655,20 +713,20 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
         }
 
-        private PointF GetColorLocation(HslColorManagerStructure colorManager)
+        private PointF GetColorLocation(HSLManager _manager)
         {
-            double angle = (colorManager.H * Math.PI) / 180;
-            double locationRadius = radius * colorManager.S;
+            double angle = (_manager.H * Math.PI) / 180;
+            double locationRadius = _radius * _manager.S;
 
             return GetColorLocation(angle, locationRadius);
         }
 
         private PointF GetColorLocation(double angleR, double locationRadius)
         {
-            double x = Padding.Left + centerPoint.X + (Math.Cos(angleR) * locationRadius);
-            double y = (Padding.Top + centerPoint.Y) - (Math.Sin(angleR) * locationRadius);
+            double x = Padding.Left + _centerPoint.X + (Math.Cos(angleR) * locationRadius);
+            double y = (Padding.Top + _centerPoint.Y) - (Math.Sin(angleR) * locationRadius);
 
-            return new PointF((float) x, (float) y);
+            return new PointF((float)x, (float)y);
         }
 
         private float GetRadius(PointF centerRadiusPoint)
@@ -681,90 +739,90 @@ namespace VisualPlus.Toolkit.Controls.Editors
         /// <returns><c>true</c> if the specified point is within the bounds of the colorManager wheel; otherwise, <c>false</c>.</returns>
         private bool IsPointInWheel(Point point)
         {
-            PointF normalized = new PointF(point.X - centerPoint.X, point.Y - centerPoint.Y);
-            return (normalized.X * normalized.X) + (normalized.Y * normalized.Y) <= radius * radius;
+            PointF normalized = new PointF(point.X - _centerPoint.X, point.Y - _centerPoint.Y);
+            return (normalized.X * normalized.X) + (normalized.Y * normalized.Y) <= _radius * _radius;
         }
 
         /// <summary>Raises the <see cref="ColorChanged" /> event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnColorChanged(System.EventArgs e)
+        private void OnColorChanged(EventArgs e)
         {
             if (!LockUpdates)
             {
-                HslColorManager = new HslColorManagerStructure(Color);
+                HslManager = new HSLManager(Color);
             }
 
             Refresh();
-            EventHandler handler = (EventHandler) Events[EventColorChanged];
+            EventHandler handler = (EventHandler)Events[EventColorChanged];
             handler?.Invoke(this, e);
         }
 
         /// <summary>Raises the event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnColorStepChanged(System.EventArgs e)
+        private void OnColorStepChanged(EventArgs e)
         {
             RefreshWheel();
-            EventHandler handler = (EventHandler) Events[EventColorStepChanged];
+            EventHandler handler = (EventHandler)Events[EventColorStepChanged];
             handler?.Invoke(this, e);
         }
 
         /// <summary>Raises the event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnHslColorChanged(System.EventArgs e)
+        private void OnHslColorChanged(EventArgs e)
         {
             if (!LockUpdates)
             {
-                Color = HslColorManager.ToRgbColor();
+                Color = HslManager.ToRgbColor();
             }
 
             Invalidate();
-            EventHandler handler = (EventHandler) Events[EventHslColorChanged];
+            EventHandler handler = (EventHandler)Events[EventHslColorChanged];
             handler?.Invoke(this, e);
         }
 
         /// <summary>Raises the event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnLargeChangeChanged(System.EventArgs e)
+        private void OnLargeChangeChanged(EventArgs e)
         {
-            EventHandler handler = (EventHandler) Events[EventLargeChangeChanged];
+            EventHandler handler = (EventHandler)Events[EventLargeChangeChanged];
             handler?.Invoke(this, e);
         }
 
         /// <summary>Raises the event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnSelectionSizeChanged(System.EventArgs e)
+        private void OnSelectionSizeChanged(EventArgs e)
         {
             SelectionGlyph?.Dispose();
             SelectionGlyph = CreateSelectionGlyph();
             RefreshWheel();
-            EventHandler handler = (EventHandler) Events[EventSelectionSizeChanged];
+            EventHandler handler = (EventHandler)Events[EventSelectionSizeChanged];
             handler?.Invoke(this, e);
         }
 
         /// <summary>Raises the event.</summary>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void OnSmallChangeChanged(System.EventArgs e)
+        private void OnSmallChangeChanged(EventArgs e)
         {
-            EventHandler handler = (EventHandler) Events[EventSmallChangeChanged];
+            EventHandler handler = (EventHandler)Events[EventSmallChangeChanged];
             handler?.Invoke(this, e);
         }
 
         /// <summary>Refreshes the wheel attributes and then repaints the control</summary>
         private void RefreshWheel()
         {
-            if (brush != null)
+            if (_brush != null)
             {
-                brush.Dispose();
+                _brush.Dispose();
             }
 
             CalculateWheel();
-            brush = CreateGradientBrush();
+            _brush = CreateGradientBrush();
             Invalidate();
         }
 
         private void SetColor(Point point)
         {
-            if (pickType == PickerType.Rectangle)
+            if (_pickType == PickerType.Rectangle)
             {
                 LockUpdates = true;
                 Color = ColorManager.CurrentPointerColor();
@@ -772,30 +830,30 @@ namespace VisualPlus.Toolkit.Controls.Editors
             }
             else
             {
-                double dx = Math.Abs(point.X - centerPoint.X - Padding.Left);
-                double dy = Math.Abs(point.Y - centerPoint.Y - Padding.Top);
+                double dx = Math.Abs(point.X - _centerPoint.X - Padding.Left);
+                double dy = Math.Abs(point.Y - _centerPoint.Y - Padding.Top);
                 double angle = (Math.Atan(dy / dx) / Math.PI) * 180;
                 double distance = Math.Pow(Math.Pow(dx, 2) + Math.Pow(dy, 2), 0.5);
-                double saturation = distance / radius;
+                double saturation = distance / _radius;
 
                 if (distance < 6)
                 {
                     saturation = 0; // snap to center
                 }
 
-                if (point.X < centerPoint.X)
+                if (point.X < _centerPoint.X)
                 {
                     angle = 180 - angle;
                 }
 
-                if (point.Y > centerPoint.Y)
+                if (point.Y > _centerPoint.Y)
                 {
                     angle = 360 - angle;
                 }
 
                 LockUpdates = true;
-                HslColorManager = new HslColorManagerStructure(angle, saturation, 0.5);
-                Color = HslColorManager.ToRgbColor();
+                HslManager = new HSLManager(angle, saturation, 0.5);
+                Color = HslManager.ToRgbColor();
                 LockUpdates = false;
             }
         }
@@ -813,16 +871,20 @@ namespace VisualPlus.Toolkit.Controls.Editors
         {
             // Update spectrum gradient
             _spectrumGradient = new LinearGradientBrush(Point.Empty, new Point(Width, 0), Color.White, Color.White);
-            ColorBlend blend = new ColorBlend();
-            blend.Positions = new[] {0, 1 / 7f, 2 / 7f, 3 / 7f, 4 / 7f, 5 / 7f, 6 / 7f, 1};
-            blend.Colors = new[] {Color.Gray, Color.Red, Color.Orange, Color.Yellow, Color.Green, Color.Blue, Color.Indigo, Color.Violet};
-            _spectrumGradient.InterpolationColors = blend;
+
+            ColorBlend _colorBlend = new ColorBlend
+                {
+                    Positions = new[] { 0, 1 / 7f, 2 / 7f, 3 / 7f, 4 / 7f, 5 / 7f, 6 / 7f, 1 },
+                    Colors = new[] { Color.Gray, Color.Red, Color.Orange, Color.Yellow, Color.Green, Color.Blue, Color.Indigo, Color.Violet }
+                };
+
+            _spectrumGradient.InterpolationColors = _colorBlend;
 
             // Update greyscale gradient
-            RectangleF rect = new RectangleF(0, Height * 0.7f, Width, Height * 0.3F);
-            _blackBottomGradient = new LinearGradientBrush(rect, Color.Transparent, Color.Black, 90f);
-            rect = new RectangleF(Point.Empty, new SizeF(Width, Height * 0.3F));
-            _whiteTopGradient = new LinearGradientBrush(rect, Color.White, Color.Transparent, 90f);
+            RectangleF _rectangleF = new RectangleF(0, Height * 0.7f, Width, Height * 0.3F);
+            _blackBottomGradient = new LinearGradientBrush(_rectangleF, Color.Transparent, Color.Black, 90f);
+            _rectangleF = new RectangleF(Point.Empty, new SizeF(Width, Height * 0.3F));
+            _whiteTopGradient = new LinearGradientBrush(_rectangleF, Color.White, Color.Transparent, 90f);
         }
 
         #endregion
@@ -830,9 +892,9 @@ namespace VisualPlus.Toolkit.Controls.Editors
         #region Methods
 
         [Serializable]
-        public struct HslColorManagerStructure
+        public struct HSLManager
         {
-            public static readonly HslColorManagerStructure Empty;
+            public static readonly HSLManager Empty;
 
             private int alpha;
             private double hue;
@@ -840,20 +902,20 @@ namespace VisualPlus.Toolkit.Controls.Editors
             private double lightness;
             private double saturation;
 
-            static HslColorManagerStructure()
+            static HSLManager()
             {
-                Empty = new HslColorManagerStructure
-                {
-                    IsEmpty = true
-                };
+                Empty = new HSLManager
+                    {
+                        IsEmpty = true
+                    };
             }
 
-            public HslColorManagerStructure(double hue, double saturation, double lightness)
+            public HSLManager(double hue, double saturation, double lightness)
                 : this(255, hue, saturation, lightness)
             {
             }
 
-            public HslColorManagerStructure(int alpha, double hue, double saturation, double lightness)
+            public HSLManager(int alpha, double hue, double saturation, double lightness)
             {
                 this.hue = Math.Min(359, hue);
                 this.saturation = Math.Min(1, saturation);
@@ -862,7 +924,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 isEmpty = false;
             }
 
-            public HslColorManagerStructure(Color color)
+            public HSLManager(Color color)
             {
                 alpha = color.A;
                 hue = color.GetHue();
@@ -871,36 +933,45 @@ namespace VisualPlus.Toolkit.Controls.Editors
                 isEmpty = false;
             }
 
-            public static bool operator ==(HslColorManagerStructure a, HslColorManagerStructure b)
+            public static bool operator ==(HSLManager a, HSLManager b)
             {
                 return (a.H == b.H) && (a.L == b.L) && (a.S == b.S) && (a.A == b.A);
             }
 
-            public static implicit operator HslColorManagerStructure(Color color)
+            public static implicit operator HSLManager(Color color)
             {
-                return new HslColorManagerStructure(color);
+                return new HSLManager(color);
             }
 
-            public static implicit operator Color(HslColorManagerStructure colorManager)
+            public static implicit operator Color(HSLManager _manager)
             {
-                return colorManager.ToRgbColor();
+                return _manager.ToRgbColor();
             }
 
-            public static bool operator !=(HslColorManagerStructure a, HslColorManagerStructure b)
+            public static bool operator !=(HSLManager a, HSLManager b)
             {
                 return !(a == b);
             }
 
             public int A
             {
-                get { return alpha; }
+                get
+                {
+                    return alpha;
+                }
 
-                set { alpha = Math.Min(0, Math.Max(255, value)); }
+                set
+                {
+                    alpha = Math.Min(0, Math.Max(255, value));
+                }
             }
 
             public double H
             {
-                get { return hue; }
+                get
+                {
+                    return hue;
+                }
 
                 set
                 {
@@ -920,33 +991,51 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
             public bool IsEmpty
             {
-                get { return isEmpty; }
+                get
+                {
+                    return isEmpty;
+                }
 
-                internal set { isEmpty = value; }
+                internal set
+                {
+                    isEmpty = value;
+                }
             }
 
             public double L
             {
-                get { return lightness; }
+                get
+                {
+                    return lightness;
+                }
 
-                set { lightness = Math.Min(1, Math.Max(0, value)); }
+                set
+                {
+                    lightness = Math.Min(1, Math.Max(0, value));
+                }
             }
 
             public double S
             {
-                get { return saturation; }
+                get
+                {
+                    return saturation;
+                }
 
-                set { saturation = Math.Min(1, Math.Max(0, value)); }
+                set
+                {
+                    saturation = Math.Min(1, Math.Max(0, value));
+                }
             }
 
             public override bool Equals(object obj)
             {
                 bool result;
 
-                if (obj is HslColorManagerStructure)
+                if (obj is HSLManager)
                 {
-                    HslColorManagerStructure colorManager = (HslColorManagerStructure) obj;
-                    result = this == colorManager;
+                    HSLManager _manager = (HSLManager)obj;
+                    result = this == _manager;
                 }
                 else
                 {
@@ -983,17 +1072,17 @@ namespace VisualPlus.Toolkit.Controls.Editors
 
                 // R, G, B colors
                 double[] tc =
-                {
-                    hk + (1d / 3d),
-                    hk,
-                    hk - (1d / 3d)
-                };
+                    {
+                        hk + (1d / 3d),
+                        hk,
+                        hk - (1d / 3d)
+                    };
                 double[] colors =
-                {
-                    0.0,
-                    0.0,
-                    0.0
-                };
+                    {
+                        0.0,
+                        0.0,
+                        0.0
+                    };
 
                 for (var color = 0; color < colors.Length; color++)
                 {
@@ -1027,7 +1116,7 @@ namespace VisualPlus.Toolkit.Controls.Editors
                     colors[color] *= 255;
                 }
 
-                return Color.FromArgb(alphaRGB, (int) colors[0], (int) colors[1], (int) colors[2]);
+                return Color.FromArgb(alphaRGB, (int)colors[0], (int)colors[1], (int)colors[2]);
             }
 
             public override string ToString()

@@ -1,20 +1,22 @@
-﻿#region Namespace
-
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Globalization;
-using System.Windows.Forms;
-using VisualPlus.Delegates;
-using VisualPlus.EventArgs;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-
-#endregion
-
-namespace VisualPlus.Toolkit.Components
+﻿namespace VisualPlus.Toolkit.Components
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Globalization;
+    using System.Windows.Forms;
+
+    using VisualPlus.Delegates;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+
+    #endregion
+
     [ToolboxItem(true)]
+    [ToolboxBitmap(typeof(Component))]
     [Description("The VisualPlus drag component enables controls to be dragged.")]
     [TypeConverter(typeof(DragConverter))]
     public class VisualDrag : Component
@@ -106,9 +108,15 @@ namespace VisualPlus.Toolkit.Components
         [Description("The control to attach this component.")]
         public Control Control
         {
-            get { return _control; }
+            get
+            {
+                return _control;
+            }
 
-            set { _control = value; }
+            set
+            {
+                _control = value;
+            }
         }
 
         [NotifyParentProperty(true)]
@@ -117,7 +125,10 @@ namespace VisualPlus.Toolkit.Components
         [Description(Property.Cursor)]
         public Cursor CursorMove
         {
-            get { return _cursorMove; }
+            get
+            {
+                return _cursorMove;
+            }
 
             set
             {
@@ -137,7 +148,10 @@ namespace VisualPlus.Toolkit.Components
         [Description(Property.Toggle)]
         public bool Enabled
         {
-            get { return _enabled; }
+            get
+            {
+                return _enabled;
+            }
 
             set
             {
@@ -165,9 +179,15 @@ namespace VisualPlus.Toolkit.Components
         [Description(Property.Toggle)]
         public bool Horizontal
         {
-            get { return _horizontal; }
+            get
+            {
+                return _horizontal;
+            }
 
-            set { _horizontal = value; }
+            set
+            {
+                _horizontal = value;
+            }
         }
 
         [Browsable(false)]
@@ -182,9 +202,15 @@ namespace VisualPlus.Toolkit.Components
         [Description(Property.Toggle)]
         public bool Vertical
         {
-            get { return _vertical; }
+            get
+            {
+                return _vertical;
+            }
 
-            set { _vertical = value; }
+            set
+            {
+                _vertical = value;
+            }
         }
 
         #endregion

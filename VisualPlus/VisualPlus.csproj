@@ -64,25 +64,30 @@
     <Compile Include="Localization\Descriptions\Property.cs" />
     <Compile Include="Localization\GlobalStrings.cs" />
     <Compile Include="Localization\Category\Propertys.cs" />
+    <Compile Include="Managers\ImageManager.cs" />
     <Compile Include="Renders\VisualBackgroundRenderer.cs" />
     <Compile Include="Renders\VisualBadgeRenderer.cs" />
     <Compile Include="Renders\VisualBorderRenderer.cs" />
     <Compile Include="Renders\VisualToggleRenderer.cs" />
     <Compile Include="Renders\VisualControlRenderer.cs" />
     <Compile Include="Structure\ControlColorState.cs" />
+    <Compile Include="Structure\ColorState.cs" />
+    <Compile Include="Structure\Hatch.cs" />
+    <Compile Include="Structure\TextState.cs" />
     <Compile Include="Toolkit\ActionList\BackupDesigner.cs" />
     <Compile Include="Toolkit\ActionList\VisualRichBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualTextBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualListViewTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualComboBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisuaListBoxTasks.cs" />
-    <Compile Include="Toolkit\Components\VisualStyleManager.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Toolkit\Components\VisualGradient.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Toolkit\Components\VisualStyleManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Toolkit\Controls\DataVisualization\VisualGauge.cs" />
+    <Compile Include="Toolkit\Controls\DataVisualization\VisualProgressStepper.cs" />
     <Compile Include="Toolkit\Controls\Interactivity\VisualRangeBar.cs" />
     <Compile Include="Toolkit\VisualBase\BadgeLabel.cs" />
     <Compile Include="Toolkit\Components\Expander.cs">
@@ -158,14 +163,13 @@
     </Compile>
     <Compile Include="Toolkit\Controls\Interactivity\VisualLabel.cs" />
     <Compile Include="Toolkit\Controls\Interactivity\VisualRating.cs" />
-    <Compile Include="Toolkit\Controls\Interactivity\VisualShape.cs" />
     <Compile Include="Toolkit\Components\VisualToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Enumerators\Alignment.cs" />
     <Compile Include="InterfaceTypes.cs" />
     <Compile Include="Managers\ControlManager.cs" />
-    <Compile Include="Structure\Checkmark.cs" />
+    <Compile Include="Structure\CheckStyle.cs" />
     <Compile Include="Toolkit\Components\VisualDrag.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -194,7 +198,7 @@
     <Compile Include="Toolkit\Controls\DataVisualization\VisualProgressIndicator.cs" />
     <Compile Include="Toolkit\Controls\Interactivity\VisualRadioButton.cs" />
     <Compile Include="Toolkit\Controls\Editors\VisualRichTextBox.cs" />
-    <Compile Include="Toolkit\Controls\DataVisualization\VisualCircleProgressBar.cs" />
+    <Compile Include="Toolkit\Controls\DataVisualization\VisualRadialProgress.cs" />
     <Compile Include="Toolkit\Controls\Layout\VisualSeparator.cs" />
     <Compile Include="Toolkit\Controls\Navigation\VisualTabControl.cs">
       <SubType>Component</SubType>

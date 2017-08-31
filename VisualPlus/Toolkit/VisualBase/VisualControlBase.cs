@@ -1,23 +1,25 @@
-﻿#region Namespace
-
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Text;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using VisualPlus.Delegates;
-using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Structure;
-using VisualPlus.Toolkit.Components;
-
-#endregion
-
-namespace VisualPlus.Toolkit.VisualBase
+﻿namespace VisualPlus.Toolkit.VisualBase
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Drawing.Text;
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.Delegates;
+    using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
+
+    #endregion
+
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -27,8 +29,6 @@ namespace VisualPlus.Toolkit.VisualBase
     {
         #region Variables
 
-        private Color _backgroundColor;
-        private Color _backgroundDisabledColor;
         private Color _foreColorDisabled;
         private MouseStates _mouseState;
         private VisualStyleManager _styleManager;
@@ -38,6 +38,8 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Constructors
 
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.VisualBase.VisualControlBase" /> class.</summary>
         protected VisualControlBase()
         {
             // Allow transparent BackColor.
@@ -54,15 +56,9 @@ namespace VisualPlus.Toolkit.VisualBase
             ResizeRedraw = true;
 
             _mouseState = MouseStates.Normal;
-
             _textRenderingHint = Settings.DefaultValue.TextRenderingHint;
-
             _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
         }
-
-        [Category(Localization.Category.Events.Appearance)]
-        [Description(Property.Color)]
-        public event BackgroundChangedEventHandler BackgroundChanged;
 
         [Category(Localization.Category.Events.Appearance)]
         [Description(Property.Color)]
@@ -80,49 +76,15 @@ namespace VisualPlus.Toolkit.VisualBase
         [Description("Occours when the TextRenderingHint property has changed.")]
         public event TextRenderingChangedEventHandler TextRenderingHintChanged;
 
-        [Category(Localization.Category.Events.PropertyChanged)]
-        [Description("Occours when the theme changed for the control.")]
-        public event ThemeChangedEventHandler ThemeChanged;
-
         #endregion
 
         #region Properties
 
         [Category(Propertys.Layout)]
         [Description(Property.AutoSize)]
-        public new bool AutoSize { get; set; }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color Background
-        {
-            get { return _backgroundColor; }
-
-            set
-            {
-                _backgroundColor = value;
-                OnBackgroundChanged(new ColorEventArgs(_backgroundColor));
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color BackgroundDisabled
-        {
-            get { return _backgroundDisabledColor; }
-
-            set
-            {
-                _backgroundDisabledColor = value;
-                OnBackgroundDisabledChanged(new ColorEventArgs(_backgroundDisabledColor));
-                Invalidate();
-            }
-        }
-
-        [Browsable(false)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public Color BackgroundStateColor { get; set; }
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        public override bool AutoSize { get; set; }
 
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -132,13 +94,14 @@ namespace VisualPlus.Toolkit.VisualBase
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Gradient[] ControlBrushCollection { get; set; }
 
-        public override Color ForeColor { get; set; }
-
         [Category(Propertys.Appearance)]
         [Description(Property.Color)]
         public Color ForeColorDisabled
         {
-            get { return _foreColorDisabled; }
+            get
+            {
+                return _foreColorDisabled;
+            }
 
             set
             {
@@ -152,12 +115,16 @@ namespace VisualPlus.Toolkit.VisualBase
         [Description(Property.MouseState)]
         public MouseStates MouseState
         {
-            get { return _mouseState; }
+            get
+            {
+                return _mouseState;
+            }
 
             set
             {
                 _mouseState = value;
                 OnMouseStateChanged(new MouseStateEventArgs(_mouseState));
+                Invalidate();
             }
         }
 
@@ -165,16 +132,25 @@ namespace VisualPlus.Toolkit.VisualBase
         [EditorBrowsable(EditorBrowsableState.Never)]
         public VisualStyleManager StyleManager
         {
-            get { return _styleManager; }
+            get
+            {
+                return _styleManager;
+            }
 
-            set { _styleManager = value; }
+            set
+            {
+                _styleManager = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.TextRenderingHint)]
         public TextRenderingHint TextRenderingHint
         {
-            get { return _textRenderingHint; }
+            get
+            {
+                return _textRenderingHint;
+            }
 
             set
             {
@@ -196,25 +172,12 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Events
 
-        /// <summary>Retrieves the background state color.</summary>
-        /// <param name="control">The control.</param>
-        /// <returns>Background color.</returns>
-        public Color GetBackgroundState(VisualControlBase control)
-        {
-            return control.Enabled ? control.Background : control.BackgroundDisabled;
-        }
-
         /// <summary>Retrieves the fore state color.</summary>
         /// <param name="control">The control.</param>
         /// <returns>The fore color.</returns>
         public Color GetForeColorState(VisualControlBase control)
         {
-            return control.Enabled ? control.Background : control.BackgroundDisabled;
-        }
-
-        protected virtual void OnBackgroundChanged(ColorEventArgs e)
-        {
-            BackgroundChanged?.Invoke(e);
+            return control.Enabled ? control.ForeColor : control.ForeColorDisabled;
         }
 
         protected virtual void OnBackgroundDisabledChanged(ColorEventArgs e)
@@ -227,14 +190,14 @@ namespace VisualPlus.Toolkit.VisualBase
             ForeColorDisabledChanged?.Invoke(e);
         }
 
-        protected override void OnMouseHover(System.EventArgs e)
+        protected override void OnMouseHover(EventArgs e)
         {
             base.OnMouseHover(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;
@@ -255,6 +218,21 @@ namespace VisualPlus.Toolkit.VisualBase
         protected virtual void OnTextRenderingHintChanged(TextRenderingEventArgs e)
         {
             TextRenderingHintChanged?.Invoke(e);
+        }
+
+        // Reset all the controls to the user's default Control color. 
+        private void ResetAllControlsBackColor(Control control)
+        {
+            control.BackColor = SystemColors.Control;
+            control.ForeColor = SystemColors.ControlText;
+            if (control.HasChildren)
+            {
+                // Recursively call this method for each child control.
+                foreach (Control childControl in control.Controls)
+                {
+                    ResetAllControlsBackColor(childControl);
+                }
+            }
         }
 
         #endregion

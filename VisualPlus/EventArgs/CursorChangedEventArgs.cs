@@ -1,12 +1,13 @@
-﻿#region Namespace
-
-using System.Windows.Forms;
-
-#endregion
-
-namespace VisualPlus.EventArgs
+﻿namespace VisualPlus.EventArgs
 {
-    public class CursorChangedEventArgs : System.EventArgs
+    #region Namespace
+
+    using System;
+    using System.Windows.Forms;
+
+    #endregion
+
+    public class CursorChangedEventArgs : EventArgs
     {
         #region Variables
 
@@ -27,9 +28,15 @@ namespace VisualPlus.EventArgs
 
         public Cursor Cursor
         {
-            get { return _cursor; }
+            get
+            {
+                return _cursor;
+            }
 
-            set { _cursor = value; }
+            set
+            {
+                _cursor = value;
+            }
         }
 
         #endregion

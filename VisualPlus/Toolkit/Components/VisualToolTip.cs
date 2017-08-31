@@ -1,20 +1,21 @@
-﻿#region Namespace
-
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Text;
-using System.Windows.Forms;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Managers;
-using VisualPlus.Properties;
-using VisualPlus.Structure;
-
-#endregion
-
-namespace VisualPlus.Toolkit.Components
+﻿namespace VisualPlus.Toolkit.Components
 {
+    #region Namespace
+
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Drawing.Text;
+    using System.Windows.Forms;
+
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Managers;
+    using VisualPlus.Properties;
+    using VisualPlus.Structure;
+
+    #endregion
+
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ToolTip))]
     [DefaultEvent("Popup")]
@@ -98,9 +99,15 @@ namespace VisualPlus.Toolkit.Components
         [Description(Property.AutoSize)]
         public bool AutoSize
         {
-            get { return autoSize; }
+            get
+            {
+                return autoSize;
+            }
 
-            set { autoSize = value; }
+            set
+            {
+                autoSize = value;
+            }
         }
 
         [TypeConverter(typeof(GradientConverter))]
@@ -108,9 +115,15 @@ namespace VisualPlus.Toolkit.Components
         [Category(Propertys.Appearance)]
         public Gradient Background
         {
-            get { return backgroundGradient; }
+            get
+            {
+                return backgroundGradient;
+            }
 
-            set { backgroundGradient = value; }
+            set
+            {
+                backgroundGradient = value;
+            }
         }
 
         [TypeConverter(typeof(BorderConverter))]
@@ -118,23 +131,38 @@ namespace VisualPlus.Toolkit.Components
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get { return border; }
+            get
+            {
+                return border;
+            }
 
-            set { border = value; }
+            set
+            {
+                border = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Font)]
         public Font Font
         {
-            get { return font; }
+            get
+            {
+                return font;
+            }
 
-            set { font = value; }
+            set
+            {
+                font = value;
+            }
         }
 
         public new Color ForeColor
         {
-            get { return foreColor; }
+            get
+            {
+                return foreColor;
+            }
 
             set
             {
@@ -147,135 +175,225 @@ namespace VisualPlus.Toolkit.Components
         [Description(Property.Image)]
         public Image Icon
         {
-            get { return icon; }
+            get
+            {
+                return icon;
+            }
 
-            set { icon = value; }
+            set
+            {
+                icon = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Visible)]
         public bool IconBorder
         {
-            get { return iconBorder; }
+            get
+            {
+                return iconBorder;
+            }
 
-            set { iconBorder = value; }
+            set
+            {
+                iconBorder = value;
+            }
         }
 
         [Category(Propertys.Layout)]
         [Description(Property.Size)]
         public Size IconSize
         {
-            get { return iconSize; }
+            get
+            {
+                return iconSize;
+            }
 
-            set { iconSize = value; }
+            set
+            {
+                iconSize = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Color)]
         public Color LineColor
         {
-            get { return lineColor; }
+            get
+            {
+                return lineColor;
+            }
 
-            set { lineColor = value; }
+            set
+            {
+                lineColor = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Padding)]
         public Padding Padding
         {
-            get { return padding; }
+            get
+            {
+                return padding;
+            }
 
-            set { padding = value; }
+            set
+            {
+                padding = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Size)]
         public int SeparatorThickness
         {
-            get { return separatorThickness; }
+            get
+            {
+                return separatorThickness;
+            }
 
-            set { separatorThickness = value; }
+            set
+            {
+                separatorThickness = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Spacing)]
         public int Spacing
         {
-            get { return spacing; }
+            get
+            {
+                return spacing;
+            }
 
-            set { spacing = value; }
+            set
+            {
+                spacing = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Text)]
         public string Text
         {
-            get { return text; }
+            get
+            {
+                return text;
+            }
 
-            set { text = value; }
+            set
+            {
+                text = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
-            get { return textRendererHint; }
+            get
+            {
+                return textRendererHint;
+            }
 
-            set { textRendererHint = value; }
+            set
+            {
+                textRendererHint = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Visible)]
         public bool TextShadow
         {
-            get { return textShadow; }
+            get
+            {
+                return textShadow;
+            }
 
-            set { textShadow = value; }
+            set
+            {
+                textShadow = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Type)]
         public ToolTipType TipType
         {
-            get { return toolTipType; }
+            get
+            {
+                return toolTipType;
+            }
 
-            set { toolTipType = value; }
+            set
+            {
+                toolTipType = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Text)]
         public string Title
         {
-            get { return title; }
+            get
+            {
+                return title;
+            }
 
-            set { title = value; }
+            set
+            {
+                title = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Color)]
         public Color TitleColor
         {
-            get { return titleColor; }
+            get
+            {
+                return titleColor;
+            }
 
-            set { titleColor = value; }
+            set
+            {
+                titleColor = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Font)]
         public Font TitleFont
         {
-            get { return titleFont; }
+            get
+            {
+                return titleFont;
+            }
 
-            set { titleFont = value; }
+            set
+            {
+                titleFont = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Size)]
         public Size ToolTipSize
         {
-            get { return toolTipSize; }
+            get
+            {
+                return toolTipSize;
+            }
 
-            set { toolTipSize = value; }
+            set
+            {
+                toolTipSize = value;
+            }
         }
 
         #endregion
@@ -307,7 +425,7 @@ namespace VisualPlus.Toolkit.Components
             graphics.SmoothingMode = SmoothingMode.HighQuality;
             graphics.TextRenderingHint = textRendererHint;
 
-            var gradientPoints = new[] {new Point {X = e.Bounds.Width, Y = 0}, new Point {X = e.Bounds.Width, Y = e.Bounds.Height}};
+            var gradientPoints = new[] { new Point { X = e.Bounds.Width, Y = 0 }, new Point { X = e.Bounds.Width, Y = e.Bounds.Height } };
 
             LinearGradientBrush gradientBrush = Gradient.CreateGradientBrush(backgroundGradient.Colors, gradientPoints, backgroundGradient.Angle, backgroundGradient.Positions);
             graphics.FillRectangle(gradientBrush, e.Bounds);
@@ -329,60 +447,60 @@ namespace VisualPlus.Toolkit.Components
             switch (toolTipType)
             {
                 case ToolTipType.Default:
-                {
-                    // Draw the title
-                    graphics.DrawString(title, titleFont, new SolidBrush(titleColor), new PointF(titlePoint.X, titlePoint.Y));
-
-                    // Draw the separator
-                    graphics.DrawLine(new Pen(lineColor), separator.X, separator.Y, separator.Width, separator.Y);
-
-                    // Draw the text
-                    graphics.DrawString(text, Font, new SolidBrush(foreColor), new PointF(textPoint.X, textPoint.Y));
-
-                    if (Icon != null)
                     {
-                        // Update point
-                        iconRectangle.Location = iconPoint;
+                        // Draw the title
+                        graphics.DrawString(title, titleFont, new SolidBrush(titleColor), new PointF(titlePoint.X, titlePoint.Y));
 
-                        // Draw icon border
-                        if (iconBorder)
+                        // Draw the separator
+                        graphics.DrawLine(new Pen(lineColor), separator.X, separator.Y, separator.Width, separator.Y);
+
+                        // Draw the text
+                        graphics.DrawString(text, Font, new SolidBrush(foreColor), new PointF(textPoint.X, textPoint.Y));
+
+                        if (Icon != null)
                         {
-                            graphics.DrawPath(new Pen(border.Color), iconGraphicsPath);
+                            // Update point
+                            iconRectangle.Location = iconPoint;
+
+                            // Draw icon border
+                            if (iconBorder)
+                            {
+                                graphics.DrawPath(new Pen(border.Color), iconGraphicsPath);
+                            }
+
+                            // Draw icon
+                            graphics.DrawImage(Icon, iconRectangle);
                         }
 
-                        // Draw icon
-                        graphics.DrawImage(Icon, iconRectangle);
+                        break;
                     }
-
-                    break;
-                }
 
                 case ToolTipType.Image:
-                {
-                    if (Icon != null)
                     {
-                        // Update point
-                        iconRectangle.Location = iconPoint;
-
-                        // Draw icon border
-                        if (iconBorder)
+                        if (Icon != null)
                         {
-                            graphics.DrawPath(new Pen(border.Color), iconGraphicsPath);
+                            // Update point
+                            iconRectangle.Location = iconPoint;
+
+                            // Draw icon border
+                            if (iconBorder)
+                            {
+                                graphics.DrawPath(new Pen(border.Color), iconGraphicsPath);
+                            }
+
+                            // Draw icon
+                            graphics.DrawImage(Icon, iconRectangle);
                         }
 
-                        // Draw icon
-                        graphics.DrawImage(Icon, iconRectangle);
+                        break;
                     }
 
-                    break;
-                }
-
                 case ToolTipType.Text:
-                {
-                    // Draw the text
-                    graphics.DrawString(text, Font, new SolidBrush(foreColor), new PointF(textPoint.X, textPoint.Y));
-                    break;
-                }
+                    {
+                        // Draw the text
+                        graphics.DrawString(text, Font, new SolidBrush(foreColor), new PointF(textPoint.X, textPoint.Y));
+                        break;
+                    }
             }
 
             gradientBrush.Dispose();
@@ -393,47 +511,47 @@ namespace VisualPlus.Toolkit.Components
             switch (toolTipType)
             {
                 case ToolTipType.Default:
-                {
-                    if (!autoSize)
                     {
-                        xWidth = toolTipSize.Width;
-                        yHeight = toolTipSize.Height;
+                        if (!autoSize)
+                        {
+                            xWidth = toolTipSize.Width;
+                            yHeight = toolTipSize.Height;
+                        }
+                        else
+                        {
+                            xWidth = GetTipWidth(TextRenderer.MeasureText(title, Font).Width, TextRenderer.MeasureText(text, Font).Width);
+                            yHeight = TextRenderer.MeasureText(title, Font).Height + SeparatorThickness + GetTipHeight(TextRenderer.MeasureText(text, Font).Height);
+                        }
+
+                        titlePoint.X = padding.Left;
+                        titlePoint.Y = padding.Top;
+
+                        Point separatorPoint = new Point(padding.Left + Spacing, TextRenderer.MeasureText(title, Font).Height + 5);
+                        Size separatorSize = new Size(xWidth, SeparatorThickness);
+                        separator = new Rectangle(separatorPoint, separatorSize);
+
+                        textPoint.X = padding.Left + iconSize.Width + Spacing;
+                        textPoint.Y = separator.Y + Spacing;
+
+                        iconPoint = new Point(padding.Left, textPoint.Y);
+                        break;
                     }
-                    else
-                    {
-                        xWidth = GetTipWidth(TextRenderer.MeasureText(title, Font).Width, TextRenderer.MeasureText(text, Font).Width);
-                        yHeight = TextRenderer.MeasureText(title, Font).Height + SeparatorThickness + GetTipHeight(TextRenderer.MeasureText(text, Font).Height);
-                    }
-
-                    titlePoint.X = padding.Left;
-                    titlePoint.Y = padding.Top;
-
-                    Point separatorPoint = new Point(padding.Left + Spacing, TextRenderer.MeasureText(title, Font).Height + 5);
-                    Size separatorSize = new Size(xWidth, SeparatorThickness);
-                    separator = new Rectangle(separatorPoint, separatorSize);
-
-                    textPoint.X = padding.Left + iconSize.Width + Spacing;
-                    textPoint.Y = separator.Y + Spacing;
-
-                    iconPoint = new Point(padding.Left, textPoint.Y);
-                    break;
-                }
 
                 case ToolTipType.Image:
-                {
-                    iconPoint = new Point(padding.Left, padding.Top);
-                    xWidth = iconSize.Width + 1;
-                    yHeight = iconSize.Height + 1;
-                    break;
-                }
+                    {
+                        iconPoint = new Point(padding.Left, padding.Top);
+                        xWidth = iconSize.Width + 1;
+                        yHeight = iconSize.Height + 1;
+                        break;
+                    }
 
                 case ToolTipType.Text:
-                {
-                    textPoint = new Point(padding.Left, padding.Top);
-                    xWidth = TextRenderer.MeasureText(text, Font).Width;
-                    yHeight = TextRenderer.MeasureText(text, Font).Height;
-                    break;
-                }
+                    {
+                        textPoint = new Point(padding.Left, padding.Top);
+                        xWidth = TextRenderer.MeasureText(text, Font).Width;
+                        yHeight = TextRenderer.MeasureText(text, Font).Height;
+                        break;
+                    }
             }
 
             // Create icon rectangle

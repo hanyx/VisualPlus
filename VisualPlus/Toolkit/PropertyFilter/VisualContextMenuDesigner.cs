@@ -1,12 +1,12 @@
-﻿#region Namespace
-
-using System.Collections;
-using System.Windows.Forms.Design;
-
-#endregion
-
-namespace VisualPlus.Toolkit.PropertyFilter
+﻿namespace VisualPlus.Toolkit.PropertyFilter
 {
+    #region Namespace
+
+    using System.Collections;
+    using System.Windows.Forms.Design;
+
+    #endregion
+
     internal class VisualContextMenuDesigner : ControlDesigner
     {
         #region Events

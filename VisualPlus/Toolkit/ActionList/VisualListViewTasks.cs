@@ -1,16 +1,17 @@
-#region Namespace
-
-using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Drawing.Design;
-using System.Windows.Forms;
-using System.Windows.Forms.Design;
-using VisualPlus.Toolkit.Controls.DataManagement;
-
-#endregion
-
 namespace VisualPlus.Toolkit.ActionList
 {
+    #region Namespace
+
+    using System.ComponentModel;
+    using System.ComponentModel.Design;
+    using System.Drawing.Design;
+    using System.Windows.Forms;
+    using System.Windows.Forms.Design;
+
+    using VisualPlus.Toolkit.Controls.DataManagement;
+
+    #endregion
+
     internal class VisualListViewTasks : ControlDesigner
     {
         #region Variables
@@ -28,7 +29,7 @@ namespace VisualPlus.Toolkit.ActionList
             {
                 if (actionListCollection == null)
                 {
-                    actionListCollection = new DesignerActionListCollection {new VisualListViewActionList(Component)};
+                    actionListCollection = new DesignerActionListCollection { new VisualListViewActionList(Component) };
                 }
 
                 return actionListCollection;
@@ -55,8 +56,8 @@ namespace VisualPlus.Toolkit.ActionList
 
         public VisualListViewActionList(IComponent component) : base(component)
         {
-            buttonControl = (VisualListView) component;
-            designerService = (DesignerActionUIService) GetService(typeof(DesignerActionUIService));
+            buttonControl = (VisualListView)component;
+            designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
 
             dockText = "Dock in Parent Container.";
             dockState = false;
@@ -74,7 +75,10 @@ namespace VisualPlus.Toolkit.ActionList
         [Localizable(true)]
         public virtual ListView.ColumnHeaderCollection Columns
         {
-            get { return buttonControl.Columns; }
+            get
+            {
+                return buttonControl.Columns;
+            }
         }
 
         [Category("Data")]
@@ -85,7 +89,10 @@ namespace VisualPlus.Toolkit.ActionList
         [Localizable(true)]
         public virtual ListViewGroupCollection Groups
         {
-            get { return buttonControl.Groups; }
+            get
+            {
+                return buttonControl.Groups;
+            }
         }
 
         [Category("Data")]
@@ -96,7 +103,10 @@ namespace VisualPlus.Toolkit.ActionList
         [Localizable(true)]
         public virtual ListView.ListViewItemCollection Items
         {
-            get { return buttonControl.Items; }
+            get
+            {
+                return buttonControl.Items;
+            }
         }
 
         [Category("Behavior")]
@@ -104,9 +114,15 @@ namespace VisualPlus.Toolkit.ActionList
         [DefaultValue(false)]
         public virtual View View
         {
-            get { return buttonControl.View; }
+            get
+            {
+                return buttonControl.View;
+            }
 
-            set { buttonControl.View = value; }
+            set
+            {
+                buttonControl.View = value;
+            }
         }
 
         #endregion
@@ -134,13 +150,13 @@ namespace VisualPlus.Toolkit.ActionList
         public override DesignerActionItemCollection GetSortedActionItems()
         {
             DesignerActionItemCollection items = new DesignerActionItemCollection
-            {
-                new DesignerActionPropertyItem("Items", "Edit Items..."),
-                new DesignerActionPropertyItem("Columns", "Edit Columns..."),
-                new DesignerActionPropertyItem("Groups", "Edit Groups..."),
-                new DesignerActionPropertyItem("View", "View:"),
-                new DesignerActionMethodItem(this, "DockContainer", dockText)
-            };
+                {
+                    new DesignerActionPropertyItem("Items", "Edit Items..."),
+                    new DesignerActionPropertyItem("Columns", "Edit Columns..."),
+                    new DesignerActionPropertyItem("Groups", "Edit Groups..."),
+                    new DesignerActionPropertyItem("View", "View:"),
+                    new DesignerActionMethodItem(this, "DockContainer", dockText)
+                };
 
             return items;
         }

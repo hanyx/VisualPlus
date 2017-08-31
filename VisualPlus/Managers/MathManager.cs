@@ -1,13 +1,13 @@
-﻿#region Namespace
-
-using System;
-using System.Globalization;
-using System.Linq;
-
-#endregion
-
-namespace VisualPlus.Managers
+﻿namespace VisualPlus.Managers
 {
+    #region Namespace
+
+    using System;
+    using System.Globalization;
+    using System.Linq;
+
+    #endregion
+
     internal class MathManager
     {
         #region Events
@@ -17,7 +17,7 @@ namespace VisualPlus.Managers
         /// <returns>Returns radian.</returns>
         public static float DegreeToRadians(float angle)
         {
-            return (float) ((angle * Math.PI) / 180);
+            return (float)((angle * Math.PI) / 180);
         }
 
         /// <summary>Retrieves the number closest from the value collection.</summary>
@@ -45,7 +45,7 @@ namespace VisualPlus.Managers
             // Round to digits
             factor = Math.Round(factor, digits);
 
-            return (float) factor;
+            return (float)factor;
         }
 
         /// <summary>Gets the fraction.</summary>
@@ -79,7 +79,7 @@ namespace VisualPlus.Managers
         /// <returns>Returns degree.</returns>
         public static float RadianToDegree(float angle)
         {
-            return (float) (angle * (180.0 / Math.PI));
+            return (float)(angle * (180.0 / Math.PI));
         }
 
         #endregion

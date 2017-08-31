@@ -1,22 +1,23 @@
-﻿#region Namespace
-
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Globalization;
-using System.Runtime.InteropServices;
-using VisualPlus.Delegates;
-using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Managers;
-using VisualPlus.Toolkit.Components;
-
-#endregion
-
-namespace VisualPlus.Structure
+﻿namespace VisualPlus.Structure
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Globalization;
+    using System.Runtime.InteropServices;
+
+    using VisualPlus.Delegates;
+    using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Managers;
+    using VisualPlus.Toolkit.Components;
+
+    #endregion
+
     [TypeConverter(typeof(ShapeConverter))]
     [ToolboxItem(false)]
     [DesignerCategory("code")]
@@ -103,7 +104,10 @@ namespace VisualPlus.Structure
         [Description(Property.Color)]
         public Color Color
         {
-            get { return _color; }
+            get
+            {
+                return _color;
+            }
 
             set
             {
@@ -117,7 +121,10 @@ namespace VisualPlus.Structure
         [Description(Property.Rounding)]
         public int Rounding
         {
-            get { return _rounding; }
+            get
+            {
+                return _rounding;
+            }
 
             set
             {
@@ -136,7 +143,10 @@ namespace VisualPlus.Structure
         [Description(Property.Thickness)]
         public int Thickness
         {
-            get { return _thickness; }
+            get
+            {
+                return _thickness;
+            }
 
             set
             {
@@ -155,7 +165,10 @@ namespace VisualPlus.Structure
         [Description(Property.Shape)]
         public ShapeType Type
         {
-            get { return _shapeType; }
+            get
+            {
+                return _shapeType;
+            }
 
             set
             {
@@ -169,7 +182,10 @@ namespace VisualPlus.Structure
         [Description(Property.Visible)]
         public bool Visible
         {
-            get { return _visible; }
+            get
+            {
+                return _visible;
+            }
 
             set
             {

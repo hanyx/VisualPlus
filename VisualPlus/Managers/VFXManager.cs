@@ -1,21 +1,22 @@
-#region Namespace
-
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-using VisualPlus.Enumerators;
-
-#endregion
-
 namespace VisualPlus.Managers
 {
+    #region Namespace
+
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    using VisualPlus.Enumerators;
+
+    #endregion
+
     internal class VFXManager
     {
         #region Variables
 
         private readonly List<AnimationDirection> animationDirections;
-        private readonly Timer animationTimer = new Timer {Interval = 5, Enabled = false};
+        private readonly Timer animationTimer = new Timer { Interval = 5, Enabled = false };
         private readonly List<object[]> effectsData;
         private readonly List<double> effectsProgression;
         private readonly List<Point> effectsSources;
@@ -326,7 +327,7 @@ namespace VisualPlus.Managers
         private const double MaxValue = 1.00;
         private const double MinValue = 0.00;
 
-        private void AnimationTimerOnTick(object sender, System.EventArgs eventArgs)
+        private void AnimationTimerOnTick(object sender, EventArgs eventArgs)
         {
             for (var i = 0; i < effectsProgression.Count; i++)
             {
@@ -380,8 +381,8 @@ namespace VisualPlus.Managers
         {
             effectsProgression[index] -= (animationDirections[index] == AnimationDirection.InOutOut)
                                          || (animationDirections[index] == AnimationDirection.InOutRepeatingOut)
-                ? SecondaryIncrement
-                : Increment;
+                                             ? SecondaryIncrement
+                                             : Increment;
             if (effectsProgression[index] < MinValue)
             {
                 effectsProgression[index] = MinValue;

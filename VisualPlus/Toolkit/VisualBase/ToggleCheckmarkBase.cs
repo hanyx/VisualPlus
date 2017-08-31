@@ -1,52 +1,58 @@
-#region Namespace
-
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using VisualPlus.Enumerators;
-using VisualPlus.EventArgs;
-using VisualPlus.Extensibility;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Managers;
-using VisualPlus.Renders;
-using VisualPlus.Structure;
-
-#endregion
-
 namespace VisualPlus.Toolkit.VisualBase
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
+    using System.Windows.Forms;
+
+    using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Extensibility;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Managers;
+    using VisualPlus.Renders;
+    using VisualPlus.Structure;
+
+    #endregion
+
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    public abstract class ToggleCheckmarkBase : ToggleBase, IAnimate, IControlStates
+    public abstract class ToggleCheckmarkBase : ToggleBase, IAnimationSupport
     {
         #region Variables
 
+        private bool _animation;
         private Border _border;
+        private Rectangle _box;
+        private int _boxSpacing;
+        private CheckStyle _checkStyle;
 
-        private bool animation;
-        private Rectangle box;
-        private int boxSpacing = 2;
-        private Checkmark checkMark;
-        private Point mouseLocation;
-        private VFXManager rippleEffectsManager;
+        private ControlColorState _colorState;
+        private Point _mouseLocation;
+        private VFXManager _rippleEffectsManager;
+        private Size _textSize;
 
         #endregion
 
         #region Constructors
 
+        /// <summary>Initializes a new instance of the <see cref="ToggleCheckmarkBase" /> class.</summary>
         protected ToggleCheckmarkBase()
         {
-            AutoSize = true;
-            box = new Rectangle(0, 0, 14, 14);
-            animation = Settings.DefaultValue.Animation;
-            checkMark = new Checkmark(ClientRectangle);
+            _boxSpacing = 2;
+            _box = new Rectangle(0, 0, 14, 14);
+            _animation = Settings.DefaultValue.Animation;
+            _checkStyle = new CheckStyle(ClientRectangle);
             _border = new Border();
 
+            _colorState = new ControlColorState();
             ConfigureAnimation();
         }
 
@@ -59,12 +65,17 @@ namespace VisualPlus.Toolkit.VisualBase
         [Description(Property.Animation)]
         public bool Animation
         {
-            get { return animation; }
+            get
+            {
+                return _animation;
+            }
 
             set
             {
-                animation = value;
-                AutoSize = AutoSize; // Make AutoSize directly set the bounds.
+                _animation = value;
+
+                // Make AutoSize directly set the bounds.
+                AutoSize = AutoSize;
 
                 if (value)
                 {
@@ -80,7 +91,10 @@ namespace VisualPlus.Toolkit.VisualBase
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get { return _border; }
+            get
+            {
+                return _border;
+            }
 
             set
             {
@@ -93,16 +107,35 @@ namespace VisualPlus.Toolkit.VisualBase
         [Category(Propertys.Layout)]
         public Size Box
         {
-            get { return box.Size; }
+            get
+            {
+                return _box.Size;
+            }
 
             set
             {
-                box.Size = value;
+                _box.Size = value;
                 if (AutoSize)
                 {
-                    ConfigSize(Text.MeasureText(Font));
+                    AutoFit(Text.MeasureText(Font));
                 }
 
+                Invalidate();
+            }
+        }
+
+        [TypeConverter(typeof(ControlColorStateConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public ControlColorState BoxColorState
+        {
+            get
+            {
+                return _colorState;
+            }
+
+            set
+            {
+                _colorState = value;
                 Invalidate();
             }
         }
@@ -111,11 +144,14 @@ namespace VisualPlus.Toolkit.VisualBase
         [Description(Property.Spacing)]
         public int BoxSpacing
         {
-            get { return boxSpacing; }
+            get
+            {
+                return _boxSpacing;
+            }
 
             set
             {
-                boxSpacing = value;
+                _boxSpacing = value;
                 Invalidate();
             }
         }
@@ -125,7 +161,10 @@ namespace VisualPlus.Toolkit.VisualBase
         [Description(Property.Checked)]
         public bool Checked
         {
-            get { return Toggle; }
+            get
+            {
+                return Toggle;
+            }
 
             set
             {
@@ -143,63 +182,52 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [TypeConverter(typeof(CheckMarkConverter))]
+        [TypeConverter(typeof(CheckStyleConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(Propertys.Appearance)]
-        public Checkmark CheckMark
+        public CheckStyle CheckStyle
         {
-            get { return checkMark; }
+            get
+            {
+                return _checkStyle;
+            }
 
             set
             {
-                checkMark = value;
+                _checkStyle = value;
                 Invalidate();
             }
         }
 
-        [Description(Property.ColorGradient)]
-        [Category(Propertys.Appearance)]
-        public Gradient DisabledGradient
+        /// <summary>Gets the <see cref="GlyphSize" /> of the control.</summary>
+        [Browsable(false)]
+        [Description(Property.Size)]
+        public Size GlyphSize
         {
-            get { return ControlBrushCollection[3]; }
-
-            set { ControlBrushCollection[3] = value; }
-        }
-
-        [Description(Property.ColorGradient)]
-        [Category(Propertys.Appearance)]
-        public Gradient EnabledGradient
-        {
-            get { return ControlBrushCollection[0]; }
-
-            set { ControlBrushCollection[0] = value; }
-        }
-
-        [Description(Property.ColorGradient)]
-        [Category(Propertys.Appearance)]
-        public Gradient HoverGradient
-        {
-            get { return ControlBrushCollection[1]; }
-
-            set { ControlBrushCollection[1] = value; }
+            get
+            {
+                return _box.Size;
+            }
         }
 
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool IsBoxLarger { get; set; }
 
-        [Description(Property.ColorGradient)]
-        [Category(Propertys.Appearance)]
-        public Gradient PressedGradient
-        {
-            get { return ControlBrushCollection[2]; }
-
-            set { ControlBrushCollection[2] = value; }
-        }
-
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Size TextSize { get; set; }
+        public Size TextSize
+        {
+            get
+            {
+                return _textSize;
+            }
+
+            set
+            {
+                _textSize = value;
+            }
+        }
 
         #endregion
 
@@ -208,48 +236,41 @@ namespace VisualPlus.Toolkit.VisualBase
         public void ConfigureAnimation()
         {
             VFXManager effectsManager = new VFXManager
-            {
-                Increment = 0.05,
-                EffectType = EffectType.EaseInOut
-            };
-            rippleEffectsManager = new VFXManager(false)
-            {
-                Increment = 0.10,
-                SecondaryIncrement = 0.08,
-                EffectType = EffectType.Linear
-            };
+                {
+                    Increment = 0.05,
+                    EffectType = EffectType.EaseInOut
+                };
+            _rippleEffectsManager = new VFXManager(false)
+                {
+                    Increment = 0.10,
+                    SecondaryIncrement = 0.08,
+                    EffectType = EffectType.Linear
+                };
 
             effectsManager.OnAnimationProgress += sender => Invalidate();
-            rippleEffectsManager.OnAnimationProgress += sender => Invalidate();
+            _rippleEffectsManager.OnAnimationProgress += sender => Invalidate();
             effectsManager.StartNewAnimation(Toggle ? AnimationDirection.In : AnimationDirection.Out);
         }
 
         public void DrawAnimation(Graphics graphics)
         {
-            if (animation && rippleEffectsManager.IsAnimating())
+            if (_animation && _rippleEffectsManager.IsAnimating())
             {
-                for (var i = 0; i < rippleEffectsManager.GetAnimationCount(); i++)
+                for (var i = 0; i < _rippleEffectsManager.GetAnimationCount(); i++)
                 {
-                    double animationValue = rippleEffectsManager.GetProgress(i);
+                    double animationValue = _rippleEffectsManager.GetProgress(i);
 
-                    Point animationSource = new Point(box.X + (box.Width / 2), box.Y + (box.Height / 2));
-                    SolidBrush animationBrush = new SolidBrush(Color.FromArgb((int) (animationValue * 40), (bool) rippleEffectsManager.GetData(i)[0] ? Color.Black : checkMark.EnabledGradient.Colors[0]));
+                    Point animationSource = new Point(_box.X + (_box.Width / 2), _box.Y + (_box.Height / 2));
+                    SolidBrush animationBrush = new SolidBrush(Color.FromArgb((int)(animationValue * 40), (bool)_rippleEffectsManager.GetData(i)[0] ? Color.Black : _checkStyle.Color));
 
-                    int height = box.Height;
-                    int size = rippleEffectsManager.GetDirection(i) == AnimationDirection.InOutIn ? (int) (height * (0.8d + (0.2d * animationValue))) : height;
+                    int height = _box.Height;
+                    int size = _rippleEffectsManager.GetDirection(i) == AnimationDirection.InOutIn ? (int)(height * (0.8d + (0.2d * animationValue))) : height;
 
                     GraphicsPath path = GDI.DrawRoundedRectangle(animationSource.X - (size / 2), animationSource.Y - (size / 2), size, size, size / 2);
                     graphics.FillPath(animationBrush, path);
                     animationBrush.Dispose();
                 }
             }
-        }
-
-        /// <summary>Returns the size of the check box glyph.</summary>
-        /// <returns>The size of the check box glyph.</returns>
-        public Size GetGlyphSize()
-        {
-            return box.Size;
         }
 
         protected override void OnCreateControl()
@@ -263,34 +284,34 @@ namespace VisualPlus.Toolkit.VisualBase
 
             MouseState = MouseStates.Normal;
             MouseEnter += (sender, args) =>
-            {
-                MouseState = MouseStates.Hover;
-            };
-            MouseLeave += (sender, args) =>
-            {
-                mouseLocation = new Point(-1, -1);
-                MouseState = MouseStates.Normal;
-            };
-            MouseDown += (sender, args) =>
-            {
-                MouseState = MouseStates.Down;
-
-                if (animation && (args.Button == MouseButtons.Left) && GDI.IsMouseInBounds(mouseLocation, box))
                 {
-                    rippleEffectsManager.SecondaryIncrement = 0;
-                    rippleEffectsManager.StartNewAnimation(AnimationDirection.InOutIn, new object[] {Toggle});
-                }
-            };
+                    MouseState = MouseStates.Hover;
+                };
+            MouseLeave += (sender, args) =>
+                {
+                    _mouseLocation = new Point(-1, -1);
+                    MouseState = MouseStates.Normal;
+                };
+            MouseDown += (sender, args) =>
+                {
+                    MouseState = MouseStates.Down;
+
+                    if (_animation && (args.Button == MouseButtons.Left) && GDI.IsMouseInBounds(_mouseLocation, _box))
+                    {
+                        _rippleEffectsManager.SecondaryIncrement = 0;
+                        _rippleEffectsManager.StartNewAnimation(AnimationDirection.InOutIn, new object[] { Toggle });
+                    }
+                };
             MouseUp += (sender, args) =>
-            {
-                MouseState = MouseStates.Hover;
-                rippleEffectsManager.SecondaryIncrement = 0.08;
-            };
+                {
+                    MouseState = MouseStates.Hover;
+                    _rippleEffectsManager.SecondaryIncrement = 0.08;
+                };
             MouseMove += (sender, args) =>
-            {
-                mouseLocation = args.Location;
-                Cursor = GDI.IsMouseInBounds(mouseLocation, box) ? Cursors.Hand : Cursors.Default;
-            };
+                {
+                    _mouseLocation = args.Location;
+                    Cursor = GDI.IsMouseInBounds(_mouseLocation, _box) ? Cursors.Hand : Cursors.Default;
+                };
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -300,14 +321,14 @@ namespace VisualPlus.Toolkit.VisualBase
             Invalidate();
         }
 
-        protected override void OnMouseHover(System.EventArgs e)
+        protected override void OnMouseHover(EventArgs e)
         {
             base.OnMouseHover(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;
@@ -324,41 +345,52 @@ namespace VisualPlus.Toolkit.VisualBase
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-
             if (AutoSize)
             {
-                box = new Rectangle(new Point(Padding.Left, (ClientRectangle.Height / 2) - (box.Height / 2)), box.Size);
-                ConfigSize(Text.MeasureText(Font));
+                _box = new Rectangle(new Point(Padding.Left, (ClientRectangle.Height / 2) - (_box.Height / 2)), _box.Size);
+                AutoFit(Text.MeasureText(Font));
             }
             else
             {
-                box = new Rectangle(new Point(Padding.Left, (ClientRectangle.Height / 2) - (box.Height / 2)), box.Size);
+                _box = new Rectangle(new Point(Padding.Left, (ClientRectangle.Height / 2) - (_box.Height / 2)), _box.Size);
             }
 
-            Graphics graphics = e.Graphics;
-            graphics.Clear(Parent.BackColor);
-            e.Graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, Width + 1, Height + 1));
+            Color _backColor = GDI.GetBackColorState(Enabled, BoxColorState.Enabled, BoxColorState.Hover, BoxColorState.Pressed, BoxColorState.Disabled, MouseState);
 
-            LinearGradientBrush _boxBrush = GDI.GetControlBrush(graphics, Enabled, MouseState, ControlBrushCollection, ClientRectangle);
-            Size textSize = GDI.MeasureText(graphics, Text, Font);
-            TextSize = Text.MeasureText(Font);
-            Point textPoint = new Point(box.Right + boxSpacing, (ClientRectangle.Height / 2) - (textSize.Height / 2));
+            Graphics _graphics = e.Graphics;
+            _graphics.Clear(Parent.BackColor);
+            _graphics.SmoothingMode = SmoothingMode.HighQuality;
+            _graphics.TextRenderingHint = TextRenderingHint;
 
-            VisualToggleRenderer.DrawCheckBox(graphics, Border, CheckMark, box, Toggle, Enabled, _boxBrush, MouseState, Text, Font, ForeColor, textPoint);
-            DrawAnimation(graphics);
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
+            _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
+
+            _textSize = GDI.MeasureText(_graphics, Text, Font);
+            Point _textLocation = new Point(_box.Right + _boxSpacing, (ClientRectangle.Height / 2) - (_textSize.Height / 2));
+
+            Color _textColor = Enabled ? ForeColor : ForeColorDisabled;
+            VisualToggleRenderer.DrawCheckBox(_graphics, Border, _checkStyle, _box, Checked, Enabled, _backColor, BackgroundImage, MouseState, Text, Font, _textColor, _textLocation);
+
+            DrawAnimation(_graphics);
         }
 
-        private void ConfigSize(Size textSize)
+        protected override void OnPaintBackground(PaintEventArgs e)
         {
-            if (GDI.TextLargerThanRectangle(textSize, box))
+            base.OnPaintBackground(e);
+            e.Graphics.Clear(Parent.BackColor);
+        }
+
+        private void AutoFit(Size textSize)
+        {
+            if (GDI.TextLargerThanRectangle(textSize, _box))
             {
                 IsBoxLarger = false;
-                Size = new Size(box.X + box.Width + boxSpacing + textSize.Width, textSize.Height);
+                Size = new Size(_box.X + _box.Width + _boxSpacing + textSize.Width, textSize.Height);
             }
             else
             {
                 IsBoxLarger = true;
-                Size = new Size(box.X + box.Width + boxSpacing + textSize.Width, box.Height);
+                Size = new Size(_box.X + _box.Width + _boxSpacing + textSize.Width, _box.Height);
             }
         }
 

@@ -1,25 +1,30 @@
-﻿#region Namespace
-
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-
-#endregion
-
-namespace VisualPlus.Toolkit.Components
+﻿namespace VisualPlus.Toolkit.Components
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+
+    #endregion
+
     [ToolboxItem(true)]
+    [ToolboxBitmap(typeof(Component))]
     [Description("The VisualPlus gradient component can be used to apply gradient backgrounds on controls.")]
     public class VisualGradient : Component
     {
         #region Variables
 
+        private bool _autoSize;
+
         private Color _bottomLeft;
         private Color _bottomRight;
         private Control _control;
-        private int _quality;
+        private Size _size;
         private Color _topLeft;
         private Color _topRight;
 
@@ -32,7 +37,7 @@ namespace VisualPlus.Toolkit.Components
         public VisualGradient(IContainer container) : this()
         {
             container.Add(this);
-            ConstructVisualGradient(_quality, _bottomLeft, _bottomRight, _topLeft, _topRight);
+            ConstructVisualGradient(new Size(), _bottomLeft, _bottomRight, _topLeft, _topRight);
         }
 
         /// <summary>Initializes a new instance of the <see cref="VisualGradient" /> class.</summary>
@@ -40,16 +45,21 @@ namespace VisualPlus.Toolkit.Components
         public VisualGradient(Control control) : this()
         {
             _control = control;
-            ConstructVisualGradient(_quality, _bottomLeft, _bottomRight, _topLeft, _topRight);
+            Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
+            ConstructVisualGradient(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
         }
 
         /// <summary>Initializes a new instance of the <see cref="VisualGradient" /> class.</summary>
         /// <param name="control">The control.</param>
-        /// <param name="quality">The quality.</param>
-        public VisualGradient(Control control, int quality) : this()
+        /// <param name="size">The size.</param>
+        /// <param name="bottomLeft">The bottom Left.</param>
+        /// <param name="bottomRight">The bottom Right.</param>
+        /// <param name="topLeft">The top Left.</param>
+        /// <param name="topRight">The top Right.</param>
+        public VisualGradient(Control control, Size size, Color bottomLeft, Color bottomRight, Color topLeft, Color topRight) : this()
         {
             _control = control;
-            ConstructVisualGradient(quality, _bottomLeft, _bottomRight, _topLeft, _topRight);
+            ConstructVisualGradient(size, bottomLeft, bottomRight, topLeft, topRight);
         }
 
         /// <summary>Initializes a new instance of the <see cref="VisualGradient" /> class.</summary>
@@ -61,20 +71,8 @@ namespace VisualPlus.Toolkit.Components
         public VisualGradient(Control control, Color bottomLeft, Color bottomRight, Color topLeft, Color topRight) : this()
         {
             _control = control;
-            ConstructVisualGradient(_quality, bottomLeft, bottomRight, topLeft, topRight);
-        }
-
-        /// <summary>Initializes a new instance of the <see cref="VisualGradient" /> class.</summary>
-        /// <param name="control">The control.</param>
-        /// <param name="quality">The quality.</param>
-        /// <param name="bottomLeft">The bottom Left.</param>
-        /// <param name="bottomRight">The bottom Right.</param>
-        /// <param name="topLeft">The top Left.</param>
-        /// <param name="topRight">The top Right.</param>
-        public VisualGradient(Control control, int quality, Color bottomLeft, Color bottomRight, Color topLeft, Color topRight) : this()
-        {
-            _control = control;
-            ConstructVisualGradient(quality, bottomLeft, bottomRight, topLeft, topRight);
+            Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
+            ConstructVisualGradient(_gradientSize, bottomLeft, bottomRight, topLeft, topRight);
         }
 
         /// <summary>Prevents a default instance of the <see cref="VisualGradient" /> class from being created.</summary>
@@ -84,8 +82,8 @@ namespace VisualPlus.Toolkit.Components
             _bottomRight = Color.Red;
             _topLeft = Color.Green;
             _topRight = Color.Yellow;
-
-            _quality = 10;
+            _size = new Size(25, 25);
+            _autoSize = true;
         }
 
         #endregion
@@ -95,15 +93,43 @@ namespace VisualPlus.Toolkit.Components
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Category(Propertys.Appearance)]
+        [Description(Property.AutoSize)]
+        public bool AutoSize
+        {
+            get
+            {
+                return _autoSize;
+            }
+
+            set
+            {
+                if (value == _autoSize)
+                {
+                    return;
+                }
+
+                _autoSize = value;
+                Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
+                ConstructVisualGradient(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
+            }
+        }
+
+        [NotifyParentProperty(true)]
+        [RefreshProperties(RefreshProperties.Repaint)]
+        [Category(Propertys.Appearance)]
         [Description(Property.Color)]
         public Color BottomLeft
         {
-            get { return _bottomLeft; }
+            get
+            {
+                return _bottomLeft;
+            }
 
             set
             {
                 _bottomLeft = value;
-                ConstructVisualGradient(_quality, _bottomLeft, _bottomRight, _topLeft, _topRight);
+                Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
+                ConstructVisualGradient(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
             }
         }
 
@@ -113,42 +139,89 @@ namespace VisualPlus.Toolkit.Components
         [Description(Property.Color)]
         public Color BottomRight
         {
-            get { return _bottomRight; }
+            get
+            {
+                return _bottomRight;
+            }
 
             set
             {
                 _bottomRight = value;
-                ConstructVisualGradient(_quality, _bottomLeft, _bottomRight, _topLeft, _topRight);
+                Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
+                ConstructVisualGradient(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
             }
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Category(Propertys.Behavior)]
         [Description("The control to attach this component.")]
         public Control Control
         {
-            get { return _control; }
+            get
+            {
+                return _control;
+            }
 
             set
             {
+                if (value == null)
+                {
+                    return;
+                }
+
                 _control = value;
-                ConstructVisualGradient(_quality, _bottomLeft, _bottomRight, _topLeft, _topRight);
+
+                _control.Resize += Control_Resize;
+                Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
+                ConstructVisualGradient(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
+            }
+        }
+
+        /// <summary>Gets the <see cref="VisualGradient" /> as a bitmap.</summary>
+        [Browsable(true)]
+        [Description(Property.Image)]
+        public Image Image
+        {
+            get
+            {
+                Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
+                return GDI.CreateGradientBitmap(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
+            }
+        }
+
+        /// <summary>Gets a value indicating whether this <see cref="VisualGradient" /> is empty.</summary>
+        [Browsable(false)]
+        public bool IsEmpty
+        {
+            get
+            {
+                return _bottomLeft.IsEmpty && _bottomRight.IsEmpty && _topLeft.IsEmpty && _topRight.IsEmpty;
             }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Category(Propertys.Appearance)]
-        [Description("The quality of the gradient.")]
-        public int Quality
+        [Description(Property.Color)]
+        public Size Size
         {
-            get { return _quality; }
+            get
+            {
+                return _size;
+            }
 
             set
             {
-                _quality = value;
-                ConstructVisualGradient(_quality, _bottomLeft, _bottomRight, _topLeft, _topRight);
+                if (value == _size)
+                {
+                    return;
+                }
+
+                _size = value;
+                Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
+                ConstructVisualGradient(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
             }
         }
 
@@ -158,12 +231,16 @@ namespace VisualPlus.Toolkit.Components
         [Description(Property.Color)]
         public Color TopLeft
         {
-            get { return _topLeft; }
+            get
+            {
+                return _topLeft;
+            }
 
             set
             {
                 _topLeft = value;
-                ConstructVisualGradient(_quality, _bottomLeft, _bottomRight, _topLeft, _topRight);
+                Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
+                ConstructVisualGradient(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
             }
         }
 
@@ -173,12 +250,16 @@ namespace VisualPlus.Toolkit.Components
         [Description(Property.Color)]
         public Color TopRight
         {
-            get { return _topRight; }
+            get
+            {
+                return _topRight;
+            }
 
             set
             {
                 _topRight = value;
-                ConstructVisualGradient(_quality, _bottomLeft, _bottomRight, _topLeft, _topRight);
+                Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
+                ConstructVisualGradient(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
             }
         }
 
@@ -187,30 +268,60 @@ namespace VisualPlus.Toolkit.Components
         #region Events
 
         /// <summary>Construct visual gradient.</summary>
-        /// <param name="quality">The quality.</param>
+        /// <param name="gradientSize">The size of the gradient.</param>
         /// <param name="bottomLeft">The bottom Left.</param>
         /// <param name="bottomRight">The bottom Right.</param>
         /// <param name="topLeft">The top Left.</param>
         /// <param name="topRight">The top Right.</param>
-        private void ConstructVisualGradient(int quality, Color bottomLeft, Color bottomRight, Color topLeft, Color topRight)
+        private void ConstructVisualGradient(Size gradientSize, Color bottomLeft, Color bottomRight, Color topLeft, Color topRight)
         {
-            _quality = quality;
             _bottomLeft = bottomLeft;
             _bottomRight = bottomRight;
             _topLeft = topLeft;
             _topRight = topRight;
+            Size _gradientSize = gradientSize;
 
-            UpdateGradient();
-        }
-
-        private void UpdateGradient()
-        {
             if (_control == null)
             {
                 return;
             }
 
-            GDI.ApplyGradientBackground(_control, _topLeft, _topRight, _bottomLeft, _bottomRight, _quality);
+            GDI.ApplyGradientBackground(_control, _gradientSize, _topLeft, _topRight, _bottomLeft, _bottomRight);
+        }
+
+        private void Control_Resize(object sender, EventArgs e)
+        {
+            Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
+            ConstructVisualGradient(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
+        }
+
+        /// <summary>Gets the gradient size.</summary>
+        /// <param name="autoSize">The auto size toggle.</param>
+        /// <param name="control">The control.</param>
+        /// <param name="custom">The custom size.</param>
+        /// <returns>The auto adjusted gradient size.</returns>
+        private Size GetGradientSize(bool autoSize, Control control, Size custom)
+        {
+            Size _newSize;
+
+            if (autoSize)
+            {
+                if (control == null)
+                {
+                    _newSize = custom;
+                }
+                else
+                {
+                    _newSize = control.Size;
+                    _size = _newSize;
+                }
+            }
+            else
+            {
+                _newSize = custom;
+            }
+
+            return _newSize;
         }
 
         #endregion

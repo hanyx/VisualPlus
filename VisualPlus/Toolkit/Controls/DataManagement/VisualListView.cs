@@ -1,23 +1,26 @@
-﻿#region Namespace
-
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Design;
-using System.Drawing.Drawing2D;
-using System.Globalization;
-using System.Windows.Forms;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Renders;
-using VisualPlus.Structure;
-using VisualPlus.Toolkit.ActionList;
-using VisualPlus.Toolkit.Components;
-using VisualPlus.Toolkit.VisualBase;
-
-#endregion
-
-namespace VisualPlus.Toolkit.Controls.DataManagement
+﻿namespace VisualPlus.Toolkit.Controls.DataManagement
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Design;
+    using System.Drawing.Drawing2D;
+    using System.Globalization;
+    using System.Windows.Forms;
+
+    using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Renders;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.ActionList;
+    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.VisualBase;
+
+    #endregion
+
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ListView))]
     [DefaultEvent("SelectedIndexChanged")]
@@ -29,6 +32,8 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         #region Variables
 
         private Border _border;
+
+        private ColorState _colorState;
         private Color _columnHeaderColor;
         private Color _itemSelected;
         private ListView _listView;
@@ -53,25 +58,26 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
 
             headerFont = StyleManager.Font;
             _border = new Border();
+            _colorState = new ColorState();
+
             _listView = new ListView
-            {
-                BackColor = Background,
-                Size = GetInternalControlSize(Size, _border),
-                BorderStyle = BorderStyle.None,
-                View = View.Details,
-                MultiSelect = false,
-                LabelEdit = false,
-                AllowColumnReorder = false,
-                CheckBoxes = false,
-                FullRowSelect = true,
-                GridLines = true,
-                HeaderStyle = ColumnHeaderStyle.Nonclickable,
-                OwnerDraw = true,
-                Location = GetInternalControlLocation(_border)
-            };
+                {
+                    BackColor = BackColorState.Enabled,
+                    Size = GetInternalControlSize(Size, _border),
+                    BorderStyle = BorderStyle.None,
+                    View = View.Details,
+                    MultiSelect = false,
+                    LabelEdit = false,
+                    AllowColumnReorder = false,
+                    CheckBoxes = false,
+                    FullRowSelect = true,
+                    GridLines = true,
+                    HeaderStyle = ColumnHeaderStyle.Nonclickable,
+                    OwnerDraw = true,
+                    Location = GetInternalControlLocation(_border)
+                };
 
             AutoSize = true;
-            BackColor = Color.Transparent;
             Size = new Size(250, 150);
 
             // _listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -94,19 +100,37 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DefaultValue(false)]
         public virtual bool AllowColumnReorder
         {
-            get { return _listView.AllowColumnReorder; }
-
-            set { _listView.AllowColumnReorder = value; }
-        }
-
-        public new Color Background
-        {
-            get { return base.Background; }
+            get
+            {
+                return _listView.AllowColumnReorder;
+            }
 
             set
             {
-                _listView.BackColor = value;
-                base.Background = value;
+                _listView.AllowColumnReorder = value;
+            }
+        }
+
+        [TypeConverter(typeof(ColorStateConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(Propertys.Appearance)]
+        public ColorState BackColorState
+        {
+            get
+            {
+                return _colorState;
+            }
+
+            set
+            {
+                if (value == _colorState)
+                {
+                    return;
+                }
+
+                _colorState = value;
+                _listView.BackColor = value.Enabled;
+                Invalidate();
             }
         }
 
@@ -115,7 +139,10 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get { return _border; }
+            get
+            {
+                return _border;
+            }
 
             set
             {
@@ -129,7 +156,10 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public virtual ListView.CheckedIndexCollection CheckedIndices
         {
-            get { return _listView.CheckedIndices; }
+            get
+            {
+                return _listView.CheckedIndices;
+            }
         }
 
         [Browsable(false)]
@@ -137,14 +167,20 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public virtual ListView.CheckedListViewItemCollection CheckedItems
         {
-            get { return _listView.CheckedItems; }
+            get
+            {
+                return _listView.CheckedItems;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Color)]
         public Color ColumnHeaderColor
         {
-            get { return _columnHeaderColor; }
+            get
+            {
+                return _columnHeaderColor;
+            }
 
             set
             {
@@ -161,7 +197,10 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [Localizable(true)]
         public virtual ListView.ColumnHeaderCollection Columns
         {
-            get { return _listView.Columns; }
+            get
+            {
+                return _listView.Columns;
+            }
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -170,7 +209,10 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [Description("Gets access to the contained control.")]
         public ListView ContainedControl
         {
-            get { return _listView; }
+            get
+            {
+                return _listView;
+            }
         }
 
         [Category("Appearance")]
@@ -178,9 +220,15 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DefaultValue(true)]
         public virtual bool FullRowSelect
         {
-            get { return _listView.FullRowSelect; }
+            get
+            {
+                return _listView.FullRowSelect;
+            }
 
-            set { _listView.FullRowSelect = value; }
+            set
+            {
+                _listView.FullRowSelect = value;
+            }
         }
 
         [Category("Appearance")]
@@ -188,9 +236,15 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DefaultValue(true)]
         public virtual bool GridLines
         {
-            get { return _listView.GridLines; }
+            get
+            {
+                return _listView.GridLines;
+            }
 
-            set { _listView.GridLines = value; }
+            set
+            {
+                _listView.GridLines = value;
+            }
         }
 
         [Category("Data")]
@@ -201,14 +255,20 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [Localizable(true)]
         public virtual ListViewGroupCollection Groups
         {
-            get { return _listView.Groups; }
+            get
+            {
+                return _listView.Groups;
+            }
         }
 
         [Category(Propertys.Layout)]
         [Description(Property.Font)]
         public Font HeaderFont
         {
-            get { return headerFont; }
+            get
+            {
+                return headerFont;
+            }
 
             set
             {
@@ -222,16 +282,25 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DefaultValue(true)]
         public virtual ColumnHeaderStyle HeaderStyle
         {
-            get { return _listView.HeaderStyle; }
+            get
+            {
+                return _listView.HeaderStyle;
+            }
 
-            set { _listView.HeaderStyle = value; }
+            set
+            {
+                _listView.HeaderStyle = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Color)]
         public Color HeaderText
         {
-            get { return headerText; }
+            get
+            {
+                return headerText;
+            }
 
             set
             {
@@ -245,9 +314,15 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DefaultValue(true)]
         public virtual bool HideSelection
         {
-            get { return _listView.HideSelection; }
+            get
+            {
+                return _listView.HideSelection;
+            }
 
-            set { _listView.HideSelection = value; }
+            set
+            {
+                _listView.HideSelection = value;
+            }
         }
 
         [Category("Behaviour")]
@@ -255,9 +330,15 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DefaultValue(false)]
         public virtual bool HotTracking
         {
-            get { return _listView.HotTracking; }
+            get
+            {
+                return _listView.HotTracking;
+            }
 
-            set { _listView.HotTracking = value; }
+            set
+            {
+                _listView.HotTracking = value;
+            }
         }
 
         [Category("Behaviour")]
@@ -265,16 +346,25 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DefaultValue(false)]
         public virtual bool HoverSelection
         {
-            get { return _listView.HoverSelection; }
+            get
+            {
+                return _listView.HoverSelection;
+            }
 
-            set { _listView.HoverSelection = value; }
+            set
+            {
+                _listView.HoverSelection = value;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Color)]
         public Color ItemBackground
         {
-            get { return itemBackground; }
+            get
+            {
+                return itemBackground;
+            }
 
             set
             {
@@ -286,7 +376,10 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [Category(Propertys.Appearance)]
         public int ItemPadding
         {
-            get { return itemPadding; }
+            get
+            {
+                return itemPadding;
+            }
 
             set
             {
@@ -303,14 +396,20 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [Localizable(true)]
         public virtual ListView.ListViewItemCollection Items
         {
-            get { return _listView.Items; }
+            get
+            {
+                return _listView.Items;
+            }
         }
 
         [Category(Propertys.Appearance)]
         [Description(Property.Color)]
         public Color ItemSelectedColor
         {
-            get { return _itemSelected; }
+            get
+            {
+                return _itemSelected;
+            }
 
             set
             {
@@ -324,9 +423,15 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DefaultValue(false)]
         public virtual bool LabelEdit
         {
-            get { return _listView.LabelEdit; }
+            get
+            {
+                return _listView.LabelEdit;
+            }
 
-            set { _listView.LabelEdit = value; }
+            set
+            {
+                _listView.LabelEdit = value;
+            }
         }
 
         [Category("Behaviour")]
@@ -334,9 +439,15 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DefaultValue(false)]
         public virtual bool LabelWrap
         {
-            get { return _listView.LabelWrap; }
+            get
+            {
+                return _listView.LabelWrap;
+            }
 
-            set { _listView.LabelWrap = value; }
+            set
+            {
+                _listView.LabelWrap = value;
+            }
         }
 
         [Category("Behaviour")]
@@ -344,9 +455,15 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DefaultValue(false)]
         public virtual bool MultiSelect
         {
-            get { return _listView.MultiSelect; }
+            get
+            {
+                return _listView.MultiSelect;
+            }
 
-            set { _listView.MultiSelect = value; }
+            set
+            {
+                _listView.MultiSelect = value;
+            }
         }
 
         [Browsable(false)]
@@ -354,14 +471,20 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ListView.SelectedIndexCollection SelectedIndices
         {
-            get { return _listView.SelectedIndices; }
+            get
+            {
+                return _listView.SelectedIndices;
+            }
         }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ListView.SelectedListViewItemCollection SelectedItems
         {
-            get { return _listView.SelectedItems; }
+            get
+            {
+                return _listView.SelectedItems;
+            }
         }
 
         [Category("Behaviour")]
@@ -369,9 +492,15 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DefaultValue(false)]
         public virtual bool ShowGroups
         {
-            get { return _listView.ShowGroups; }
+            get
+            {
+                return _listView.ShowGroups;
+            }
 
-            set { _listView.ShowGroups = value; }
+            set
+            {
+                _listView.ShowGroups = value;
+            }
         }
 
         [Category("Behavior")]
@@ -379,9 +508,15 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DefaultValue(false)]
         public virtual SortOrder Sorting
         {
-            get { return _listView.Sorting; }
+            get
+            {
+                return _listView.Sorting;
+            }
 
-            set { _listView.Sorting = value; }
+            set
+            {
+                _listView.Sorting = value;
+            }
         }
 
         [DefaultValue(false)]
@@ -389,7 +524,10 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [Description("Draws the background of the column header.")]
         public bool StandardHeader
         {
-            get { return _standardHeader; }
+            get
+            {
+                return _standardHeader;
+            }
 
             set
             {
@@ -403,9 +541,15 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DefaultValue(false)]
         public virtual Size TileSize
         {
-            get { return _listView.TileSize; }
+            get
+            {
+                return _listView.TileSize;
+            }
 
-            set { _listView.TileSize = value; }
+            set
+            {
+                _listView.TileSize = value;
+            }
         }
 
         [Browsable(false)]
@@ -413,9 +557,15 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ListViewItem TopItem
         {
-            get { return _listView.TopItem; }
+            get
+            {
+                return _listView.TopItem;
+            }
 
-            set { _listView.TopItem = value; }
+            set
+            {
+                _listView.TopItem = value;
+            }
         }
 
         [Category("Appearance")]
@@ -423,16 +573,22 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         [DefaultValue(false)]
         public virtual View View
         {
-            get { return _listView.View; }
+            get
+            {
+                return _listView.View;
+            }
 
-            set { _listView.View = value; }
+            set
+            {
+                _listView.View = value;
+            }
         }
 
         #endregion
 
         #region Events
 
-        public void UpdateTheme(Enumerators.Styles style)
+        public void UpdateTheme(Styles style)
         {
             StyleManager = new VisualStyleManager(style);
             _border.Color = StyleManager.BorderStyle.Color;
@@ -440,8 +596,8 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            Background = StyleManager.ControlStyle.Background(3);
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+            BackColorState.Enabled = StyleManager.ControlStyle.Background(3);
+            BackColorState.Disabled = StyleManager.ControlStyle.Background(0);
 
             _columnHeaderColor = StyleManager.ControlStyle.FlatButtonDisabled;
             headerText = StyleManager.FontStyle.ForeColor;
@@ -461,17 +617,25 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         {
             base.OnPaint(e);
 
-            if (_listView.BackColor != Background)
+            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
+
+            Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
+
+            if (_listView.BackColor != _backColor)
             {
-                _listView.BackColor = Background;
+                _listView.BackColor = _backColor;
             }
 
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
-            e.Graphics.FillPath(new SolidBrush(Background), ControlGraphicsPath);
-            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, MouseState, ControlGraphicsPath);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, ClientRectangle, _backColor, BackgroundImage, Border, MouseState);
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            e.Graphics.Clear(Parent.BackColor);
+        }
+
+        protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             _listView.Location = GetInternalControlLocation(_border);
@@ -481,12 +645,12 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
         private static StringFormat GetStringFormat()
         {
             return new StringFormat
-            {
-                FormatFlags = StringFormatFlags.LineLimit,
-                Trimming = StringTrimming.EllipsisCharacter,
-                Alignment = StringAlignment.Near,
-                LineAlignment = StringAlignment.Center
-            };
+                {
+                    FormatFlags = StringFormatFlags.LineLimit,
+                    Trimming = StringTrimming.EllipsisCharacter,
+                    Alignment = StringAlignment.Near,
+                    LineAlignment = StringAlignment.Center
+                };
         }
 
         private void ListView_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
@@ -508,10 +672,10 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             }
 
             StringFormat _stringFormat = new StringFormat
-            {
-                Alignment = StringAlignment.Center,
-                LineAlignment = StringAlignment.Center
-            };
+                {
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
+                };
 
             Rectangle _textRectangle = new Rectangle(e.Bounds.X + itemPadding, e.Bounds.Y + itemPadding, e.Bounds.Width - (itemPadding * 2), e.Bounds.Height - (itemPadding * 2));
 
@@ -526,7 +690,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
             Graphics graphics = Graphics.FromImage(bitmap);
 
             // always draw default background
-            graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
+            graphics.FillRectangle(new SolidBrush(BackColorState.Enabled), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
 
             if (e.State.HasFlag(ListViewItemStates.Selected))
             {
@@ -548,7 +712,7 @@ namespace VisualPlus.Toolkit.Controls.DataManagement
                 e.DrawText();
             }
 
-            e.Graphics.DrawImage((Image) bitmap.Clone(), new Point(0, e.Item.Bounds.Location.Y));
+            e.Graphics.DrawImage((Image)bitmap.Clone(), new Point(0, e.Item.Bounds.Location.Y));
             graphics.Dispose();
             bitmap.Dispose();
         }

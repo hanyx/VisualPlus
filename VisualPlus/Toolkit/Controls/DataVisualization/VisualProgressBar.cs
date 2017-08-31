@@ -1,23 +1,24 @@
-#region Namespace
-
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Windows.Forms;
-using VisualPlus.Enumerators;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Managers;
-using VisualPlus.Renders;
-using VisualPlus.Structure;
-using VisualPlus.Toolkit.Components;
-using VisualPlus.Toolkit.VisualBase;
-
-#endregion
-
 namespace VisualPlus.Toolkit.Controls.DataVisualization
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Windows.Forms;
+
+    using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Managers;
+    using VisualPlus.Renders;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.VisualBase;
+
+    #endregion
+
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ProgressBar))]
     [DefaultEvent("Click")]
@@ -28,146 +29,70 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
     {
         #region Variables
 
-        protected int bars = 5;
-        protected int barSpacing = 10;
-
-        #endregion
-
-        #region Variables
-
         private Border _border;
-
-        private Gradient backgroundGradient = new Gradient();
-        private Point barLocation = new Point(0, 0);
-        private Point barSize = new Point(15, 15);
-        private BarTypes barStyle = BarTypes.Horizontal;
-        private Point[] gradientPoints;
-        private GraphicsPath graphicsDefaultBorderPath;
-        private Color hatchBackColor;
-        private Color hatchForeColor;
-        private GraphicsPath hatchPath = new GraphicsPath();
-        private float hatchSize = Settings.DefaultValue.HatchSize;
-        private HatchStyle hatchStyle = HatchStyle.DarkDownwardDiagonal;
-        private bool hatchVisible = Settings.DefaultValue.HatchVisible;
-        private Timer marqueeTimer;
-        private bool marqueeTimerEnabled;
-        private int marqueeX;
-        private int marqueeY;
-        private Size minimumSize = new Size(100, 20);
-        private bool percentageVisible;
-        private ProgressBarStyle progressBarStyle = ProgressBarStyle.Blocks;
-        private Gradient progressGradient = new Gradient();
-        private StringAlignment valueAlignment = StringAlignment.Center;
+        private ColorState _colorState;
+        private Hatch _hatch;
+        private Timer _marqueeTimer;
+        private bool _marqueeTimerEnabled;
+        private int _marqueeWidth;
+        private int _marqueeX;
+        private int _marqueeY;
+        private Size _minimumSize;
+        private Orientation _orientation;
+        private bool _percentageVisible;
+        private ProgressBarStyle _progressBarStyle;
+        private Color _progressColor;
+        private Image _progressImage;
+        private StringAlignment _valueAlignment;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualProgressBar" /> class.</summary>
+        /// <inheritdoc />
+        /// <summary>
+        ///     Initializes a new instance of the
+        ///     <see cref="T:VisualPlus.Toolkit.Controls.DataVisualization.VisualProgressBar" /> class.
+        /// </summary>
         public VisualProgressBar()
         {
             Maximum = 100;
-
-            Size = minimumSize;
-            MinimumSize = minimumSize;
-
-            percentageVisible = true;
+            _hatch = new Hatch();
+            _colorState = new ColorState();
+            _orientation = Orientation.Horizontal;
+            _minimumSize = new Size(100, 20);
+            _marqueeWidth = 20;
+            Size = _minimumSize;
+            MinimumSize = _minimumSize;
+            _percentageVisible = true;
             _border = new Border();
+            _progressBarStyle = ProgressBarStyle.Blocks;
+            _valueAlignment = StringAlignment.Center;
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
-        }
-
-        public enum BarTypes
-        {
-            /// <summary>Bars type.</summary>
-            Bars,
-
-            /// <summary>The horizontal progressbar.</summary>
-            Horizontal,
-
-            /// <summary>The vertical progressbar.</summary>
-            Vertical
         }
 
         #endregion
 
         #region Properties
 
-        [TypeConverter(typeof(GradientConverter))]
+        [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(Propertys.Appearance)]
-        public Gradient BackgroundGradient
+        public ColorState BackColorState
         {
-            get { return backgroundGradient; }
-
-            set
+            get
             {
-                backgroundGradient = value;
-                Invalidate();
+                return _colorState;
             }
-        }
-
-        [DefaultValue(Settings.DefaultValue.BarAmount)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Bars)]
-        public int BarAmount
-        {
-            get { return bars; }
 
             set
             {
-                bars = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
-        public Point BarSize
-        {
-            get { return barSize; }
-
-            set
-            {
-                barSize = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Layout)]
-        [Description(Property.Spacing)]
-        public int BarSpacing
-        {
-            get { return barSpacing; }
-
-            set
-            {
-                barSpacing = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Behavior)]
-        [Description(Property.Type)]
-        public BarTypes BarStyle
-        {
-            get { return barStyle; }
-
-            set
-            {
-                barStyle = value;
-
-                if (barStyle == BarTypes.Horizontal)
+                if (value == _colorState)
                 {
-                    Size = GDI.FlipOrientationSize(Orientation.Horizontal, Size);
-                }
-                else if (barStyle == BarTypes.Vertical)
-                {
-                    Size = GDI.FlipOrientationSize(Orientation.Vertical, Size);
+                    return;
                 }
 
-                // Resize check
-                OnResize(System.EventArgs.Empty);
-
+                _colorState = value;
                 Invalidate();
             }
         }
@@ -177,7 +102,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get { return _border; }
+            get
+            {
+                return _border;
+            }
 
             set
             {
@@ -186,69 +114,64 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color HatchBackColor
+        [TypeConverter(typeof(HatchConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(Propertys.Behavior)]
+        public Hatch Hatch
         {
-            get { return hatchBackColor; }
-
-            set
+            get
             {
-                hatchBackColor = value;
-                Invalidate();
+                return _hatch;
             }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color HatchForeColor
-        {
-            get { return hatchForeColor; }
 
             set
             {
-                hatchForeColor = value;
+                _hatch = value;
                 Invalidate();
             }
         }
 
         [Category(Propertys.Layout)]
-        [DefaultValue(Settings.DefaultValue.HatchSize)]
         [Description(Property.Size)]
-        public float HatchSize
+        public int MarqueeWidth
         {
-            get { return hatchSize; }
+            get
+            {
+                return _marqueeWidth;
+            }
 
             set
             {
-                hatchSize = value;
+                _marqueeWidth = value;
                 Invalidate();
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Type)]
-        public HatchStyle HatchStyle
-        {
-            get { return hatchStyle; }
-
-            set
-            {
-                hatchStyle = value;
-                Invalidate();
-            }
-        }
-
-        [DefaultValue(Settings.DefaultValue.HatchVisible)]
         [Category(Propertys.Behavior)]
-        [Description(Property.Visible)]
-        public bool HatchVisible
+        [Description(Property.Orientation)]
+        public Orientation Orientation
         {
-            get { return hatchVisible; }
+            get
+            {
+                return _orientation;
+            }
 
             set
             {
-                hatchVisible = value;
+                _orientation = value;
+
+                if (_orientation == Orientation.Horizontal)
+                {
+                    Size = GDI.FlipOrientationSize(Orientation.Horizontal, Size);
+                }
+                else if (_orientation == Orientation.Vertical)
+                {
+                    Size = GDI.FlipOrientationSize(Orientation.Vertical, Size);
+                }
+
+                // Resize check
+                OnResize(EventArgs.Empty);
+
                 Invalidate();
             }
         }
@@ -258,39 +181,63 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Visible)]
         public bool PercentageVisible
         {
-            get { return percentageVisible; }
+            get
+            {
+                return _percentageVisible;
+            }
 
             set
             {
-                percentageVisible = value;
+                _percentageVisible = value;
                 Invalidate();
             }
         }
 
-        [TypeConverter(typeof(GradientConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(Propertys.Appearance)]
-        public Gradient Progress
+        [Description(Property.Color)]
+        public Color ProgressColor
         {
-            get { return progressGradient; }
+            get
+            {
+                return _progressColor;
+            }
 
             set
             {
-                progressGradient = value;
+                _progressColor = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Propertys.Appearance)]
+        [Description(Property.Image)]
+        public Image ProgressImage
+        {
+            get
+            {
+                return _progressImage;
+            }
+
+            set
+            {
+                _progressImage = value;
                 Invalidate();
             }
         }
 
         [DefaultValue(typeof(ProgressBarStyle))]
         [Category(Propertys.Behavior)]
-        [Description("This property allows the user to set the style of the ProgressBar.")]
+        [Description(Property.ProgressBarStyle)]
         public ProgressBarStyle Style
         {
-            get { return progressBarStyle; }
+            get
+            {
+                return _progressBarStyle;
+            }
 
             set
             {
-                progressBarStyle = value;
+                _progressBarStyle = value;
                 Invalidate();
             }
         }
@@ -299,50 +246,36 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Alignment)]
         public StringAlignment ValueAlignment
         {
-            get { return valueAlignment; }
+            get
+            {
+                return _valueAlignment;
+            }
 
             set
             {
-                valueAlignment = value;
+                _valueAlignment = value;
                 Invalidate();
             }
-        }
-
-        private int ProgressBarMarqueeHeight
-        {
-            get { return ClientRectangle.Height / 3; }
-        }
-
-        private int ProgressBarMarqueeWidth
-        {
-            get { return ClientRectangle.Width / 3; }
-        }
-
-        private double ProgressBarWidth
-        {
-            get { return ((double) Value / Maximum) * ClientRectangle.Width; }
         }
 
         #endregion
 
         #region Events
 
-        public void UpdateTheme(Enumerators.Styles style)
+        public void UpdateTheme(Styles style)
         {
             StyleManager = new VisualStyleManager(style);
 
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            Background = StyleManager.ControlStyle.Background(0);
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+            _colorState.Enabled = StyleManager.ProgressStyle.BackProgress.Colors[0];
+            _colorState.Disabled = StyleManager.ProgressStyle.BackProgress.Colors[0];
 
-            backgroundGradient.Colors = StyleManager.ProgressStyle.BackProgress.Colors;
-            backgroundGradient.Positions = StyleManager.ProgressStyle.BackProgress.Positions;
-            hatchBackColor = StyleManager.ProgressStyle.Hatch;
-            hatchForeColor = Color.FromArgb(40, hatchBackColor);
-            progressGradient.Colors = StyleManager.ProgressStyle.Progress.Colors;
-            progressGradient.Positions = StyleManager.ProgressStyle.Progress.Positions;
+            _hatch.BackColor = StyleManager.ProgressStyle.Hatch;
+            _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);
+
+            _progressColor = StyleManager.ProgressStyle.Progress.Colors[0];
 
             _border.Color = StyleManager.BorderStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
@@ -353,66 +286,54 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+            Graphics _graphics = e.Graphics;
+            _graphics.Clear(Parent.BackColor);
+            _graphics.SmoothingMode = SmoothingMode.HighQuality;
+            _graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            _graphics.TextRenderingHint = TextRenderingHint;
+            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
+            _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
-            Graphics graphics = e.Graphics;
+            Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
 
-            gradientPoints = new[] {new Point {X = ClientRectangle.Width, Y = 0}, new Point {X = ClientRectangle.Width, Y = ClientRectangle.Height}};
-
-            if ((barStyle == BarTypes.Horizontal) || (barStyle == BarTypes.Vertical))
-            {
-                // Draw default progress
-                DrawDefaultProgress(barStyle, graphics);
-            }
-            else
-            {
-                // Draw styled progress
-                SetStyleSettings(barStyle);
-
-                // Draw total bars
-                DrawStyledProgress(graphics, bars, false);
-
-                SetStyleSettings(barStyle);
-
-                // Draw current progressbars
-                DrawStyledProgress(graphics, MathManager.GetFraction(Convert.ToDouble(Value), bars), true);
-            }
-
-            graphics.SmoothingMode = SmoothingMode.None;
-            graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            graphics.ResetClip();
+            _graphics.SetClip(ControlGraphicsPath);
+            DrawProgress(_orientation, _graphics, _backColor);
+            _graphics.ResetClip();
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnPaintBackground(PaintEventArgs e)
         {
-            switch (barStyle)
+            base.OnPaintBackground(e);
+            e.Graphics.Clear(BackColor);
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            switch (_orientation)
             {
-                case BarTypes.Bars:
-                {
-                    Height = barSize.Y;
-                    MinimumSize = new Size(bars * barSize.X, barSize.Y + 2);
-                    break;
-                }
+                case Orientation.Horizontal:
+                    {
+                        MinimumSize = _minimumSize;
+                        break;
+                    }
 
-                case BarTypes.Horizontal:
-                {
-                    MinimumSize = minimumSize;
-                    break;
-                }
+                case Orientation.Vertical:
+                    {
+                        MinimumSize = new Size(_minimumSize.Height, _minimumSize.Width);
+                        break;
+                    }
 
-                case BarTypes.Vertical:
-                {
-                    MinimumSize = new Size(minimumSize.Height, minimumSize.Width);
-                    break;
-                }
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
             }
         }
 
-        private void DrawDefaultProgress(BarTypes style, Graphics graphics)
+        private void DrawProgress(Orientation orientation, Graphics graphics, Color backColor)
         {
-            graphicsDefaultBorderPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
-            GraphicsPath progressPath = null;
-
-            if (progressBarStyle == ProgressBarStyle.Marquee)
+            if (_progressBarStyle == ProgressBarStyle.Marquee)
             {
                 if (!DesignMode && Enabled)
                 {
@@ -436,97 +357,124 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
             else
             {
-                var i1 = new int();
+                int _indexValue;
 
-                switch (style)
+                GraphicsPath _progressPath;
+                Rectangle _progressRectangle;
+
+                switch (orientation)
                 {
-                    case BarTypes.Horizontal:
-                    {
-                        i1 = (int) Math.Round(((Value - Minimum) / (double) (Maximum - Minimum)) * (Width - 2));
+                    case Orientation.Horizontal:
+                        {
+                            _indexValue = (int)Math.Round(((Value - Minimum) / (double)(Maximum - Minimum)) * (Width - 2));
 
-                        if (_border.Type == ShapeType.Rectangle)
-                        {
-                            progressPath = new GraphicsPath();
-                            progressPath.AddRectangle(new Rectangle(0, 0, i1 + 1, Height));
-                            progressPath.CloseAllFigures();
-                        }
-                        else
-                        {
-                            progressPath = GDI.DrawRoundedRectangle(new Rectangle(1, 1, i1, Height - 2), _border.Rounding);
-                        }
-                    }
+                            if (_border.Type == ShapeType.Rectangle)
+                            {
+                                _progressPath = new GraphicsPath();
+                                _progressPath.AddRectangle(new Rectangle(0, 0, _indexValue + 1, Height));
+                                _progressPath.CloseAllFigures();
+                            }
+                            else
+                            {
+                                _progressPath = GDI.DrawRoundedRectangle(new Rectangle(0, 1, _indexValue, Height - 2), _border.Rounding);
+                            }
 
-                        break;
-                    case BarTypes.Vertical:
-                    {
-                        i1 = (int) Math.Round(((Value - Minimum) / (double) (Maximum - Minimum)) * (Height - 2));
-
-                        if (_border.Type == ShapeType.Rectangle)
-                        {
-                            progressPath = new GraphicsPath();
-                            progressPath.AddRectangle(new Rectangle(0, Height - i1 - 2, Width, i1));
-                            progressPath.CloseAllFigures();
+                            _progressRectangle = new Rectangle(0, 0, _indexValue + 1, Height);
                         }
-                        else
-                        {
-                            progressPath = GDI.DrawRoundedRectangle(new Rectangle(0, Height - i1 - 2, Width, i1), _border.Rounding);
-                        }
-                    }
 
                         break;
+                    case Orientation.Vertical:
+                        {
+                            _indexValue = (int)Math.Round(((Value - Minimum) / (double)(Maximum - Minimum)) * (Height - 2));
+
+                            if (_border.Type == ShapeType.Rectangle)
+                            {
+                                _progressPath = new GraphicsPath();
+                                _progressPath.AddRectangle(new Rectangle(0, Height - _indexValue - 2, Width, _indexValue));
+                                _progressPath.CloseAllFigures();
+                            }
+                            else
+                            {
+                                _progressPath = GDI.DrawRoundedRectangle(new Rectangle(0, Height - _indexValue - 2, Width, _indexValue), _border.Rounding);
+                            }
+
+                            _progressRectangle = new Rectangle(0, Height - _indexValue - 2, Width, _indexValue);
+                        }
+
+                        break;
+                    default:
+                        {
+                            throw new ArgumentOutOfRangeException(nameof(orientation), orientation, null);
+                        }
                 }
 
-                LinearGradientBrush backgroundGradientBrush = Gradient.CreateGradientBrush(backgroundGradient.Colors, gradientPoints, backgroundGradient.Angle, backgroundGradient.Positions);
-                graphics.FillPath(backgroundGradientBrush, graphicsDefaultBorderPath);
+                VisualBackgroundRenderer.DrawBackground(graphics, ClientRectangle, backColor, BackgroundImage, _border, MouseState);
 
-                // Draw progress
-                if (i1 > 1)
+                if (_indexValue > 1)
                 {
-                    LinearGradientBrush progressGradientBrush = Gradient.CreateGradientBrush(progressGradient.Colors, gradientPoints, progressGradient.Angle, progressGradient.Positions);
-                    graphics.FillPath(progressGradientBrush, progressPath);
-
-                    hatchPath = progressPath;
-
-                    if (hatchVisible)
-                    {
-                        HatchBrush hatchBrush = new HatchBrush(hatchStyle, hatchForeColor, hatchBackColor);
-                        using (TextureBrush textureBrush = GDI.DrawTextureUsingHatch(hatchBrush))
-                        {
-                            textureBrush.ScaleTransform(hatchSize, hatchSize);
-                            graphics.FillPath(textureBrush, hatchPath);
-                        }
-                    }
-
-                    graphics.SetClip(progressPath);
-                    graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                    graphics.ResetClip();
+                    VisualBackgroundRenderer.DrawBackground(graphics, _progressRectangle, _progressColor, _progressImage, _border.Rounding);
+                    VisualControlRenderer.DrawHatch(graphics, _hatch, _progressPath);
                 }
             }
 
-            // Draw border
-            if (_border.Visible)
+            VisualBorderRenderer.DrawBorderStyle(graphics, _border, MouseState, ControlGraphicsPath);
+            DrawText(graphics);
+        }
+
+        private void DrawProgressContinuous(Graphics graphics)
+        {
+            GraphicsPath _progressPath = new GraphicsPath();
+            _progressPath.AddRectangle(new Rectangle(0, 0, (Value / Maximum) * ClientRectangle.Width, ClientRectangle.Height));
+            graphics.FillPath(new SolidBrush(_progressColor), _progressPath);
+        }
+
+        private void DrawProgressMarquee(Graphics graphics)
+        {
+            Rectangle _progressRectangle;
+
+            switch (_orientation)
             {
-                if ((MouseState == MouseStates.Hover) && _border.HoverVisible)
-                {
-                    VisualBorderRenderer.DrawBorder(graphics, graphicsDefaultBorderPath, _border.Thickness, _border.HoverColor);
-                }
-                else
-                {
-                    VisualBorderRenderer.DrawBorder(graphics, graphicsDefaultBorderPath, _border.Thickness, _border.Color);
-                }
+                case Orientation.Horizontal:
+                    {
+                        _progressRectangle = new Rectangle(_marqueeX, 0, _marqueeWidth, ClientRectangle.Height);
+                        break;
+                    }
+
+                case Orientation.Vertical:
+                    {
+                        _progressRectangle = new Rectangle(0, _marqueeY, ClientRectangle.Width, ClientRectangle.Height);
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
             }
 
+            GraphicsPath _progressPath = new GraphicsPath();
+            _progressPath.AddRectangle(_progressRectangle);
+
+            graphics.FillPath(new SolidBrush(_progressColor), _progressPath);
+
+            VisualControlRenderer.DrawHatch(graphics, _hatch, _progressPath);
+
+            graphics.ResetClip();
+        }
+
+        private void DrawText(Graphics graphics)
+        {
             // Draw value as a string
             string percentValue = Convert.ToString(Convert.ToInt32(Value)) + "%";
 
             // Toggle percentage
-            if (percentageVisible)
+            if (_percentageVisible)
             {
                 StringFormat stringFormat = new StringFormat
-                {
-                    Alignment = valueAlignment,
-                    LineAlignment = StringAlignment.Center
-                };
+                    {
+                        Alignment = _valueAlignment,
+                        LineAlignment = StringAlignment.Center
+                    };
 
                 graphics.DrawString(
                     percentValue,
@@ -537,235 +485,90 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        private void DrawProgressContinuous(Graphics graphics)
+        private void MarqueeTimer_Tick(object sender, EventArgs e)
         {
-            LinearGradientBrush backgroundGradientBrush = Gradient.CreateGradientBrush(backgroundGradient.Colors, gradientPoints, backgroundGradient.Angle, backgroundGradient.Positions);
-            graphics.FillPath(backgroundGradientBrush, graphicsDefaultBorderPath);
-
-            graphics.SetClip(graphicsDefaultBorderPath);
-
-            LinearGradientBrush progressGradientBrush = Gradient.CreateGradientBrush(progressGradient.Colors, gradientPoints, progressGradient.Angle, progressGradient.Positions);
-            graphics.FillRectangle(progressGradientBrush, 0, 0, (int) ProgressBarWidth, ClientRectangle.Height);
-
-            graphics.ResetClip();
-        }
-
-        private void DrawProgressMarquee(Graphics graphics)
-        {
-            LinearGradientBrush backgroundGradientBrush = Gradient.CreateGradientBrush(backgroundGradient.Colors, gradientPoints, backgroundGradient.Angle, backgroundGradient.Positions);
-            graphics.FillPath(backgroundGradientBrush, graphicsDefaultBorderPath);
-
-            graphics.SetClip(graphicsDefaultBorderPath);
-
-            LinearGradientBrush progressGradientBrush = Gradient.CreateGradientBrush(progressGradient.Colors, gradientPoints, progressGradient.Angle, progressGradient.Positions);
-
-            Rectangle progressRectangle = new Rectangle();
-
-            if (barStyle == BarTypes.Horizontal)
+            switch (_orientation)
             {
-                progressRectangle = new Rectangle(marqueeX, 0, ProgressBarMarqueeWidth, ClientRectangle.Height);
-            }
-            else if (barStyle == BarTypes.Vertical)
-            {
-                progressRectangle = new Rectangle(0, marqueeY, ClientRectangle.Width, ClientRectangle.Height);
-            }
-
-            graphics.FillRectangle(progressGradientBrush, progressRectangle);
-
-            GraphicsPath progressPath = new GraphicsPath();
-            progressPath.AddRectangle(progressRectangle);
-
-            hatchPath = progressPath;
-
-            if (hatchVisible)
-            {
-                HatchBrush hatchBrush = new HatchBrush(hatchStyle, hatchForeColor, hatchBackColor);
-                using (TextureBrush textureBrush = GDI.DrawTextureUsingHatch(hatchBrush))
-                {
-                    textureBrush.ScaleTransform(hatchSize, hatchSize);
-                    graphics.FillPath(textureBrush, hatchPath);
-                }
-            }
-
-            graphics.ResetClip();
-        }
-
-        /// <summary>Draw styled progressbar.</summary>
-        /// <param name="graphics">Graphics processor.</param>
-        /// <param name="barCount">Amount of bars.</param>
-        /// <param name="colored">Toggle coloring.</param>
-        private void DrawStyledProgress(Graphics graphics, int barCount, bool colored)
-        {
-            GraphicsPath barStylePath = new GraphicsPath();
-
-            for (var i = 0; i < barCount; i++)
-            {
-                // Move the bar right
-                if (i != 0)
-                {
-                    barLocation = new Point(barLocation.X + barSpacing, barLocation.Y);
-                }
-
-                // Create Bar
-                switch (barStyle)
-                {
-                    case BarTypes.Bars:
+                case Orientation.Horizontal:
                     {
-                        // Create bars
-                        if (_border.Type == ShapeType.Rounded)
+                        _marqueeX++;
+                        if (_marqueeX > ClientRectangle.Width)
                         {
-                            // Rounded rectangle - makes it possible to make circles with full roundness.
-                            barStylePath.AddPath(GDI.DrawRoundedRectangle(barLocation.X, barLocation.Y, barSize.X, barSize.Y, _border.Rounding), true);
-                        }
-                        else
-                        {
-                            // Rectangle
-                            barStylePath.AddRectangle(new Rectangle(barLocation.X, barLocation.Y, barSize.X, barSize.Y));
+                            _marqueeX = -_marqueeWidth;
                         }
 
-                        barStylePath.CloseAllFigures();
                         break;
                     }
 
-                    case BarTypes.Horizontal:
+                case Orientation.Vertical:
                     {
-                        // Default progress bar
-                        barStylePath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
+                        _marqueeY++;
+                        if (_marqueeY > ClientRectangle.Height)
+                        {
+                            _marqueeY = -_marqueeWidth;
+                        }
+
                         break;
                     }
 
-                    case BarTypes.Vertical:
+                default:
                     {
-                        barStylePath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
-                        break;
-                    }
-
-                    default:
                         throw new ArgumentOutOfRangeException();
-                }
-
-                // Draw shape
-                if (colored)
-                {
-                    // Draw progress
-                    LinearGradientBrush progressGradientBrush = Gradient.CreateGradientBrush(progressGradient.Colors, gradientPoints, progressGradient.Angle, progressGradient.Positions);
-
-                    // Draw the progress
-                    graphics.FillPath(progressGradientBrush, barStylePath);
-                }
-                else
-                {
-                    // Draw background
-                    LinearGradientBrush backgroundGradientBrush = Gradient.CreateGradientBrush(backgroundGradient.Colors, gradientPoints, backgroundGradient.Angle, backgroundGradient.Positions);
-
-                    // Draw the background
-                    graphics.FillPath(backgroundGradientBrush, barStylePath);
-                }
-
-                // Draw border
-                if (_border.Visible)
-                {
-                    if ((MouseState == MouseStates.Hover) && _border.HoverVisible)
-                    {
-                        VisualBorderRenderer.DrawBorder(graphics, barStylePath, _border.Thickness, _border.HoverColor);
                     }
-                    else
-                    {
-                        VisualBorderRenderer.DrawBorder(graphics, barStylePath, _border.Thickness, _border.Color);
-                    }
-                }
-            }
-        }
-
-        private void MarqueeTimer_Tick(object sender, System.EventArgs e)
-        {
-            if (barStyle == BarTypes.Horizontal)
-            {
-                marqueeX++;
-                if (marqueeX > ClientRectangle.Width)
-                {
-                    marqueeX = -ProgressBarMarqueeWidth;
-                }
-            }
-            else if (barStyle == BarTypes.Vertical)
-            {
-                marqueeY++;
-                if (marqueeY > ClientRectangle.Height)
-                {
-                    marqueeY = -ProgressBarMarqueeHeight;
-                }
             }
 
             Invalidate();
         }
 
-        /// <summary>Sets the style settings.</summary>
-        /// <param name="style">Current ProgressBarType.</param>
-        private void SetStyleSettings(BarTypes style)
-        {
-            switch (style)
-            {
-                case BarTypes.Bars:
-                {
-                    barLocation = new Point(0, 0);
-                    barSize = new Point(10, 10);
-                    barSpacing = 15;
-                    break;
-                }
-
-                case BarTypes.Horizontal:
-                {
-                    break;
-                }
-
-                case BarTypes.Vertical:
-                {
-                    break;
-                }
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(style), style, null);
-            }
-        }
-
         private void StartTimer()
         {
-            if (marqueeTimerEnabled)
+            if (_marqueeTimerEnabled)
             {
                 return;
             }
 
-            if (marqueeTimer == null)
+            if (_marqueeTimer == null)
             {
-                marqueeTimer = new Timer {Interval = 10};
-                marqueeTimer.Tick += MarqueeTimer_Tick;
+                _marqueeTimer = new Timer { Interval = 10 };
+                _marqueeTimer.Tick += MarqueeTimer_Tick;
             }
 
-            if (barStyle == BarTypes.Horizontal)
+            switch (_orientation)
             {
-                marqueeX = -ProgressBarMarqueeWidth;
-            }
-            else if (barStyle == BarTypes.Vertical)
-            {
-                marqueeY = -ProgressBarMarqueeHeight;
+                case Orientation.Horizontal:
+                    {
+                        _marqueeX = -_marqueeWidth;
+                        break;
+                    }
+
+                case Orientation.Vertical:
+                    {
+                        _marqueeY = -_marqueeWidth;
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
             }
 
-            marqueeTimer.Stop();
-            marqueeTimer.Start();
+            _marqueeTimer.Stop();
+            _marqueeTimer.Start();
 
-            marqueeTimerEnabled = true;
+            _marqueeTimerEnabled = true;
 
             Invalidate();
         }
 
         private void StopTimer()
         {
-            if (marqueeTimer == null)
+            if (_marqueeTimer == null)
             {
                 return;
             }
 
-            marqueeTimer.Stop();
+            _marqueeTimer.Stop();
 
             Invalidate();
         }

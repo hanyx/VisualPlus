@@ -1,19 +1,23 @@
-﻿#region Namespace
-
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Windows.Forms;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Managers;
-using VisualPlus.Toolkit.Components;
-using VisualPlus.Toolkit.VisualBase;
-
-#endregion
-
-namespace VisualPlus.Toolkit.Controls.DataVisualization
+﻿namespace VisualPlus.Toolkit.Controls.DataVisualization
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Windows.Forms;
+
+    using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Managers;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.VisualBase;
+
+    #endregion
+
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ProgressBar))]
     [DefaultEvent("Click")]
@@ -22,6 +26,8 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
     public class VisualGauge : ProgressBase
     {
         #region Variables
+
+        private ColorState _colorState;
 
         private Label _labelMaximum;
         private Label _labelMinimum;
@@ -35,13 +41,16 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         #region Constructors
 
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Layout.VisualGauge" /> class.</summary>
         public VisualGauge()
         {
             _thickness = 25;
             Maximum = 100;
 
-            ConstructDisplay();
+            _colorState = new ColorState();
 
+            ConstructDisplay();
             Controls.Add(_labelMaximum);
             Controls.Add(_labelMinimum);
             Controls.Add(_labelProgress);
@@ -56,12 +65,31 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         #region Properties
 
+        [TypeConverter(typeof(ColorStateConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public ColorState BackColorState
+        {
+            get
+            {
+                return _colorState;
+            }
+
+            set
+            {
+                _colorState = value;
+                Invalidate();
+            }
+        }
+
         [DefaultValue(typeof(Color), "Green")]
         [Category(Propertys.Appearance)]
         [Description(Property.Color)]
         public Color Progress
         {
-            get { return _progress; }
+            get
+            {
+                return _progress;
+            }
 
             set
             {
@@ -75,7 +103,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Thickness)]
         public int Thickness
         {
-            get { return _thickness; }
+            get
+            {
+                return _thickness;
+            }
 
             set
             {
@@ -88,7 +119,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Category(Propertys.Behavior)]
         public new int Value
         {
-            get { return base.Value; }
+            get
+            {
+                return base.Value;
+            }
 
             set
             {
@@ -101,18 +135,17 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         #region Events
 
-        public void UpdateTheme(Enumerators.Styles style)
+        public void UpdateTheme(Styles style)
         {
             StyleManager = new VisualStyleManager(style);
 
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            Background = StyleManager.ControlStyle.Background(0);
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+            BackColorState.Enabled = StyleManager.ControlStyle.Background(3);
+            BackColorState.Disabled = StyleManager.ControlStatesStyle.ControlDisabled.Colors[0];
 
             _progress = StyleManager.ProgressStyle.Progress.Colors[0];
-            Background = StyleManager.ControlStyle.Background(3);
 
             Invalidate();
         }
@@ -129,9 +162,11 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             _graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
 
-            Pen _penBackground = new Pen(Background, _thickness);
-            int width = Size.Width - (_thickness * 2);
-            Rectangle _rectangle = new Rectangle(_thickness, Size.Height / 4, width, width);
+            Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
+
+            Pen _penBackground = new Pen(_backColor, _thickness);
+            int _width = Size.Width - (_thickness * 2);
+            Rectangle _rectangle = new Rectangle(_thickness, Size.Height / 4, _width, _width);
             Pen _penProgress = new Pen(_progress, _thickness);
 
             _graphics.DrawArc(_penBackground, _rectangle, 180F, 180F);
@@ -140,7 +175,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             _labelProgress.Text = Value + @"%";
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
 
@@ -152,43 +187,43 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         private void ConstructDisplay()
         {
             _labelProgress = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
-                Location = new Point(83, 34),
-                Margin = new Padding(6, 0, 6, 0),
-                Name = "visualLabelProgress",
-                Size = new Size(22, 24),
-                TabIndex = 1,
-                Text = @"0",
-                BackColor = Color.Transparent
-            };
+                {
+                    AutoSize = true,
+                    Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
+                    Location = new Point(83, 34),
+                    Margin = new Padding(6, 0, 6, 0),
+                    Name = "visualLabelProgress",
+                    Size = new Size(22, 24),
+                    TabIndex = 1,
+                    Text = @"0",
+                    BackColor = Color.Transparent
+                };
 
             _labelMinimum = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
-                Location = new Point(26, 86),
-                Margin = new Padding(6, 0, 6, 0),
-                Name = "visualLabelMinimum",
-                Size = new Size(15, 17),
-                TabIndex = 2,
-                Text = @"0",
-                BackColor = Color.Transparent
-            };
+                {
+                    AutoSize = true,
+                    Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
+                    Location = new Point(26, 86),
+                    Margin = new Padding(6, 0, 6, 0),
+                    Name = "visualLabelMinimum",
+                    Size = new Size(15, 17),
+                    TabIndex = 2,
+                    Text = @"0",
+                    BackColor = Color.Transparent
+                };
 
             _labelMaximum = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
-                Location = new Point(145, 86),
-                Margin = new Padding(6, 0, 6, 0),
-                Name = "visualLabelMaximum",
-                Size = new Size(29, 17),
-                TabIndex = 3,
-                Text = @"100",
-                BackColor = Color.Transparent
-            };
+                {
+                    AutoSize = true,
+                    Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0),
+                    Location = new Point(145, 86),
+                    Margin = new Padding(6, 0, 6, 0),
+                    Name = "visualLabelMaximum",
+                    Size = new Size(29, 17),
+                    TabIndex = 3,
+                    Text = @"100",
+                    BackColor = Color.Transparent
+                };
         }
 
         #endregion

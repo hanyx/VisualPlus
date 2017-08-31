@@ -1,13 +1,13 @@
-﻿#region Namespace
-
-using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-
-#endregion
-
-namespace VisualPlus.Managers
+﻿namespace VisualPlus.Managers
 {
+    #region Namespace
+
+    using System;
+    using System.Drawing;
+    using System.Drawing.Imaging;
+
+    #endregion
+
     internal class ColorManager
     {
         #region Constructors
@@ -45,9 +45,9 @@ namespace VisualPlus.Managers
         {
             double ratio = blend / 255d;
             double invRatio = 1d - ratio;
-            var r = (int) ((backgroundColor.R * invRatio) + (frontColor.R * ratio));
-            var g = (int) ((backgroundColor.G * invRatio) + (frontColor.G * ratio));
-            var b = (int) ((backgroundColor.B * invRatio) + (frontColor.B * ratio));
+            var r = (int)((backgroundColor.R * invRatio) + (frontColor.R * ratio));
+            var g = (int)((backgroundColor.G * invRatio) + (frontColor.G * ratio));
+            var b = (int)((backgroundColor.B * invRatio) + (frontColor.B * ratio));
             return Color.FromArgb(r, g, b);
         }
 
@@ -122,7 +122,7 @@ namespace VisualPlus.Managers
                 {
                     IntPtr handleContextSource = graphicsSource.GetHdc();
                     IntPtr handleContextDestination = graphicsDestination.GetHdc();
-                    int retrieval = Native.BitBlt(handleContextDestination, 0, 0, 1, 1, handleContextSource, location.X, location.Y, (int) CopyPixelOperation.SourceCopy);
+                    int retrieval = Native.BitBlt(handleContextDestination, 0, 0, 1, 1, handleContextSource, location.X, location.Y, (int)CopyPixelOperation.SourceCopy);
                     graphicsDestination.ReleaseHdc();
                     graphicsSource.ReleaseHdc();
                 }
@@ -146,54 +146,54 @@ namespace VisualPlus.Managers
             switch (brightness)
             {
                 case Brightness.Dark:
-                {
-                    r = 0;
-                    g = 0;
-                    b = 0;
-
-                    if (c.R > d)
                     {
-                        r = (byte) (c.R - d);
-                    }
+                        r = 0;
+                        g = 0;
+                        b = 0;
 
-                    if (c.G > d)
-                    {
-                        g = (byte) (c.G - d);
-                    }
+                        if (c.R > d)
+                        {
+                            r = (byte)(c.R - d);
+                        }
 
-                    if (c.B > d)
-                    {
-                        b = (byte) (c.B - d);
-                    }
+                        if (c.G > d)
+                        {
+                            g = (byte)(c.G - d);
+                        }
 
-                    newColor = Color.FromArgb(r, g, b);
-                    break;
-                }
+                        if (c.B > d)
+                        {
+                            b = (byte)(c.B - d);
+                        }
+
+                        newColor = Color.FromArgb(r, g, b);
+                        break;
+                    }
 
                 case Brightness.Light:
-                {
-                    r = 255;
-                    g = 255;
-                    b = 255;
-
-                    if (c.R + d < 255)
                     {
-                        r = (byte) (c.R + d);
-                    }
+                        r = 255;
+                        g = 255;
+                        b = 255;
 
-                    if (c.G + d < 255)
-                    {
-                        g = (byte) (c.G + d);
-                    }
+                        if (c.R + d < 255)
+                        {
+                            r = (byte)(c.R + d);
+                        }
 
-                    if (c.B + d < 255)
-                    {
-                        b = (byte) (c.B + d);
-                    }
+                        if (c.G + d < 255)
+                        {
+                            g = (byte)(c.G + d);
+                        }
 
-                    newColor = Color.FromArgb(r, g, b);
-                    break;
-                }
+                        if (c.B + d < 255)
+                        {
+                            b = (byte)(c.B + d);
+                        }
+
+                        newColor = Color.FromArgb(r, g, b);
+                        break;
+                    }
             }
 
             return newColor;
@@ -222,9 +222,9 @@ namespace VisualPlus.Managers
             r2 = baseColor.R;
             g2 = baseColor.G;
             b2 = baseColor.B;
-            r3 = (int) ((r1 * ((float) opacity / 100)) + (r2 * (1 - ((float) opacity / 100))));
-            g3 = (int) ((g1 * ((float) opacity / 100)) + (g2 * (1 - ((float) opacity / 100))));
-            b3 = (int) ((b1 * ((float) opacity / 100)) + (b2 * (1 - ((float) opacity / 100))));
+            r3 = (int)((r1 * ((float)opacity / 100)) + (r2 * (1 - ((float)opacity / 100))));
+            g3 = (int)((g1 * ((float)opacity / 100)) + (g2 * (1 - ((float)opacity / 100))));
+            b3 = (int)((b1 * ((float)opacity / 100)) + (b2 * (1 - ((float)opacity / 100))));
             return CreateColorFromRGB(r3, g3, b3);
         }
 
@@ -237,15 +237,15 @@ namespace VisualPlus.Managers
         {
             double dbase;
             double dblend;
-            dbase = (double) ibase / 255;
-            dblend = (double) blend / 255;
+            dbase = (double)ibase / 255;
+            dblend = (double)blend / 255;
             if (dbase < 0.5)
             {
-                return (int) (2 * dbase * dblend * 255);
+                return (int)(2 * dbase * dblend * 255);
             }
             else
             {
-                return (int) ((1 - (2 * (1 - dbase) * (1 - dblend))) * 255);
+                return (int)((1 - (2 * (1 - dbase) * (1 - dblend))) * 255);
             }
         }
 
@@ -341,9 +341,9 @@ namespace VisualPlus.Managers
                 doubleAlpha = 1.0F + doubleAlpha;
             }
 
-            r = (byte) BlendColor(r, background, doubleAlpha);
-            g = (byte) BlendColor(g, background, doubleAlpha);
-            b = (byte) BlendColor(b, background, doubleAlpha);
+            r = (byte)BlendColor(r, background, doubleAlpha);
+            g = (byte)BlendColor(g, background, doubleAlpha);
+            b = (byte)BlendColor(b, background, doubleAlpha);
 
             return Color.FromArgb(a, r, g, b);
         }
@@ -359,15 +359,15 @@ namespace VisualPlus.Managers
         {
             float dbase;
             float dblend;
-            dbase = (float) ibase / 255;
-            dblend = (float) blend / 255;
+            dbase = (float)ibase / 255;
+            dblend = (float)blend / 255;
             if (dblend < 0.5)
             {
-                return (int) (((2 * dbase * dblend) + (Math.Pow(dbase, 2) * (1 - (2 * dblend)))) * 255);
+                return (int)(((2 * dbase * dblend) + (Math.Pow(dbase, 2) * (1 - (2 * dblend)))) * 255);
             }
             else
             {
-                return (int) (((Math.Sqrt(dbase) * ((2 * dblend) - 1)) + (2 * dbase * (1 - dblend))) * 255);
+                return (int)(((Math.Sqrt(dbase) * ((2 * dblend) - 1)) + (2 * dbase * (1 - dblend))) * 255);
             }
         }
 

@@ -1,24 +1,25 @@
-﻿#region Namespace
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Text;
-using System.Linq;
-using System.Windows.Forms;
-using VisualPlus.Enumerators;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Renders;
-using VisualPlus.Structure;
-using VisualPlus.Toolkit.Components;
-
-#endregion
-
-namespace VisualPlus.Toolkit.Controls.Navigation
+﻿namespace VisualPlus.Toolkit.Controls.Navigation
 {
+    #region Namespace
+
+    using System;
+    using System.Collections;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Drawing.Text;
+    using System.Linq;
+    using System.Windows.Forms;
+
+    using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Renders;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
+
+    #endregion
+
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(TabControl))]
     [DefaultEvent("SelectedIndexChanged")]
@@ -87,25 +88,25 @@ namespace VisualPlus.Toolkit.Controls.Navigation
 
             tabPageBorder = new Border();
 
-            float[] gradientPosition = {0, 1};
+            float[] gradientPosition = { 0, 1 };
 
             Color[] tabHover =
-            {
-                ControlPaint.Light(_styleManager.TabStyle.TabSelected),
-                _styleManager.TabStyle.TabSelected
-            };
+                {
+                    ControlPaint.Light(_styleManager.TabStyle.TabSelected),
+                    _styleManager.TabStyle.TabSelected
+                };
 
             Color[] tabNormal =
-            {
-                ControlPaint.Light(_styleManager.TabStyle.TabEnabled),
-                _styleManager.TabStyle.TabEnabled
-            };
+                {
+                    ControlPaint.Light(_styleManager.TabStyle.TabEnabled),
+                    _styleManager.TabStyle.TabEnabled
+                };
 
             Color[] tabSelected =
-            {
-                ControlPaint.Light(_styleManager.TabStyle.TabSelected),
-                _styleManager.TabStyle.TabSelected
-            };
+                {
+                    ControlPaint.Light(_styleManager.TabStyle.TabSelected),
+                    _styleManager.TabStyle.TabSelected
+                };
 
             normal.Colors = tabNormal;
             normal.Positions = gradientPosition;
@@ -131,7 +132,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Alignment)]
         public new TabAlignment Alignment
         {
-            get { return alignment; }
+            get
+            {
+                return alignment;
+            }
 
             set
             {
@@ -143,25 +147,25 @@ namespace VisualPlus.Toolkit.Controls.Navigation
                 {
                     case TabAlignment.Top:
                     case TabAlignment.Bottom:
-                    {
-                        if (itemSize.Width < itemSize.Height)
                         {
-                            ItemSize = new Size(itemSize.Height, itemSize.Width);
-                        }
+                            if (itemSize.Width < itemSize.Height)
+                            {
+                                ItemSize = new Size(itemSize.Height, itemSize.Width);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
 
                     case TabAlignment.Left:
                     case TabAlignment.Right:
-                    {
-                        if (itemSize.Width > itemSize.Height)
                         {
-                            ItemSize = new Size(itemSize.Height, itemSize.Width);
-                        }
+                            if (itemSize.Width > itemSize.Height)
+                            {
+                                ItemSize = new Size(itemSize.Height, itemSize.Width);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
                 }
 
                 UpdateArrowLocation();
@@ -173,7 +177,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Visible)]
         public bool ArrowSelectorVisible
         {
-            get { return arrowSelectorVisible; }
+            get
+            {
+                return arrowSelectorVisible;
+            }
 
             set
             {
@@ -186,7 +193,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Spacing)]
         public int ArrowSpacing
         {
-            get { return arrowSpacing; }
+            get
+            {
+                return arrowSpacing;
+            }
 
             set
             {
@@ -199,7 +209,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Size)]
         public int ArrowThickness
         {
-            get { return arrowThickness; }
+            get
+            {
+                return arrowThickness;
+            }
 
             set
             {
@@ -212,7 +225,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Color)]
         public Color BackgroundColor
         {
-            get { return backgroundColor; }
+            get
+            {
+                return backgroundColor;
+            }
 
             set
             {
@@ -231,7 +247,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Category(Propertys.Appearance)]
         public Gradient HoverGradient
         {
-            get { return hover; }
+            get
+            {
+                return hover;
+            }
 
             set
             {
@@ -244,7 +263,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Size)]
         public new Size ItemSize
         {
-            get { return itemSize; }
+            get
+            {
+                return itemSize;
+            }
 
             set
             {
@@ -257,7 +279,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Category(Propertys.Appearance)]
         public StringAlignment LineAlignment
         {
-            get { return lineAlignment; }
+            get
+            {
+                return lineAlignment;
+            }
 
             set
             {
@@ -271,7 +296,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Category(Propertys.Appearance)]
         public Gradient NormalGradient
         {
-            get { return normal; }
+            get
+            {
+                return normal;
+            }
 
             set
             {
@@ -285,7 +313,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Category(Propertys.Appearance)]
         public Gradient SelectedGradient
         {
-            get { return selected; }
+            get
+            {
+                return selected;
+            }
 
             set
             {
@@ -298,7 +329,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Alignment)]
         public TabAlignment SelectorAlignment
         {
-            get { return selectorAlignment; }
+            get
+            {
+                return selectorAlignment;
+            }
 
             set
             {
@@ -311,7 +345,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Alignment)]
         public TabAlignment SelectorAlignment2
         {
-            get { return selectorAlignment2; }
+            get
+            {
+                return selectorAlignment2;
+            }
 
             set
             {
@@ -324,7 +361,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Size)]
         public int SelectorThickness
         {
-            get { return selectorThickness; }
+            get
+            {
+                return selectorThickness;
+            }
 
             set
             {
@@ -337,7 +377,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Visible)]
         public bool SelectorVisible
         {
-            get { return selectorVisible; }
+            get
+            {
+                return selectorVisible;
+            }
 
             set
             {
@@ -350,7 +393,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Visible)]
         public bool SelectorVisible2
         {
-            get { return selectorVisible2; }
+            get
+            {
+                return selectorVisible2;
+            }
 
             set
             {
@@ -363,7 +409,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Color)]
         public Color Separator
         {
-            get { return separator; }
+            get
+            {
+                return separator;
+            }
 
             set
             {
@@ -376,7 +425,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Spacing)]
         public int SeparatorSpacing
         {
-            get { return separatorSpacing; }
+            get
+            {
+                return separatorSpacing;
+            }
 
             set
             {
@@ -389,7 +441,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Size)]
         public float SeparatorThickness
         {
-            get { return separatorThickness; }
+            get
+            {
+                return separatorThickness;
+            }
 
             set
             {
@@ -402,7 +457,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Category(Propertys.Behavior)]
         public bool SeparatorVisible
         {
-            get { return separatorVisible; }
+            get
+            {
+                return separatorVisible;
+            }
 
             set
             {
@@ -415,7 +473,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.MouseState)]
         public MouseStates State
         {
-            get { return mouseState; }
+            get
+            {
+                return mouseState;
+            }
 
             set
             {
@@ -428,7 +489,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Color)]
         public Color TabMenu
         {
-            get { return tabMenu; }
+            get
+            {
+                return tabMenu;
+            }
 
             set
             {
@@ -442,7 +506,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Category(Propertys.Appearance)]
         public Border TabPageBorder
         {
-            get { return tabPageBorder; }
+            get
+            {
+                return tabPageBorder;
+            }
 
             set
             {
@@ -455,7 +522,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Color)]
         public Color TabSelector
         {
-            get { return tabSelector; }
+            get
+            {
+                return tabSelector;
+            }
 
             set
             {
@@ -467,7 +537,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Category(Propertys.Appearance)]
         public StringAlignment TextAlignment
         {
-            get { return textAlignment; }
+            get
+            {
+                return textAlignment;
+            }
 
             set
             {
@@ -480,7 +553,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Color)]
         public Color TextNormal
         {
-            get { return textNormal; }
+            get
+            {
+                return textNormal;
+            }
 
             set
             {
@@ -493,7 +569,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
-            get { return textRendererHint; }
+            get
+            {
+                return textRendererHint;
+            }
 
             set
             {
@@ -506,7 +585,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
         [Description(Property.Color)]
         public Color TextSelected
         {
-            get { return textSelected; }
+            get
+            {
+                return textSelected;
+            }
 
             set
             {
@@ -553,14 +635,14 @@ namespace VisualPlus.Toolkit.Controls.Navigation
             }
         }
 
-        protected override void OnMouseEnter(System.EventArgs e)
+        protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
             State = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             State = MouseStates.Normal;
             if (TabPages.Cast<TabPage>().Any(Tab => Tab.DisplayRectangle.Contains(mouseLocation)))
@@ -602,7 +684,7 @@ namespace VisualPlus.Toolkit.Controls.Navigation
             {
                 ConfigureAlignmentStyle(tabIndex);
 
-                var gradientPoints = new[] {new Point {X = GetTabRect(tabIndex).Width, Y = 0}, new Point {X = GetTabRect(tabIndex).Width, Y = GetTabRect(tabIndex).Height}};
+                var gradientPoints = new[] { new Point { X = GetTabRect(tabIndex).Width, Y = 0 }, new Point { X = GetTabRect(tabIndex).Width, Y = GetTabRect(tabIndex).Height } };
 
                 LinearGradientBrush normalBrush = Gradient.CreateGradientBrush(normal.Colors, gradientPoints, normal.Angle, normal.Positions);
                 LinearGradientBrush hoverBrush = Gradient.CreateGradientBrush(hover.Colors, gradientPoints, hover.Angle, hover.Positions);
@@ -613,10 +695,10 @@ namespace VisualPlus.Toolkit.Controls.Navigation
                 Rectangle selectorRectangle2 = GDI.ApplyAnchor(SelectorAlignment2, GetTabRect(tabIndex), selectorThickness);
 
                 StringFormat stringFormat = new StringFormat
-                {
-                    Alignment = textAlignment,
-                    LineAlignment = lineAlignment
-                };
+                    {
+                        Alignment = textAlignment,
+                        LineAlignment = lineAlignment
+                    };
 
                 if (tabIndex == SelectedIndex)
                 {
@@ -740,56 +822,56 @@ namespace VisualPlus.Toolkit.Controls.Navigation
             switch (Alignment)
             {
                 case TabAlignment.Left:
-                {
-                    points[0].X = selectedRectangle.Right - ArrowThickness;
-                    points[0].Y = selectedRectangle.Y + (selectedRectangle.Height / 2);
+                    {
+                        points[0].X = selectedRectangle.Right - ArrowThickness;
+                        points[0].Y = selectedRectangle.Y + (selectedRectangle.Height / 2);
 
-                    points[1].X = selectedRectangle.Right + ArrowSpacing;
-                    points[1].Y = selectedRectangle.Top + ArrowSpacing;
+                        points[1].X = selectedRectangle.Right + ArrowSpacing;
+                        points[1].Y = selectedRectangle.Top + ArrowSpacing;
 
-                    points[2].X = selectedRectangle.Right + ArrowSpacing;
-                    points[2].Y = selectedRectangle.Bottom - ArrowSpacing;
-                    break;
-                }
+                        points[2].X = selectedRectangle.Right + ArrowSpacing;
+                        points[2].Y = selectedRectangle.Bottom - ArrowSpacing;
+                        break;
+                    }
 
                 case TabAlignment.Top:
-                {
-                    points[0].X = selectedRectangle.X + (selectedRectangle.Width / 2);
-                    points[0].Y = selectedRectangle.Bottom - ArrowThickness;
+                    {
+                        points[0].X = selectedRectangle.X + (selectedRectangle.Width / 2);
+                        points[0].Y = selectedRectangle.Bottom - ArrowThickness;
 
-                    points[1].X = selectedRectangle.Left + ArrowSpacing;
-                    points[1].Y = selectedRectangle.Bottom + ArrowSpacing;
+                        points[1].X = selectedRectangle.Left + ArrowSpacing;
+                        points[1].Y = selectedRectangle.Bottom + ArrowSpacing;
 
-                    points[2].X = selectedRectangle.Right - ArrowSpacing;
-                    points[2].Y = selectedRectangle.Bottom + ArrowSpacing;
-                    break;
-                }
+                        points[2].X = selectedRectangle.Right - ArrowSpacing;
+                        points[2].Y = selectedRectangle.Bottom + ArrowSpacing;
+                        break;
+                    }
 
                 case TabAlignment.Bottom:
-                {
-                    points[0].X = selectedRectangle.X + (selectedRectangle.Width / 2);
-                    points[0].Y = selectedRectangle.Top + ArrowThickness;
+                    {
+                        points[0].X = selectedRectangle.X + (selectedRectangle.Width / 2);
+                        points[0].Y = selectedRectangle.Top + ArrowThickness;
 
-                    points[1].X = selectedRectangle.Left + ArrowSpacing;
-                    points[1].Y = selectedRectangle.Top - ArrowSpacing;
+                        points[1].X = selectedRectangle.Left + ArrowSpacing;
+                        points[1].Y = selectedRectangle.Top - ArrowSpacing;
 
-                    points[2].X = selectedRectangle.Right - ArrowSpacing;
-                    points[2].Y = selectedRectangle.Top - ArrowSpacing;
-                    break;
-                }
+                        points[2].X = selectedRectangle.Right - ArrowSpacing;
+                        points[2].Y = selectedRectangle.Top - ArrowSpacing;
+                        break;
+                    }
 
                 case TabAlignment.Right:
-                {
-                    points[0].X = selectedRectangle.Left + ArrowThickness;
-                    points[0].Y = selectedRectangle.Y + (selectedRectangle.Height / 2);
+                    {
+                        points[0].X = selectedRectangle.Left + ArrowThickness;
+                        points[0].Y = selectedRectangle.Y + (selectedRectangle.Height / 2);
 
-                    points[1].X = selectedRectangle.Left - ArrowSpacing;
-                    points[1].Y = selectedRectangle.Top + ArrowSpacing;
+                        points[1].X = selectedRectangle.Left - ArrowSpacing;
+                        points[1].Y = selectedRectangle.Top + ArrowSpacing;
 
-                    points[2].X = selectedRectangle.Left - ArrowSpacing;
-                    points[2].Y = selectedRectangle.Bottom - ArrowSpacing;
-                    break;
-                }
+                        points[2].X = selectedRectangle.Left - ArrowSpacing;
+                        points[2].Y = selectedRectangle.Bottom - ArrowSpacing;
+                        break;
+                    }
             }
 
             e.Graphics.FillPolygon(new SolidBrush(backgroundColor), points);
@@ -806,33 +888,33 @@ namespace VisualPlus.Toolkit.Controls.Navigation
             switch (Alignment)
             {
                 case TabAlignment.Top:
-                {
-                    e.Graphics.DrawLine(new Pen(separator, separatorThickness), 0, ItemSize.Height + separatorSpacing, Width, ItemSize.Height + separatorSpacing);
-                    break;
-                }
+                    {
+                        e.Graphics.DrawLine(new Pen(separator, separatorThickness), 0, ItemSize.Height + separatorSpacing, Width, ItemSize.Height + separatorSpacing);
+                        break;
+                    }
 
                 case TabAlignment.Bottom:
-                {
-                    e.Graphics.DrawLine(new Pen(separator, separatorThickness), 0, Height - ItemSize.Height - separatorSpacing, Width, Height - ItemSize.Height - separatorSpacing);
-                    break;
-                }
+                    {
+                        e.Graphics.DrawLine(new Pen(separator, separatorThickness), 0, Height - ItemSize.Height - separatorSpacing, Width, Height - ItemSize.Height - separatorSpacing);
+                        break;
+                    }
 
                 case TabAlignment.Left:
-                {
-                    e.Graphics.DrawLine(new Pen(separator, separatorThickness), ItemSize.Height + separatorSpacing, 0, ItemSize.Height + separatorSpacing, Height);
-                    break;
-                }
+                    {
+                        e.Graphics.DrawLine(new Pen(separator, separatorThickness), ItemSize.Height + separatorSpacing, 0, ItemSize.Height + separatorSpacing, Height);
+                        break;
+                    }
 
                 case TabAlignment.Right:
-                {
-                    e.Graphics.DrawLine(new Pen(separator, separatorThickness), Width - ItemSize.Height - separatorSpacing, 0, Width - ItemSize.Height - separatorSpacing, Height);
-                    break;
-                }
+                    {
+                        e.Graphics.DrawLine(new Pen(separator, separatorThickness), Width - ItemSize.Height - separatorSpacing, 0, Width - ItemSize.Height - separatorSpacing, Height);
+                        break;
+                    }
 
                 default:
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
             }
         }
 
@@ -842,19 +924,19 @@ namespace VisualPlus.Toolkit.Controls.Navigation
             {
                 case TabAlignment.Top:
                 case TabAlignment.Bottom:
-                {
-                    arrowThickness = 5;
-                    arrowSpacing = 10;
-                    break;
-                }
+                    {
+                        arrowThickness = 5;
+                        arrowSpacing = 10;
+                        break;
+                    }
 
                 case TabAlignment.Left:
                 case TabAlignment.Right:
-                {
-                    arrowThickness = 10;
-                    arrowSpacing = 3;
-                    break;
-                }
+                    {
+                        arrowThickness = 10;
+                        arrowSpacing = 3;
+                        break;
+                    }
             }
         }
 

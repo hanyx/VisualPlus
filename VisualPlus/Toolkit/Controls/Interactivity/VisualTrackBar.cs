@@ -1,23 +1,24 @@
-﻿#region Namespace
-
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Text;
-using System.Windows.Forms;
-using VisualPlus.Enumerators;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Managers;
-using VisualPlus.Renders;
-using VisualPlus.Structure;
-using VisualPlus.Toolkit.Components;
-
-#endregion
-
-namespace VisualPlus.Toolkit.Controls.Interactivity
+﻿namespace VisualPlus.Toolkit.Controls.Interactivity
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Drawing.Text;
+    using System.Windows.Forms;
+
+    using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Managers;
+    using VisualPlus.Renders;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Components;
+
+    #endregion
+
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(TrackBar))]
     [DefaultEvent("ValueChanged")]
@@ -53,7 +54,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         private Color foreColor;
         private Point[] gradientPoints;
         private Color hatchForeColor = Color.FromArgb(40, hatchBackColor);
-        private float hatchSize = Settings.DefaultValue.HatchSize;
+        private float hatchSize = 2F;
         private HatchStyle hatchStyle = HatchStyle.DarkDownwardDiagonal;
         private bool hatchVisible = Settings.DefaultValue.HatchVisible;
         private int indentHeight;
@@ -133,7 +134,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Category(Propertys.Appearance)]
         public Gradient Background
         {
-            get { return backgroundGradient; }
+            get
+            {
+                return backgroundGradient;
+            }
 
             set
             {
@@ -146,7 +150,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Size)]
         public int BarThickness
         {
-            get { return barThickness; }
+            get
+            {
+                return barThickness;
+            }
 
             set
             {
@@ -159,7 +166,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Size)]
         public int BarTickSpacing
         {
-            get { return barTickSpacing; }
+            get
+            {
+                return barTickSpacing;
+            }
 
             set
             {
@@ -173,7 +183,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.AutoSize)]
         public bool ButtonAutoSize
         {
-            get { return buttonAutoSize; }
+            get
+            {
+                return buttonAutoSize;
+            }
 
             set
             {
@@ -187,7 +200,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Category(Propertys.Appearance)]
         public Border ButtonBorder
         {
-            get { return buttonBorder; }
+            get
+            {
+                return buttonBorder;
+            }
 
             set
             {
@@ -201,7 +217,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Category(Propertys.Appearance)]
         public Gradient ButtonGradient
         {
-            get { return buttonGradient; }
+            get
+            {
+                return buttonGradient;
+            }
 
             set
             {
@@ -214,7 +233,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Size)]
         public Size ButtonSize
         {
-            get { return buttonSize; }
+            get
+            {
+                return buttonSize;
+            }
 
             set
             {
@@ -227,7 +249,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Color)]
         public Color ButtonTextColor
         {
-            get { return buttonTextColor; }
+            get
+            {
+                return buttonTextColor;
+            }
 
             set
             {
@@ -241,7 +266,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Visible)]
         public bool ButtonVisible
         {
-            get { return buttonVisible; }
+            get
+            {
+                return buttonVisible;
+            }
 
             set
             {
@@ -255,7 +283,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Category(Propertys.Appearance)]
         public Gradient Disabled
         {
-            get { return trackBarDisabledGradient; }
+            get
+            {
+                return trackBarDisabledGradient;
+            }
 
             set
             {
@@ -268,7 +299,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description("Experiemental: Filling Value.")]
         public int FillingValue
         {
-            get { return fillingValue; }
+            get
+            {
+                return fillingValue;
+            }
 
             set
             {
@@ -279,7 +313,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         public new Font Font
         {
-            get { return textFont; }
+            get
+            {
+                return textFont;
+            }
 
             set
             {
@@ -291,7 +328,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         public new Color ForeColor
         {
-            get { return foreColor; }
+            get
+            {
+                return foreColor;
+            }
 
             set
             {
@@ -305,7 +345,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Color)]
         public Color HatchBackColor
         {
-            get { return hatchBackColor; }
+            get
+            {
+                return hatchBackColor;
+            }
 
             set
             {
@@ -318,7 +361,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Color)]
         public Color HatchForeColor
         {
-            get { return hatchForeColor; }
+            get
+            {
+                return hatchForeColor;
+            }
 
             set
             {
@@ -328,11 +374,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         }
 
         [Category(Propertys.Layout)]
-        [DefaultValue(Settings.DefaultValue.HatchSize)]
+      //  [DefaultValue(Settings.DefaultValue.HatchSize)]
         [Description(Property.Size)]
         public float HatchSize
         {
-            get { return hatchSize; }
+            get
+            {
+                return hatchSize;
+            }
 
             set
             {
@@ -345,7 +394,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Type)]
         public HatchStyle HatchStyle
         {
-            get { return hatchStyle; }
+            get
+            {
+                return hatchStyle;
+            }
 
             set
             {
@@ -359,7 +411,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Visible)]
         public bool HatchVisible
         {
-            get { return hatchVisible; }
+            get
+            {
+                return hatchVisible;
+            }
 
             set
             {
@@ -372,7 +427,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Size)]
         public int IndentHeight
         {
-            get { return indentHeight; }
+            get
+            {
+                return indentHeight;
+            }
 
             set
             {
@@ -385,7 +443,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Size)]
         public int IndentWidth
         {
-            get { return indentWidth; }
+            get
+            {
+                return indentWidth;
+            }
 
             set
             {
@@ -399,7 +460,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Visible)]
         public bool LineTicksVisible
         {
-            get { return lineTicksVisible; }
+            get
+            {
+                return lineTicksVisible;
+            }
 
             set
             {
@@ -412,7 +476,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Orientation)]
         public new Orientation Orientation
         {
-            get { return orientation; }
+            get
+            {
+                return orientation;
+            }
 
             set
             {
@@ -426,7 +493,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Visible)]
         public string Prefix
         {
-            get { return prefix; }
+            get
+            {
+                return prefix;
+            }
 
             set
             {
@@ -440,7 +510,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Category(Propertys.Appearance)]
         public Gradient Progress
         {
-            get { return progressGradient; }
+            get
+            {
+                return progressGradient;
+            }
 
             set
             {
@@ -453,7 +526,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Visible)]
         public bool ProgressFilling
         {
-            get { return progressFilling; }
+            get
+            {
+                return progressFilling;
+            }
 
             set
             {
@@ -467,7 +543,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Visible)]
         public bool ProgressValueVisible
         {
-            get { return progressValueVisible; }
+            get
+            {
+                return progressValueVisible;
+            }
 
             set
             {
@@ -481,7 +560,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Visible)]
         public bool ProgressVisible
         {
-            get { return progressVisible; }
+            get
+            {
+                return progressVisible;
+            }
 
             set
             {
@@ -494,7 +576,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.MouseState)]
         public MouseStates State
         {
-            get { return mouseState; }
+            get
+            {
+                return mouseState;
+            }
 
             set
             {
@@ -507,7 +592,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Visible)]
         public string Suffix
         {
-            get { return suffix; }
+            get
+            {
+                return suffix;
+            }
 
             set
             {
@@ -520,7 +608,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Color)]
         public Color TextDisabledColor
         {
-            get { return textDisabledColor; }
+            get
+            {
+                return textDisabledColor;
+            }
 
             set
             {
@@ -533,7 +624,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
-            get { return textRendererHint; }
+            get
+            {
+                return textRendererHint;
+            }
 
             set
             {
@@ -546,7 +640,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Color)]
         public Color TickColor
         {
-            get { return tickColor; }
+            get
+            {
+                return tickColor;
+            }
 
             set
             {
@@ -559,7 +656,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Size)]
         public int TickHeight
         {
-            get { return tickHeight; }
+            get
+            {
+                return tickHeight;
+            }
 
             set
             {
@@ -573,7 +673,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Category(Propertys.Appearance)]
         public Border TrackBar
         {
-            get { return trackBarBorder; }
+            get
+            {
+                return trackBarBorder;
+            }
 
             set
             {
@@ -586,7 +689,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.ValueDivisor)]
         public ValueDivisor ValueDivision
         {
-            get { return dividedValue; }
+            get
+            {
+                return dividedValue;
+            }
 
             set
             {
@@ -600,7 +706,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         [Description(Property.Visible)]
         public bool ValueTicksVisible
         {
-            get { return valueTicksVisible; }
+            get
+            {
+                return valueTicksVisible;
+            }
 
             set
             {
@@ -637,7 +746,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         /// <returns>Formatted progress value.</returns>
         public string GetFormattedProgressValue()
         {
-            var value = (float) (Value / (double) dividedValue);
+            var value = (float)(Value / (double)dividedValue);
             string formattedString = $"{Prefix}{value}{Suffix}";
 
             return formattedString;
@@ -690,7 +799,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             Invalidate();
         }
 
-        public void UpdateTheme(Enumerators.Styles style)
+        public void UpdateTheme(Styles style)
         {
             VisualStyleManager _styleManager = new VisualStyleManager(style);
 
@@ -708,7 +817,6 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             buttonGradient = _styleManager.ControlStatesStyle.ControlEnabled;
             hatchBackColor = _styleManager.ProgressStyle.Hatch;
             tickColor = _styleManager.ControlStyle.Line;
-
 
             buttonBorder.Color = _styleManager.BorderStyle.Color;
             buttonBorder.HoverColor = _styleManager.BorderStyle.HoverColor;
@@ -733,18 +841,18 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                     switch (orientation)
                     {
                         case Orientation.Horizontal:
-                        {
-                            mouseStartPos = currentPoint.X - trackerRectangle.X;
-                            Invalidate();
-                            break;
-                        }
+                            {
+                                mouseStartPos = currentPoint.X - trackerRectangle.X;
+                                Invalidate();
+                                break;
+                            }
 
                         case Orientation.Vertical:
-                        {
-                            mouseStartPos = currentPoint.Y - trackerRectangle.Y;
-                            Invalidate();
-                            break;
-                        }
+                            {
+                                mouseStartPos = currentPoint.Y - trackerRectangle.Y;
+                                Invalidate();
+                                break;
+                            }
                     }
                 }
             }
@@ -753,40 +861,40 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 switch (orientation)
                 {
                     case Orientation.Horizontal:
-                    {
-                        if ((currentPoint.X + buttonSize.Width) / 2 >= Width - indentWidth)
                         {
-                            offsetValue = Maximum - Minimum;
-                        }
-                        else if ((currentPoint.X - buttonSize.Width) / 2 <= indentWidth)
-                        {
-                            offsetValue = 0;
-                        }
-                        else
-                        {
-                            offsetValue = (int) (((((currentPoint.X - indentWidth - buttonSize.Width) / 2) * (Maximum - Minimum)) / (Width - (2 * indentWidth) - buttonSize.Width)) + 0.5);
-                        }
+                            if ((currentPoint.X + buttonSize.Width) / 2 >= Width - indentWidth)
+                            {
+                                offsetValue = Maximum - Minimum;
+                            }
+                            else if ((currentPoint.X - buttonSize.Width) / 2 <= indentWidth)
+                            {
+                                offsetValue = 0;
+                            }
+                            else
+                            {
+                                offsetValue = (int)(((((currentPoint.X - indentWidth - buttonSize.Width) / 2) * (Maximum - Minimum)) / (Width - (2 * indentWidth) - buttonSize.Width)) + 0.5);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
 
                     case Orientation.Vertical:
-                    {
-                        if ((currentPoint.Y + buttonSize.Width) / 2 >= Height - indentHeight)
                         {
-                            offsetValue = 0;
-                        }
-                        else if ((currentPoint.Y - buttonSize.Width) / 2 <= indentHeight)
-                        {
-                            offsetValue = Maximum - Minimum;
-                        }
-                        else
-                        {
-                            offsetValue = (int) (((((Height - currentPoint.Y - indentHeight - buttonSize.Width) / 2) * (Maximum - Minimum)) / (Height - (2 * indentHeight) - buttonSize.Width)) + 0.5);
-                        }
+                            if ((currentPoint.Y + buttonSize.Width) / 2 >= Height - indentHeight)
+                            {
+                                offsetValue = 0;
+                            }
+                            else if ((currentPoint.Y - buttonSize.Width) / 2 <= indentHeight)
+                            {
+                                offsetValue = Maximum - Minimum;
+                            }
+                            else
+                            {
+                                offsetValue = (int)(((((Height - currentPoint.Y - indentHeight - buttonSize.Width) / 2) * (Maximum - Minimum)) / (Height - (2 * indentHeight) - buttonSize.Width)) + 0.5);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
                 }
 
                 int oldValue = Value;
@@ -802,21 +910,21 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        protected override void OnMouseEnter(System.EventArgs e)
+        protected override void OnMouseEnter(EventArgs e)
         {
             OnEnter(e);
             State = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseHover(System.EventArgs e)
+        protected override void OnMouseHover(EventArgs e)
         {
             base.OnMouseHover(e);
             Cursor = orientation == Orientation.Vertical ? Cursors.SizeNS : Cursors.SizeWE;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             OnLeave(e);
             State = MouseStates.Normal;
@@ -836,40 +944,40 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                     switch (orientation)
                     {
                         case Orientation.Horizontal:
-                        {
-                            if ((currentPoint.X + buttonSize.Width) - mouseStartPos >= Width - indentWidth)
                             {
-                                offsetValue = Maximum - Minimum;
-                            }
-                            else if (currentPoint.X - mouseStartPos <= indentWidth)
-                            {
-                                offsetValue = 0;
-                            }
-                            else
-                            {
-                                offsetValue = (int) ((((currentPoint.X - mouseStartPos - indentWidth) * (Maximum - Minimum)) / (Width - (2 * indentWidth) - buttonSize.Width)) + 0.5);
-                            }
+                                if ((currentPoint.X + buttonSize.Width) - mouseStartPos >= Width - indentWidth)
+                                {
+                                    offsetValue = Maximum - Minimum;
+                                }
+                                else if (currentPoint.X - mouseStartPos <= indentWidth)
+                                {
+                                    offsetValue = 0;
+                                }
+                                else
+                                {
+                                    offsetValue = (int)((((currentPoint.X - mouseStartPos - indentWidth) * (Maximum - Minimum)) / (Width - (2 * indentWidth) - buttonSize.Width)) + 0.5);
+                                }
 
-                            break;
-                        }
+                                break;
+                            }
 
                         case Orientation.Vertical:
-                        {
-                            if ((currentPoint.Y + buttonSize.Height) / 2 >= Height - indentHeight)
                             {
-                                offsetValue = 0;
-                            }
-                            else if ((currentPoint.Y + buttonSize.Height) / 2 <= indentHeight)
-                            {
-                                offsetValue = Maximum - Minimum;
-                            }
-                            else
-                            {
-                                offsetValue = (int) (((((((Height - currentPoint.Y) + buttonSize.Height) / 2) - mouseStartPos - indentHeight) * (Maximum - Minimum)) / (Height - (2 * indentHeight))) + 0.5);
-                            }
+                                if ((currentPoint.Y + buttonSize.Height) / 2 >= Height - indentHeight)
+                                {
+                                    offsetValue = 0;
+                                }
+                                else if ((currentPoint.Y + buttonSize.Height) / 2 <= indentHeight)
+                                {
+                                    offsetValue = Maximum - Minimum;
+                                }
+                                else
+                                {
+                                    offsetValue = (int)(((((((Height - currentPoint.Y) + buttonSize.Height) / 2) - mouseStartPos - indentHeight) * (Maximum - Minimum)) / (Height - (2 * indentHeight))) + 0.5);
+                                }
 
-                            break;
-                        }
+                                break;
+                            }
                     }
                 }
                 catch (Exception)
@@ -945,16 +1053,16 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                     switch (Orientation)
                     {
                         case Orientation.Horizontal:
-                        {
-                            progressValueLocation = new Point(trackerRectangle.X, (trackBarRectangle.Y + (trackBarRectangle.Height / 2)) - (formattedProgressValue.Height / 2));
-                            break;
-                        }
+                            {
+                                progressValueLocation = new Point(trackerRectangle.X, (trackBarRectangle.Y + (trackBarRectangle.Height / 2)) - (formattedProgressValue.Height / 2));
+                                break;
+                            }
 
                         case Orientation.Vertical:
-                        {
-                            progressValueLocation = new Point(trackBarRectangle.X, trackerRectangle.Y);
-                            break;
-                        }
+                            {
+                                progressValueLocation = new Point(trackBarRectangle.X, trackerRectangle.Y);
+                                break;
+                            }
                     }
                 }
 
@@ -963,18 +1071,18 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        protected override void OnResize(System.EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
             Invalidate();
         }
 
-        protected override void OnScroll(System.EventArgs e)
+        protected override void OnScroll(EventArgs e)
         {
             base.OnScroll(e);
             Invalidate();
         }
 
-        protected override void OnValueChanged(System.EventArgs e)
+        protected override void OnValueChanged(EventArgs e)
         {
             Invalidate();
         }
@@ -999,47 +1107,47 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 {
                     case Keys.Left:
                     case Keys.Down:
-                    {
-                        Decrement(SmallChange);
-                        break;
-                    }
+                        {
+                            Decrement(SmallChange);
+                            break;
+                        }
 
                     case Keys.Right:
                     case Keys.Up:
-                    {
-                        Increment(SmallChange);
-                        break;
-                    }
+                        {
+                            Increment(SmallChange);
+                            break;
+                        }
 
                     case Keys.PageUp:
-                    {
-                        Increment(LargeChange);
-                        break;
-                    }
+                        {
+                            Increment(LargeChange);
+                            break;
+                        }
 
                     case Keys.PageDown:
-                    {
-                        Decrement(LargeChange);
-                        break;
-                    }
+                        {
+                            Decrement(LargeChange);
+                            break;
+                        }
 
                     case Keys.Home:
-                    {
-                        Value = Maximum;
-                        break;
-                    }
+                        {
+                            Value = Maximum;
+                            break;
+                        }
 
                     case Keys.End:
-                    {
-                        Value = Minimum;
-                        break;
-                    }
+                        {
+                            Value = Minimum;
+                            break;
+                        }
 
                     default:
-                    {
-                        result = base.ProcessCmdKey(ref msg, keyData);
-                        break;
-                    }
+                        {
+                            result = base.ProcessCmdKey(ref msg, keyData);
+                            break;
+                        }
                 }
             }
 
@@ -1063,7 +1171,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             // Draw tick by orientation
             if (orientation == Orientation.Horizontal)
             {
-                gradientPoints = new[] {new Point {X = ClientRectangle.Width, Y = 0}, new Point {X = ClientRectangle.Width, Y = ClientRectangle.Width}};
+                gradientPoints = new[] { new Point { X = ClientRectangle.Width, Y = 0 }, new Point { X = ClientRectangle.Width, Y = ClientRectangle.Width } };
 
                 // Start location
                 currentUsedPos = indentHeight;
@@ -1084,62 +1192,62 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 switch (TickStyle)
                 {
                     case TickStyle.TopLeft:
-                    {
-                        if (buttonVisible)
                         {
-                            trackBarLocation = new Point(0, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing);
-                            Size = new Size(ClientRectangle.Width, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing + barThickness + (buttonSize.Height / 2));
-                        }
-                        else
-                        {
-                            trackBarLocation = new Point(0, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing);
-                            Size = new Size(ClientRectangle.Width, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing + barThickness);
-                        }
+                            if (buttonVisible)
+                            {
+                                trackBarLocation = new Point(0, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing);
+                                Size = new Size(ClientRectangle.Width, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing + barThickness + (buttonSize.Height / 2));
+                            }
+                            else
+                            {
+                                trackBarLocation = new Point(0, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing);
+                                Size = new Size(ClientRectangle.Width, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing + barThickness);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
 
                     case TickStyle.BottomRight:
-                    {
-                        if (buttonVisible)
                         {
-                            trackBarLocation = new Point(0, indentHeight + (buttonSize.Height / 2));
-                            Size = new Size(ClientRectangle.Width, indentHeight + barThickness + barTickSpacing + tickHeight + textAreaSize.Height + (textAreaSize.Height / 2));
-                        }
-                        else
-                        {
-                            trackBarLocation = new Point(0, indentHeight);
-                            Size = new Size(ClientRectangle.Width, indentHeight + barThickness + barTickSpacing + tickHeight + textAreaSize.Height);
-                        }
+                            if (buttonVisible)
+                            {
+                                trackBarLocation = new Point(0, indentHeight + (buttonSize.Height / 2));
+                                Size = new Size(ClientRectangle.Width, indentHeight + barThickness + barTickSpacing + tickHeight + textAreaSize.Height + (textAreaSize.Height / 2));
+                            }
+                            else
+                            {
+                                trackBarLocation = new Point(0, indentHeight);
+                                Size = new Size(ClientRectangle.Width, indentHeight + barThickness + barTickSpacing + tickHeight + textAreaSize.Height);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
 
                     case TickStyle.None:
-                    {
-                        if (buttonVisible)
                         {
-                            trackBarLocation = new Point(0, indentHeight + (buttonSize.Height / 2));
-                            Size = new Size(ClientRectangle.Width, indentHeight + barThickness + buttonSize.Height);
-                        }
-                        else
-                        {
-                            trackBarLocation = new Point(0, indentHeight);
-                            Size = new Size(ClientRectangle.Width, indentHeight + barThickness);
-                        }
+                            if (buttonVisible)
+                            {
+                                trackBarLocation = new Point(0, indentHeight + (buttonSize.Height / 2));
+                                Size = new Size(ClientRectangle.Width, indentHeight + barThickness + buttonSize.Height);
+                            }
+                            else
+                            {
+                                trackBarLocation = new Point(0, indentHeight);
+                                Size = new Size(ClientRectangle.Width, indentHeight + barThickness);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
 
                     case TickStyle.Both:
-                    {
-                        int totalHeight = indentHeight + textAreaSize.Height + tickHeight + barTickSpacing + barThickness + barTickSpacing + tickHeight + textAreaSize.Height + (textAreaSize.Height / 2);
+                        {
+                            int totalHeight = indentHeight + textAreaSize.Height + tickHeight + barTickSpacing + barThickness + barTickSpacing + tickHeight + textAreaSize.Height + (textAreaSize.Height / 2);
 
-                        trackBarLocation = new Point(0, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing);
-                        Size = new Size(ClientRectangle.Width, totalHeight);
+                            trackBarLocation = new Point(0, indentHeight + textAreaSize.Height + tickHeight + barTickSpacing);
+                            Size = new Size(ClientRectangle.Width, totalHeight);
 
-                        break;
-                    }
+                            break;
+                        }
                 }
 
                 trackBarSize = new Size(workingRectangle.Width, barThickness);
@@ -1173,7 +1281,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
             else
             {
-                gradientPoints = new[] {new Point {X = ClientRectangle.Width, Y = 0}, new Point {X = ClientRectangle.Width, Y = ClientRectangle.Height}};
+                gradientPoints = new[] { new Point { X = ClientRectangle.Width, Y = 0 }, new Point { X = ClientRectangle.Width, Y = ClientRectangle.Height } };
 
                 // Start location
                 currentUsedPos = indentWidth;
@@ -1194,62 +1302,62 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 switch (TickStyle)
                 {
                     case TickStyle.TopLeft:
-                    {
-                        if (buttonVisible)
                         {
-                            trackBarLocation = new Point(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing, 0);
-                            Size = new Size(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing + barThickness + (buttonSize.Width / 2), ClientRectangle.Height);
-                        }
-                        else
-                        {
-                            trackBarLocation = new Point(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing, 0);
-                            Size = new Size(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing + barThickness, ClientRectangle.Height);
-                        }
+                            if (buttonVisible)
+                            {
+                                trackBarLocation = new Point(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing, 0);
+                                Size = new Size(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing + barThickness + (buttonSize.Width / 2), ClientRectangle.Height);
+                            }
+                            else
+                            {
+                                trackBarLocation = new Point(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing, 0);
+                                Size = new Size(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing + barThickness, ClientRectangle.Height);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
 
                     case TickStyle.BottomRight:
-                    {
-                        if (buttonVisible)
                         {
-                            trackBarLocation = new Point(indentWidth + (buttonSize.Width / 2), 0);
-                            Size = new Size(indentWidth + barThickness + barTickSpacing + tickHeight + textAreaSize.Width + (buttonSize.Width / 2), ClientRectangle.Height);
-                        }
-                        else
-                        {
-                            trackBarLocation = new Point(0, indentWidth);
-                            Size = new Size(indentWidth + barThickness + barTickSpacing + tickHeight + textAreaSize.Width, ClientRectangle.Height);
-                        }
+                            if (buttonVisible)
+                            {
+                                trackBarLocation = new Point(indentWidth + (buttonSize.Width / 2), 0);
+                                Size = new Size(indentWidth + barThickness + barTickSpacing + tickHeight + textAreaSize.Width + (buttonSize.Width / 2), ClientRectangle.Height);
+                            }
+                            else
+                            {
+                                trackBarLocation = new Point(0, indentWidth);
+                                Size = new Size(indentWidth + barThickness + barTickSpacing + tickHeight + textAreaSize.Width, ClientRectangle.Height);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
 
                     case TickStyle.None:
-                    {
-                        if (buttonVisible)
                         {
-                            trackBarLocation = new Point(indentWidth + (buttonSize.Width / 2), indentHeight);
-                            Size = new Size(indentWidth + barThickness + buttonSize.Width, ClientRectangle.Height);
-                        }
-                        else
-                        {
-                            trackBarLocation = new Point(indentWidth, indentHeight);
-                            Size = new Size(indentWidth + barThickness, ClientRectangle.Height);
-                        }
+                            if (buttonVisible)
+                            {
+                                trackBarLocation = new Point(indentWidth + (buttonSize.Width / 2), indentHeight);
+                                Size = new Size(indentWidth + barThickness + buttonSize.Width, ClientRectangle.Height);
+                            }
+                            else
+                            {
+                                trackBarLocation = new Point(indentWidth, indentHeight);
+                                Size = new Size(indentWidth + barThickness, ClientRectangle.Height);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
 
                     case TickStyle.Both:
-                    {
-                        int totalWidth = indentWidth + textAreaSize.Width + tickHeight + barTickSpacing + barThickness + barTickSpacing + tickHeight + textAreaSize.Width;
+                        {
+                            int totalWidth = indentWidth + textAreaSize.Width + tickHeight + barTickSpacing + barThickness + barTickSpacing + tickHeight + textAreaSize.Width;
 
-                        trackBarLocation = new Point(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing, 0);
-                        Size = new Size(totalWidth, ClientRectangle.Height);
+                            trackBarLocation = new Point(indentWidth + textAreaSize.Width + tickHeight + barTickSpacing, 0);
+                            Size = new Size(totalWidth, ClientRectangle.Height);
 
-                        break;
-                    }
+                            break;
+                        }
                 }
 
                 trackBarSize = new Size(barThickness, ClientRectangle.Height - indentHeight);
@@ -1326,36 +1434,36 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             switch (Orientation)
             {
                 case Orientation.Horizontal:
-                {
-                    buttonLocation = new Point(trackerRectangle.X, (trackBarRectangle.Top + (barThickness / 2)) - (buttonSize.Height / 2));
-
-                    if (buttonAutoSize)
                     {
-                        buttonSize = new Size(progressValue.Width, buttonSize.Height);
-                    }
-                    else
-                    {
-                        buttonSize = new Size(buttonSize.Width, buttonSize.Height);
-                    }
+                        buttonLocation = new Point(trackerRectangle.X, (trackBarRectangle.Top + (barThickness / 2)) - (buttonSize.Height / 2));
 
-                    break;
-                }
+                        if (buttonAutoSize)
+                        {
+                            buttonSize = new Size(progressValue.Width, buttonSize.Height);
+                        }
+                        else
+                        {
+                            buttonSize = new Size(buttonSize.Width, buttonSize.Height);
+                        }
+
+                        break;
+                    }
 
                 case Orientation.Vertical:
-                {
-                    buttonLocation = new Point((trackBarRectangle.Left + (barThickness / 2)) - (buttonSize.Width / 2), trackerRectangle.Y);
-
-                    if (buttonAutoSize)
                     {
-                        buttonSize = new Size(buttonSize.Width, progressValue.Height);
-                    }
-                    else
-                    {
-                        buttonSize = new Size(buttonSize.Width, buttonSize.Height);
-                    }
+                        buttonLocation = new Point((trackBarRectangle.Left + (barThickness / 2)) - (buttonSize.Width / 2), trackerRectangle.Y);
 
-                    break;
-                }
+                        if (buttonAutoSize)
+                        {
+                            buttonSize = new Size(buttonSize.Width, progressValue.Height);
+                        }
+                        else
+                        {
+                            buttonSize = new Size(buttonSize.Width, buttonSize.Height);
+                        }
+
+                        break;
+                    }
             }
 
             buttonRectangle = new Rectangle(buttonLocation, buttonSize);
@@ -1385,49 +1493,49 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             switch (Orientation)
             {
                 case Orientation.Horizontal:
-                {
-                    // Draws the progress to the middle of the button
-                    barProgress = buttonRectangle.X + (buttonRectangle.Width / 2);
-
-                    progressLocation = new Point(0, 0);
-                    progressSize = new Size(barProgress, Height);
-
-                    if ((Value == Minimum) && progressFilling)
                     {
-                        progressLocation = new Point(barProgress, Height);
-                    }
+                        // Draws the progress to the middle of the button
+                        barProgress = buttonRectangle.X + (buttonRectangle.Width / 2);
 
-                    if ((Value == Maximum) && progressFilling)
-                    {
-                        progressSize = new Size(barProgress + fillingValue, Height);
-                    }
+                        progressLocation = new Point(0, 0);
+                        progressSize = new Size(barProgress, Height);
 
-                    progressRectangle = new Rectangle(progressLocation, progressSize);
-                    progressPath = VisualBorderRenderer.GetBorderShape(progressRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
-                }
+                        if ((Value == Minimum) && progressFilling)
+                        {
+                            progressLocation = new Point(barProgress, Height);
+                        }
+
+                        if ((Value == Maximum) && progressFilling)
+                        {
+                            progressSize = new Size(barProgress + fillingValue, Height);
+                        }
+
+                        progressRectangle = new Rectangle(progressLocation, progressSize);
+                        progressPath = VisualBorderRenderer.GetBorderShape(progressRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
+                    }
 
                     break;
                 case Orientation.Vertical:
-                {
-                    // Draws the progress to the middle of the button
-                    barProgress = buttonRectangle.Y + (buttonRectangle.Height / 2);
-
-                    progressLocation = new Point(0, barProgress);
-
-                    if ((Value == Minimum) && progressFilling)
                     {
-                        progressLocation = new Point(0, barProgress + fillingValue);
-                    }
+                        // Draws the progress to the middle of the button
+                        barProgress = buttonRectangle.Y + (buttonRectangle.Height / 2);
 
-                    if ((Value == Maximum) && progressFilling)
-                    {
-                        progressLocation = new Point(0, barProgress - fillingValue);
-                    }
+                        progressLocation = new Point(0, barProgress);
 
-                    progressSize = new Size(Width, Height + textAreaSize.Height);
-                    progressRectangle = new Rectangle(progressLocation, progressSize);
-                    progressPath = VisualBorderRenderer.GetBorderShape(progressRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
-                }
+                        if ((Value == Minimum) && progressFilling)
+                        {
+                            progressLocation = new Point(0, barProgress + fillingValue);
+                        }
+
+                        if ((Value == Maximum) && progressFilling)
+                        {
+                            progressLocation = new Point(0, barProgress - fillingValue);
+                        }
+
+                        progressSize = new Size(Width, Height + textAreaSize.Height);
+                        progressRectangle = new Rectangle(progressLocation, progressSize);
+                        progressPath = VisualBorderRenderer.GetBorderShape(progressRectangle, trackBarBorder.Type, trackBarBorder.Rounding);
+                    }
 
                     break;
             }

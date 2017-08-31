@@ -1,15 +1,16 @@
-﻿#region Namespace
-
-using System;
-using System.ComponentModel;
-using System.Runtime.InteropServices;
-using VisualPlus.Enumerators;
-using VisualPlus.Localization.Category;
-
-#endregion
-
-namespace VisualPlus.Toolkit.VisualBase
+﻿namespace VisualPlus.Toolkit.VisualBase
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Runtime.InteropServices;
+
+    using VisualPlus.Enumerators;
+    using VisualPlus.Localization.Category;
+
+    #endregion
+
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
@@ -28,6 +29,8 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Constructors
 
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="ProgressBase" /> class.</summary>
         protected ProgressBase()
         {
             _value = 0;
@@ -50,7 +53,10 @@ namespace VisualPlus.Toolkit.VisualBase
         [Description("Gets or sets a value to be added to or subtracted from the Value property when the scroll box is moved a large distance.")]
         public int LargeChange
         {
-            get { return _largeChange; }
+            get
+            {
+                return _largeChange;
+            }
 
             set
             {
@@ -68,7 +74,10 @@ namespace VisualPlus.Toolkit.VisualBase
         [Description("The upper bound of the range this ProgressBar is working on.")]
         public int Maximum
         {
-            get { return _maximum; }
+            get
+            {
+                return _maximum;
+            }
 
             set
             {
@@ -89,7 +98,10 @@ namespace VisualPlus.Toolkit.VisualBase
         [Description("The lower bound of the range this ProgressBar is working on.")]
         public int Minimum
         {
-            get { return _minimum; }
+            get
+            {
+                return _minimum;
+            }
 
             set
             {
@@ -110,7 +122,10 @@ namespace VisualPlus.Toolkit.VisualBase
         [Description("Gets or sets the value added to or subtracted from the Value property when the scroll box is moved a small distance.")]
         public int SmallChange
         {
-            get { return _smallChange; }
+            get
+            {
+                return _smallChange;
+            }
 
             set
             {
@@ -128,7 +143,10 @@ namespace VisualPlus.Toolkit.VisualBase
         [Description("The current value for the ProgressBar, in the range specified by the minimum and maximum properties.")]
         public int Value
         {
-            get { return _value; }
+            get
+            {
+                return _value;
+            }
 
             set
             {
@@ -140,7 +158,7 @@ namespace VisualPlus.Toolkit.VisualBase
                     }
 
                     _value = value;
-                    OnValueChanged(System.EventArgs.Empty);
+                    OnValueChanged(EventArgs.Empty);
                 }
             }
         }
@@ -217,26 +235,26 @@ namespace VisualPlus.Toolkit.VisualBase
 
                 if (beforeValue != _value)
                 {
-                    OnValueChanged(System.EventArgs.Empty);
+                    OnValueChanged(EventArgs.Empty);
                 }
             }
         }
 
-        protected override void OnMouseEnter(System.EventArgs e)
+        protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
             MouseState = MouseStates.Hover;
             Invalidate();
         }
 
-        protected override void OnMouseLeave(System.EventArgs e)
+        protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
             MouseState = MouseStates.Normal;
             Invalidate();
         }
 
-        protected virtual void OnValueChanged(System.EventArgs e)
+        protected virtual void OnValueChanged(EventArgs e)
         {
             ValueChanged?.Invoke(this, e);
         }

@@ -1,11 +1,11 @@
-﻿#region Namespace
-
-using System;
-
-#endregion
-
-namespace VisualPlus.Managers
+﻿namespace VisualPlus.Managers
 {
+    #region Namespace
+
+    using System;
+
+    #endregion
+
     internal class ExceptionManager
     {
         #region Events
@@ -26,7 +26,7 @@ namespace VisualPlus.Managers
             {
                 if (round)
                 {
-                    return MathManager.FindClosestValue(sourceValue, new[] {minimumValue, maximumValue});
+                    return MathManager.FindClosestValue(sourceValue, new[] { minimumValue, maximumValue });
                 }
                 else
                 {

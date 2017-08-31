@@ -1,67 +1,64 @@
-﻿#region Namespace
-
-using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Text;
-using VisualPlus.Enumerators;
-using VisualPlus.Extensibility;
-using VisualPlus.Structure;
-
-#endregion
-
-namespace VisualPlus.Renders
+﻿namespace VisualPlus.Renders
 {
+    #region Namespace
+
+    using System;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+
+    using VisualPlus.Enumerators;
+    using VisualPlus.Extensibility;
+    using VisualPlus.Structure;
+
+    #endregion
+
     public sealed class VisualToggleRenderer
     {
         #region Events
 
-        /// <summary>Draws a check box control in the specified state and location.</summary>
+        /// <summary>Draws a check box control in the specified state and with the specified text.</summary>
         /// <param name="graphics">The graphics to draw on.</param>
         /// <param name="border">The border type.</param>
-        /// <param name="checkmark">The check mark type.</param>
+        /// <param name="checkStyle">The check mark type.</param>
         /// <param name="rectangle">The rectangle that represents the dimensions of the check box.</param>
         /// <param name="state">The toggle state of the check mark.</param>
         /// <param name="enabled">The state to draw the check mark in.</param>
-        /// <param name="linearGradientBrush">The brush used to fill the background.</param>
+        /// <param name="color">The brush used to fill the background.</param>
+        /// <param name="backgroundImage">The background Image.</param>
         /// <param name="mouseState">The state of the mouse on the control.</param>
         /// <param name="text">The text.</param>
         /// <param name="font">The font.</param>
         /// <param name="foreColor">The fore Color.</param>
         /// <param name="textPoint">The text Point.</param>
-        public static void DrawCheckBox(Graphics graphics, Border border, Checkmark checkmark, Rectangle rectangle, bool state, bool enabled, LinearGradientBrush linearGradientBrush, MouseStates mouseState, string text, Font font, Color foreColor, Point textPoint)
+        public static void DrawCheckBox(Graphics graphics, Border border, CheckStyle checkStyle, Rectangle rectangle, bool state, bool enabled, Color color, Image backgroundImage, MouseStates mouseState, string text, Font font, Color foreColor, Point textPoint)
         {
-            DrawCheckBox(graphics, border, checkmark, rectangle, state, enabled, linearGradientBrush, mouseState);
+            DrawCheckBox(graphics, border, checkStyle, rectangle, state, enabled, color, backgroundImage, mouseState);
             graphics.DrawString(text, font, new SolidBrush(foreColor), textPoint);
         }
 
         /// <summary>Draws a check box control in the specified state and location.</summary>
         /// <param name="graphics">The graphics to draw on.</param>
         /// <param name="border">The border type.</param>
-        /// <param name="checkmark">The check mark type.</param>
+        /// <param name="checkStyle">The check mark type.</param>
         /// <param name="rectangle">The rectangle that represents the dimensions of the check box.</param>
-        /// <param name="state">The toggle state of the check mark.</param>
+        /// <param name="checkState">The check State.</param>
         /// <param name="enabled">The state to draw the check mark in.</param>
-        /// <param name="linearGradientBrush">The brush used to fill the background.</param>
-        /// <param name="mouseState">The state of the mouse on the control.</param>
-        public static void DrawCheckBox(Graphics graphics, Border border, Checkmark checkmark, Rectangle rectangle, bool state, bool enabled, LinearGradientBrush linearGradientBrush, MouseStates mouseState)
+        /// <param name="color">The background color.</param>
+        /// <param name="backgroundImage">The background Image.</param>
+        /// <param name="mouseStates">The mouse States.</param>
+        public static void DrawCheckBox(Graphics graphics, Border border, CheckStyle checkStyle, Rectangle rectangle, bool checkState, bool enabled, Color color, Image backgroundImage, MouseStates mouseStates)
         {
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.CompositingQuality = CompositingQuality.GammaCorrected;
+            VisualBackgroundRenderer.DrawBackground(graphics, rectangle, color, backgroundImage, border, mouseStates);
 
-            Rectangle _box = rectangle;
-            GraphicsPath _boxPath = VisualBorderRenderer.GetBorderShape(_box, border);
-
-            GDI.FillBackground(graphics, _boxPath, linearGradientBrush);
-
-            if (state)
+            if (!checkState)
             {
-                graphics.SetClip(_boxPath);
-                DrawCheckMark(graphics, checkmark, _box, enabled);
-                graphics.ResetClip();
+                return;
             }
 
-            VisualBorderRenderer.DrawBorderStyle(graphics, border, mouseState, _boxPath);
+            GraphicsPath _boxGraphicsPath = VisualBorderRenderer.GetBorderShape(rectangle, border);
+            graphics.SetClip(_boxGraphicsPath);
+            DrawCheckMark(graphics, checkStyle, rectangle, enabled);
+            graphics.ResetClip();
         }
 
         /// <summary>
@@ -69,63 +66,57 @@ namespace VisualPlus.Renders
         ///     bounds.
         /// </summary>
         /// <param name="graphics">The graphics to draw on.</param>
-        /// <param name="checkmark">The check mark type.</param>
+        /// <param name="checkStyle">The check mark type.</param>
         /// <param name="rectangle">The rectangle that represents the dimensions of the check box.</param>
         /// <param name="enabled">The state to draw the check mark in.</param>
-        public static void DrawCheckMark(Graphics graphics, Checkmark checkmark, Rectangle rectangle, bool enabled)
+        public static void DrawCheckMark(Graphics graphics, CheckStyle checkStyle, Rectangle rectangle, bool enabled)
         {
-            Gradient checkGradient = enabled ? checkmark.EnabledGradient : checkmark.DisabledGradient;
-            Bitmap checkImage = enabled ? checkmark.EnabledImage : checkmark.DisabledImage;
+            Size _characterSize = GDI.MeasureText(graphics, checkStyle.Character.ToString(), checkStyle.Font);
 
-            var boxGradientPoints = GDI.GetGradientPoints(rectangle);
-            LinearGradientBrush checkmarkBrush = Gradient.CreateGradientBrush(checkGradient.Colors, boxGradientPoints, checkGradient.Angle, checkGradient.Positions);
+            int _styleCount = checkStyle.Style.Count();
+            var _defaultLocations = new Point[_styleCount];
+            _defaultLocations[0] = new Point((rectangle.X + (rectangle.Width / 2)) - (_characterSize.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - (_characterSize.Height / 2));
+            _defaultLocations[1] = new Point((rectangle.X + (rectangle.Width / 2)) - (checkStyle.Bounds.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - (checkStyle.Bounds.Height / 2));
+            _defaultLocations[2] = new Point((rectangle.X + (rectangle.Width / 2)) - (checkStyle.Bounds.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - (checkStyle.Bounds.Height / 2));
 
-            Size characterSize = GDI.MeasureText(graphics, checkmark.Character.ToString(), checkmark.Font);
-
-            int stylesCount = checkmark.Style.Count();
-            var autoLocations = new Point[stylesCount];
-            autoLocations[0] = new Point((rectangle.X + (rectangle.Width / 2)) - (characterSize.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - (characterSize.Height / 2));
-            autoLocations[1] = new Point((rectangle.X + (rectangle.Width / 2)) - (checkmark.ImageSize.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - (checkmark.ImageSize.Height / 2));
-            autoLocations[2] = new Point((rectangle.X + (rectangle.Width / 2)) - (checkmark.ShapeSize.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - (checkmark.ShapeSize.Height / 2));
-
-            Point tempPoint;
-            if (checkmark.AutoSize)
+            Point _tempLocation;
+            if (checkStyle.AutoSize)
             {
-                int styleIndex = checkmark.Style.GetIndexByValue(checkmark.Style.ToString());
-                tempPoint = autoLocations[styleIndex];
+                int styleIndex = checkStyle.Style.GetIndexByValue(checkStyle.Style.ToString());
+                _tempLocation = _defaultLocations[styleIndex];
             }
             else
             {
-                tempPoint = checkmark.Location;
+                _tempLocation = checkStyle.Bounds.Location;
             }
 
-            switch (checkmark.Style)
+            switch (checkStyle.Style)
             {
-                case Checkmark.CheckType.Character:
-                {
-                    graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
-                    graphics.DrawString(checkmark.Character.ToString(), checkmark.Font, checkmarkBrush, tempPoint);
-                    graphics.TextRenderingHint = TextRenderingHint.SystemDefault;
-                    break;
-                }
+                case CheckStyle.CheckType.Character:
+                    {
+                        graphics.DrawString(checkStyle.Character.ToString(), checkStyle.Font, new SolidBrush(checkStyle.Color), _tempLocation);
+                        break;
+                    }
 
-                case Checkmark.CheckType.Image:
-                {
-                    Rectangle checkImageRectangle = new Rectangle(tempPoint, checkmark.ImageSize);
-                    graphics.DrawImage(checkImage, checkImageRectangle);
-                    break;
-                }
+                case CheckStyle.CheckType.Image:
+                    {
+                        Rectangle _imageRectangle = new Rectangle(_tempLocation, checkStyle.Bounds.Size);
+                        graphics.DrawImage(checkStyle.Image, _imageRectangle);
+                        break;
+                    }
 
-                case Checkmark.CheckType.Shape:
-                {
-                    Rectangle shapeRectangle = new Rectangle(tempPoint, checkmark.ShapeSize);
-                    GraphicsPath shapePath = VisualBorderRenderer.GetBorderShape(shapeRectangle, checkmark.ShapeType, checkmark.ShapeRounding);
-                    graphics.FillPath(checkmarkBrush, shapePath);
-                    break;
-                }
+                case CheckStyle.CheckType.Shape:
+                    {
+                        Rectangle shapeRectangle = new Rectangle(_tempLocation, checkStyle.Bounds.Size);
+                        GraphicsPath shapePath = VisualBorderRenderer.GetBorderShape(shapeRectangle, checkStyle.ShapeType, checkStyle.ShapeRounding);
+                        graphics.FillPath(new SolidBrush(checkStyle.Color), shapePath);
+                        break;
+                    }
 
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
             }
         }
 

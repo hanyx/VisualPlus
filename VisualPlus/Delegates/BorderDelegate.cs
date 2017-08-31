@@ -1,11 +1,11 @@
-﻿#region Namespace
-
-using VisualPlus.EventArgs;
-
-#endregion
-
-namespace VisualPlus.Delegates
+﻿namespace VisualPlus.Delegates
 {
+    #region Namespace
+
+    using VisualPlus.EventArgs;
+
+    #endregion
+
     public delegate void BorderColorChangedEventHandler(ColorEventArgs e);
 
     public delegate void BorderRoundingChangedEventHandler();

@@ -1,32 +1,35 @@
-﻿#region Namespace
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-using VisualPlus.Delegates;
-using VisualPlus.EventArgs;
-using VisualPlus.Styles;
-using VisualPlus.Toolkit.Controls.DataManagement;
-using VisualPlus.Toolkit.Controls.DataVisualization;
-using VisualPlus.Toolkit.Controls.Editors;
-using VisualPlus.Toolkit.Controls.Interactivity;
-using VisualPlus.Toolkit.Controls.Layout;
-using VisualPlus.Toolkit.VisualBase;
-
-#endregion
-
-namespace VisualPlus.Toolkit.Components
+﻿namespace VisualPlus.Toolkit.Components
 {
+    #region Namespace
+
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    using VisualPlus.Delegates;
+    using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Styles;
+    using VisualPlus.Toolkit.Controls.DataManagement;
+    using VisualPlus.Toolkit.Controls.DataVisualization;
+    using VisualPlus.Toolkit.Controls.Editors;
+    using VisualPlus.Toolkit.Controls.Interactivity;
+    using VisualPlus.Toolkit.Controls.Layout;
+    using VisualPlus.Toolkit.VisualBase;
+
+    #endregion
+
     [ToolboxItem(true)]
+    [ToolboxBitmap(typeof(Component))]
     [Description("The VisualPlus style manager component enables you to change the control themes.")]
     public class VisualStyleManager : Component
     {
         #region Variables
 
         private List<Form> _formCollection;
-        private Enumerators.Styles _style;
+        private Styles _style;
 
         #endregion
 
@@ -41,7 +44,7 @@ namespace VisualPlus.Toolkit.Components
 
         /// <summary>Initializes a new instance of the <see cref="VisualStyleManager" /> class.</summary>
         /// <param name="style">The style.</param>
-        public VisualStyleManager(Enumerators.Styles style) : this()
+        public VisualStyleManager(Styles style) : this()
         {
             UpdateStyle(style);
         }
@@ -56,7 +59,7 @@ namespace VisualPlus.Toolkit.Components
         /// <summary>Initializes a new instance of the <see cref="VisualStyleManager" /> class.</summary>
         /// <param name="form">The form.</param>
         /// <param name="style">The style.</param>
-        public VisualStyleManager(Form form, Enumerators.Styles style) : this()
+        public VisualStyleManager(Form form, Styles style) : this()
         {
             UpdateStyle(style);
             AddFormToManage(form);
@@ -88,13 +91,13 @@ namespace VisualPlus.Toolkit.Components
 
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public Styles.IControlState ControlStatesStyle { get; set; }
+        public IControlState ControlStatesStyle { get; set; }
 
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public IControl ControlStyle { get; set; }
 
-        public Enumerators.Styles DefaultStyle { get; }
+        public Styles DefaultStyle { get; }
 
         public Font Font { get; private set; }
 
@@ -106,9 +109,12 @@ namespace VisualPlus.Toolkit.Components
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public IProgress ProgressStyle { get; set; }
 
-        public Enumerators.Styles Style
+        public Styles Style
         {
-            get { return _style; }
+            get
+            {
+                return _style;
+            }
 
             set
             {
@@ -145,7 +151,7 @@ namespace VisualPlus.Toolkit.Components
         /// <summary>Sets the style of the control.</summary>
         /// <param name="control">The control to style.</param>
         /// <param name="style">The style.</param>
-        public void SetStyle(VisualControlBase control, Enumerators.Styles style)
+        public void SetStyle(VisualControlBase control, Styles style)
         {
             UpdateControl(control, style);
         }
@@ -153,28 +159,28 @@ namespace VisualPlus.Toolkit.Components
         /// <summary>Gets the style object.</summary>
         /// <param name="styles">The Style.</param>
         /// <returns>The interface style.</returns>
-        protected virtual object GetStyleObject(Enumerators.Styles styles)
+        protected virtual object GetStyleObject(Styles styles)
         {
             object interfaceObject;
 
             switch (styles)
             {
-                case Enumerators.Styles.Visual:
-                {
-                    interfaceObject = new Visual();
-                    break;
-                }
+                case Styles.Visual:
+                    {
+                        interfaceObject = new Visual();
+                        break;
+                    }
 
-                case Enumerators.Styles.Enigma:
-                {
-                    interfaceObject = new Enigma();
-                    break;
-                }
+                case Styles.Enigma:
+                    {
+                        interfaceObject = new Enigma();
+                        break;
+                    }
 
                 default:
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
             }
 
             return interfaceObject;
@@ -188,13 +194,13 @@ namespace VisualPlus.Toolkit.Components
         /// <summary>Updates the controls style.</summary>
         /// <param name="_control">The control.</param>
         /// <param name="style">The style to update the controls with.</param>
-        protected virtual void UpdateControl(Control _control, Enumerators.Styles style)
+        protected virtual void UpdateControl(Control _control, Styles style)
         {
             (_control as VisualListBox)?.UpdateTheme(style);
 
             (_control as VisualListView)?.UpdateTheme(style);
 
-            (_control as VisualCircleProgressBar)?.UpdateTheme(style);
+            (_control as VisualRadialProgress)?.UpdateTheme(style);
 
             (_control as VisualGauge)?.UpdateTheme(style);
 
@@ -216,8 +222,7 @@ namespace VisualPlus.Toolkit.Components
 
             (_control as VisualRadioButton)?.UpdateTheme(style);
 
-            (_control as VisualShape)?.UpdateTheme(style);
-
+            // (_control as VisualProgressStepper)?.UpdateTheme(style);
             (_control as VisualToggle)?.UpdateTheme(style);
 
             (_control as VisualTrackBar)?.UpdateTheme(style);
@@ -265,16 +270,16 @@ namespace VisualPlus.Toolkit.Components
 
         /// <summary>Updates the style.</summary>
         /// <param name="style">The style.</param>
-        private void UpdateStyle(Enumerators.Styles style)
+        private void UpdateStyle(Styles style)
         {
-            BorderStyle = (IBorder) GetStyleObject(style);
-            CheckmarkStyle = (ICheckmark) GetStyleObject(style);
-            ControlStatesStyle = (Styles.IControlState) GetStyleObject(style);
-            ControlStyle = (IControl) GetStyleObject(style);
-            FontStyle = (IFont) GetStyleObject(style);
-            ProgressStyle = (IProgress) GetStyleObject(style);
-            TabStyle = (ITab) GetStyleObject(style);
-            WatermarkStyle = (IWatermark) GetStyleObject(style);
+            BorderStyle = (IBorder)GetStyleObject(style);
+            CheckmarkStyle = (ICheckmark)GetStyleObject(style);
+            ControlStatesStyle = (IControlState)GetStyleObject(style);
+            ControlStyle = (IControl)GetStyleObject(style);
+            FontStyle = (IFont)GetStyleObject(style);
+            ProgressStyle = (IProgress)GetStyleObject(style);
+            TabStyle = (ITab)GetStyleObject(style);
+            WatermarkStyle = (IWatermark)GetStyleObject(style);
 
             Font = new Font(FontStyle.FontFamily, FontStyle.FontSize, FontStyle.FontStyle);
 

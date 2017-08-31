@@ -1,19 +1,21 @@
-﻿#region Namespace
-
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-using VisualPlus.Localization.Category;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Structure;
-using VisualPlus.Toolkit.VisualBase;
-
-#endregion
-
-namespace VisualPlus.Toolkit.Components
+﻿namespace VisualPlus.Toolkit.Components
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.VisualBase;
+
+    #endregion
+
     [ToolboxItem(true)]
+    [ToolboxBitmap(typeof(Component))]
     [Description("The VisualPlus badge component enables controls to have a badge with text displayed.")]
     public class VisualBadge : Component
     {
@@ -165,7 +167,10 @@ namespace VisualPlus.Toolkit.Components
         [Category(Propertys.Appearance)]
         public Color Background
         {
-            get { return _badgeLabel.Background; }
+            get
+            {
+                return _badgeLabel.Background;
+            }
 
             set
             {
@@ -180,7 +185,10 @@ namespace VisualPlus.Toolkit.Components
         [Description("The control to attach this component.")]
         public Control Control
         {
-            get { return _control; }
+            get
+            {
+                return _control;
+            }
 
             set
             {
@@ -208,7 +216,10 @@ namespace VisualPlus.Toolkit.Components
         [Description(Property.Toggle)]
         public bool Enabled
         {
-            get { return _badgeLabel.Visible; }
+            get
+            {
+                return _badgeLabel.Visible;
+            }
 
             set
             {
@@ -233,7 +244,10 @@ namespace VisualPlus.Toolkit.Components
         [Category(Propertys.Appearance)]
         public Font Font
         {
-            get { return _badgeLabel.Font; }
+            get
+            {
+                return _badgeLabel.Font;
+            }
 
             set
             {
@@ -245,7 +259,10 @@ namespace VisualPlus.Toolkit.Components
         [Category(Propertys.Appearance)]
         public Color ForeColor
         {
-            get { return _badgeLabel.ForeColor; }
+            get
+            {
+                return _badgeLabel.ForeColor;
+            }
 
             set
             {
@@ -258,7 +275,10 @@ namespace VisualPlus.Toolkit.Components
         [RefreshProperties(RefreshProperties.Repaint)]
         public Point Location
         {
-            get { return _badgeLabel.Location; }
+            get
+            {
+                return _badgeLabel.Location;
+            }
 
             set
             {
@@ -272,7 +292,10 @@ namespace VisualPlus.Toolkit.Components
         [Category(Propertys.Appearance)]
         public Shape Shape
         {
-            get { return _badgeLabel.Shape; }
+            get
+            {
+                return _badgeLabel.Shape;
+            }
 
             set
             {
@@ -283,7 +306,10 @@ namespace VisualPlus.Toolkit.Components
 
         public Size Size
         {
-            get { return _badgeLabel.Size; }
+            get
+            {
+                return _badgeLabel.Size;
+            }
 
             set
             {
@@ -294,7 +320,10 @@ namespace VisualPlus.Toolkit.Components
 
         public string Text
         {
-            get { return _badgeLabel.Text; }
+            get
+            {
+                return _badgeLabel.Text;
+            }
 
             set
             {

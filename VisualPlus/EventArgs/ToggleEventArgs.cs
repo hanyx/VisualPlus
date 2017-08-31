@@ -1,6 +1,12 @@
 ﻿namespace VisualPlus.EventArgs
 {
-    public class ToggleEventArgs : System.EventArgs
+    #region Namespace
+
+    using System;
+
+    #endregion
+
+    public class ToggleEventArgs : EventArgs
     {
         #region Variables
 
@@ -21,9 +27,15 @@
 
         public bool State
         {
-            get { return _state; }
+            get
+            {
+                return _state;
+            }
 
-            set { _state = value; }
+            set
+            {
+                _state = value;
+            }
         }
 
         #endregion

@@ -1,14 +1,15 @@
-﻿#region Namespace
-
-using System;
-using System.Linq;
-using System.Windows.Forms;
-using VisualPlus.Toolkit.Controls.Interactivity;
-
-#endregion
-
-namespace VisualPlus.Managers
+﻿namespace VisualPlus.Managers
 {
+    #region Namespace
+
+    using System;
+    using System.Linq;
+    using System.Windows.Forms;
+
+    using VisualPlus.Toolkit.Controls.Interactivity;
+
+    #endregion
+
     internal class ControlManager
     {
         #region Events
@@ -35,7 +36,7 @@ namespace VisualPlus.Managers
         /// <returns>The control type.</returns>
         private static T ControlType<T>(string controlName)
         {
-            return (T) Activator.CreateInstance(Type.GetType(controlName));
+            return (T)Activator.CreateInstance(Type.GetType(controlName));
         }
 
         #endregion
@@ -51,7 +52,7 @@ namespace VisualPlus.Managers
 
             public const string VisualButton = DesignerFilterPath + "Button" + DesignerSuffix;
             public const string VisualCheckBox = DesignerFilterPath + "CheckBox" + DesignerSuffix;
-            public const string VisualCircleProgressBar = DesignerFilterPath + "CircleProgressBar" + DesignerSuffix;
+            public const string VisualRadialProgress = DesignerFilterPath + "CircleProgressBar" + DesignerSuffix;
             public const string VisualComboBox = DesignerFilterPath + "ComboBox" + DesignerSuffix;
             public const string VisualContextMenu = DesignerFilterPath + "ContextMenu" + DesignerSuffix;
             public const string VisualForm = DesignerFilterPath + "Form" + DesignerSuffix;

@@ -1,17 +1,18 @@
-﻿#region Namespace
-
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Globalization;
-using VisualPlus.Localization.Descriptions;
-using VisualPlus.Renders;
-
-#endregion
-
-namespace VisualPlus.Structure
+﻿namespace VisualPlus.Structure
 {
+    #region Namespace
+
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Globalization;
+
+    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Renders;
+
+    #endregion
+
     [Description("The VisualBitmap")]
     [TypeConverter(typeof(VisualBitmapConverter))]
     public class VisualBitmap
@@ -34,10 +35,10 @@ namespace VisualPlus.Structure
         public VisualBitmap(Bitmap bitmap, Size bitmapSize)
         {
             border = new Border
-            {
-                Visible = false,
-                HoverVisible = false
-            };
+                {
+                    Visible = false,
+                    HoverVisible = false
+                };
 
             imagePoint = new Point();
             visible = false;
@@ -54,45 +55,75 @@ namespace VisualPlus.Structure
         [RefreshProperties(RefreshProperties.Repaint)]
         public Border Border
         {
-            get { return border; }
+            get
+            {
+                return border;
+            }
 
-            set { border = value; }
+            set
+            {
+                border = value;
+            }
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
         [Description(Property.Image)]
         public Bitmap Image
         {
-            get { return image; }
+            get
+            {
+                return image;
+            }
 
-            set { image = value; }
+            set
+            {
+                image = value;
+            }
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
         [Description(Property.Point)]
         public Point Point
         {
-            get { return imagePoint; }
+            get
+            {
+                return imagePoint;
+            }
 
-            set { imagePoint = value; }
+            set
+            {
+                imagePoint = value;
+            }
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
         [Description(Property.Size)]
         public Size Size
         {
-            get { return imageSize; }
+            get
+            {
+                return imageSize;
+            }
 
-            set { imageSize = value; }
+            set
+            {
+                imageSize = value;
+            }
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
         [Description(Property.Visible)]
         public bool Visible
         {
-            get { return visible; }
+            get
+            {
+                return visible;
+            }
 
-            set { visible = value; }
+            set
+            {
+                visible = value;
+            }
         }
 
         #endregion

@@ -1,11 +1,11 @@
-﻿#region Namespace
-
-using System.Drawing;
-
-#endregion
-
-namespace VisualPlus.Extensibility
+﻿namespace VisualPlus.Extensibility
 {
+    #region Namespace
+
+    using System.Drawing;
+
+    #endregion
+
     public static class BitmapExtension
     {
         #region Events
@@ -23,7 +23,7 @@ namespace VisualPlus.Extensibility
                 {
                     Color c = bitmap.GetPixel(x, y);
 
-                    var gs = (int) ((c.R * 0.3) + (c.G * 0.59) + (c.B * 0.11));
+                    var gs = (int)((c.R * 0.3) + (c.G * 0.59) + (c.B * 0.11));
 
                     grayScale.SetPixel(x, y, Color.FromArgb(gs, gs, gs));
                 }

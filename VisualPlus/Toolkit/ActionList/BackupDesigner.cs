@@ -1,17 +1,18 @@
-﻿#region Namespace
-
-using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Drawing;
-using System.Drawing.Design;
-using System.Windows.Forms;
-using System.Windows.Forms.Design;
-using VisualPlus.Toolkit.Controls.DataManagement;
-
-#endregion
-
-namespace VisualPlus.Toolkit.ActionList
+﻿namespace VisualPlus.Toolkit.ActionList
 {
+    #region Namespace
+
+    using System.ComponentModel;
+    using System.ComponentModel.Design;
+    using System.Drawing;
+    using System.Drawing.Design;
+    using System.Windows.Forms;
+    using System.Windows.Forms.Design;
+
+    using VisualPlus.Toolkit.Controls.DataManagement;
+
+    #endregion
+
     internal class BackupDesignerDesigner : ControlDesigner
     {
         #region Variables
@@ -29,7 +30,7 @@ namespace VisualPlus.Toolkit.ActionList
             {
                 if (actionListCollection == null)
                 {
-                    actionListCollection = new DesignerActionListCollection {new VisualListBoxActionList(Component)};
+                    actionListCollection = new DesignerActionListCollection { new VisualListBoxActionList(Component) };
                 }
 
                 return actionListCollection;
@@ -55,8 +56,8 @@ namespace VisualPlus.Toolkit.ActionList
 
         public BackupDesignerActionList(IComponent component) : base(component)
         {
-            buttonControl = (VisualListBox) component;
-            designerService = (DesignerActionUIService) GetService(typeof(DesignerActionUIService));
+            buttonControl = (VisualListBox)component;
+            designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
         }
 
         #endregion
@@ -65,9 +66,15 @@ namespace VisualPlus.Toolkit.ActionList
 
         public Color ForeColor
         {
-            get { return buttonControl.ForeColor; }
+            get
+            {
+                return buttonControl.ForeColor;
+            }
 
-            set { buttonControl.ForeColor = value; }
+            set
+            {
+                buttonControl.ForeColor = value;
+            }
         }
 
         [Category("Data")]
@@ -78,7 +85,10 @@ namespace VisualPlus.Toolkit.ActionList
         [Localizable(true)]
         public virtual ListBox.ObjectCollection Items
         {
-            get { return buttonControl.Items; }
+            get
+            {
+                return buttonControl.Items;
+            }
         }
 
         #endregion
@@ -88,14 +98,14 @@ namespace VisualPlus.Toolkit.ActionList
         public override DesignerActionItemCollection GetSortedActionItems()
         {
             DesignerActionItemCollection items = new DesignerActionItemCollection
-            {
-                new DesignerActionHeaderItem("Category 1"),
-                new DesignerActionPropertyItem("ForeColor", "Foreground Color", "Category 1"),
-                new DesignerActionMethodItem(this, "MakeSquare", "Make Button Square"),
+                {
+                    new DesignerActionHeaderItem("Category 1"),
+                    new DesignerActionPropertyItem("ForeColor", "Foreground Color", "Category 1"),
+                    new DesignerActionMethodItem(this, "MakeSquare", "Make Button Square"),
 
-                new DesignerActionHeaderItem("Unbound Mode"),
-                new DesignerActionPropertyItem("Items", "Edit Items...", "Unbound Mode")
-            };
+                    new DesignerActionHeaderItem("Unbound Mode"),
+                    new DesignerActionPropertyItem("Items", "Edit Items...", "Unbound Mode")
+                };
 
             return items;
         }

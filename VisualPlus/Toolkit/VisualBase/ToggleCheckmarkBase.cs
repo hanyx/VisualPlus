@@ -260,7 +260,7 @@ namespace VisualPlus.Toolkit.VisualBase
                     double animationValue = _rippleEffectsManager.GetProgress(i);
 
                     Point animationSource = new Point(_box.X + (_box.Width / 2), _box.Y + (_box.Height / 2));
-                    SolidBrush animationBrush = new SolidBrush(Color.FromArgb((int)(animationValue * 40), (bool)_rippleEffectsManager.GetData(i)[0] ? Color.Black : _checkStyle.Color));
+                    SolidBrush animationBrush = new SolidBrush(Color.FromArgb((int)(animationValue * 40), (bool)_rippleEffectsManager.GetData(i)[0] ? Color.Black : _checkStyle.CheckColor));
 
                     int height = _box.Height;
                     int size = _rippleEffectsManager.GetDirection(i) == AnimationDirection.InOutIn ? (int)(height * (0.8d + (0.2d * animationValue))) : height;

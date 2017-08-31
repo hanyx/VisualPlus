@@ -100,6 +100,14 @@
             }
         }
 
+        public Color CheckColor
+        {
+            get
+            {
+                return ColorTranslator.FromHtml("#2D882D");
+            }
+        }
+
         public Color Color
         {
             get
@@ -189,46 +197,6 @@
                     };
 
                 return controlPressed;
-            }
-        }
-
-        public Gradient DisabledGradient
-        {
-            get
-            {
-                Color[] disabledColors =
-                    {
-                        ControlPaint.Light(Color.FromArgb(131, 129, 129)),
-                        Color.FromArgb(131, 129, 129)
-                    };
-
-                Gradient disabledGradient = new Gradient
-                    {
-                        Colors = disabledColors,
-                        Positions = twoPosition
-                    };
-
-                return disabledGradient;
-            }
-        }
-
-        public Gradient EnabledGradient
-        {
-            get
-            {
-                Color[] enabledColors =
-                    {
-                        ControlPaint.Light(ColorTranslator.FromHtml("#2D882D")),
-                        ColorTranslator.FromHtml("#2D882D")
-                    };
-
-                Gradient enabledGradient = new Gradient
-                    {
-                        Colors = enabledColors,
-                        Positions = twoPosition
-                    };
-
-                return enabledGradient;
             }
         }
 

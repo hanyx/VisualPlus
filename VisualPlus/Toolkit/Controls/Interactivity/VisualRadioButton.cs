@@ -53,7 +53,7 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            CheckStyle.Color = StyleManager.CheckmarkStyle.EnabledGradient.Colors[0];
+            CheckStyle.CheckColor = StyleManager.CheckmarkStyle.CheckColor;
 
             BoxColorState.Enabled = StyleManager.ControlStyle.Background(0);
             BoxColorState.Disabled = Color.FromArgb(224, 224, 224);

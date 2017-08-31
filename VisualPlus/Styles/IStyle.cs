@@ -30,9 +30,7 @@
     {
         #region Properties
 
-        Gradient DisabledGradient { get; }
-
-        Gradient EnabledGradient { get; }
+        Color CheckColor { get; }
 
         #endregion
     }

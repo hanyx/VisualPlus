@@ -57,7 +57,7 @@
             BoxColorState.Hover = Color.FromArgb(224, 224, 224);
             BoxColorState.Pressed = Color.Silver;
 
-            CheckStyle.Color = StyleManager.CheckmarkStyle.EnabledGradient.Colors[0];
+            CheckStyle.CheckColor = StyleManager.CheckmarkStyle.CheckColor;
 
             Border.Color = StyleManager.ShapeStyle.Color;
             Border.HoverColor = StyleManager.BorderStyle.HoverColor;

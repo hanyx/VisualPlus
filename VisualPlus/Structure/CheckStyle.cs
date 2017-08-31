@@ -11,25 +11,26 @@
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
+    using VisualPlus.Styles;
     using VisualPlus.Toolkit.Components;
 
     #endregion
 
     [Description("The check style structure.")]
     [TypeConverter(typeof(CheckStyleConverter))]
-    public class CheckStyle
+    public class CheckStyle : ICheckmark
     {
         #region Variables
 
         private bool _autoSize;
+        private Rectangle _bounds;
         private char _character;
         private Font _characterFont;
         private CheckType _checkType;
+        private Color _color;
+        private Image _image;
         private int _shapeRounding;
         private ShapeType _shapeType;
-        private Rectangle bounds;
-        private Color color;
-        private Image image;
 
         #endregion
 
@@ -41,7 +42,7 @@
         {
             VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
-            color = _styleManager.CheckmarkStyle.EnabledGradient.Colors[0];
+            _color = _styleManager.CheckmarkStyle.CheckColor;
 
             _autoSize = true;
             _character = '✔';
@@ -52,8 +53,8 @@
             _shapeType = Settings.DefaultValue.BorderType;
 
             Bitmap _bitmap = new Bitmap(Image.FromStream(new MemoryStream(Convert.FromBase64String(VisualToggleRenderer.GetBase64CheckImage()))));
-            image = _bitmap;
-            bounds = boundary;
+            _image = _bitmap;
+            _bounds = boundary;
         }
 
         public enum CheckType
@@ -95,12 +96,12 @@
         {
             get
             {
-                return bounds;
+                return _bounds;
             }
 
             set
             {
-                bounds = value;
+                _bounds = value;
             }
         }
 
@@ -123,16 +124,16 @@
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
         [Description(Property.Color)]
-        public Color Color
+        public Color CheckColor
         {
             get
             {
-                return color;
+                return _color;
             }
 
             set
             {
-                color = value;
+                _color = value;
             }
         }
 
@@ -159,12 +160,12 @@
         {
             get
             {
-                return image;
+                return _image;
             }
 
             set
             {
-                image = value;
+                _image = value;
             }
         }
 

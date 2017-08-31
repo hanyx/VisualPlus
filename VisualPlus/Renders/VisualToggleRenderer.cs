@@ -121,7 +121,7 @@
             {
                 case CheckStyle.CheckType.Character:
                     {
-                        graphics.DrawString(checkStyle.Character.ToString(), checkStyle.Font, new SolidBrush(checkStyle.Color), _tempLocation);
+                        graphics.DrawString(checkStyle.Character.ToString(), checkStyle.Font, new SolidBrush(checkStyle.CheckColor), _tempLocation);
                         break;
                     }
 
@@ -136,7 +136,7 @@
                     {
                         Rectangle shapeRectangle = new Rectangle(_tempLocation, checkStyle.Bounds.Size);
                         GraphicsPath shapePath = VisualBorderRenderer.CreateBorderTypePath(shapeRectangle, checkStyle.ShapeRounding, checkStyle.ShapeRounding, checkStyle.ShapeType);
-                        graphics.FillPath(new SolidBrush(checkStyle.Color), shapePath);
+                        graphics.FillPath(new SolidBrush(checkStyle.CheckColor), shapePath);
                         break;
                     }
 

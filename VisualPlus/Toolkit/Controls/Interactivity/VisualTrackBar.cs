@@ -36,7 +36,6 @@
         #region Variables
 
         private Image _backgroundImage;
-
         private int _barThickness;
         private int _barTickSpacing;
         private bool _buttonAutoSize;
@@ -51,7 +50,6 @@
         private ValueDivisor _dividedValue;
         private int _fillingValue;
         private Color _foreColor;
-
         private Hatch _hatch;
         private Color _hatchBackColor;
         private Color _hatchForeColor;

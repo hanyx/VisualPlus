@@ -57,18 +57,17 @@
         public static void DrawBackground(Graphics graphics, Color backColor, Image backgroundImage, MouseStates mouseState, Rectangle rectangle, Border border)
         {
             GraphicsPath _controlGraphicsPath = FillBackgroundPath(graphics, backColor, rectangle, border);
-            VisualBorderRenderer.DrawBorderStyle(graphics, border, _controlGraphicsPath, mouseState);
 
-            if (backgroundImage == null)
+            if (backgroundImage != null)
             {
-                return;
+                Point _location = new Point(rectangle.Width - backgroundImage.Width, rectangle.Height - backgroundImage.Height);
+                Size _size = new Size(backgroundImage.Width, backgroundImage.Height);
+                graphics.SetClip(_controlGraphicsPath);
+                graphics.DrawImage(backgroundImage, new Rectangle(_location, _size));
+                graphics.ResetClip();
             }
 
-            Point _location = new Point(rectangle.Width - backgroundImage.Width, rectangle.Height - backgroundImage.Height);
-            Size _size = new Size(backgroundImage.Width, backgroundImage.Height);
-            graphics.SetClip(_controlGraphicsPath);
-            graphics.DrawImage(backgroundImage, new Rectangle(_location, _size));
-            graphics.ResetClip();
+            VisualBorderRenderer.DrawBorderStyle(graphics, border, _controlGraphicsPath, mouseState);
         }
 
         /// <summary>Draws the control background, with a BackColor and the specified BackgroundImage.</summary>

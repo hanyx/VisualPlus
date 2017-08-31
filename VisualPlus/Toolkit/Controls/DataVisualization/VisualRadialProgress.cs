@@ -435,7 +435,7 @@
             _backCircleColor = StyleManager.ProgressStyle.BackCircle;
             _foreCircleColor = StyleManager.ProgressStyle.ForeCircle;
 
-            _progressColor = StyleManager.ProgressStyle.Progress.Colors[0];
+            _progressColor = StyleManager.ProgressStyle.Progress;
 
             Invalidate();
         }

@@ -775,15 +775,15 @@
             _buttonTextColor = ForeColor;
             _textDisabledColor = _styleManager.FontStyle.ForeColorDisabled;
 
-            _progressColor = _styleManager.ProgressStyle.Progress.Colors[0];
+            _progressColor = _styleManager.ProgressStyle.Progress;
 
             _buttonControlColorState.Enabled = _styleManager.ControlStyle.Background(0);
             _buttonControlColorState.Disabled = Color.FromArgb(224, 224, 224);
             _buttonControlColorState.Hover = Color.FromArgb(224, 224, 224);
             _buttonControlColorState.Pressed = Color.Silver;
 
-            _trackBarColor.Enabled = _styleManager.ProgressStyle.BackProgress.Colors[0];
-            _trackBarColor.Disabled = _styleManager.ProgressStyle.BackProgress.Colors[0];
+            _trackBarColor.Enabled = _styleManager.ProgressStyle.BackProgress;
+            _trackBarColor.Disabled = _styleManager.ProgressStyle.ProgressDisabled;
 
             _hatch.BackColor = _styleManager.ProgressStyle.Hatch;
             _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);

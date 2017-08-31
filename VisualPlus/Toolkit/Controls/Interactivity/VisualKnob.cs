@@ -83,7 +83,7 @@
 
             VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
-            pointerColor = _styleManager.ProgressStyle.Progress.Colors[0];
+            pointerColor = _styleManager.ProgressStyle.Progress;
 
             UpdateStyles();
             knobFont = Font;

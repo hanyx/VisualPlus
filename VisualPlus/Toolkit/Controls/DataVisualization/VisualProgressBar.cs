@@ -269,13 +269,13 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            _colorState.Enabled = StyleManager.ProgressStyle.BackProgress.Colors[0];
-            _colorState.Disabled = StyleManager.ProgressStyle.BackProgress.Colors[0];
+            _colorState.Enabled = StyleManager.ProgressStyle.BackProgress;
+            _colorState.Disabled = StyleManager.ProgressStyle.ProgressDisabled;
 
             _hatch.BackColor = StyleManager.ProgressStyle.Hatch;
             _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);
 
-            _progressColor = StyleManager.ProgressStyle.Progress.Colors[0];
+            _progressColor = StyleManager.ProgressStyle.Progress;
 
             _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;

@@ -39,23 +39,11 @@
             }
         }
 
-        public Gradient BackProgress
+        public Color BackProgress
         {
             get
             {
-                Color[] backgroundColors =
-                    {
-                        ControlPaint.Light(Color.Gainsboro),
-                        Color.Gainsboro
-                    };
-
-                Gradient backgroundGradient = new Gradient
-                    {
-                        Colors = backgroundColors,
-                        Positions = twoPosition
-                    };
-
-                return backgroundGradient;
+                return Color.FromArgb(137, 136, 136);
             }
         }
 
@@ -327,43 +315,19 @@
             }
         }
 
-        public Gradient Progress
+        public Color Progress
         {
             get
             {
-                Color[] progressColors =
-                    {
-                        ControlPaint.Light(ColorTranslator.FromHtml("#2D882D")),
-                        ColorTranslator.FromHtml("#2D882D")
-                    };
-
-                Gradient progressGradient = new Gradient
-                    {
-                        Colors = progressColors,
-                        Positions = twoPosition
-                    };
-
-                return progressGradient;
+                return ColorTranslator.FromHtml("#2D882D");
             }
         }
 
-        public Gradient ProgressDisabled
+        public Color ProgressDisabled
         {
             get
             {
-                Color[] progressDisabledColors =
-                    {
-                        ControlPaint.Light(Color.FromArgb(131, 129, 129)),
-                        Color.FromArgb(131, 129, 129)
-                    };
-
-                Gradient progressDisabled = new Gradient
-                    {
-                        Colors = progressDisabledColors,
-                        Positions = twoPosition
-                    };
-
-                return progressDisabled;
+                return Color.FromArgb(131, 129, 129);
             }
         }
 

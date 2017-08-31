@@ -104,15 +104,15 @@
 
         Color BackCircle { get; }
 
-        Gradient BackProgress { get; }
+        Color BackProgress { get; }
 
         Color ForeCircle { get; }
 
         Color Hatch { get; }
 
-        Gradient Progress { get; }
+        Color Progress { get; }
 
-        Gradient ProgressDisabled { get; }
+        Color ProgressDisabled { get; }
 
         #endregion
     }

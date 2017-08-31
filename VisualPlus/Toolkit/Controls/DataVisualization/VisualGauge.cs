@@ -145,7 +145,7 @@
             BackColorState.Enabled = StyleManager.ControlStyle.Background(3);
             BackColorState.Disabled = StyleManager.ControlStatesStyle.ControlDisabled.Colors[0];
 
-            _progress = StyleManager.ProgressStyle.Progress.Colors[0];
+            _progress = StyleManager.ProgressStyle.Progress;
 
             Invalidate();
         }

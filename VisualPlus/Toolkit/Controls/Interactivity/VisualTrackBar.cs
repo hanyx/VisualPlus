@@ -51,11 +51,6 @@
         private int _fillingValue;
         private Color _foreColor;
         private Hatch _hatch;
-        private Color _hatchBackColor;
-        private Color _hatchForeColor;
-        private float _hatchSize;
-        private HatchStyle _hatchStyle;
-        private bool _hatchVisible;
         private int _indentHeight;
         private int _indentWidth;
         private bool _leftButtonDown;
@@ -112,11 +107,6 @@
             _dividedValue = ValueDivisor.By1;
             _barTickSpacing = 8;
             _fillingValue = 25;
-            _hatchForeColor = Color.FromArgb(40, _hatchBackColor);
-            _hatchSize = 2F;
-            _hatchStyle = HatchStyle.DarkDownwardDiagonal;
-            _hatchVisible = Settings.DefaultValue.HatchVisible;
-            _lineTicksVisible = Settings.DefaultValue.TextVisible;
             _mouseStartPos = -1;
             _progressVisible = Settings.DefaultValue.TextVisible;
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
@@ -372,89 +362,6 @@
             set
             {
                 _hatch = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color HatchBackColor
-        {
-            get
-            {
-                return _hatchBackColor;
-            }
-
-            set
-            {
-                _hatchBackColor = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color HatchForeColor
-        {
-            get
-            {
-                return _hatchForeColor;
-            }
-
-            set
-            {
-                _hatchForeColor = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Layout)]
-
-        // [DefaultValue(Settings.DefaultValue.HatchSize)]
-        [Description(Property.Size)]
-        public float HatchSize
-        {
-            get
-            {
-                return _hatchSize;
-            }
-
-            set
-            {
-                _hatchSize = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Type)]
-        public HatchStyle HatchStyle
-        {
-            get
-            {
-                return _hatchStyle;
-            }
-
-            set
-            {
-                _hatchStyle = value;
-                Invalidate();
-            }
-        }
-
-        [DefaultValue(Settings.DefaultValue.HatchVisible)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Visible)]
-        public bool HatchVisible
-        {
-            get
-            {
-                return _hatchVisible;
-            }
-
-            set
-            {
-                _hatchVisible = value;
                 Invalidate();
             }
         }
@@ -878,7 +785,9 @@
             _trackBarColor.Enabled = _styleManager.ProgressStyle.BackProgress.Colors[0];
             _trackBarColor.Disabled = _styleManager.ProgressStyle.BackProgress.Colors[0];
 
-            _hatchBackColor = _styleManager.ProgressStyle.Hatch;
+            _hatch.BackColor = _styleManager.ProgressStyle.Hatch;
+            _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);
+
             _tickColor = _styleManager.ControlStyle.Line;
 
             _buttonBorder.Color = _styleManager.BorderStyle.Color;
@@ -1466,85 +1375,77 @@
         /// <param name="graphics">Graphics input.</param>
         private void DrawProgress(Graphics graphics)
         {
-            if (_progressVisible)
+            if (!_progressVisible)
             {
-                GraphicsPath progressPath = new GraphicsPath();
-                Rectangle progressRectangle;
-                Point progressLocation;
-                Size progressSize;
+                return;
+            }
 
-                var barProgress = 0;
+            GraphicsPath _progressPath;
+            Rectangle _progressRectangle;
+            Point _location;
+            Size _size;
 
-                // Progress setup
-                switch (Orientation)
-                {
-                    case Orientation.Horizontal:
-                        {
-                            // Draws the progress to the middle of the button
-                            barProgress = _buttonRectangle.X + (_buttonRectangle.Width / 2);
+            int barProgress;
 
-                            progressLocation = new Point(0, 0);
-                            progressSize = new Size(barProgress, Height);
-
-                            if ((Value == Minimum) && _progressFilling)
-                            {
-                                progressLocation = new Point(barProgress, Height);
-                            }
-
-                            if ((Value == Maximum) && _progressFilling)
-                            {
-                                progressSize = new Size(barProgress + _fillingValue, Height);
-                            }
-
-                            progressRectangle = new Rectangle(progressLocation, progressSize);
-                            progressPath = VisualBorderRenderer.CreateBorderTypePath(progressRectangle, _trackBarBorder);
-                        }
-
-                        break;
-                    case Orientation.Vertical:
-                        {
-                            // Draws the progress to the middle of the button
-                            barProgress = _buttonRectangle.Y + (_buttonRectangle.Height / 2);
-
-                            progressLocation = new Point(0, barProgress);
-
-                            if ((Value == Minimum) && _progressFilling)
-                            {
-                                progressLocation = new Point(0, barProgress + _fillingValue);
-                            }
-
-                            if ((Value == Maximum) && _progressFilling)
-                            {
-                                progressLocation = new Point(0, barProgress - _fillingValue);
-                            }
-
-                            progressSize = new Size(Width, Height + _textAreaSize.Height);
-                            progressRectangle = new Rectangle(progressLocation, progressSize);
-                            progressPath = VisualBorderRenderer.CreateBorderTypePath(progressRectangle, _trackBarBorder);
-                        }
-
-                        break;
-                }
-
-                graphics.SetClip(_trackBarPath);
-
-                if (barProgress > 1)
-                {
-                    graphics.FillPath(new SolidBrush(_progressColor), progressPath);
-
-                    if (_hatchVisible)
+            switch (Orientation)
+            {
+                case Orientation.Horizontal:
                     {
-                        HatchBrush hatchBrush = new HatchBrush(_hatchStyle, _hatchForeColor, _hatchBackColor);
-                        using (TextureBrush textureBrush = GDI.DrawTextureUsingHatch(hatchBrush))
+                        // Draws the progress to the middle of the button
+                        barProgress = _buttonRectangle.X + (_buttonRectangle.Width / 2);
+
+                        _location = new Point(0, 0);
+                        _size = new Size(barProgress, Height);
+
+                        if ((Value == Minimum) && _progressFilling)
                         {
-                            textureBrush.ScaleTransform(_hatchSize, _hatchSize);
-                            graphics.FillPath(textureBrush, progressPath);
-                            graphics.ResetClip();
+                            _location = new Point(barProgress, Height);
                         }
+
+                        if ((Value == Maximum) && _progressFilling)
+                        {
+                            _size = new Size(barProgress + _fillingValue, Height);
+                        }
+
+                        _progressRectangle = new Rectangle(_location, _size);
+                        _progressPath = VisualBorderRenderer.CreateBorderTypePath(_progressRectangle, _trackBarBorder);
                     }
 
-                    graphics.ResetClip();
-                }
+                    break;
+                case Orientation.Vertical:
+                    {
+                        // Draws the progress to the middle of the button
+                        barProgress = _buttonRectangle.Y + (_buttonRectangle.Height / 2);
+
+                        _location = new Point(0, barProgress);
+
+                        if ((Value == Minimum) && _progressFilling)
+                        {
+                            _location = new Point(0, barProgress + _fillingValue);
+                        }
+
+                        if ((Value == Maximum) && _progressFilling)
+                        {
+                            _location = new Point(0, barProgress - _fillingValue);
+                        }
+
+                        _size = new Size(Width, Height + _textAreaSize.Height);
+                        _progressRectangle = new Rectangle(_location, _size);
+                        _progressPath = VisualBorderRenderer.CreateBorderTypePath(_progressRectangle, _trackBarBorder);
+                    }
+
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            graphics.SetClip(_trackBarPath);
+
+            if (barProgress > 1)
+            {
+                graphics.FillPath(new SolidBrush(_progressColor), _progressPath);
+                VisualControlRenderer.DrawHatch(graphics, _hatch, _progressPath);
+                graphics.ResetClip();
             }
         }
 

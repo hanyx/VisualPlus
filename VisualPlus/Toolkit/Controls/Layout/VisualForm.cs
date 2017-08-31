@@ -34,7 +34,7 @@
         #region Variables
 
         private readonly Cursor[] _resizeCursors;
-        private readonly Dictionary<int, int> _resizingLocationsToCmd;
+        private readonly Dictionary<int, int> _resizedLocationsCommand;
         private Color _background;
         private Border _border;
         private Color _buttonBackHoverColor;
@@ -76,7 +76,7 @@
 
             _resizeCursors = new[] { Cursors.SizeNESW, Cursors.SizeWE, Cursors.SizeNWSE, Cursors.SizeWE, Cursors.SizeNS };
 
-            _resizingLocationsToCmd = new Dictionary<int, int>
+            _resizedLocationsCommand = new Dictionary<int, int>
                 {
                     { HTTOP, WMSZ_TOP },
                     { HTTOPLEFT, WMSZ_TOPLEFT },
@@ -756,9 +756,9 @@
                 byte bFlag = 0;
 
                 // Get which side to resize from
-                if (_resizingLocationsToCmd.ContainsKey((int)m.WParam))
+                if (_resizedLocationsCommand.ContainsKey((int)m.WParam))
                 {
-                    bFlag = (byte)_resizingLocationsToCmd[(int)m.WParam];
+                    bFlag = (byte)_resizedLocationsCommand[(int)m.WParam];
                 }
 
                 if (bFlag != 0)

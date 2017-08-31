@@ -1385,26 +1385,26 @@
             Point _location;
             Size _size;
 
-            int barProgress;
+            int _barProgress;
 
             switch (Orientation)
             {
                 case Orientation.Horizontal:
                     {
                         // Draws the progress to the middle of the button
-                        barProgress = _buttonRectangle.X + (_buttonRectangle.Width / 2);
+                        _barProgress = _buttonRectangle.X + (_buttonRectangle.Width / 2);
 
                         _location = new Point(0, 0);
-                        _size = new Size(barProgress, Height);
+                        _size = new Size(_barProgress, Height);
 
                         if ((Value == Minimum) && _progressFilling)
                         {
-                            _location = new Point(barProgress, Height);
+                            _location = new Point(_barProgress, Height);
                         }
 
                         if ((Value == Maximum) && _progressFilling)
                         {
-                            _size = new Size(barProgress + _fillingValue, Height);
+                            _size = new Size(_barProgress + _fillingValue, Height);
                         }
 
                         _progressRectangle = new Rectangle(_location, _size);
@@ -1415,18 +1415,18 @@
                 case Orientation.Vertical:
                     {
                         // Draws the progress to the middle of the button
-                        barProgress = _buttonRectangle.Y + (_buttonRectangle.Height / 2);
+                        _barProgress = _buttonRectangle.Y + (_buttonRectangle.Height / 2);
 
-                        _location = new Point(0, barProgress);
+                        _location = new Point(0, _barProgress);
 
                         if ((Value == Minimum) && _progressFilling)
                         {
-                            _location = new Point(0, barProgress + _fillingValue);
+                            _location = new Point(0, _barProgress + _fillingValue);
                         }
 
                         if ((Value == Maximum) && _progressFilling)
                         {
-                            _location = new Point(0, barProgress - _fillingValue);
+                            _location = new Point(0, _barProgress - _fillingValue);
                         }
 
                         _size = new Size(Width, Height + _textAreaSize.Height);
@@ -1441,7 +1441,7 @@
 
             graphics.SetClip(_trackBarPath);
 
-            if (barProgress > 1)
+            if (_barProgress > 1)
             {
                 graphics.FillPath(new SolidBrush(_progressColor), _progressPath);
                 VisualControlRenderer.DrawHatch(graphics, _hatch, _progressPath);

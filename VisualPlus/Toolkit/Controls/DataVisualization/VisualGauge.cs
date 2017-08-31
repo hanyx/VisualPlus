@@ -143,7 +143,7 @@
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
             BackColorState.Enabled = StyleManager.ControlStyle.Background(3);
-            BackColorState.Disabled = StyleManager.ControlStatesStyle.ControlDisabled.Colors[0];
+            BackColorState.Disabled = StyleManager.ControlStatesStyle.ControlDisabled;
 
             _progress = StyleManager.ProgressStyle.Progress;
 

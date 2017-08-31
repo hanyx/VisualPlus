@@ -485,8 +485,8 @@
             _foreColor = _styleManager.FontStyle.ForeColor;
             _textDisabledColor = _styleManager.FontStyle.ForeColorDisabled;
 
-            _backColorState.Enabled = _styleManager.ControlStyle.BoxEnabled.Colors[0];
-            _backColorState.Disabled = _styleManager.ControlStyle.BoxDisabled.Colors[0];
+            _backColorState.Enabled = _styleManager.ControlStyle.BoxEnabled;
+            _backColorState.Disabled = _styleManager.ControlStyle.BoxDisabled;
 
             _buttonColor = _styleManager.ControlStyle.FlatButtonEnabled;
             _menuTextColor = _styleManager.FontStyle.ForeColor;

@@ -4,8 +4,6 @@
 
     using System.Drawing;
 
-    using VisualPlus.Structure;
-
     #endregion
 
     public interface IShape
@@ -39,13 +37,13 @@
     {
         #region Properties
 
-        Gradient ControlDisabled { get; }
+        Color ControlDisabled { get; }
 
-        Gradient ControlEnabled { get; }
+        Color ControlEnabled { get; }
 
-        Gradient ControlHover { get; }
+        Color ControlHover { get; }
 
-        Gradient ControlPressed { get; }
+        Color ControlPressed { get; }
 
         #endregion
     }
@@ -54,9 +52,9 @@
     {
         #region Properties
 
-        Gradient BoxDisabled { get; }
+        Color BoxDisabled { get; }
 
-        Gradient BoxEnabled { get; }
+        Color BoxEnabled { get; }
 
         Color FlatButtonDisabled { get; }
 

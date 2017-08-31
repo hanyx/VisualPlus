@@ -29,20 +29,19 @@
     {
         #region Variables
 
-        protected Orientation _orientation = Orientation.Horizontal;
+        protected Orientation _orientation;
 
         #endregion
 
         #region Variables
 
-        private ControlColorState _buttonControlColorState;
-        private Color _progressColor;
-        private VisualStyleManager _styleManager;
-        private ColorState _trackBarColor;
+        private Image _backgroundImage;
+
         private int _barThickness;
         private int _barTickSpacing;
         private bool _buttonAutoSize;
         private Border _buttonBorder;
+        private ControlColorState _buttonControlColorState;
         private GraphicsPath _buttonPath;
         private Rectangle _buttonRectangle;
         private Size _buttonSize;
@@ -52,6 +51,9 @@
         private ValueDivisor _dividedValue;
         private int _fillingValue;
         private Color _foreColor;
+
+        private Hatch _hatch;
+        private Color _hatchBackColor;
         private Color _hatchForeColor;
         private float _hatchSize;
         private HatchStyle _hatchStyle;
@@ -63,9 +65,11 @@
         private float _mouseStartPos;
         private MouseStates _mouseState;
         private string _prefix;
+        private Color _progressColor;
         private bool _progressFilling;
         private bool _progressValueVisible;
         private bool _progressVisible;
+        private VisualStyleManager _styleManager;
         private string _suffix;
         private Size _textAreaSize;
         private Color _textDisabledColor;
@@ -74,8 +78,10 @@
         private Color _tickColor;
         private int _tickHeight;
         private Border _trackBarBorder;
+        private ColorState _trackBarColor;
         private GraphicsPath _trackBarPath;
         private Rectangle _trackBarRectangle;
+        private Rectangle _trackerRectangle;
         private bool _valueTicksVisible;
         private Rectangle _workingRectangle;
 
@@ -84,7 +90,10 @@
         #region Constructors
 
         /// <inheritdoc />
-        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Interactivity.VisualTrackBar" /> class.</summary>
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Interactivity.VisualTrackBar" />
+        ///     class.
+        /// </summary>
         public VisualTrackBar()
         {
             SetStyle(
@@ -94,6 +103,9 @@
 
             UpdateStyles();
             _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _trackerRectangle = Rectangle.Empty;
+            _hatch = new Hatch();
+            _orientation = Orientation.Horizontal;
             _buttonPath = new GraphicsPath();
             _buttonAutoSize = true;
             _buttonSize = new Size(27, 20);
@@ -102,7 +114,7 @@
             _dividedValue = ValueDivisor.By1;
             _barTickSpacing = 8;
             _fillingValue = 25;
-            _hatchForeColor = Color.FromArgb(40, hatchBackColor);
+            _hatchForeColor = Color.FromArgb(40, _hatchBackColor);
             _hatchSize = 2F;
             _hatchStyle = HatchStyle.DarkDownwardDiagonal;
             _hatchVisible = Settings.DefaultValue.HatchVisible;
@@ -168,6 +180,22 @@
                 }
 
                 _buttonControlColorState = value;
+                Invalidate();
+            }
+        }
+
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        public override Image BackgroundImage
+        {
+            get
+            {
+                return _backgroundImage;
+            }
+
+            set
+            {
+                _backgroundImage = value;
                 Invalidate();
             }
         }
@@ -333,18 +361,35 @@
             }
         }
 
+        [TypeConverter(typeof(HatchConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(Propertys.Appearance)]
+        public Hatch Hatch
+        {
+            get
+            {
+                return _hatch;
+            }
+
+            set
+            {
+                _hatch = value;
+                Invalidate();
+            }
+        }
+
         [Category(Propertys.Appearance)]
         [Description(Property.Color)]
         public Color HatchBackColor
         {
             get
             {
-                return hatchBackColor;
+                return _hatchBackColor;
             }
 
             set
             {
-                hatchBackColor = value;
+                _hatchBackColor = value;
                 Invalidate();
             }
         }
@@ -466,6 +511,22 @@
         }
 
         [Category(Propertys.Appearance)]
+        [Description(Property.MouseState)]
+        public MouseStates MouseState
+        {
+            get
+            {
+                return _mouseState;
+            }
+
+            set
+            {
+                _mouseState = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Propertys.Appearance)]
         [Description(Property.Orientation)]
         public new Orientation Orientation
         {
@@ -560,22 +621,6 @@
             set
             {
                 _progressVisible = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.MouseState)]
-        public MouseStates State
-        {
-            get
-            {
-                return _mouseState;
-            }
-
-            set
-            {
-                _mouseState = value;
                 Invalidate();
             }
         }
@@ -835,7 +880,7 @@
             _trackBarColor.Enabled = _styleManager.ProgressStyle.BackProgress.Colors[0];
             _trackBarColor.Disabled = _styleManager.ProgressStyle.BackProgress.Colors[0];
 
-            hatchBackColor = _styleManager.ProgressStyle.Hatch;
+            _hatchBackColor = _styleManager.ProgressStyle.Hatch;
             _tickColor = _styleManager.ControlStyle.Line;
 
             _buttonBorder.Color = _styleManager.BorderStyle.Color;
@@ -852,7 +897,7 @@
             Point currentPoint = new Point(e.X, e.Y);
 
             // TODO: Improve location accuracy
-            if (trackerRectangle.Contains(currentPoint))
+            if (_trackerRectangle.Contains(currentPoint))
             {
                 if (!_leftButtonDown)
                 {
@@ -863,14 +908,14 @@
                     {
                         case Orientation.Horizontal:
                             {
-                                _mouseStartPos = currentPoint.X - trackerRectangle.X;
+                                _mouseStartPos = currentPoint.X - _trackerRectangle.X;
                                 Invalidate();
                                 break;
                             }
 
                         case Orientation.Vertical:
                             {
-                                _mouseStartPos = currentPoint.Y - trackerRectangle.Y;
+                                _mouseStartPos = currentPoint.Y - _trackerRectangle.Y;
                                 Invalidate();
                                 break;
                             }
@@ -916,8 +961,11 @@
 
                             break;
                         }
+
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        {
+                            throw new ArgumentOutOfRangeException();
+                        }
                 }
 
                 int oldValue = Value;
@@ -936,7 +984,7 @@
         protected override void OnMouseEnter(EventArgs e)
         {
             OnEnter(e);
-            State = MouseStates.Hover;
+            _mouseState = MouseStates.Hover;
             Invalidate();
         }
 
@@ -950,7 +998,7 @@
         protected override void OnMouseLeave(EventArgs e)
         {
             OnLeave(e);
-            State = MouseStates.Normal;
+            _mouseState = MouseStates.Normal;
             Invalidate();
         }
 
@@ -1050,52 +1098,14 @@
             // Set control state color
             _foreColor = Enabled ? _foreColor : _textDisabledColor;
 
-            // Step 1 - Configure tick style
             ConfigureTickStyle(graphics);
 
-            // Step 2 - Draw the progress
-            if (_progressVisible)
-            {
-                DrawProgress(graphics);
-            }
+            DrawProgress(graphics);
 
-            Size formattedProgressValue = GDI.MeasureText(graphics, Maximum.ToString(), _textFont);
+            Size _progressValue = GDI.MeasureText(graphics, Maximum.ToString(), _textFont);
 
-            // Step 3 - Draw the Tracker
-            DrawButton(graphics, formattedProgressValue);
-
-            // Step 4 - Draw progress value
-            if (_progressValueVisible)
-            {
-                string value = GetFormattedProgressValue();
-
-                // Position
-                Point progressValueLocation = new Point();
-                if (_buttonVisible)
-                {
-                    progressValueLocation = new Point((_buttonRectangle.X + (_buttonRectangle.Width / 2)) - (formattedProgressValue.Width / 2), (_buttonRectangle.Y + (_buttonRectangle.Height / 2)) - (formattedProgressValue.Height / 2));
-                }
-                else
-                {
-                    switch (Orientation)
-                    {
-                        case Orientation.Horizontal:
-                            {
-                                progressValueLocation = new Point(trackerRectangle.X, (_trackBarRectangle.Y + (_trackBarRectangle.Height / 2)) - (formattedProgressValue.Height / 2));
-                                break;
-                            }
-
-                        case Orientation.Vertical:
-                            {
-                                progressValueLocation = new Point(_trackBarRectangle.X, trackerRectangle.Y);
-                                break;
-                            }
-                    }
-                }
-
-                // Draw the formatted progress value
-                graphics.DrawString(value, _textFont, new SolidBrush(_buttonTextColor), progressValueLocation);
-            }
+            DrawButton(graphics, _progressValue);
+            DrawText(graphics, _progressValue);
         }
 
         protected override void OnResize(EventArgs e)
@@ -1114,10 +1124,6 @@
             Invalidate();
         }
 
-        /// <summary>This member overrides <see cref="Control.ProcessCmdKey">Control.ProcessCmdKey</see>.</summary>
-        /// <param name="msg">The msg.</param>
-        /// <param name="keyData">The key Data.</param>
-        /// <returns>The <see cref="bool" />.</returns>
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             var result = true;
@@ -1181,19 +1187,15 @@
             return result;
         }
 
-        private static Color hatchBackColor;
-
-        private static Rectangle trackerRectangle = Rectangle.Empty;
-
         /// <summary>Configures the tick style.</summary>
         /// <param name="graphics">Graphics input.</param>
         private void ConfigureTickStyle(Graphics graphics)
         {
-            int currentTrackerPos;
-            Point trackBarLocation = new Point();
-            Size trackBarSize;
-            Point trackerLocation;
-            Size trackerSize;
+            int _currentTrackerPosition;
+            Point _trackBarLocation = new Point();
+            Size _trackBarSize;
+            Point _trackerLocation;
+            Size _trackerSize;
 
             // Draw tick by orientation
             if (_orientation == Orientation.Horizontal)
@@ -1220,12 +1222,12 @@
                         {
                             if (_buttonVisible)
                             {
-                                trackBarLocation = new Point(0, _indentHeight + _textAreaSize.Height + _tickHeight + _barTickSpacing);
+                                _trackBarLocation = new Point(0, _indentHeight + _textAreaSize.Height + _tickHeight + _barTickSpacing);
                                 Size = new Size(ClientRectangle.Width, _indentHeight + _textAreaSize.Height + _tickHeight + _barTickSpacing + _barThickness + (_buttonSize.Height / 2));
                             }
                             else
                             {
-                                trackBarLocation = new Point(0, _indentHeight + _textAreaSize.Height + _tickHeight + _barTickSpacing);
+                                _trackBarLocation = new Point(0, _indentHeight + _textAreaSize.Height + _tickHeight + _barTickSpacing);
                                 Size = new Size(ClientRectangle.Width, _indentHeight + _textAreaSize.Height + _tickHeight + _barTickSpacing + _barThickness);
                             }
 
@@ -1236,12 +1238,12 @@
                         {
                             if (_buttonVisible)
                             {
-                                trackBarLocation = new Point(0, _indentHeight + (_buttonSize.Height / 2));
+                                _trackBarLocation = new Point(0, _indentHeight + (_buttonSize.Height / 2));
                                 Size = new Size(ClientRectangle.Width, _indentHeight + _barThickness + _barTickSpacing + _tickHeight + _textAreaSize.Height + (_textAreaSize.Height / 2));
                             }
                             else
                             {
-                                trackBarLocation = new Point(0, _indentHeight);
+                                _trackBarLocation = new Point(0, _indentHeight);
                                 Size = new Size(ClientRectangle.Width, _indentHeight + _barThickness + _barTickSpacing + _tickHeight + _textAreaSize.Height);
                             }
 
@@ -1252,12 +1254,12 @@
                         {
                             if (_buttonVisible)
                             {
-                                trackBarLocation = new Point(0, _indentHeight + (_buttonSize.Height / 2));
+                                _trackBarLocation = new Point(0, _indentHeight + (_buttonSize.Height / 2));
                                 Size = new Size(ClientRectangle.Width, _indentHeight + _barThickness + _buttonSize.Height);
                             }
                             else
                             {
-                                trackBarLocation = new Point(0, _indentHeight);
+                                _trackBarLocation = new Point(0, _indentHeight);
                                 Size = new Size(ClientRectangle.Width, _indentHeight + _barThickness);
                             }
 
@@ -1268,26 +1270,31 @@
                         {
                             int totalHeight = _indentHeight + _textAreaSize.Height + _tickHeight + _barTickSpacing + _barThickness + _barTickSpacing + _tickHeight + _textAreaSize.Height + (_textAreaSize.Height / 2);
 
-                            trackBarLocation = new Point(0, _indentHeight + _textAreaSize.Height + _tickHeight + _barTickSpacing);
+                            _trackBarLocation = new Point(0, _indentHeight + _textAreaSize.Height + _tickHeight + _barTickSpacing);
                             Size = new Size(ClientRectangle.Width, totalHeight);
 
                             break;
                         }
+
+                    default:
+                        {
+                            throw new ArgumentOutOfRangeException();
+                        }
                 }
 
-                trackBarSize = new Size(_workingRectangle.Width, _barThickness);
-                _trackBarRectangle = new Rectangle(trackBarLocation, trackBarSize);
+                _trackBarSize = new Size(_workingRectangle.Width, _barThickness);
+                _trackBarRectangle = new Rectangle(_trackBarLocation, _trackBarSize);
 
                 // Get tracker position
-                currentTrackerPos = RetrieveTrackerPosition(_workingRectangle);
+                _currentTrackerPosition = RetrieveTrackerPosition(_workingRectangle);
 
                 // Remember this for drawing the Tracker later
-                trackerLocation = new Point(currentTrackerPos, _currentUsedPos);
-                trackerSize = new Size(_buttonSize.Width, _buttonSize.Height);
-                trackerRectangle = new Rectangle(trackerLocation, trackerSize);
+                _trackerLocation = new Point(_currentTrackerPosition, _currentUsedPos);
+                _trackerSize = new Size(_buttonSize.Width, _buttonSize.Height);
+                _trackerRectangle = new Rectangle(_trackerLocation, _trackerSize);
 
                 // Draws track bar
-                DrawBar(graphics, _trackBarRectangle);
+                DrawTrackBar(graphics, _trackBarRectangle);
 
                 // Update current position
                 _currentUsedPos += _buttonSize.Height;
@@ -1328,12 +1335,12 @@
                         {
                             if (_buttonVisible)
                             {
-                                trackBarLocation = new Point(_indentWidth + _textAreaSize.Width + _tickHeight + _barTickSpacing, 0);
+                                _trackBarLocation = new Point(_indentWidth + _textAreaSize.Width + _tickHeight + _barTickSpacing, 0);
                                 Size = new Size(_indentWidth + _textAreaSize.Width + _tickHeight + _barTickSpacing + _barThickness + (_buttonSize.Width / 2), ClientRectangle.Height);
                             }
                             else
                             {
-                                trackBarLocation = new Point(_indentWidth + _textAreaSize.Width + _tickHeight + _barTickSpacing, 0);
+                                _trackBarLocation = new Point(_indentWidth + _textAreaSize.Width + _tickHeight + _barTickSpacing, 0);
                                 Size = new Size(_indentWidth + _textAreaSize.Width + _tickHeight + _barTickSpacing + _barThickness, ClientRectangle.Height);
                             }
 
@@ -1344,12 +1351,12 @@
                         {
                             if (_buttonVisible)
                             {
-                                trackBarLocation = new Point(_indentWidth + (_buttonSize.Width / 2), 0);
+                                _trackBarLocation = new Point(_indentWidth + (_buttonSize.Width / 2), 0);
                                 Size = new Size(_indentWidth + _barThickness + _barTickSpacing + _tickHeight + _textAreaSize.Width + (_buttonSize.Width / 2), ClientRectangle.Height);
                             }
                             else
                             {
-                                trackBarLocation = new Point(0, _indentWidth);
+                                _trackBarLocation = new Point(0, _indentWidth);
                                 Size = new Size(_indentWidth + _barThickness + _barTickSpacing + _tickHeight + _textAreaSize.Width, ClientRectangle.Height);
                             }
 
@@ -1360,12 +1367,12 @@
                         {
                             if (_buttonVisible)
                             {
-                                trackBarLocation = new Point(_indentWidth + (_buttonSize.Width / 2), _indentHeight);
+                                _trackBarLocation = new Point(_indentWidth + (_buttonSize.Width / 2), _indentHeight);
                                 Size = new Size(_indentWidth + _barThickness + _buttonSize.Width, ClientRectangle.Height);
                             }
                             else
                             {
-                                trackBarLocation = new Point(_indentWidth, _indentHeight);
+                                _trackBarLocation = new Point(_indentWidth, _indentHeight);
                                 Size = new Size(_indentWidth + _barThickness, ClientRectangle.Height);
                             }
 
@@ -1376,26 +1383,26 @@
                         {
                             int totalWidth = _indentWidth + _textAreaSize.Width + _tickHeight + _barTickSpacing + _barThickness + _barTickSpacing + _tickHeight + _textAreaSize.Width;
 
-                            trackBarLocation = new Point(_indentWidth + _textAreaSize.Width + _tickHeight + _barTickSpacing, 0);
+                            _trackBarLocation = new Point(_indentWidth + _textAreaSize.Width + _tickHeight + _barTickSpacing, 0);
                             Size = new Size(totalWidth, ClientRectangle.Height);
 
                             break;
                         }
                 }
 
-                trackBarSize = new Size(_barThickness, ClientRectangle.Height - _indentHeight);
-                _trackBarRectangle = new Rectangle(trackBarLocation, trackBarSize);
+                _trackBarSize = new Size(_barThickness, ClientRectangle.Height - _indentHeight);
+                _trackBarRectangle = new Rectangle(_trackBarLocation, _trackBarSize);
 
                 // Get tracker position
-                currentTrackerPos = RetrieveTrackerPosition(_workingRectangle);
+                _currentTrackerPosition = RetrieveTrackerPosition(_workingRectangle);
 
                 // Remember this for drawing the Tracker later
-                trackerLocation = new Point(_currentUsedPos, _workingRectangle.Bottom - currentTrackerPos - _buttonSize.Height);
-                trackerSize = new Size(_buttonSize.Width, _buttonSize.Height);
-                trackerRectangle = new Rectangle(trackerLocation, trackerSize);
+                _trackerLocation = new Point(_currentUsedPos, _workingRectangle.Bottom - _currentTrackerPosition - _buttonSize.Height);
+                _trackerSize = new Size(_buttonSize.Width, _buttonSize.Height);
+                _trackerRectangle = new Rectangle(_trackerLocation, _trackerSize);
 
                 // Draw the track bar
-                DrawBar(graphics, _trackBarRectangle);
+                DrawTrackBar(graphics, _trackBarRectangle);
 
                 // Update current position
                 _currentUsedPos += _buttonSize.Height;
@@ -1414,295 +1421,341 @@
             }
         }
 
-        /// <summary>Draws the bar.</summary>
-        /// <param name="graphics">Graphics input.</param>
-        /// <param name="barRectangle">Bar rectangle.</param>
-        private void DrawBar(Graphics graphics, Rectangle barRectangle)
-        {
-            Point trackLocation;
-            Size trackSize;
-
-            if (Orientation == Orientation.Horizontal)
-            {
-                trackLocation = new Point(_indentWidth + barRectangle.Left, _indentHeight + barRectangle.Top);
-                trackSize = new Size(barRectangle.Width, barRectangle.Height);
-            }
-            else
-            {
-                trackLocation = new Point(_indentWidth + barRectangle.Left, _indentHeight + barRectangle.Top);
-                trackSize = new Size(barRectangle.Width, barRectangle.Height);
-            }
-
-            _trackBarRectangle = new Rectangle(trackLocation, trackSize);
-            _trackBarPath = VisualBorderRenderer.CreateBorderTypePath(_trackBarRectangle, _trackBarBorder);
-
-            Color _backColor = Enabled ? _trackBarColor.Enabled : _trackBarColor.Disabled;
-            graphics.FillPath(new SolidBrush(_backColor), _trackBarPath);
-
-            VisualBorderRenderer.DrawBorderStyle(graphics, _trackBarBorder, _trackBarPath, State);
-        }
-
         /// <summary>Draws the button.</summary>
         /// <param name="graphics">Graphics input.</param>
         /// <param name="progressValue">The progress Value.</param>
         private void DrawButton(Graphics graphics, Size progressValue)
         {
-            Point buttonLocation = new Point();
+            Point _location;
             graphics.ResetClip();
 
-            // Determine button location by orientation
             switch (Orientation)
             {
                 case Orientation.Horizontal:
                     {
-                        buttonLocation = new Point(trackerRectangle.X, (_trackBarRectangle.Top + (_barThickness / 2)) - (_buttonSize.Height / 2));
-
-                        if (_buttonAutoSize)
-                        {
-                            _buttonSize = new Size(progressValue.Width, _buttonSize.Height);
-                        }
-                        else
-                        {
-                            _buttonSize = new Size(_buttonSize.Width, _buttonSize.Height);
-                        }
-
+                        _location = new Point(_trackerRectangle.X, (_trackBarRectangle.Top + (_barThickness / 2)) - (_buttonSize.Height / 2));
+                        _buttonSize = _buttonAutoSize ? new Size(progressValue.Width, _buttonSize.Height) : new Size(_buttonSize.Width, _buttonSize.Height);
                         break;
                     }
 
                 case Orientation.Vertical:
                     {
-                        buttonLocation = new Point((_trackBarRectangle.Left + (_barThickness / 2)) - (_buttonSize.Width / 2), trackerRectangle.Y);
-
-                        if (_buttonAutoSize)
-                        {
-                            _buttonSize = new Size(_buttonSize.Width, progressValue.Height);
-                        }
-                        else
-                        {
-                            _buttonSize = new Size(_buttonSize.Width, _buttonSize.Height);
-                        }
-
+                        _location = new Point((_trackBarRectangle.Left + (_barThickness / 2)) - (_buttonSize.Width / 2), _trackerRectangle.Y);
+                        _buttonSize = _buttonAutoSize ? new Size(_buttonSize.Width, progressValue.Height) : new Size(_buttonSize.Width, _buttonSize.Height);
                         break;
                     }
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
-            _buttonRectangle = new Rectangle(buttonLocation, _buttonSize);
+            _buttonRectangle = new Rectangle(_location, _buttonSize);
 
-            if (_buttonVisible)
+            if (!_buttonVisible)
             {
-                // Setup button colors
-                Color _backColor = GDI.GetBackColorState(Enabled, _buttonControlColorState.Enabled, _buttonControlColorState.Hover, _buttonControlColorState.Pressed, _buttonControlColorState.Disabled, _mouseState);
-
-                _buttonPath = VisualBorderRenderer.CreateBorderTypePath(_buttonRectangle, _buttonBorder);
-                graphics.FillPath(new SolidBrush(_backColor), _buttonPath);
-
-                VisualBorderRenderer.DrawBorderStyle(graphics, _buttonBorder, _buttonPath, State);
+                return;
             }
+
+            Color _backColor = GDI.GetBackColorState(Enabled, _buttonControlColorState.Enabled, _buttonControlColorState.Hover, _buttonControlColorState.Pressed, _buttonControlColorState.Disabled, _mouseState);
+
+            _buttonPath = VisualBorderRenderer.CreateBorderTypePath(_buttonRectangle, _buttonBorder);
+            graphics.FillPath(new SolidBrush(_backColor), _buttonPath);
+
+            VisualBorderRenderer.DrawBorderStyle(graphics, _buttonBorder, _buttonPath, _mouseState);
         }
 
         /// <summary>Draws the TrackBar progress.</summary>
         /// <param name="graphics">Graphics input.</param>
         private void DrawProgress(Graphics graphics)
         {
-            GraphicsPath progressPath = new GraphicsPath();
-            Rectangle progressRectangle;
-            Point progressLocation;
-            Size progressSize;
+            if (_progressVisible)
+            {
+                GraphicsPath progressPath = new GraphicsPath();
+                Rectangle progressRectangle;
+                Point progressLocation;
+                Size progressSize;
 
-            var barProgress = 0;
+                var barProgress = 0;
 
-            // Progress setup
+                // Progress setup
+                switch (Orientation)
+                {
+                    case Orientation.Horizontal:
+                        {
+                            // Draws the progress to the middle of the button
+                            barProgress = _buttonRectangle.X + (_buttonRectangle.Width / 2);
+
+                            progressLocation = new Point(0, 0);
+                            progressSize = new Size(barProgress, Height);
+
+                            if ((Value == Minimum) && _progressFilling)
+                            {
+                                progressLocation = new Point(barProgress, Height);
+                            }
+
+                            if ((Value == Maximum) && _progressFilling)
+                            {
+                                progressSize = new Size(barProgress + _fillingValue, Height);
+                            }
+
+                            progressRectangle = new Rectangle(progressLocation, progressSize);
+                            progressPath = VisualBorderRenderer.CreateBorderTypePath(progressRectangle, _trackBarBorder);
+                        }
+
+                        break;
+                    case Orientation.Vertical:
+                        {
+                            // Draws the progress to the middle of the button
+                            barProgress = _buttonRectangle.Y + (_buttonRectangle.Height / 2);
+
+                            progressLocation = new Point(0, barProgress);
+
+                            if ((Value == Minimum) && _progressFilling)
+                            {
+                                progressLocation = new Point(0, barProgress + _fillingValue);
+                            }
+
+                            if ((Value == Maximum) && _progressFilling)
+                            {
+                                progressLocation = new Point(0, barProgress - _fillingValue);
+                            }
+
+                            progressSize = new Size(Width, Height + _textAreaSize.Height);
+                            progressRectangle = new Rectangle(progressLocation, progressSize);
+                            progressPath = VisualBorderRenderer.CreateBorderTypePath(progressRectangle, _trackBarBorder);
+                        }
+
+                        break;
+                }
+
+                graphics.SetClip(_trackBarPath);
+
+                if (barProgress > 1)
+                {
+                    graphics.FillPath(new SolidBrush(_progressColor), progressPath);
+
+                    if (_hatchVisible)
+                    {
+                        HatchBrush hatchBrush = new HatchBrush(_hatchStyle, _hatchForeColor, _hatchBackColor);
+                        using (TextureBrush textureBrush = GDI.DrawTextureUsingHatch(hatchBrush))
+                        {
+                            textureBrush.ScaleTransform(_hatchSize, _hatchSize);
+                            graphics.FillPath(textureBrush, progressPath);
+                            graphics.ResetClip();
+                        }
+                    }
+
+                    graphics.ResetClip();
+                }
+            }
+        }
+
+        /// <summary>Draws the progress text.</summary>
+        /// <param name="graphics">Graphics input.</param>
+        /// <param name="progressValue">The progress Value.</param>
+        private void DrawText(Graphics graphics, Size progressValue)
+        {
+            if (!_progressValueVisible)
+            {
+                return;
+            }
+
+            string value = GetFormattedProgressValue();
+            Point _textLocation = new Point();
+
+            if (_buttonVisible)
+            {
+                _textLocation = new Point((_buttonRectangle.X + (_buttonRectangle.Width / 2)) - (progressValue.Width / 2), (_buttonRectangle.Y + (_buttonRectangle.Height / 2)) - (progressValue.Height / 2));
+            }
+            else
+            {
+                switch (Orientation)
+                {
+                    case Orientation.Horizontal:
+                        {
+                            _textLocation = new Point(_trackerRectangle.X, (_trackBarRectangle.Y + (_trackBarRectangle.Height / 2)) - (progressValue.Height / 2));
+                            break;
+                        }
+
+                    case Orientation.Vertical:
+                        {
+                            _textLocation = new Point(_trackBarRectangle.X, _trackerRectangle.Y);
+                            break;
+                        }
+                }
+            }
+
+            graphics.DrawString(value, _textFont, new SolidBrush(_buttonTextColor), _textLocation);
+        }
+
+        /// <summary>Draws the TrackBar.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="rectangle">Trackbar rectangle rectangle.</param>
+        private void DrawTrackBar(Graphics graphics, Rectangle rectangle)
+        {
+            Point _trackBarLocation;
+            Size _trackBarSize;
+
+            switch (_orientation)
+            {
+                case Orientation.Horizontal:
+                    {
+                        _trackBarLocation = new Point(_indentWidth + rectangle.Left, _indentHeight + rectangle.Top);
+                        _trackBarSize = new Size(rectangle.Width, rectangle.Height);
+                        break;
+                    }
+
+                case Orientation.Vertical:
+                    {
+                        _trackBarLocation = new Point(_indentWidth + rectangle.Left, _indentHeight + rectangle.Top);
+                        _trackBarSize = new Size(rectangle.Width, rectangle.Height);
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+            }
+
+            _trackBarRectangle = new Rectangle(_trackBarLocation, _trackBarSize);
+            _trackBarPath = VisualBorderRenderer.CreateBorderTypePath(_trackBarRectangle, _trackBarBorder);
+
+            Color _backColor = Enabled ? _trackBarColor.Enabled : _trackBarColor.Disabled;
+            VisualBackgroundRenderer.DrawBackground(graphics, _backColor, _backgroundImage, _mouseState, _trackBarRectangle, _trackBarBorder);
+        }
+
+        /// <summary>Draws the horizontal style.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="rectangle">The working rectangle.</param>
+        /// <param name="line">Toggle between drawing a tick line or the associated value.</param>
+        private void HorizontalStyle(Graphics graphics, Rectangle rectangle, bool line)
+        {
+            Rectangle _tickRectangle;
+            _currentUsedPos = _indentHeight;
+            Point _location;
+            Size _size;
+            _textAreaSize = GDI.MeasureText(graphics, Maximum.ToString(), _textFont);
+
+            if (line)
+            {
+                if ((TickStyle == TickStyle.TopLeft) || (TickStyle == TickStyle.Both))
+                {
+                    // Retrieve tick barRectangle
+                    _location = new Point(rectangle.Left, _currentUsedPos + _textAreaSize.Height);
+                    _size = new Size(rectangle.Width, _tickHeight);
+                    _tickRectangle = new Rectangle(_location, _size);
+
+                    // Move next tick area
+                    _currentUsedPos += _tickHeight;
+                    GDI.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
+                }
+
+                if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
+                {
+                    // Retrieve tick barRectangle
+                    _location = new Point(rectangle.Left, _trackBarRectangle.Bottom + _barTickSpacing);
+                    _size = new Size(rectangle.Width, _tickHeight);
+                    _tickRectangle = new Rectangle(_location, _size);
+
+                    // Enlarge tick barRectangle
+                    _tickRectangle.Inflate(-_buttonSize.Width / 2, 0);
+
+                    // Move next tick area
+                    _currentUsedPos += _tickHeight;
+                    GDI.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
+                }
+            }
+            else
+            {
+                if ((TickStyle == TickStyle.TopLeft) || (TickStyle == TickStyle.Both))
+                {
+                    // Retrieve text barRectangle
+                    _location = new Point(rectangle.Left, _currentUsedPos);
+                    _size = new Size(rectangle.Width, _textAreaSize.Height);
+                    _tickRectangle = new Rectangle(_location, _size);
+
+                    // Enlarge text barRectangle
+                    _tickRectangle.Inflate(-_buttonSize.Width / 2, 0);
+
+                    // Move next text area
+                    _currentUsedPos += _tickHeight;
+                    GDI.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
+                }
+
+                if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
+                {
+                    // Retrieve text barRectangle
+                    _location = new Point(rectangle.Left, _trackBarRectangle.Y + _trackBarRectangle.Height + _trackBarBorder.Rounding + _barTickSpacing + _tickHeight + _currentUsedPos);
+                    _size = new Size(rectangle.Width, _tickHeight);
+                    _tickRectangle = new Rectangle(_location, _size);
+
+                    // Enlarge text barRectangle
+                    _tickRectangle.Inflate(-_buttonSize.Width / 2, 0);
+
+                    // Move next text area
+                    _currentUsedPos += _tickHeight;
+                    GDI.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
+                }
+            }
+        }
+
+        /// <summary>Returns the tracker variable position.</summary>
+        /// <param name="rectangle">The working rectangle.</param>
+        /// <returns>Tracker position.</returns>
+        private int RetrieveTrackerPosition(Rectangle rectangle)
+        {
+            int _currentPosition;
+
             switch (Orientation)
             {
                 case Orientation.Horizontal:
                     {
-                        // Draws the progress to the middle of the button
-                        barProgress = _buttonRectangle.X + (_buttonRectangle.Width / 2);
-
-                        progressLocation = new Point(0, 0);
-                        progressSize = new Size(barProgress, Height);
-
-                        if ((Value == Minimum) && _progressFilling)
+                        if (Maximum == Minimum)
                         {
-                            progressLocation = new Point(barProgress, Height);
+                            _currentPosition = rectangle.Left;
+                        }
+                        else
+                        {
+                            _currentPosition = (((rectangle.Width - _buttonSize.Width) * (Value - Minimum)) / (Maximum - Minimum)) + rectangle.Left;
                         }
 
-                        if ((Value == Maximum) && _progressFilling)
-                        {
-                            progressSize = new Size(barProgress + _fillingValue, Height);
-                        }
-
-                        progressRectangle = new Rectangle(progressLocation, progressSize);
-                        progressPath = VisualBorderRenderer.CreateBorderTypePath(progressRectangle, _trackBarBorder);
+                        break;
                     }
 
-                    break;
                 case Orientation.Vertical:
                     {
-                        // Draws the progress to the middle of the button
-                        barProgress = _buttonRectangle.Y + (_buttonRectangle.Height / 2);
-
-                        progressLocation = new Point(0, barProgress);
-
-                        if ((Value == Minimum) && _progressFilling)
+                        if (Maximum == Minimum)
                         {
-                            progressLocation = new Point(0, barProgress + _fillingValue);
+                            _currentPosition = rectangle.Top;
+                        }
+                        else
+                        {
+                            _currentPosition = ((rectangle.Height - _buttonSize.Height) * (Value - Minimum)) / (Maximum - Minimum);
                         }
 
-                        if ((Value == Maximum) && _progressFilling)
-                        {
-                            progressLocation = new Point(0, barProgress - _fillingValue);
-                        }
-
-                        progressSize = new Size(Width, Height + _textAreaSize.Height);
-                        progressRectangle = new Rectangle(progressLocation, progressSize);
-                        progressPath = VisualBorderRenderer.CreateBorderTypePath(progressRectangle, _trackBarBorder);
+                        break;
                     }
 
-                    break;
-            }
-
-            graphics.SetClip(_trackBarPath);
-
-            if (barProgress > 1)
-            {
-                graphics.FillPath(new SolidBrush(_progressColor), progressPath);
-
-                if (_hatchVisible)
-                {
-                    HatchBrush hatchBrush = new HatchBrush(_hatchStyle, _hatchForeColor, hatchBackColor);
-                    using (TextureBrush textureBrush = GDI.DrawTextureUsingHatch(hatchBrush))
+                default:
                     {
-                        textureBrush.ScaleTransform(_hatchSize, _hatchSize);
-                        graphics.FillPath(textureBrush, progressPath);
-                        graphics.ResetClip();
+                        throw new ArgumentOutOfRangeException();
                     }
-                }
-
-                graphics.ResetClip();
             }
+
+            return _currentPosition;
         }
 
-        private void HorizontalStyle(Graphics graphics, Rectangle rectangle, bool line)
-        {
-            Rectangle tickRectangle;
-            _currentUsedPos = _indentHeight;
-            Point location;
-            Size size;
-            _textAreaSize = GDI.MeasureText(graphics, Maximum.ToString(), _textFont);
-
-            if (line)
-            {
-                if ((TickStyle == TickStyle.TopLeft) || (TickStyle == TickStyle.Both))
-                {
-                    // Retrieve tick barRectangle
-                    location = new Point(rectangle.Left, _currentUsedPos + _textAreaSize.Height);
-                    size = new Size(rectangle.Width, _tickHeight);
-                    tickRectangle = new Rectangle(location, size);
-
-                    // Enlarge tick barRectangle
-                    // tickRectangle.Inflate(-buttonSize.Width / 2, 0);
-
-                    // tickRectangle.Inflate(-buttonSize.Width / 2, 0);
-
-                    // Move next tick area
-                    _currentUsedPos += _tickHeight;
-
-                    // Draw tick line
-                    GDI.DrawTickLine(graphics, tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
-                }
-
-                if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
-                {
-                    // Retrieve tick barRectangle
-                    location = new Point(rectangle.Left, _trackBarRectangle.Bottom + _barTickSpacing);
-                    size = new Size(rectangle.Width, _tickHeight);
-                    tickRectangle = new Rectangle(location, size);
-
-                    // Enlarge tick barRectangle
-                    tickRectangle.Inflate(-_buttonSize.Width / 2, 0);
-
-                    // Move next tick area
-                    _currentUsedPos += _tickHeight;
-
-                    // Draw tick line
-                    GDI.DrawTickLine(graphics, tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
-                }
-            }
-            else
-            {
-                if ((TickStyle == TickStyle.TopLeft) || (TickStyle == TickStyle.Both))
-                {
-                    // Retrieve text barRectangle
-                    location = new Point(rectangle.Left, _currentUsedPos);
-                    size = new Size(rectangle.Width, _textAreaSize.Height);
-                    tickRectangle = new Rectangle(location, size);
-
-                    // Enlarge text barRectangle
-                    tickRectangle.Inflate(-_buttonSize.Width / 2, 0);
-
-                    // Move next text area
-                    _currentUsedPos += _tickHeight;
-
-                    // Draw text 
-                    GDI.DrawTickTextLine(graphics, tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
-                }
-
-                if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
-                {
-                    // Retrieve text barRectangle
-                    location = new Point(rectangle.Left, _trackBarRectangle.Y + _trackBarRectangle.Height + _trackBarBorder.Rounding + _barTickSpacing + _tickHeight + _currentUsedPos);
-                    size = new Size(rectangle.Width, _tickHeight);
-                    tickRectangle = new Rectangle(location, size);
-
-                    // Enlarge text barRectangle
-                    tickRectangle.Inflate(-_buttonSize.Width / 2, 0);
-
-                    // Move next text area
-                    _currentUsedPos += _tickHeight;
-
-                    // Draw text 
-                    GDI.DrawTickTextLine(graphics, tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
-                }
-            }
-        }
-
-        private int RetrieveTrackerPosition(Rectangle workingRect)
-        {
-            var currentTrackerPos = 0;
-
-            if (Orientation == Orientation.Horizontal)
-            {
-                if (Maximum == Minimum)
-                {
-                    currentTrackerPos = workingRect.Left;
-                }
-                else
-                {
-                    currentTrackerPos = (((workingRect.Width - _buttonSize.Width) * (Value - Minimum)) / (Maximum - Minimum)) + workingRect.Left;
-                }
-            }
-            else if (Orientation == Orientation.Vertical)
-            {
-                if (Maximum == Minimum)
-                {
-                    currentTrackerPos = workingRect.Top;
-                }
-                else
-                {
-                    currentTrackerPos = ((workingRect.Height - _buttonSize.Height) * (Value - Minimum)) / (Maximum - Minimum);
-                }
-            }
-
-            return currentTrackerPos;
-        }
-
+        /// <summary>Draws the vertical style.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="rectangle">The working rectangle.</param>
+        /// <param name="line">Toggle between drawing a tick line or the associated value.</param>
         private void VerticalStyle(Graphics graphics, Rectangle rectangle, bool line)
         {
-            Rectangle tickRectangle;
+            Rectangle _tickRectangle;
             _currentUsedPos = _indentWidth;
-            Point location;
-            Size size;
+            Point _location;
+            Size _size;
             _textAreaSize = GDI.MeasureText(graphics, Maximum.ToString(), _textFont);
 
             if (line)
@@ -1710,35 +1763,25 @@
                 if ((TickStyle == TickStyle.TopLeft) || (TickStyle == TickStyle.Both))
                 {
                     // Retrieve tick barRectangle
-                    location = new Point(_currentUsedPos + _textAreaSize.Width, _textAreaSize.Height / 2);
-                    size = new Size(_tickHeight, _trackBarRectangle.Height - _textAreaSize.Height);
-                    tickRectangle = new Rectangle(location, size);
-
-                    // Enlarge tick barRectangle
-                    // tickRectangle.Inflate(-buttonSize.Width / 2, 0);
+                    _location = new Point(_currentUsedPos + _textAreaSize.Width, _textAreaSize.Height / 2);
+                    _size = new Size(_tickHeight, _trackBarRectangle.Height - _textAreaSize.Height);
+                    _tickRectangle = new Rectangle(_location, _size);
 
                     // Move next tick area
                     _currentUsedPos += _tickHeight;
-
-                    // Draw tick line
-                    GDI.DrawTickLine(graphics, tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
+                    GDI.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
                 }
 
                 if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
                 {
                     // Retrieve tick barRectangle
-                    location = new Point(_trackBarRectangle.Right + _barTickSpacing, rectangle.Top + (_textAreaSize.Height / 2));
-                    size = new Size(_tickHeight, _trackBarRectangle.Height - _textAreaSize.Height);
-                    tickRectangle = new Rectangle(location, size);
-
-                    // Enlarge tick barRectangle
-                    // tickRectangle.Inflate(-buttonSize.Width / 2, 0);
+                    _location = new Point(_trackBarRectangle.Right + _barTickSpacing, rectangle.Top + (_textAreaSize.Height / 2));
+                    _size = new Size(_tickHeight, _trackBarRectangle.Height - _textAreaSize.Height);
+                    _tickRectangle = new Rectangle(_location, _size);
 
                     // Move next tick area
                     _currentUsedPos += _tickHeight;
-
-                    // Draw tick line
-                    GDI.DrawTickLine(graphics, tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
+                    GDI.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
                 }
             }
             else
@@ -1746,35 +1789,25 @@
                 if ((TickStyle == TickStyle.TopLeft) || (TickStyle == TickStyle.Both))
                 {
                     // Retrieve text barRectangle
-                    location = new Point(_currentUsedPos, _textAreaSize.Height / 2);
-                    size = new Size(_textAreaSize.Width, _trackBarRectangle.Height - _textAreaSize.Height);
-                    tickRectangle = new Rectangle(location, size);
-
-                    // Enlarge text barRectangle
-                    // tickRectangle.Inflate(-buttonSize.Width / 2, 0);
+                    _location = new Point(_currentUsedPos, _textAreaSize.Height / 2);
+                    _size = new Size(_textAreaSize.Width, _trackBarRectangle.Height - _textAreaSize.Height);
+                    _tickRectangle = new Rectangle(_location, _size);
 
                     // Move next text area
                     _currentUsedPos += _tickHeight;
-
-                    // Draw text 
-                    GDI.DrawTickTextLine(graphics, tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
+                    GDI.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
                 }
 
                 if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
                 {
                     // Retrieve text barRectangle
-                    location = new Point(_trackBarRectangle.Right + _barTickSpacing + _tickHeight, rectangle.Top + (_textAreaSize.Height / 2));
-                    size = new Size(_textAreaSize.Width, rectangle.Height - _textAreaSize.Height);
-                    tickRectangle = new Rectangle(location, size);
-
-                    // Enlarge text barRectangle
-                    // tickRectangle.Inflate(-buttonSize.Width / 2, 0);
+                    _location = new Point(_trackBarRectangle.Right + _barTickSpacing + _tickHeight, rectangle.Top + (_textAreaSize.Height / 2));
+                    _size = new Size(_textAreaSize.Width, rectangle.Height - _textAreaSize.Height);
+                    _tickRectangle = new Rectangle(_location, _size);
 
                     // Move next text area
                     _currentUsedPos += _tickHeight;
-
-                    // Draw text 
-                    GDI.DrawTickTextLine(graphics, tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
+                    GDI.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
                 }
             }
         }

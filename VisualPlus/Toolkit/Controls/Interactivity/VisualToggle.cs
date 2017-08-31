@@ -255,9 +255,9 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _buttonColorState.Hover = Color.FromArgb(224, 224, 224);
             _buttonColorState.Pressed = Color.Silver;
 
-            _border.Color = StyleManager.BorderStyle.Color;
+            _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
-            _buttonBorder.Color = StyleManager.BorderStyle.Color;
+            _buttonBorder.Color = StyleManager.ShapeStyle.Color;
             _buttonBorder.HoverColor = StyleManager.BorderStyle.HoverColor;
             Invalidate();
         }

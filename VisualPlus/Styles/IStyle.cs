@@ -8,11 +8,18 @@
 
     #endregion
 
-    public interface IBorder
+    public interface IShape
     {
         #region Properties
 
         Color Color { get; }
+
+        #endregion
+    }
+
+    public interface IBorder
+    {
+        #region Properties
 
         Color HoverColor { get; }
 

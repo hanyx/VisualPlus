@@ -478,7 +478,7 @@
         {
             _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
 
-            _border.Color = _styleManager.BorderStyle.Color;
+            _border.Color = _styleManager.ShapeStyle.Color;
             _border.HoverColor = _styleManager.BorderStyle.HoverColor;
 
             Font = _styleManager.Font;

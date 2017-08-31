@@ -277,7 +277,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
             _progressColor = StyleManager.ProgressStyle.Progress.Colors[0];
 
-            _border.Color = StyleManager.BorderStyle.Color;
+            _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
 
             Invalidate();

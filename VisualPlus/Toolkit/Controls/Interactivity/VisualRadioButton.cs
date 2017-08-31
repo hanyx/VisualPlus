@@ -60,7 +60,7 @@
             BoxColorState.Hover = Color.FromArgb(224, 224, 224);
             BoxColorState.Pressed = Color.Silver;
 
-            Border.Color = StyleManager.BorderStyle.Color;
+            Border.Color = StyleManager.ShapeStyle.Color;
             Border.HoverColor = StyleManager.BorderStyle.HoverColor;
 
             Invalidate();

@@ -14,6 +14,7 @@
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
+    using VisualPlus.Styles;
     using VisualPlus.Toolkit.Components;
 
     #endregion
@@ -24,7 +25,7 @@
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [Description("The shape.")]
-    public class Shape
+    public class Shape : IShape
     {
         #region Variables
 
@@ -42,10 +43,11 @@
         public Shape()
         {
             VisualStyleManager styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
-            ConstructShape(ShapeType.Rounded, styleManager.BorderStyle.Color, Settings.DefaultValue.Rounding.Default, Settings.DefaultValue.BorderThickness, true);
+            ConstructShape(ShapeType.Rounded, styleManager.ShapeStyle.Color, Settings.DefaultValue.Rounding.Default, Settings.DefaultValue.BorderThickness, true);
         }
 
-        /// <summary>Initializes a new instance of the <see cref="Shape" /> class.</summary>
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Structure.Shape" /> class.</summary>
         /// <param name="shapeType">The shape type.</param>
         /// <param name="color">The color.</param>
         /// <param name="rounding">The rounding.</param>
@@ -54,7 +56,8 @@
             ConstructShape(shapeType, color, rounding, _thickness, _visible);
         }
 
-        /// <summary>Initializes a new instance of the <see cref="Shape" /> class.</summary>
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Structure.Shape" /> class.</summary>
         /// <param name="shapeType">The shape type.</param>
         /// <param name="color">The color.</param>
         /// <param name="rounding">The rounding.</param>

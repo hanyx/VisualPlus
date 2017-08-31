@@ -59,7 +59,7 @@
 
             CheckStyle.Color = StyleManager.CheckmarkStyle.EnabledGradient.Colors[0];
 
-            Border.Color = StyleManager.BorderStyle.Color;
+            Border.Color = StyleManager.ShapeStyle.Color;
             Border.HoverColor = StyleManager.BorderStyle.HoverColor;
             Invalidate();
         }

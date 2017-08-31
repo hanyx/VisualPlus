@@ -207,7 +207,7 @@
         public void UpdateTheme(Styles style)
         {
             StyleManager.Style = style;
-            _border.Color = StyleManager.BorderStyle.Color;
+            _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;

@@ -790,10 +790,10 @@
 
             _tickColor = _styleManager.ControlStyle.Line;
 
-            _buttonBorder.Color = _styleManager.BorderStyle.Color;
+            _buttonBorder.Color = _styleManager.ShapeStyle.Color;
             _buttonBorder.HoverColor = _styleManager.BorderStyle.HoverColor;
 
-            _trackBarBorder.Color = _styleManager.BorderStyle.Color;
+            _trackBarBorder.Color = _styleManager.ShapeStyle.Color;
             _trackBarBorder.HoverColor = _styleManager.BorderStyle.HoverColor;
             Invalidate();
         }

@@ -77,7 +77,7 @@
             BackColorState.Enabled = StyleManager.ControlStyle.Background(0);
             BackColorState.Disabled = StyleManager.ControlStyle.Background(0);
 
-            _border.Color = StyleManager.BorderStyle.Color;
+            _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
 
             Invalidate();

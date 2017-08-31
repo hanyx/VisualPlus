@@ -11,7 +11,7 @@
 
     #endregion
 
-    public class Visual : IBorder, ICheckmark, IControl, IControlState, IFont, IProgress, ITab, IWatermark
+    public class Visual : IBorder, ICheckmark, IControl, IControlState, IFont, IShape, IProgress, ITab, IWatermark
     {
         #region Variables
 

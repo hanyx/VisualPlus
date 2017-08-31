@@ -294,7 +294,7 @@
             _colorState.Enabled = StyleManager.ControlStyle.Background(3);
             _colorState.Disabled = StyleManager.ControlStyle.Background(0);
 
-            _border.Color = StyleManager.BorderStyle.Color;
+            _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
 
             Invalidate();
@@ -553,8 +553,8 @@
             _graphics.DrawString("+", _buttonFont, new SolidBrush(_buttonForeColor), _incrementButtonPoints[toggleInt]);
             _graphics.DrawString("-", _buttonFont, new SolidBrush(_buttonForeColor), _decrementButtonPoints[toggleInt]);
 
-            _graphics.DrawLine(new Pen(StyleManager.BorderStyle.Color), tempSeparator[0], tempSeparator[1]);
-            _graphics.DrawLine(new Pen(StyleManager.BorderStyle.Color), _separator2[0], _separator2[1]);
+            _graphics.DrawLine(new Pen(StyleManager.ShapeStyle.Color), tempSeparator[0], tempSeparator[1]);
+            _graphics.DrawLine(new Pen(StyleManager.ShapeStyle.Color), _separator2[0], _separator2[1]);
 
             DrawText(_graphics);
         }

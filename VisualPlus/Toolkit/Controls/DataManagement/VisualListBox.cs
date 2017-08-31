@@ -711,7 +711,7 @@
         public void UpdateTheme(Styles style)
         {
             StyleManager = new VisualStyleManager(style);
-            _border.Color = StyleManager.BorderStyle.Color;
+            _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
@@ -720,7 +720,7 @@
             _colorState.Disabled = StyleManager.ControlStyle.Background(0);
 
             _itemNormal = BackColorState.Enabled;
-            _itemAlternate = StyleManager.BorderStyle.Color;
+            _itemAlternate = StyleManager.ShapeStyle.Color;
             _itemSelected = StyleManager.BorderStyle.HoverColor;
 
             Invalidate();

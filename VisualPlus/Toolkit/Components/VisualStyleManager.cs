@@ -109,6 +109,10 @@
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public IProgress ProgressStyle { get; set; }
 
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public IShape ShapeStyle { get; set; }
+
         public Styles Style
         {
             get
@@ -272,6 +276,7 @@
         /// <param name="style">The style.</param>
         private void UpdateStyle(Styles style)
         {
+            ShapeStyle = (IShape)GetStyleObject(style);
             BorderStyle = (IBorder)GetStyleObject(style);
             CheckmarkStyle = (ICheckmark)GetStyleObject(style);
             ControlStatesStyle = (IControlState)GetStyleObject(style);

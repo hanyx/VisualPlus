@@ -77,7 +77,7 @@
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
             _text = "Enter your custom text here.";
             _icon = Resources.Icon;
-            _background = _styleManager.ControlStatesStyle.ControlEnabled;
+            _background = _styleManager.ColorStateStyle.ControlEnabled;
             _font = _styleManager.Font;
             _autoSize = true;
             _foreColor = _styleManager.FontStyle.ForeColor;

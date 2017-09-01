@@ -74,7 +74,7 @@
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.Selectable | ControlStyles.StandardClick | ControlStyles.StandardDoubleClick | ControlStyles.SupportsTransparentBackColor, true);
             _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
-            _buttonColor = _styleManager.ControlStatesStyle.ControlEnabled;
+            _buttonColor = _styleManager.ColorStateStyle.ControlEnabled;
             _pickType = PickerType.Rectangle;
             Color = Color.Black;
             ColorStep = 4;

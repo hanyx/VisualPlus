@@ -33,13 +33,20 @@
         #endregion
     }
 
-    public interface IControlState
+    public interface IColorState
     {
         #region Properties
 
         Color ControlDisabled { get; }
 
         Color ControlEnabled { get; }
+
+        #endregion
+    }
+
+    public interface IControlColorState
+    {
+        #region Properties
 
         Color ControlHover { get; }
 

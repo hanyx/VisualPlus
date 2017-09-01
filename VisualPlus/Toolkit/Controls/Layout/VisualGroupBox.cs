@@ -227,7 +227,7 @@
             BackColorState.Enabled = StyleManager.ControlStyle.Background(0);
             BackColorState.Disabled = StyleManager.ControlStyle.Background(0);
 
-            _titleColor = StyleManager.ControlStatesStyle.ControlDisabled;
+            _titleColor = StyleManager.ColorStateStyle.ControlDisabled;
 
             Invalidate();
         }

@@ -91,7 +91,11 @@
 
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public IControlState ControlStatesStyle { get; set; }
+        public IColorState ColorStateStyle { get; set; }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public IControlColorState ControlColorStateStyle { get; set; }
 
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -279,7 +283,8 @@
             ShapeStyle = (IShape)GetStyleObject(style);
             BorderStyle = (IBorder)GetStyleObject(style);
             CheckmarkStyle = (ICheckmark)GetStyleObject(style);
-            ControlStatesStyle = (IControlState)GetStyleObject(style);
+            ColorStateStyle = (IColorState)GetStyleObject(style);
+            ControlColorStateStyle = (IControlColorState)GetStyleObject(style);
             ControlStyle = (IControl)GetStyleObject(style);
             FontStyle = (IFont)GetStyleObject(style);
             ProgressStyle = (IProgress)GetStyleObject(style);

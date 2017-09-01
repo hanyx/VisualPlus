@@ -10,7 +10,7 @@
 
     #endregion
 
-    public class Enigma : IBorder, ICheckmark, IControl, IControlState, IFont, IShape, IProgress, ITab, IWatermark
+    public class Enigma : IBorder, ICheckmark, IControl, IColorState, IControlColorState, IFont, IShape, IProgress, ITab, IWatermark
     {
         #region Variables
 

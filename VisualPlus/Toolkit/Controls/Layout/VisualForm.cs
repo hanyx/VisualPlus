@@ -92,8 +92,8 @@
             FormBorderStyle = FormBorderStyle.None;
             Sizable = true;
             _closeColor = Color.IndianRed;
-            _buttonBackHoverColor = _styleManager.ControlStatesStyle.ControlHover;
-            _buttonBackPressedColor = _styleManager.ControlStatesStyle.ControlPressed;
+            _buttonBackHoverColor = _styleManager.ControlColorStateStyle.ControlHover;
+            _buttonBackPressedColor = _styleManager.ControlColorStateStyle.ControlPressed;
             _buttonState = ButtonState.None;
             _maxColor = _styleManager.ControlStyle.FlatButtonEnabled;
             _minColor = _styleManager.ControlStyle.FlatButtonEnabled;

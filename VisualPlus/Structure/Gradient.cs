@@ -72,7 +72,7 @@
         public Gradient(float angle, Color[] colors, float[] positions, Rectangle rectangle)
         {
             CreateGradient(angle, colors, positions);
-            GradientBrush = CreateGradientBrush(this, rectangle);
+            GradientBrush = CreateBrush(this, rectangle);
         }
 
         [Category(Events.PropertyChanged)]
@@ -155,9 +155,9 @@
         /// <param name="gradient">The gradient.</param>
         /// <param name="rectangle">The rectangle.</param>
         /// <returns>Returns a custom gradient brush.</returns>
-        public static LinearGradientBrush CreateGradientBrush(Gradient gradient, Rectangle rectangle)
+        public static LinearGradientBrush CreateBrush(Gradient gradient, Rectangle rectangle)
         {
-            return CreateGradientBrush(gradient.Angle, gradient.Colors, gradient.Positions, rectangle);
+            return CreateBrush(gradient.Angle, gradient.Colors, gradient.Positions, rectangle);
         }
 
         /// <summary>Creates a gradient brush.</summary>
@@ -166,7 +166,7 @@
         /// <param name="positions">The positions.</param>
         /// <param name="rectangle">The rectangle.</param>
         /// <returns>Returns a custom gradient brush.</returns>
-        public static LinearGradientBrush CreateGradientBrush(float angle, Color[] colors, float[] positions, Rectangle rectangle)
+        public static LinearGradientBrush CreateBrush(float angle, Color[] colors, float[] positions, Rectangle rectangle)
         {
             var _points = GetGradientPoints(rectangle);
             LinearGradientBrush _linearGradientBrush = new LinearGradientBrush(_points[0], _points[1], Color.Black, Color.Black);
@@ -181,6 +181,16 @@
             _linearGradientBrush.RotateTransform(angle);
 
             return _linearGradientBrush;
+        }
+
+        /// <summary>Draws the gradient rectangle.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
+        /// <param name="gradient">The gradient.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        public static void Draw(Graphics graphics, Gradient gradient, Rectangle rectangle)
+        {
+            gradient.GradientBrush = CreateBrush(gradient, rectangle);
+            graphics.FillRectangle(gradient.GradientBrush, rectangle);
         }
 
         protected virtual void OnAngleChanged()

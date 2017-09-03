@@ -1026,7 +1026,7 @@
             Point knobPoint = new Point((_knobRectangle.X + (_knobRectangle.Width / 2)) - (KnobSize.Width / 2), (_knobRectangle.Y + (_knobRectangle.Height / 2)) - (KnobSize.Height / 2));
             Rectangle knobRectangle = new Rectangle(knobPoint, KnobSize);
 
-            LinearGradientBrush gradientBrush = Gradient.CreateGradientBrush(_knob.Angle, _knob.Colors, _knob.Positions, ClientRectangle);
+            LinearGradientBrush gradientBrush = Gradient.CreateBrush(_knob.Angle, _knob.Colors, _knob.Positions, ClientRectangle);
             _offGraphics.FillEllipse(gradientBrush, knobRectangle);
 
             GraphicsPath borderPath = new GraphicsPath();
@@ -1039,7 +1039,7 @@
             Point knobTopPoint = new Point((_knobRectangle.X + (_knobRectangle.Width / 2)) - (KnobTopSize.Width / 2), (_knobRectangle.Y + (_knobRectangle.Height / 2)) - (KnobTopSize.Height / 2));
             Rectangle knobTopRectangle = new Rectangle(knobTopPoint, KnobTopSize);
 
-            LinearGradientBrush gradientBrush = Gradient.CreateGradientBrush(_knobTop.Angle, _knobTop.Colors, _knobTop.Positions, ClientRectangle);
+            LinearGradientBrush gradientBrush = Gradient.CreateBrush(_knobTop.Angle, _knobTop.Colors, _knobTop.Positions, ClientRectangle);
             _offGraphics.FillEllipse(gradientBrush, knobTopRectangle);
 
             GraphicsPath borderPath = new GraphicsPath();
@@ -1151,7 +1151,7 @@
             Point scalePoint = new Point(_knobRectangle.X, _knobRectangle.Y);
             Rectangle scaleRectangle = new Rectangle(scalePoint, scaleSize);
 
-            LinearGradientBrush gradientBrush = Gradient.CreateGradientBrush(_scale.Angle, _scale.Colors, _scale.Positions, ClientRectangle);
+            LinearGradientBrush gradientBrush = Gradient.CreateBrush(_scale.Angle, _scale.Colors, _scale.Positions, ClientRectangle);
             _offGraphics.FillEllipse(gradientBrush, scaleRectangle);
         }
 

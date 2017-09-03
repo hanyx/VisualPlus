@@ -390,7 +390,7 @@
                 textBoxRectangle = new Rectangle(0, 0, ClientRectangle.Width, ClientRectangle.Height);
             }
 
-            LinearGradientBrush gradientBrush = Gradient.CreateGradientBrush(_foreGradient.Angle, foreGradient.Colors, _foreGradient.Positions, ClientRectangle);
+            LinearGradientBrush gradientBrush = Gradient.CreateBrush(_foreGradient.Angle, foreGradient.Colors, _foreGradient.Positions, ClientRectangle);
 
             // Draw the text outline
             if (outline)

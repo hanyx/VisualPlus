@@ -558,6 +558,14 @@
             return newSize;
         }
 
+        /// <summary>Gets the back color state.</summary>
+        /// <param name="enabled">Enabled state.</param>
+        /// <param name="normal">The normal.</param>
+        /// <param name="hover">The hover.</param>
+        /// <param name="down">The down.</param>
+        /// <param name="disabled">The disabled.</param>
+        /// <param name="mouseState">Mouse state.</param>
+        /// <returns>Back color state.</returns>
         public static Color GetBackColorState(bool enabled, Color normal, Color hover, Color down, Color disabled, MouseStates mouseState)
         {
             Color _color;
@@ -596,14 +604,6 @@
             }
 
             return _color;
-        }
-
-        /// <summary>Gets the gradients points from the rectangle.</summary>
-        /// <param name="rectangle">Rectangle points to set.</param>
-        /// <returns>Gradient points.</returns>
-        public static Point[] GetGradientPoints(Rectangle rectangle)
-        {
-            return new[] { new Point { X = rectangle.Width, Y = 0 }, new Point { X = rectangle.Width, Y = rectangle.Height } };
         }
 
         /// <summary>Retrieves the transition color between two other colors.</summary>
@@ -820,8 +820,7 @@
                 tempGradient = controlStates[3];
             }
 
-            var gradientPoints = GetGradientPoints(rectangle);
-            return Gradient.CreateGradientBrush(tempGradient.Colors, gradientPoints, tempGradient.Angle, tempGradient.Positions);
+            return Gradient.CreateGradientBrush(tempGradient.Angle, tempGradient.Colors, tempGradient.Positions, rectangle);
         }
 
         #endregion

@@ -7,6 +7,7 @@
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Globalization;
+    using System.Runtime.InteropServices;
 
     using VisualPlus.Delegates;
     using VisualPlus.Localization.Category;
@@ -14,8 +15,12 @@
 
     #endregion
 
-    [Description("The gradient.")]
     [TypeConverter(typeof(GradientConverter))]
+    [ToolboxItem(false)]
+    [DesignerCategory("code")]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [Description("The Gradient structure.")]
     public class Gradient
     {
         #region Variables
@@ -39,8 +44,7 @@
                 };
 
             var _defaultPosition = new[] { 0, 1 / 2f, 1 };
-
-            ConstructGradient(_defaultColors, _defaultPosition, 0);
+            CreateGradient(0, _defaultColors, _defaultPosition);
         }
 
         /// <summary>Initializes a new instance of the <see cref="Gradient" /> class.</summary>
@@ -48,16 +52,27 @@
         /// <param name="positions">The positions.</param>
         public Gradient(Color[] colors, float[] positions)
         {
-            ConstructGradient(colors, positions, 0);
+            CreateGradient(0, colors, positions);
         }
 
         /// <summary>Initializes a new instance of the <see cref="Gradient" /> class.</summary>
+        /// <param name="angle">The angle.</param>
         /// <param name="colors">The colors.</param>
         /// <param name="positions">The positions.</param>
-        /// <param name="angle">The angle.</param>
-        public Gradient(Color[] colors, float[] positions, float angle)
+        public Gradient(float angle, Color[] colors, float[] positions)
         {
-            ConstructGradient(colors, positions, angle);
+            CreateGradient(angle, colors, positions);
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="Gradient" /> class.</summary>
+        /// <param name="angle">The angle.</param>
+        /// <param name="colors">The colors.</param>
+        /// <param name="positions">The positions.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        public Gradient(float angle, Color[] colors, float[] positions, Rectangle rectangle)
+        {
+            CreateGradient(angle, colors, positions);
+            GradientBrush = CreateGradientBrush(this, rectangle);
         }
 
         [Category(Events.PropertyChanged)]
@@ -89,7 +104,7 @@
             set
             {
                 _angle = value;
-                AngleChanged?.Invoke();
+                OnAngleChanged();
             }
         }
 
@@ -106,9 +121,14 @@
             set
             {
                 _colors = value;
-                ColorsChanged?.Invoke();
+                OnColorsChanged();
             }
         }
+
+        [Description("The brush that can be used to paint the gradient.")]
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        public LinearGradientBrush GradientBrush { get; set; }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
@@ -123,7 +143,7 @@
             set
             {
                 _positions = value;
-                PositionsChanged?.Invoke();
+                OnPositionsChanged();
             }
         }
 
@@ -132,36 +152,69 @@
         #region Events
 
         /// <summary>Creates a gradient brush.</summary>
-        /// <param name="colors">The colors.</param>
-        /// <param name="points">The points.</param>
-        /// <param name="angle">The angle.</param>
-        /// <param name="positions">The positions.</param>
+        /// <param name="gradient">The gradient.</param>
+        /// <param name="rectangle">The rectangle.</param>
         /// <returns>Returns a custom gradient brush.</returns>
-        public static LinearGradientBrush CreateGradientBrush(Color[] colors, Point[] points, float angle, float[] positions)
+        public static LinearGradientBrush CreateGradientBrush(Gradient gradient, Rectangle rectangle)
         {
-            LinearGradientBrush linearGradientBrush = new LinearGradientBrush(points[0], points[1], Color.Black, Color.Black);
+            return CreateGradientBrush(gradient.Angle, gradient.Colors, gradient.Positions, rectangle);
+        }
 
-            ColorBlend colorBlend = new ColorBlend
+        /// <summary>Creates a gradient brush.</summary>
+        /// <param name="angle">The angle.</param>
+        /// <param name="colors">The colors.</param>
+        /// <param name="positions">The positions.</param>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <returns>Returns a custom gradient brush.</returns>
+        public static LinearGradientBrush CreateGradientBrush(float angle, Color[] colors, float[] positions, Rectangle rectangle)
+        {
+            var _points = GetGradientPoints(rectangle);
+            LinearGradientBrush _linearGradientBrush = new LinearGradientBrush(_points[0], _points[1], Color.Black, Color.Black);
+
+            ColorBlend _colorBlend = new ColorBlend
                 {
                     Positions = positions,
                     Colors = colors
                 };
 
-            linearGradientBrush.InterpolationColors = colorBlend;
-            linearGradientBrush.RotateTransform(angle);
+            _linearGradientBrush.InterpolationColors = _colorBlend;
+            _linearGradientBrush.RotateTransform(angle);
 
-            return linearGradientBrush;
+            return _linearGradientBrush;
         }
 
-        /// <summary>Constructs the gradient.</summary>
+        protected virtual void OnAngleChanged()
+        {
+            AngleChanged?.Invoke();
+        }
+
+        protected virtual void OnColorsChanged()
+        {
+            ColorsChanged?.Invoke();
+        }
+
+        protected virtual void OnPositionsChanged()
+        {
+            PositionsChanged?.Invoke();
+        }
+
+        /// <summary>Gets the gradients points from the rectangle.</summary>
+        /// <param name="rectangle">Rectangle points to set.</param>
+        /// <returns>Gradient points.</returns>
+        private static Point[] GetGradientPoints(Rectangle rectangle)
+        {
+            return new[] { new Point { X = rectangle.Width, Y = 0 }, new Point { X = rectangle.Width, Y = rectangle.Height } };
+        }
+
+        /// <summary>Creates the gradient.</summary>
+        /// <param name="angle">The angle.</param>
         /// <param name="colors">The colors.</param>
         /// <param name="positions">The positions.</param>
-        /// <param name="angle">The angle.</param>
-        private void ConstructGradient(Color[] colors, float[] positions, float angle)
+        private void CreateGradient(float angle, Color[] colors, float[] positions)
         {
             if (colors.Length != positions.Length)
             {
-                throw new Exception("You must have an equal amount of colors that you have positions for them.");
+                throw new Exception("You must have an equal amount of colors that you have positions.");
             }
 
             _colors = colors;

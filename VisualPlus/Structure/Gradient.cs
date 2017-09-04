@@ -168,7 +168,7 @@
         /// <returns>Returns a custom gradient brush.</returns>
         public static LinearGradientBrush CreateBrush(float angle, Color[] colors, float[] positions, Rectangle rectangle)
         {
-            var _points = GetGradientPoints(rectangle);
+            var _points = new[] { new Point { X = rectangle.Width, Y = 0 }, new Point { X = rectangle.Width, Y = rectangle.Height } };
             LinearGradientBrush _linearGradientBrush = new LinearGradientBrush(_points[0], _points[1], Color.Black, Color.Black);
 
             ColorBlend _colorBlend = new ColorBlend
@@ -206,14 +206,6 @@
         protected virtual void OnPositionsChanged()
         {
             PositionsChanged?.Invoke();
-        }
-
-        /// <summary>Gets the gradients points from the rectangle.</summary>
-        /// <param name="rectangle">Rectangle points to set.</param>
-        /// <returns>Gradient points.</returns>
-        private static Point[] GetGradientPoints(Rectangle rectangle)
-        {
-            return new[] { new Point { X = rectangle.Width, Y = 0 }, new Point { X = rectangle.Width, Y = rectangle.Height } };
         }
 
         /// <summary>Creates the gradient.</summary>

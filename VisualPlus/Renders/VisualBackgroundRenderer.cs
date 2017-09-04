@@ -128,8 +128,17 @@
         public static void DrawBackground(Graphics graphics, LinearGradientBrush background, Border border, MouseStates mouseState, Rectangle rectangle)
         {
             GraphicsPath backgroundPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
-            GDI.FillBackground(graphics, backgroundPath, background);
+            FillBackground(graphics, backgroundPath, background);
             VisualBorderRenderer.DrawBorderStyle(graphics, border, backgroundPath, mouseState);
+        }
+
+        /// <summary>Fills the background.</summary>
+        /// <param name="graphics">Graphics controller.</param>
+        /// <param name="graphicsPath">The graphics path.</param>
+        /// <param name="brush">The gradient brush.</param>
+        public static void FillBackground(Graphics graphics, GraphicsPath graphicsPath, Brush brush)
+        {
+            graphics.FillPath(brush, graphicsPath);
         }
 
         /// <summary>Draws a background with a linear gradient still border style.</summary>
@@ -140,7 +149,7 @@
         public static void DrawBackground(Graphics graphics, LinearGradientBrush background, Border border, Rectangle rectangle)
         {
             GraphicsPath backgroundPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
-            GDI.FillBackground(graphics, backgroundPath, background);
+            FillBackground(graphics, backgroundPath, background);
             VisualBorderRenderer.DrawBorder(graphics, backgroundPath, border.Color, border.Thickness);
         }
 

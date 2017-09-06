@@ -62,7 +62,7 @@
             _angle = 0;
             _colors = null;
             _locations = null;
-            _rectangle = Rectangle.Empty;
+            _rectangle = new Rectangle(0, 0, 1, 1);
             Brush = null;
         }
 
@@ -138,7 +138,10 @@
         {
             get
             {
-                return ToImage;
+                Bitmap _bitmap = new Bitmap(_rectangle.Width, _rectangle.Height);
+                Graphics _graphics = Graphics.FromImage(_bitmap);
+                _graphics.FillRectangle(Brush, _rectangle);
+                return _bitmap;
             }
         }
 
@@ -178,21 +181,6 @@
             {
                 _rectangle = value;
                 OnRectangleChanged();
-            }
-        }
-
-        /// <summary>Gets the <see cref="Gradient" /> as an image.</summary>
-        [Browsable(false)]
-        [Description(Property.Image)]
-        [EditorBrowsable(EditorBrowsableState.Always)]
-        public Image ToImage
-        {
-            get
-            {
-                Bitmap _bitmap = new Bitmap(_rectangle.Width, _rectangle.Height);
-                Graphics _graphics = Graphics.FromImage(_bitmap);
-                _graphics.FillRectangle(Brush, _rectangle);
-                return _bitmap;
             }
         }
 
@@ -260,6 +248,11 @@
                 if (ExceptionManager.ArgumentOutOfRangeException(offset, 0.0F, 1.0F))
                 {
                 }
+
+                if (customOffsets.Length != customOffsets.Distinct().Count())
+                {
+                    throw new ArgumentException(@"Found duplicate offset: " + offset, nameof(offset));
+                }
             }
 
             Array.Sort(customOffsets);
@@ -314,6 +307,11 @@
             if (colors.Length != offsets.Length)
             {
                 throw new ArgumentOutOfRangeException(nameof(colors), @"The amount of colors must be equal to the amount of offsets.");
+            }
+
+            if ((rectangle.Size.Width < 1) || (rectangle.Size.Height < 1))
+            {
+                throw new ArgumentOutOfRangeException(nameof(rectangle.Size), @"The rectangle must have a minimum size of (width: 1, height: 1).");
             }
 
             _angle = angle;

@@ -278,6 +278,12 @@
             }
         }
 
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            e.Graphics.Clear(BackColor);
+        }
+
         private Rectangle ConfigureStyleBox(Size textArea)
         {
             Size groupBoxSize = new Size(Width, Height);

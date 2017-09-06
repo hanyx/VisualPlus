@@ -98,6 +98,12 @@
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
         }
 
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            e.Graphics.Clear(BackColor);
+        }
+
         #endregion
     }
 }

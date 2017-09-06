@@ -20,7 +20,6 @@
         #region Variables
 
         private bool _autoSize;
-
         private Color _bottomLeft;
         private Color _bottomRight;
         private Control _control;

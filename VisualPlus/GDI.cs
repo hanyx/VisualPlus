@@ -797,7 +797,7 @@
                 tempGradient = controlStates[3];
             }
 
-            return Gradient.CreateBrush(tempGradient.Angle, tempGradient.Colors, tempGradient.Positions, rectangle);
+            return Gradient.CreateBrush(tempGradient.Angle, tempGradient.Colors, tempGradient.Locations, rectangle);
         }
 
         #endregion

@@ -67,6 +67,14 @@
             return (value >= minimum) && (value <= maximum);
         }
 
+        /// <summary>Indicates whether the specified <see cref="Array" /> is null or an empty <see cref="Array" />.</summary>
+        /// <param name="array">The array.</param>
+        /// <returns>Is null or empty boolean.</returns>
+        public static bool IsNullOrEmpty(this Array array)
+        {
+            return (array == null) || (array.Length == 0);
+        }
+
         /// <summary>Limits the number exclusively to only what is in range.</summary>
         /// <param name="value">The value.</param>
         /// <param name="inclusiveMinimum">The minimum.</param>

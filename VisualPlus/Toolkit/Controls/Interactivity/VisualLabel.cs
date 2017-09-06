@@ -13,7 +13,6 @@
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
-    using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -29,24 +28,20 @@
     {
         #region Variables
 
-        private Gradient _foreDisabledGradient = new Gradient();
-        private Gradient _foreGradient = new Gradient();
-
-        private bool gradientString;
-        private Orientation orientation = Orientation.Horizontal;
-        private bool outline;
-        private Color outlineColor = Color.Red;
-        private Point outlineLocation = new Point(0, 0);
-        private bool reflection;
-        private Color reflectionColor = Color.FromArgb(120, 0, 0, 0);
-        private int reflectionSpacing;
-        private bool shadow;
-        private Color shadowColor = Color.Black;
-        private int ShadowDepth = 4;
-        private int shadowDirection = 315;
-        private Point shadowLocation = new Point(0, 0);
-        private int shadowOpacity = 100;
-        private float ShadowSmooth = 1.5f;
+        private Orientation _orientation;
+        private bool _outline;
+        private Color _outlineColor;
+        private Point _outlineLocation;
+        private bool _reflection;
+        private Color _reflectionColor;
+        private int _reflectionSpacing;
+        private bool _shadow;
+        private Color _shadowColor;
+        private int _shadowDepth;
+        private int _shadowDirection;
+        private Point _shadowLocation;
+        private float _shadowSmooth;
+        private int shadowOpacity;
         private Rectangle textBoxRectangle;
 
         #endregion
@@ -63,6 +58,17 @@
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
 
             UpdateStyles();
+            _orientation = Orientation.Horizontal;
+            _outlineColor = Color.Red;
+            _outlineLocation = new Point(0, 0);
+            _reflectionColor = Color.FromArgb(120, 0, 0, 0);
+            _shadowColor = Color.Black;
+            _shadowDepth = 4;
+            _shadowDirection = 315;
+            _shadowLocation = new Point(0, 0);
+            shadowOpacity = 100;
+            _shadowSmooth = 1.5f;
+
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
@@ -70,70 +76,19 @@
 
         #region Properties
 
-        [TypeConverter(typeof(GradientConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
-        public Gradient ForeGradient
-        {
-            get
-            {
-                return _foreGradient;
-            }
-
-            set
-            {
-                _foreGradient = value;
-                Invalidate();
-            }
-        }
-
-        [TypeConverter(typeof(GradientConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
-        public Gradient ForeGradientDisabled
-        {
-            get
-            {
-                return _foreDisabledGradient;
-            }
-
-            set
-            {
-                _foreDisabledGradient = value;
-                Invalidate();
-            }
-        }
-
-        [DefaultValue(false)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Toggle)]
-        public bool GradientString
-        {
-            get
-            {
-                return gradientString;
-            }
-
-            set
-            {
-                gradientString = value;
-                Invalidate();
-            }
-        }
-
         [Category(Propertys.Appearance)]
         [Description(Property.Orientation)]
         public Orientation Orientation
         {
             get
             {
-                return orientation;
+                return _orientation;
             }
 
             set
             {
-                orientation = value;
-                Size = GDI.FlipOrientationSize(orientation, Size);
+                _orientation = value;
+                Size = GDI.FlipOrientationSize(_orientation, Size);
                 Invalidate();
             }
         }
@@ -144,12 +99,12 @@
         {
             get
             {
-                return outline;
+                return _outline;
             }
 
             set
             {
-                outline = value;
+                _outline = value;
                 Invalidate();
             }
         }
@@ -160,12 +115,12 @@
         {
             get
             {
-                return outlineColor;
+                return _outlineColor;
             }
 
             set
             {
-                outlineColor = value;
+                _outlineColor = value;
                 Invalidate();
             }
         }
@@ -176,12 +131,12 @@
         {
             get
             {
-                return outlineLocation;
+                return _outlineLocation;
             }
 
             set
             {
-                outlineLocation = value;
+                _outlineLocation = value;
                 Invalidate();
             }
         }
@@ -193,12 +148,12 @@
         {
             get
             {
-                return reflection;
+                return _reflection;
             }
 
             set
             {
-                reflection = value;
+                _reflection = value;
                 Invalidate();
             }
         }
@@ -209,12 +164,12 @@
         {
             get
             {
-                return reflectionColor;
+                return _reflectionColor;
             }
 
             set
             {
-                reflectionColor = value;
+                _reflectionColor = value;
                 Invalidate();
             }
         }
@@ -225,12 +180,12 @@
         {
             get
             {
-                return reflectionSpacing;
+                return _reflectionSpacing;
             }
 
             set
             {
-                reflectionSpacing = value;
+                _reflectionSpacing = value;
                 Invalidate();
             }
         }
@@ -242,12 +197,12 @@
         {
             get
             {
-                return shadow;
+                return _shadow;
             }
 
             set
             {
-                shadow = value;
+                _shadow = value;
                 Invalidate();
             }
         }
@@ -258,12 +213,12 @@
         {
             get
             {
-                return shadowColor;
+                return _shadowColor;
             }
 
             set
             {
-                shadowColor = value;
+                _shadowColor = value;
                 Invalidate();
             }
         }
@@ -274,12 +229,12 @@
         {
             get
             {
-                return shadowDirection;
+                return _shadowDirection;
             }
 
             set
             {
-                shadowDirection = value;
+                _shadowDirection = value;
                 Invalidate();
             }
         }
@@ -290,12 +245,12 @@
         {
             get
             {
-                return shadowLocation;
+                return _shadowLocation;
             }
 
             set
             {
-                shadowLocation = value;
+                _shadowLocation = value;
                 Invalidate();
             }
         }
@@ -348,26 +303,6 @@
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
             Font = StyleManager.Font;
 
-            Color[] foreColor =
-                {
-                    StyleManager.FontStyle.ForeColor,
-                    StyleManager.FontStyle.ForeColor
-                };
-
-            Color[] textDisabledColor =
-                {
-                    ControlPaint.Light(StyleManager.FontStyle.ForeColorDisabled),
-                    StyleManager.FontStyle.ForeColorDisabled
-                };
-
-            float[] gradientPosition = { 0, 1 };
-
-            _foreGradient.Colors = foreColor;
-            _foreGradient.Positions = gradientPosition;
-
-            _foreDisabledGradient.Colors = textDisabledColor;
-            _foreDisabledGradient.Positions = gradientPosition;
-
             Invalidate();
         }
 
@@ -379,9 +314,9 @@
             graphics.Clear(Parent.BackColor);
             graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
 
-            Gradient foreGradient = Enabled ? _foreGradient : _foreDisabledGradient;
+            Color _foreColor = Enabled ? ForeColor : ForeColorDisabled;
 
-            if (reflection && (orientation == Orientation.Vertical))
+            if (_reflection && (_orientation == Orientation.Vertical))
             {
                 textBoxRectangle = new Rectangle(GDI.MeasureText(graphics, Text, Font).Height, 0, ClientRectangle.Width, ClientRectangle.Height);
             }
@@ -390,42 +325,32 @@
                 textBoxRectangle = new Rectangle(0, 0, ClientRectangle.Width, ClientRectangle.Height);
             }
 
-            LinearGradientBrush gradientBrush = Gradient.CreateBrush(_foreGradient.Angle, foreGradient.Colors, _foreGradient.Positions, ClientRectangle);
-
             // Draw the text outline
-            if (outline)
+            if (_outline)
             {
                 DrawOutline(graphics);
             }
 
             // Draw the shadow
-            if (shadow)
+            if (_shadow)
             {
                 DrawShadow(graphics);
             }
 
             // Draw the reflection text.
-            if (reflection)
+            if (_reflection)
             {
                 DrawReflection(graphics);
             }
 
-            // Draw text
-            if (gradientString)
-            {
-                graphics.DrawString(Text, Font, gradientBrush, textBoxRectangle, GetStringFormat());
-            }
-            else
-            {
-                graphics.DrawString(Text, Font, new SolidBrush(ForeColor), textBoxRectangle, GetStringFormat());
-            }
+            graphics.DrawString(Text, Font, new SolidBrush(_foreColor), textBoxRectangle, GetStringFormat());
         }
 
         private void DrawOutline(Graphics graphics)
         {
             GraphicsPath outlinePath = new GraphicsPath();
 
-            switch (orientation)
+            switch (_orientation)
             {
                 case Orientation.Horizontal:
                     {
@@ -434,7 +359,7 @@
                             Font.FontFamily,
                             (int)Font.Style,
                             (graphics.DpiY * Font.SizeInPoints) / 72,
-                            outlineLocation,
+                            _outlineLocation,
                             new StringFormat());
 
                         break;
@@ -447,7 +372,7 @@
                             Font.FontFamily,
                             (int)Font.Style,
                             (graphics.DpiY * Font.SizeInPoints) / 72,
-                            outlineLocation,
+                            _outlineLocation,
                             new StringFormat(StringFormatFlags.DirectionVertical));
 
                         break;
@@ -474,20 +399,20 @@
                         imageGraphics.TranslateTransform(0, GDI.MeasureText(graphics, Text, Font).Height);
                         imageGraphics.ScaleTransform(1, -1);
 
-                        reflectionLocation = new Point(0, textBoxRectangle.Y - (GDI.MeasureText(graphics, Text, Font).Height / 2) - reflectionSpacing);
+                        reflectionLocation = new Point(0, textBoxRectangle.Y - (GDI.MeasureText(graphics, Text, Font).Height / 2) - _reflectionSpacing);
                         break;
                     }
 
                 case Orientation.Vertical:
                     {
                         imageGraphics.ScaleTransform(-1, 1);
-                        reflectionLocation = new Point((textBoxRectangle.X - (GDI.MeasureText(graphics, Text, Font).Width / 2)) + reflectionSpacing, 0);
+                        reflectionLocation = new Point((textBoxRectangle.X - (GDI.MeasureText(graphics, Text, Font).Width / 2)) + _reflectionSpacing, 0);
                         break;
                     }
             }
 
             // Draw reflected string
-            imageGraphics.DrawString(Text, Font, new SolidBrush(reflectionColor), reflectionLocation, GetStringFormat());
+            imageGraphics.DrawString(Text, Font, new SolidBrush(_reflectionColor), reflectionLocation, GetStringFormat());
 
             // Draw the reflection image
             graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -498,7 +423,7 @@
         private void DrawShadow(Graphics graphics)
         {
             // Create shadow into a bitmap
-            Bitmap shadowBitmap = new Bitmap(Math.Max((int)(Width / ShadowSmooth), 1), Math.Max((int)(Height / ShadowSmooth), 1));
+            Bitmap shadowBitmap = new Bitmap(Math.Max((int)(Width / _shadowSmooth), 1), Math.Max((int)(Height / _shadowSmooth), 1));
             Graphics imageGraphics = Graphics.FromImage(shadowBitmap);
 
             // Setup text render
@@ -506,21 +431,21 @@
 
             // Create transformation matrix
             Matrix transformMatrix = new Matrix();
-            transformMatrix.Scale(1 / ShadowSmooth, 1 / ShadowSmooth);
-            transformMatrix.Translate((float)(ShadowDepth * Math.Cos(shadowDirection)), (float)(ShadowDepth * Math.Sin(shadowDirection)));
+            transformMatrix.Scale(1 / _shadowSmooth, 1 / _shadowSmooth);
+            transformMatrix.Translate((float)(_shadowDepth * Math.Cos(_shadowDirection)), (float)(_shadowDepth * Math.Sin(_shadowDirection)));
             imageGraphics.Transform = transformMatrix;
 
             switch (Orientation)
             {
                 case Orientation.Horizontal:
                     {
-                        imageGraphics.DrawString(Text, Font, new SolidBrush(Color.FromArgb(shadowOpacity, shadowColor)), shadowLocation);
+                        imageGraphics.DrawString(Text, Font, new SolidBrush(Color.FromArgb(shadowOpacity, _shadowColor)), _shadowLocation);
                         break;
                     }
 
                 case Orientation.Vertical:
                     {
-                        imageGraphics.DrawString(Text, Font, new SolidBrush(Color.FromArgb(shadowOpacity, shadowColor)), shadowLocation, new StringFormat(StringFormatFlags.DirectionVertical));
+                        imageGraphics.DrawString(Text, Font, new SolidBrush(Color.FromArgb(shadowOpacity, _shadowColor)), _shadowLocation, new StringFormat(StringFormatFlags.DirectionVertical));
                         break;
                     }
             }
@@ -534,7 +459,7 @@
         {
             StringFormat stringFormat = new StringFormat();
 
-            switch (orientation)
+            switch (_orientation)
             {
                 case Orientation.Horizontal:
                     {

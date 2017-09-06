@@ -92,18 +92,15 @@
             _buttonDivisions = 30;
             _components = null;
             _endAngle = 405;
-            _knob = new Gradient();
             _knobDistance = 35;
             _knobSize = new Size(90, 90);
             _knobTickSize = new Size(86, 86);
-            _knobTop = new Gradient();
             _knobTopSize = new Size(75, 75);
             _largeChange = 5;
             _lineSize = new Size(1, 1);
             _maximum = 100;
             _mouseWheelBarPartitions = 10;
             _pointerStyle = PointerStyle.Circle;
-            _scale = new Gradient();
             _scaleDivisions = 11;
             _scaleSubDivisions = 4;
             _showLargeScale = true;
@@ -1026,8 +1023,7 @@
             Point knobPoint = new Point((_knobRectangle.X + (_knobRectangle.Width / 2)) - (KnobSize.Width / 2), (_knobRectangle.Y + (_knobRectangle.Height / 2)) - (KnobSize.Height / 2));
             Rectangle knobRectangle = new Rectangle(knobPoint, KnobSize);
 
-            LinearGradientBrush gradientBrush = Gradient.CreateBrush(_knob.Angle, _knob.Colors, _knob.Positions, ClientRectangle);
-            _offGraphics.FillEllipse(gradientBrush, knobRectangle);
+            _offGraphics.FillEllipse(_knob.Brush, knobRectangle);
 
             GraphicsPath borderPath = new GraphicsPath();
             borderPath.AddEllipse(knobRectangle);
@@ -1039,8 +1035,7 @@
             Point knobTopPoint = new Point((_knobRectangle.X + (_knobRectangle.Width / 2)) - (KnobTopSize.Width / 2), (_knobRectangle.Y + (_knobRectangle.Height / 2)) - (KnobTopSize.Height / 2));
             Rectangle knobTopRectangle = new Rectangle(knobTopPoint, KnobTopSize);
 
-            LinearGradientBrush gradientBrush = Gradient.CreateBrush(_knobTop.Angle, _knobTop.Colors, _knobTop.Positions, ClientRectangle);
-            _offGraphics.FillEllipse(gradientBrush, knobTopRectangle);
+            _offGraphics.FillEllipse(_knobTop.Brush, knobTopRectangle);
 
             GraphicsPath borderPath = new GraphicsPath();
             borderPath.AddEllipse(knobTopRectangle);
@@ -1151,8 +1146,7 @@
             Point scalePoint = new Point(_knobRectangle.X, _knobRectangle.Y);
             Rectangle scaleRectangle = new Rectangle(scalePoint, scaleSize);
 
-            LinearGradientBrush gradientBrush = Gradient.CreateBrush(_scale.Angle, _scale.Colors, _scale.Positions, ClientRectangle);
-            _offGraphics.FillEllipse(gradientBrush, scaleRectangle);
+            _offGraphics.FillEllipse(_scale.Brush, scaleRectangle);
         }
 
         private Point[] GetKnobLine(int l)
@@ -1266,15 +1260,9 @@
                     Color.White
                 };
 
-            _knob.Angle = 180;
-            _knob.Colors = knobColor;
-            _knob.Positions = gradientPosition;
-
-            _knobTop.Colors = knobTopColor;
-            _knobTop.Positions = gradientPosition;
-
-            _scale.Colors = scaleColor;
-            _scale.Positions = gradientPosition;
+            _knob = new Gradient(180, knobColor, gradientPosition, ClientRectangle);
+            _knobTop = new Gradient(knobTopColor, gradientPosition, ClientRectangle);
+            _scale = new Gradient(scaleColor, gradientPosition, ClientRectangle);
         }
 
         private void KnobControl_Resize(object sender, EventArgs e)

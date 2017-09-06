@@ -25,6 +25,14 @@
 
         #region Events
 
+        /// <summary>Generates a random color.</summary>
+        /// <returns>A random color.</returns>
+        public static Color RandomColor()
+        {
+            Random _random = new Random();
+            return Color.FromArgb(_random.Next(256), _random.Next(256), _random.Next(256));
+        }
+
         public static double BlendColor(double foreColor, double backgroundColor, double alpha)
         {
             double result = backgroundColor + (alpha * (foreColor - backgroundColor));

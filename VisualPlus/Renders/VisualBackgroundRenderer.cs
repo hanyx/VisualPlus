@@ -132,15 +132,6 @@
             VisualBorderRenderer.DrawBorderStyle(graphics, border, backgroundPath, mouseState);
         }
 
-        /// <summary>Fills the background.</summary>
-        /// <param name="graphics">Graphics controller.</param>
-        /// <param name="graphicsPath">The graphics path.</param>
-        /// <param name="brush">The gradient brush.</param>
-        public static void FillBackground(Graphics graphics, GraphicsPath graphicsPath, Brush brush)
-        {
-            graphics.FillPath(brush, graphicsPath);
-        }
-
         /// <summary>Draws a background with a linear gradient still border style.</summary>
         /// <param name="graphics">The graphics to draw on.</param>
         /// <param name="background">The background linear gradient.</param>
@@ -151,6 +142,15 @@
             GraphicsPath backgroundPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
             FillBackground(graphics, backgroundPath, background);
             VisualBorderRenderer.DrawBorder(graphics, backgroundPath, border.Color, border.Thickness);
+        }
+
+        /// <summary>Fills the background.</summary>
+        /// <param name="graphics">Graphics controller.</param>
+        /// <param name="graphicsPath">The graphics path.</param>
+        /// <param name="brush">The gradient brush.</param>
+        public static void FillBackground(Graphics graphics, GraphicsPath graphicsPath, Brush brush)
+        {
+            graphics.FillPath(brush, graphicsPath);
         }
 
         /// <summary>Fills the background graphics path.</summary>

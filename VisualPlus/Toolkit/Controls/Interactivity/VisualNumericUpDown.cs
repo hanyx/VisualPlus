@@ -30,7 +30,9 @@
         #region Variables
 
         private Border _border;
+        private BorderEdge _borderButtons;
 
+        private BorderEdge _borderEdge;
         private Color _buttonColor;
         private Font _buttonFont;
         private Color _buttonForeColor;
@@ -63,6 +65,9 @@
             _incrementButtonPoints = new Point[2];
             _buttonWidth = 50;
 
+            _borderEdge = new BorderEdge();
+            _borderButtons = new BorderEdge();
+
             _minimumValue = 0;
             _maximumValue = 100;
             Size = new Size(125, 25);
@@ -71,6 +76,9 @@
             _buttonOrientation = Orientation.Horizontal;
 
             _border = new Border();
+
+            Controls.Add(_borderEdge);
+            Controls.Add(_borderButtons);
 
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
@@ -245,6 +253,23 @@
             }
         }
 
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
+        public Color Separator
+        {
+            get
+            {
+                return _borderEdge.BackColor;
+            }
+
+            set
+            {
+                _borderEdge.BackColor = value;
+                _borderButtons.BackColor = value;
+                Invalidate();
+            }
+        }
+
         [Category(Propertys.Behavior)]
         public long Value
         {
@@ -293,6 +318,9 @@
 
             _colorState.Enabled = StyleManager.ControlStyle.Background(3);
             _colorState.Disabled = StyleManager.ControlStyle.Background(0);
+
+            _borderButtons.BackColor = StyleManager.ControlStyle.Line;
+            _borderEdge.BackColor = StyleManager.ControlStyle.Line;
 
             _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
@@ -494,40 +522,22 @@
             _incrementButtonPoints[1] = new Point((_buttonRectangle.X + (_buttonRectangle.Width / 4)) - (incrementSize.Width / 2), (Height / 2) - (incrementSize.Height / 2));
             _decrementButtonPoints[1] = new Point((_buttonRectangle.X + (_buttonRectangle.Width / 2) + (_buttonRectangle.Width / 4)) - (decrementSize.Width / 2), (Height / 2) - (decrementSize.Height / 2));
 
-            var verticalSeparator = new Point[2];
-            verticalSeparator[0] = new Point(_buttonRectangle.X, _buttonRectangle.Y + (_buttonRectangle.Height / 2));
-            verticalSeparator[1] = new Point(_buttonRectangle.X + _buttonRectangle.Width, _buttonRectangle.Y + (_buttonRectangle.Height / 2));
-
-            var horizontalSeparator = new Point[2];
-            horizontalSeparator[0] = new Point(_buttonRectangle.X + (_buttonRectangle.Width / 2), _buttonRectangle.Y);
-            horizontalSeparator[1] = new Point(_buttonRectangle.X + (_buttonRectangle.Width / 2), _buttonRectangle.Y + _buttonRectangle.Height);
-
-            var _vertSeparator2 = new Point[2];
-            _vertSeparator2[0] = new Point(_buttonRectangle.X, _buttonRectangle.Y);
-            _vertSeparator2[1] = new Point(_buttonRectangle.X, _buttonRectangle.Y + _buttonRectangle.Height);
-
-            var _horiSeparator2 = new Point[2];
-            _horiSeparator2[0] = new Point(_buttonRectangle.X, _buttonRectangle.Y);
-            _horiSeparator2[1] = new Point(_buttonRectangle.X, _buttonRectangle.Y + _buttonRectangle.Height);
-
-            Point[] tempSeparator;
-            Point[] _separator2;
             int toggleInt;
             switch (_buttonOrientation)
             {
-                case Orientation.Vertical:
-                    {
-                        toggleInt = 0;
-                        tempSeparator = verticalSeparator;
-                        _separator2 = _vertSeparator2;
-                        break;
-                    }
-
                 case Orientation.Horizontal:
                     {
                         toggleInt = 1;
-                        tempSeparator = horizontalSeparator;
-                        _separator2 = _horiSeparator2;
+                        _borderButtons.Location = new Point(_buttonRectangle.X + (_buttonRectangle.Width / 2), _border.Thickness);
+                        _borderButtons.Size = new Size(1, Height - _border.Thickness - 1);
+                        break;
+                    }
+
+                case Orientation.Vertical:
+                    {
+                        toggleInt = 0;
+                        _borderButtons.Location = new Point(_buttonRectangle.X, (_buttonRectangle.Bottom / 2) - _border.Thickness);
+                        _borderButtons.Size = new Size(Width - _border.Thickness - 1, 1);
                         break;
                     }
 
@@ -553,8 +563,8 @@
             _graphics.DrawString("+", _buttonFont, new SolidBrush(_buttonForeColor), _incrementButtonPoints[toggleInt]);
             _graphics.DrawString("-", _buttonFont, new SolidBrush(_buttonForeColor), _decrementButtonPoints[toggleInt]);
 
-            _graphics.DrawLine(new Pen(StyleManager.ShapeStyle.Color), tempSeparator[0], tempSeparator[1]);
-            _graphics.DrawLine(new Pen(StyleManager.ShapeStyle.Color), _separator2[0], _separator2[1]);
+            _borderEdge.Location = new Point(_buttonRectangle.X, _border.Thickness);
+            _borderEdge.Size = new Size(1, Height - _border.Thickness - 1);
 
             DrawText(_graphics);
         }

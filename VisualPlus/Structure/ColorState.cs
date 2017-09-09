@@ -13,7 +13,6 @@
     using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
-    using VisualPlus.Styles;
     using VisualPlus.Toolkit.Components;
 
     #endregion

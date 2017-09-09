@@ -25,14 +25,6 @@
 
         #region Events
 
-        /// <summary>Generates a random color.</summary>
-        /// <returns>A random color.</returns>
-        public static Color RandomColor()
-        {
-            Random _random = new Random();
-            return Color.FromArgb(_random.Next(256), _random.Next(256), _random.Next(256));
-        }
-
         public static double BlendColor(double foreColor, double backgroundColor, double alpha)
         {
             double result = backgroundColor + (alpha * (foreColor - backgroundColor));
@@ -284,6 +276,14 @@
             g3 = OverlayMath(baseColor.G, blendColor.G);
             b3 = OverlayMath(baseColor.B, blendColor.B);
             return OpacityMix(CreateColorFromRGB(r3, g3, b3), baseColor, opacity);
+        }
+
+        /// <summary>Generates a random color.</summary>
+        /// <returns>A random color.</returns>
+        public static Color RandomColor()
+        {
+            Random _random = new Random();
+            return Color.FromArgb(_random.Next(256), _random.Next(256), _random.Next(256));
         }
 
         /// <summary>

@@ -31,8 +31,8 @@
         #region Variables
 
         private ColorState _backColorState;
-
         private Border _border;
+        private BorderEdge _borderEdge;
         private Color _buttonColor;
         private Alignment.Horizontal _buttonHorizontal;
         private DropDownButtons _buttonStyles;
@@ -45,9 +45,6 @@
         private Color _menuItemNormal;
         private Color _menuTextColor;
         private MouseStates _mouseState;
-        private Color _separatorColor;
-        private Color _separatorShadowColor;
-        private bool _separatorVisible;
         private int _startIndex;
         private VisualStyleManager _styleManager;
         private StringAlignment _textAlignment;
@@ -80,13 +77,14 @@
             _buttonHorizontal = Alignment.Horizontal.Right;
             _buttonStyles = DropDownButtons.Arrow;
             _buttonVisible = Settings.DefaultValue.TextVisible;
-            _separatorVisible = Settings.DefaultValue.TextVisible;
             _textAlignment = StringAlignment.Center;
             _watermark = new Watermark();
             _backColorState = new ColorState();
             _mouseState = MouseStates.Normal;
             DrawMode = DrawMode.OwnerDrawFixed;
             DropDownStyle = ComboBoxStyle.DropDownList;
+
+            _borderEdge = new BorderEdge();
 
             Size = new Size(135, 26);
             ItemHeight = 20;
@@ -98,6 +96,8 @@
             _border = new Border();
 
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
+
+            Controls.Add(_borderEdge);
 
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
@@ -319,28 +319,12 @@
         {
             get
             {
-                return _separatorColor;
+                return _borderEdge.BackColor;
             }
 
             set
             {
-                _separatorColor = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color SeparatorShadowColor
-        {
-            get
-            {
-                return _separatorShadowColor;
-            }
-
-            set
-            {
-                _separatorShadowColor = value;
+                _borderEdge.BackColor = value;
                 Invalidate();
             }
         }
@@ -352,12 +336,12 @@
         {
             get
             {
-                return _separatorVisible;
+                return _borderEdge.Visible;
             }
 
             set
             {
-                _separatorVisible = value;
+                _borderEdge.Visible = value;
                 Invalidate();
             }
         }
@@ -494,8 +478,7 @@
             _menuItemNormal = _styleManager.ControlStyle.ItemEnabled;
             _menuItemHover = _styleManager.ControlStyle.ItemHover;
 
-            _separatorColor = _styleManager.ControlStyle.Line;
-            _separatorShadowColor = _styleManager.ControlStyle.Shadow;
+            _borderEdge.BackColor = _styleManager.ControlStyle.Line;
 
             Invalidate();
         }
@@ -605,7 +588,8 @@
             Rectangle _textBoxRectangle = new Rectangle(_textBoxLocation.X, _textBoxLocation.Y, Width - _buttonWidth, Height);
 
             DrawButton(_graphics, _buttonRectangle);
-            DrawSeparator(_graphics, _buttonRectangle);
+
+            DrawSeparator(_buttonRectangle);
 
             StringFormat _stringFormat = new StringFormat
                 {
@@ -698,19 +682,19 @@
             }
         }
 
-        private void DrawSeparator(Graphics graphics, Rectangle buttonRectangle)
+        private void DrawSeparator(Rectangle rectangle)
         {
-            if (_separatorVisible)
+            if (_borderEdge.Visible)
             {
                 if (_buttonHorizontal == Alignment.Horizontal.Right)
                 {
-                    graphics.DrawLine(new Pen(_separatorColor), buttonRectangle.X - 1, 4, buttonRectangle.X - 1, Height - 5);
-                    graphics.DrawLine(new Pen(_separatorShadowColor), buttonRectangle.X, 4, buttonRectangle.X, Height - 5);
+                    _borderEdge.Location = new Point(rectangle.X - 1, _border.Thickness);
+                    _borderEdge.Size = new Size(1, Height - _border.Thickness - 1);
                 }
                 else
                 {
-                    graphics.DrawLine(new Pen(_separatorColor), buttonRectangle.Width - 1, 4, buttonRectangle.Width - 1, Height - 5);
-                    graphics.DrawLine(new Pen(_separatorShadowColor), buttonRectangle.Width, 4, buttonRectangle.Width, Height - 5);
+                    _borderEdge.Location = new Point(rectangle.Width - 1, _border.Thickness);
+                    _borderEdge.Size = new Size(1, Height - _border.Thickness - 1);
                 }
             }
         }

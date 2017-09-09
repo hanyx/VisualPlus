@@ -75,6 +75,7 @@
     <Compile Include="Renders\VisualBorderRenderer.cs" />
     <Compile Include="Renders\VisualToggleRenderer.cs" />
     <Compile Include="Renders\VisualControlRenderer.cs" />
+    <Compile Include="Structure\BorderEdge.cs" />
     <Compile Include="Structure\ControlColorState.cs" />
     <Compile Include="Structure\ColorState.cs" />
     <Compile Include="Structure\Hatch.cs" />
@@ -238,6 +239,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Icon.ico" />
+    <EmbeddedResource Include="Resources\ToolboxBitmaps\VisualLabel.bmp" />
     <None Include="Resources\Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

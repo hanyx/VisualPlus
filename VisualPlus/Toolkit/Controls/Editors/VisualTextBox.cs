@@ -32,8 +32,9 @@
         #region Variables
 
         private ColorState _backColorState;
-
         private Border _border;
+        private BorderEdge _borderButton;
+        private BorderEdge _borderImage;
         private Border _buttonBorder;
         private Color _buttonColor;
         private ControlColorState _buttonColorState;
@@ -67,6 +68,10 @@
 
             // Cannot select this control, only the child and does not generate a click event
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
+
+            _borderButton = new BorderEdge { Visible = false };
+
+            _borderImage = new BorderEdge { Visible = false };
 
             _backColorState = new ColorState();
             _buttonColorState = new ControlColorState();
@@ -109,6 +114,8 @@
             _textBox.SizeChanged += TextBox_SizeChanged;
 
             Controls.Add(_textBox);
+            Controls.Add(_borderButton);
+            Controls.Add(_borderImage);
 
             _waterMarkContainer = null;
 
@@ -317,6 +324,16 @@
             set
             {
                 _buttonVisible = value;
+
+                if (_buttonVisible)
+                {
+                    _borderButton.Visible = true;
+                }
+                else
+                {
+                    _borderButton.Visible = false;
+                }
+
                 Invalidate();
             }
         }
@@ -388,11 +405,18 @@
 
             set
             {
-                if (_imageVisible != value)
+                _imageVisible = value;
+
+                if (_imageVisible)
                 {
-                    _imageVisible = value;
-                    Invalidate();
+                    _borderImage.Visible = true;
                 }
+                else
+                {
+                    _borderImage.Visible = false;
+                }
+
+                Invalidate();
             }
         }
 
@@ -731,6 +755,10 @@
 
             _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+
+            _borderButton.BackColor = StyleManager.ControlStyle.Line;
+            _borderImage.BackColor = StyleManager.ControlStyle.Line;
+
             Invalidate();
         }
 
@@ -805,7 +833,7 @@
                 MouseState = MouseStates.Hover;
             }
 
-            if (_buttonVisible)
+            if (_borderButton.Visible)
             {
                 // Check if mouse in X position.
                 if ((_xValue > _buttonRectangle.X) && (_xValue < Width))
@@ -876,18 +904,18 @@
 
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
 
-            _buttonRectangle = new Rectangle(_textBox.Right, 0, Width - _textBox.Right - 2, Height);
+            _buttonRectangle = new Rectangle(_textBox.Right, _border.Thickness, Width - _textBox.Right - _border.Thickness, Height);
             _imageRectangle = new Rectangle(0, 0, _imageWidth, Height);
 
             if (!_textBox.Multiline)
             {
-                if (_imageVisible)
+                if (_borderImage.Visible)
                 {
                     _textBox.Location = new Point(VisualBorderRenderer.CalculateBorderCurve(_border) + _imageRectangle.Width, _textBox.Location.Y);
 
                     DrawImage(graphics);
 
-                    if (_buttonVisible)
+                    if (_borderButton.Visible)
                     {
                         DrawButton(graphics);
                     }
@@ -896,7 +924,7 @@
                 {
                     _textBox.Location = new Point(VisualBorderRenderer.CalculateBorderCurve(_border), _textBox.Location.Y);
 
-                    if (_buttonVisible)
+                    if (_borderButton.Visible)
                     {
                         DrawButton(graphics);
                     }
@@ -923,7 +951,7 @@
 
             if (!_textBox.Multiline)
             {
-                if (_imageVisible)
+                if (_borderImage.Visible)
                 {
                     _textBox.Location = new Point(VisualBorderRenderer.CalculateBorderCurve(_border) + _imageWidth, _textBox.Location.Y);
                 }
@@ -932,7 +960,7 @@
                     _textBox.Location = new Point(VisualBorderRenderer.CalculateBorderCurve(_border), _textBox.Location.Y);
                 }
 
-                if ((!_imageVisible & !_buttonVisible) && AutoSize)
+                if ((!_borderImage.Visible & !_borderButton.Visible) && AutoSize)
                 {
                     _textBox.Width = GetInternalControlSize(Size, _border).Width;
                 }
@@ -995,10 +1023,11 @@
             buttonPath.AddRectangle(_buttonRectangle);
 
             graphics.SetClip(ControlGraphicsPath);
-
             graphics.FillPath(new SolidBrush(_buttonColor), buttonPath);
 
-            VisualBorderRenderer.DrawBorderStyle(graphics, _border, buttonPath, MouseState);
+            _borderButton.Location = new Point(_buttonRectangle.X, _border.Thickness);
+            _borderButton.Size = new Size(1, Height - _border.Thickness - 1);
+
             Size textSize = GDI.MeasureText(graphics, _buttontext, _buttonFont);
             graphics.SetClip(buttonPath);
             graphics.DrawString(_buttontext, Font, new SolidBrush(ForeColor), new PointF(_buttonRectangle.X + _buttonIndent, (Height / 2) - (textSize.Height / 2)));
@@ -1007,8 +1036,11 @@
 
         private void DrawImage(Graphics graphics)
         {
-            if (_imageVisible)
+            if (_borderImage.Visible)
             {
+                _borderImage.Location = new Point(_imageRectangle.Right, _border.Thickness);
+                _borderImage.Size = new Size(1, Height - _border.Thickness - 1);
+
                 GraphicsPath _imagePath = new GraphicsPath();
                 _imagePath.AddRectangle(_imageRectangle);
                 graphics.SetClip(_imagePath);

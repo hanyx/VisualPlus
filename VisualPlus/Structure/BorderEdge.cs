@@ -34,6 +34,7 @@
         public BorderEdge()
         {
             SetStyle(ControlStyles.Selectable, false);
+            Cursor = Cursors.Default;
             BackColor = Color.Black;
             Size = new Size(50, 50);
             _orientation = Orientation.Horizontal;

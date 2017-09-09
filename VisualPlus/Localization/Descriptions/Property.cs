@@ -44,8 +44,12 @@
         public const string Rectangle = "Gets or set the rectangle.";
         public const string Rotation = "Applies the specified rotation to the transformation matrix of this Graphics.";
         public const string Rounding = "Gets or sets the rounding of the border in pixels.";
+
+        public const string ScrollBars = "Gets or sets the type of scroll bars to display in the control";
         public const string Shape = "Gets or sets the shape of the border.";
+        public const string ShortcutsEnabled = "Gets or sets a value indicating whether the defined shortcuts are enabled.";
         public const string ShowIcon = "Indicates whether an icon is displayed in the title bar of the form.";
+        public const string ShowSelectionMargin = "Gets or sets a value indicating whether a selection margin is displayed in the text field.";
         public const string Size = "Gets or sets the size in pixels.";
         public const string Spacing = "The spacing between two components.";
         public const string StartIndex = "Gets or sets the starting index.";
@@ -59,6 +63,7 @@
         public const string UseSystemPasswordChar = "Indicates if the text in the edit control should appear as the default password character.";
         public const string ValueDivisor = "The value division.";
         public const string Visible = "Gets or sets whether the control is visible.";
+        public const string WordWrap = "Indicates whether a multiline text box control automatically wraps words to the beginning of the next line when necessary.";
 
         #endregion
     }

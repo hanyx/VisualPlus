@@ -11,6 +11,7 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
@@ -63,7 +64,6 @@
                     Multiline = true
                 };
 
-            AutoSize = false;
             Size = new Size(150, 100);
 
             Controls.Add(_richTextBox);
@@ -113,14 +113,10 @@
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(false)]
         [Description("Gets access to the contained control.")]
-        public RichTextBox ContainedControl
-        {
-            get
-            {
-                return _richTextBox;
-            }
-        }
+        public RichTextBox ContainedControl => _richTextBox;
 
+        [Category(Propertys.Appearance)]
+        [Description(Property.Font)]
         public new Font Font
         {
             get
@@ -135,6 +131,8 @@
             }
         }
 
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public new Color ForeColor
         {
             get
@@ -146,6 +144,92 @@
             {
                 _richTextBox.ForeColor = value;
                 base.ForeColor = value;
+            }
+        }
+
+        [DefaultValue(32767)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.MaxLength)]
+        public int MaxLength
+        {
+            get
+            {
+                return _richTextBox.MaxLength;
+            }
+
+            set
+            {
+                _richTextBox.MaxLength = value;
+            }
+        }
+
+        [Category(Propertys.Behavior)]
+        [Description(Property.ReadOnly)]
+        public bool ReadOnly
+        {
+            get
+            {
+                return _richTextBox.ReadOnly;
+            }
+
+            set
+            {
+                _richTextBox.ReadOnly = value;
+            }
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.ScrollBars)]
+        public RichTextBoxScrollBars ScrollBars
+        {
+            get
+            {
+                return _richTextBox.ScrollBars;
+            }
+
+            set
+            {
+                _richTextBox.ScrollBars = value;
+            }
+        }
+
+        [DefaultValue(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.ShortcutsEnabled)]
+        public bool ShortcutsEnabled
+        {
+            get
+            {
+                return _richTextBox.ShortcutsEnabled;
+            }
+
+            set
+            {
+                _richTextBox.ShortcutsEnabled = value;
+            }
+        }
+
+        [DefaultValue(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.ShowSelectionMargin)]
+        public bool ShowSelectionMargin
+        {
+            get
+            {
+                return _richTextBox.ShowSelectionMargin;
+            }
+
+            set
+            {
+                _richTextBox.ShowSelectionMargin = value;
             }
         }
 
@@ -163,6 +247,24 @@
             {
                 _richTextBox.Text = value;
                 base.Text = value;
+            }
+        }
+
+        [DefaultValue(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.WordWrap)]
+        public bool WordWrap
+        {
+            get
+            {
+                return _richTextBox.WordWrap;
+            }
+
+            set
+            {
+                _richTextBox.WordWrap = value;
             }
         }
 

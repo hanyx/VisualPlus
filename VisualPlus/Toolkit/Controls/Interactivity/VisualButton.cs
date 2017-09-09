@@ -54,10 +54,10 @@
             _border = new Border();
             _textImageRelation = TextImageRelation.Overlay;
             _backColorState = new ControlColorState();
-            _visualBitmap = new VisualBitmap(Resources.Icon, new Size(24, 24))
+            _visualBitmap = new VisualBitmap(Resources.VisualPlus, new Size(24, 24))
                 {
                     Visible = false,
-                    Image = Resources.Icon
+                    Image = Resources.VisualPlus
                 };
             _visualBitmap.Point = new Point(0, (Height / 2) - (_visualBitmap.Size.Height / 2));
 

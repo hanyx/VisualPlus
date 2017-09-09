@@ -76,7 +76,7 @@
             _title = "Title";
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
             _text = "Enter your custom text here.";
-            _icon = Resources.Icon;
+            _icon = Resources.VisualPlus;
             _background = _styleManager.ColorStateStyle.ControlEnabled;
             _font = _styleManager.Font;
             _autoSize = true;

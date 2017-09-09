@@ -115,7 +115,7 @@
                     Type = ShapeType.Rectangle
                 };
 
-            _vsImage = new VisualBitmap(Resources.Icon, new Size(16, 16)) { Visible = true };
+            _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16)) { Visible = true };
 
             // This enables the form to trigger the MouseMove event even when mouse is over another control
             Application.AddMessageFilter(new MouseMessageFilter());

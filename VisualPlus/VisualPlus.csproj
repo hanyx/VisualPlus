@@ -232,15 +232,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Search.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Toolkit\Dialogs\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Icon.ico" />
+    <EmbeddedResource Include="Resources\Icon.ico" />
     <EmbeddedResource Include="Resources\ToolboxBitmaps\VisualLabel.bmp" />
-    <None Include="Resources\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VisualPlus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

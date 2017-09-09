@@ -63,29 +63,19 @@ namespace VisualPlus.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Icon {
-            get {
-                object obj = ResourceManager.GetObject("Icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Search {
-            get {
-                object obj = ResourceManager.GetObject("Search", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap VisualLabel {
             get {
                 object obj = ResourceManager.GetObject("VisualLabel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VisualPlus {
+            get {
+                object obj = ResourceManager.GetObject("VisualPlus", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

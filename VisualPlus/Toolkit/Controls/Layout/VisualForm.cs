@@ -845,7 +845,14 @@
                     _maxButtonBounds.X + (int)(_maxButtonBounds.Width * 0.33),
                     _maxButtonBounds.Y + (int)(_maxButtonBounds.Height * 0.36),
                     (int)(_maxButtonBounds.Width * 0.39),
-                    (int)(_maxButtonBounds.Height * 0.31));
+                    (int)(_maxButtonBounds.Height * 0.35));
+
+                graphics.DrawRectangle(
+                    maxPen,
+                    _maxButtonBounds.X + (int)(_maxButtonBounds.Width * 0.33),
+                    _maxButtonBounds.Y + (int)(_maxButtonBounds.Height * 0.36),
+                    (int)(_maxButtonBounds.Width * 0.39),
+                    (int)(_maxButtonBounds.Height * 0.08));
             }
 
             // Close button

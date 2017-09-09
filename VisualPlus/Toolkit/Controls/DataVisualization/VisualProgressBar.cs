@@ -76,7 +76,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Category(Propertys.Appearance)]
         public ColorState BackColorState
         {
-            get => _colorState;
+            get
+            {
+                return _colorState;
+            }
 
             set
             {
@@ -95,7 +98,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get => _border;
+            get
+            {
+                return _border;
+            }
 
             set
             {
@@ -109,7 +115,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Category(Propertys.Behavior)]
         public Hatch Hatch
         {
-            get => _hatch;
+            get
+            {
+                return _hatch;
+            }
 
             set
             {
@@ -122,7 +131,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Size)]
         public int MarqueeWidth
         {
-            get => _marqueeWidth;
+            get
+            {
+                return _marqueeWidth;
+            }
 
             set
             {
@@ -135,7 +147,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Orientation)]
         public Orientation Orientation
         {
-            get => _orientation;
+            get
+            {
+                return _orientation;
+            }
 
             set
             {
@@ -173,7 +188,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Visible)]
         public bool PercentageVisible
         {
-            get => _percentageVisible;
+            get
+            {
+                return _percentageVisible;
+            }
 
             set
             {
@@ -186,7 +204,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Color)]
         public Color ProgressColor
         {
-            get => _progressColor;
+            get
+            {
+                return _progressColor;
+            }
 
             set
             {
@@ -199,7 +220,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Image)]
         public Image ProgressImage
         {
-            get => _progressImage;
+            get
+            {
+                return _progressImage;
+            }
 
             set
             {
@@ -213,7 +237,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.ProgressBarStyle)]
         public ProgressBarStyle Style
         {
-            get => _progressBarStyle;
+            get
+            {
+                return _progressBarStyle;
+            }
 
             set
             {
@@ -226,7 +253,10 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Alignment)]
         public StringAlignment ValueAlignment
         {
-            get => _valueAlignment;
+            get
+            {
+                return _valueAlignment;
+            }
 
             set
             {

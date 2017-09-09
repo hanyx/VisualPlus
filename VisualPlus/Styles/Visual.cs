@@ -40,7 +40,7 @@
         {
             get
             {
-                return Color.FromArgb(137, 136, 136);
+                return Color.FromArgb(224, 222, 220);
             }
         }
 

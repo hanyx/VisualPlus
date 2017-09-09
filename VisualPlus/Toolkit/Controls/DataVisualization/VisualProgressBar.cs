@@ -414,11 +414,9 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
             GraphicsPath _progressPath = new GraphicsPath();
             _progressPath.AddRectangle(_progressRectangle);
-
+            graphics.SetClip(ControlGraphicsPath);
             graphics.FillPath(new SolidBrush(_progressColor), _progressPath);
-
             VisualControlRenderer.DrawHatch(graphics, _hatch, _progressPath);
-
             graphics.ResetClip();
         }
 

@@ -37,7 +37,6 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         private int _marqueeWidth;
         private int _marqueeX;
         private int _marqueeY;
-        private Size _minimumSize;
         private Orientation _orientation;
         private bool _percentageVisible;
         private ProgressBarStyle _progressBarStyle;
@@ -49,7 +48,6 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         #region Constructors
 
-        /// <inheritdoc />
         /// <summary>
         ///     Initializes a new instance of the
         ///     <see cref="T:VisualPlus.Toolkit.Controls.DataVisualization.VisualProgressBar" /> class.
@@ -60,10 +58,8 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             _hatch = new Hatch();
             _colorState = new ColorState();
             _orientation = Orientation.Horizontal;
-            _minimumSize = new Size(100, 20);
             _marqueeWidth = 20;
-            Size = _minimumSize;
-            MinimumSize = _minimumSize;
+            Size = new Size(100, 20);
             _percentageVisible = true;
             _border = new Border();
             _progressBarStyle = ProgressBarStyle.Blocks;
@@ -80,10 +76,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Category(Propertys.Appearance)]
         public ColorState BackColorState
         {
-            get
-            {
-                return _colorState;
-            }
+            get => _colorState;
 
             set
             {
@@ -102,10 +95,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Category(Propertys.Appearance)]
         public Border Border
         {
-            get
-            {
-                return _border;
-            }
+            get => _border;
 
             set
             {
@@ -119,10 +109,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Category(Propertys.Behavior)]
         public Hatch Hatch
         {
-            get
-            {
-                return _hatch;
-            }
+            get => _hatch;
 
             set
             {
@@ -135,10 +122,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Size)]
         public int MarqueeWidth
         {
-            get
-            {
-                return _marqueeWidth;
-            }
+            get => _marqueeWidth;
 
             set
             {
@@ -151,10 +135,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Orientation)]
         public Orientation Orientation
         {
-            get
-            {
-                return _orientation;
-            }
+            get => _orientation;
 
             set
             {
@@ -162,11 +143,22 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
                 if (_orientation == Orientation.Horizontal)
                 {
-                    Size = GDI.FlipOrientationSize(Orientation.Horizontal, Size);
+                    if (Width < Height)
+                    {
+                        int temp = Width;
+                        Width = Height;
+                        Height = temp;
+                    }
                 }
-                else if (_orientation == Orientation.Vertical)
+                else
                 {
-                    Size = GDI.FlipOrientationSize(Orientation.Vertical, Size);
+                    // Vertical
+                    if (Width > Height)
+                    {
+                        int temp = Width;
+                        Width = Height;
+                        Height = temp;
+                    }
                 }
 
                 // Resize check
@@ -181,10 +173,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Visible)]
         public bool PercentageVisible
         {
-            get
-            {
-                return _percentageVisible;
-            }
+            get => _percentageVisible;
 
             set
             {
@@ -197,10 +186,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Color)]
         public Color ProgressColor
         {
-            get
-            {
-                return _progressColor;
-            }
+            get => _progressColor;
 
             set
             {
@@ -213,10 +199,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Image)]
         public Image ProgressImage
         {
-            get
-            {
-                return _progressImage;
-            }
+            get => _progressImage;
 
             set
             {
@@ -230,10 +213,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.ProgressBarStyle)]
         public ProgressBarStyle Style
         {
-            get
-            {
-                return _progressBarStyle;
-            }
+            get => _progressBarStyle;
 
             set
             {
@@ -246,10 +226,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         [Description(Property.Alignment)]
         public StringAlignment ValueAlignment
         {
-            get
-            {
-                return _valueAlignment;
-            }
+            get => _valueAlignment;
 
             set
             {
@@ -298,39 +275,13 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
             VisualBackgroundRenderer.DrawBackground(_graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, _border);
 
-            // _graphics.SetClip(ControlGraphicsPath);
             DrawProgress(_orientation, _graphics);
-
-            // _graphics.ResetClip();
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
             e.Graphics.Clear(BackColor);
-        }
-
-        protected override void OnResize(EventArgs e)
-        {
-            switch (_orientation)
-            {
-                case Orientation.Horizontal:
-                    {
-                        MinimumSize = _minimumSize;
-                        break;
-                    }
-
-                case Orientation.Vertical:
-                    {
-                        MinimumSize = new Size(_minimumSize.Height, _minimumSize.Width);
-                        break;
-                    }
-
-                default:
-                    {
-                        throw new ArgumentOutOfRangeException();
-                    }
-            }
         }
 
         private void DrawProgress(Orientation orientation, Graphics graphics)
@@ -369,7 +320,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
                     case Orientation.Horizontal:
                         {
                             _indexValue = (int)Math.Round(((Value - Minimum) / (double)(Maximum - Minimum)) * (Width - 2));
-                            _progressRectangle = new Rectangle(0, 0, _indexValue + 1, Height);
+                            _progressRectangle = new Rectangle(_border.Thickness, _border.Thickness, _indexValue - _border.Thickness, Height - _border.Thickness);
                             _progressPath = VisualBorderRenderer.CreateBorderTypePath(_progressRectangle, _border);
                         }
 
@@ -377,7 +328,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
                     case Orientation.Vertical:
                         {
                             _indexValue = (int)Math.Round(((Value - Minimum) / (double)(Maximum - Minimum)) * (Height - 2));
-                            _progressRectangle = new Rectangle(0, Height - _indexValue - 2, Width, _indexValue);
+                            _progressRectangle = new Rectangle(_border.Thickness, Height - _indexValue - _border.Thickness, Width - _border.Thickness, _indexValue);
                             _progressPath = VisualBorderRenderer.CreateBorderTypePath(_progressRectangle, _border);
                         }
 
@@ -390,12 +341,13 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
                 if (_indexValue > 1)
                 {
-                    VisualBackgroundRenderer.DrawBackground(graphics, _border, _progressColor, _progressRectangle);
+                    graphics.SetClip(ControlGraphicsPath);
+                    VisualBackgroundRenderer.DrawBackground(graphics, _progressColor, _progressRectangle);
                     VisualControlRenderer.DrawHatch(graphics, _hatch, _progressPath);
+                    graphics.ResetClip();
                 }
             }
 
-            VisualBorderRenderer.DrawBorderStyle(graphics, _border, ControlGraphicsPath, MouseState);
             DrawText(graphics);
         }
 

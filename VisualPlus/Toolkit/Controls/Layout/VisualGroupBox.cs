@@ -389,7 +389,7 @@
                         }
 
                         // +1 extra whitespace in case of FontStyle=Bold
-                        titleSize = new Size(textArea.Width + 1, textArea.Height);
+                        titleSize = new Size(textArea.Width + 2, textArea.Height);
 
                         switch (_stringAlignment)
                         {

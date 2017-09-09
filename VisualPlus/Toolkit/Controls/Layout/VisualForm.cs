@@ -73,7 +73,7 @@
         {
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
             UpdateStyles();
-
+            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
             _resizeCursors = new[] { Cursors.SizeNESW, Cursors.SizeWE, Cursors.SizeNWSE, Cursors.SizeWE, Cursors.SizeNS };
 
             _resizedLocationsCommand = new Dictionary<int, int>
@@ -99,7 +99,6 @@
             _minColor = _styleManager.ControlStyle.FlatButtonEnabled;
             _buttonSize = new Size(25, 25);
             _windowBarColor = _styleManager.ControlStyle.Background(0);
-            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
             _background = _styleManager.ControlStyle.Background(3);
             _magneticRadius = 100;
             _magnetic = true;

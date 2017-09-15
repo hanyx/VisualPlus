@@ -15,11 +15,11 @@ namespace VisualPlus.Managers
     {
         #region Variables
 
-        private readonly List<AnimationDirection> animationDirections;
-        private readonly Timer animationTimer = new Timer { Interval = 5, Enabled = false };
-        private readonly List<object[]> effectsData;
-        private readonly List<double> effectsProgression;
-        private readonly List<Point> effectsSources;
+        private readonly List<AnimationDirection> _animationDirections;
+        private readonly Timer _animationTimer;
+        private readonly List<object[]> _effectsData;
+        private readonly List<double> _effectsProgression;
+        private readonly List<Point> _effectsSources;
 
         #endregion
 
@@ -32,11 +32,11 @@ namespace VisualPlus.Managers
         /// </param>
         public VFXManager(bool singular = true)
         {
-            effectsProgression = new List<double>();
-            effectsSources = new List<Point>();
-            animationDirections = new List<AnimationDirection>();
-            effectsData = new List<object[]>();
-
+            _effectsProgression = new List<double>();
+            _effectsSources = new List<Point>();
+            _animationDirections = new List<AnimationDirection>();
+            _effectsData = new List<object[]>();
+            _animationTimer = new Timer { Interval = 5, Enabled = false };
             Increment = 0.03;
             SecondaryIncrement = 0.03;
             EffectType = EffectType.Linear;
@@ -45,12 +45,12 @@ namespace VisualPlus.Managers
 
             if (Singular)
             {
-                effectsProgression.Add(0);
-                effectsSources.Add(new Point(0, 0));
-                animationDirections.Add(AnimationDirection.In);
+                _effectsProgression.Add(0);
+                _effectsSources.Add(new Point(0, 0));
+                _animationDirections.Add(AnimationDirection.In);
             }
 
-            animationTimer.Tick += AnimationTimerOnTick;
+            _animationTimer.Tick += AnimationTimerOnTick;
         }
 
         public delegate void AnimationFinished(object sender);
@@ -81,7 +81,7 @@ namespace VisualPlus.Managers
 
         public int GetAnimationCount()
         {
-            return effectsProgression.Count;
+            return _effectsProgression.Count;
         }
 
         public object[] GetData()
@@ -91,22 +91,22 @@ namespace VisualPlus.Managers
                 throw new Exception("Animation is not set to Singular.");
             }
 
-            if (effectsData.Count == 0)
+            if (_effectsData.Count == 0)
             {
                 throw new Exception("Invalid animation");
             }
 
-            return effectsData[0];
+            return _effectsData[0];
         }
 
         public object[] GetData(int index)
         {
-            if (!(index < effectsData.Count))
+            if (!(index < _effectsData.Count))
             {
                 throw new IndexOutOfRangeException("Invalid animation index");
             }
 
-            return effectsData[index];
+            return _effectsData[index];
         }
 
         public AnimationDirection GetDirection()
@@ -116,22 +116,22 @@ namespace VisualPlus.Managers
                 throw new Exception("Animation is not set to Singular.");
             }
 
-            if (animationDirections.Count == 0)
+            if (_animationDirections.Count == 0)
             {
                 throw new Exception("Invalid animation");
             }
 
-            return animationDirections[0];
+            return _animationDirections[0];
         }
 
         public AnimationDirection GetDirection(int index)
         {
-            if (!(index < animationDirections.Count))
+            if (!(index < _animationDirections.Count))
             {
                 throw new IndexOutOfRangeException("Invalid animation index");
             }
 
-            return animationDirections[index];
+            return _animationDirections[index];
         }
 
         public double GetProgress()
@@ -141,7 +141,7 @@ namespace VisualPlus.Managers
                 throw new Exception("Animation is not set to Singular.");
             }
 
-            if (effectsProgression.Count == 0)
+            if (_effectsProgression.Count == 0)
             {
                 throw new Exception("Invalid animation");
             }
@@ -159,13 +159,13 @@ namespace VisualPlus.Managers
             switch (EffectType)
             {
                 case EffectType.Linear:
-                    return AnimationLinear.CalculateProgress(effectsProgression[index]);
+                    return AnimationLinear.CalculateProgress(_effectsProgression[index]);
                 case EffectType.EaseInOut:
-                    return AnimationEaseInOut.CalculateProgress(effectsProgression[index]);
+                    return AnimationEaseInOut.CalculateProgress(_effectsProgression[index]);
                 case EffectType.EaseOut:
-                    return AnimationEaseOut.CalculateProgress(effectsProgression[index]);
+                    return AnimationEaseOut.CalculateProgress(_effectsProgression[index]);
                 case EffectType.CustomQuadratic:
-                    return AnimationCustomQuadratic.CalculateProgress(effectsProgression[index]);
+                    return AnimationCustomQuadratic.CalculateProgress(_effectsProgression[index]);
                 default:
                     throw new NotImplementedException("The given EffectType is not implemented");
             }
@@ -178,7 +178,7 @@ namespace VisualPlus.Managers
                 throw new IndexOutOfRangeException("Invalid animation index");
             }
 
-            return effectsSources[index];
+            return _effectsSources[index];
         }
 
         public Point GetSource()
@@ -188,17 +188,17 @@ namespace VisualPlus.Managers
                 throw new Exception("Animation is not set to Singular.");
             }
 
-            if (effectsSources.Count == 0)
+            if (_effectsSources.Count == 0)
             {
                 throw new Exception("Invalid animation");
             }
 
-            return effectsSources[0];
+            return _effectsSources[0];
         }
 
         public bool IsAnimating()
         {
-            return animationTimer.Enabled;
+            return _animationTimer.Enabled;
         }
 
         public void SetData(object[] data)
@@ -208,12 +208,12 @@ namespace VisualPlus.Managers
                 throw new Exception("Animation is not set to Singular.");
             }
 
-            if (effectsData.Count == 0)
+            if (_effectsData.Count == 0)
             {
                 throw new Exception("Invalid animation");
             }
 
-            effectsData[0] = data;
+            _effectsData[0] = data;
         }
 
         public void SetDirection(AnimationDirection direction)
@@ -223,12 +223,12 @@ namespace VisualPlus.Managers
                 throw new Exception("Animation is not set to Singular.");
             }
 
-            if (effectsProgression.Count == 0)
+            if (_effectsProgression.Count == 0)
             {
                 throw new Exception("Invalid animation");
             }
 
-            animationDirections[0] = direction;
+            _animationDirections[0] = direction;
         }
 
         public void SetProgress(double progress)
@@ -238,12 +238,12 @@ namespace VisualPlus.Managers
                 throw new Exception("Animation is not set to Singular.");
             }
 
-            if (effectsProgression.Count == 0)
+            if (_effectsProgression.Count == 0)
             {
                 throw new Exception("Invalid animation");
             }
 
-            effectsProgression[0] = progress;
+            _effectsProgression[0] = progress;
         }
 
         public void StartNewAnimation(AnimationDirection animationDirection, object[] data = null)
@@ -255,59 +255,59 @@ namespace VisualPlus.Managers
         {
             if (!IsAnimating() || CancelAnimation)
             {
-                if (Singular && (animationDirections.Count > 0))
+                if (Singular && (_animationDirections.Count > 0))
                 {
-                    animationDirections[0] = animationDirection;
+                    _animationDirections[0] = animationDirection;
                 }
                 else
                 {
-                    animationDirections.Add(animationDirection);
+                    _animationDirections.Add(animationDirection);
                 }
 
-                if (Singular && (effectsSources.Count > 0))
+                if (Singular && (_effectsSources.Count > 0))
                 {
-                    effectsSources[0] = animationSource;
+                    _effectsSources[0] = animationSource;
                 }
                 else
                 {
-                    effectsSources.Add(animationSource);
+                    _effectsSources.Add(animationSource);
                 }
 
-                if (!(Singular && (effectsProgression.Count > 0)))
+                if (!(Singular && (_effectsProgression.Count > 0)))
                 {
-                    switch (animationDirections[animationDirections.Count - 1])
+                    switch (_animationDirections[_animationDirections.Count - 1])
                     {
                         case AnimationDirection.InOutRepeatingIn:
                         case AnimationDirection.InOutIn:
                         case AnimationDirection.In:
-                            effectsProgression.Add(MinValue);
+                            _effectsProgression.Add(MinValue);
                             break;
                         case AnimationDirection.InOutRepeatingOut:
                         case AnimationDirection.InOutOut:
                         case AnimationDirection.Out:
-                            effectsProgression.Add(MaxValue);
+                            _effectsProgression.Add(MaxValue);
                             break;
                         default:
                             throw new Exception("Invalid AnimationDirection");
                     }
                 }
 
-                if (Singular && (effectsData.Count > 0))
+                if (Singular && (_effectsData.Count > 0))
                 {
-                    effectsData[0] = data ?? new object[] { };
+                    _effectsData[0] = data ?? new object[] { };
                 }
                 else
                 {
-                    effectsData.Add(data ?? new object[] { });
+                    _effectsData.Add(data ?? new object[] { });
                 }
             }
 
-            animationTimer.Start();
+            _animationTimer.Start();
         }
 
         public void UpdateProgress(int index)
         {
-            switch (animationDirections[index])
+            switch (_animationDirections[index])
             {
                 case AnimationDirection.InOutRepeatingIn:
                 case AnimationDirection.InOutIn:
@@ -329,47 +329,47 @@ namespace VisualPlus.Managers
 
         private void AnimationTimerOnTick(object sender, EventArgs eventArgs)
         {
-            for (var i = 0; i < effectsProgression.Count; i++)
+            for (var i = 0; i < _effectsProgression.Count; i++)
             {
                 UpdateProgress(i);
 
                 if (!Singular)
                 {
-                    if ((animationDirections[i] == AnimationDirection.InOutIn) && (effectsProgression[i] == MaxValue))
+                    if ((_animationDirections[i] == AnimationDirection.InOutIn) && (_effectsProgression[i] == MaxValue))
                     {
-                        animationDirections[i] = AnimationDirection.InOutOut;
+                        _animationDirections[i] = AnimationDirection.InOutOut;
                     }
-                    else if ((animationDirections[i] == AnimationDirection.InOutRepeatingIn) && (effectsProgression[i] == MinValue))
+                    else if ((_animationDirections[i] == AnimationDirection.InOutRepeatingIn) && (_effectsProgression[i] == MinValue))
                     {
-                        animationDirections[i] = AnimationDirection.InOutRepeatingOut;
+                        _animationDirections[i] = AnimationDirection.InOutRepeatingOut;
                     }
-                    else if ((animationDirections[i] == AnimationDirection.InOutRepeatingOut) && (effectsProgression[i] == MinValue))
+                    else if ((_animationDirections[i] == AnimationDirection.InOutRepeatingOut) && (_effectsProgression[i] == MinValue))
                     {
-                        animationDirections[i] = AnimationDirection.InOutRepeatingIn;
+                        _animationDirections[i] = AnimationDirection.InOutRepeatingIn;
                     }
-                    else if (((animationDirections[i] == AnimationDirection.In) && (effectsProgression[i] == MaxValue))
-                             || ((animationDirections[i] == AnimationDirection.Out) && (effectsProgression[i] == MinValue))
-                             || ((animationDirections[i] == AnimationDirection.InOutOut) && (effectsProgression[i] == MinValue)))
+                    else if (((_animationDirections[i] == AnimationDirection.In) && (_effectsProgression[i] == MaxValue))
+                             || ((_animationDirections[i] == AnimationDirection.Out) && (_effectsProgression[i] == MinValue))
+                             || ((_animationDirections[i] == AnimationDirection.InOutOut) && (_effectsProgression[i] == MinValue)))
                     {
-                        effectsProgression.RemoveAt(i);
-                        effectsSources.RemoveAt(i);
-                        animationDirections.RemoveAt(i);
-                        effectsData.RemoveAt(i);
+                        _effectsProgression.RemoveAt(i);
+                        _effectsSources.RemoveAt(i);
+                        _animationDirections.RemoveAt(i);
+                        _effectsData.RemoveAt(i);
                     }
                 }
                 else
                 {
-                    if ((animationDirections[i] == AnimationDirection.InOutIn) && (effectsProgression[i] == MaxValue))
+                    if ((_animationDirections[i] == AnimationDirection.InOutIn) && (_effectsProgression[i] == MaxValue))
                     {
-                        animationDirections[i] = AnimationDirection.InOutOut;
+                        _animationDirections[i] = AnimationDirection.InOutOut;
                     }
-                    else if ((animationDirections[i] == AnimationDirection.InOutRepeatingIn) && (effectsProgression[i] == MaxValue))
+                    else if ((_animationDirections[i] == AnimationDirection.InOutRepeatingIn) && (_effectsProgression[i] == MaxValue))
                     {
-                        animationDirections[i] = AnimationDirection.InOutRepeatingOut;
+                        _animationDirections[i] = AnimationDirection.InOutRepeatingOut;
                     }
-                    else if ((animationDirections[i] == AnimationDirection.InOutRepeatingOut) && (effectsProgression[i] == MinValue))
+                    else if ((_animationDirections[i] == AnimationDirection.InOutRepeatingOut) && (_effectsProgression[i] == MinValue))
                     {
-                        animationDirections[i] = AnimationDirection.InOutRepeatingIn;
+                        _animationDirections[i] = AnimationDirection.InOutRepeatingIn;
                     }
                 }
             }
@@ -379,83 +379,83 @@ namespace VisualPlus.Managers
 
         private void DecrementProgress(int index)
         {
-            effectsProgression[index] -= (animationDirections[index] == AnimationDirection.InOutOut)
-                                         || (animationDirections[index] == AnimationDirection.InOutRepeatingOut)
-                                             ? SecondaryIncrement
-                                             : Increment;
-            if (effectsProgression[index] < MinValue)
+            _effectsProgression[index] -= (_animationDirections[index] == AnimationDirection.InOutOut)
+                                          || (_animationDirections[index] == AnimationDirection.InOutRepeatingOut)
+                                              ? SecondaryIncrement
+                                              : Increment;
+            if (_effectsProgression[index] < MinValue)
             {
-                effectsProgression[index] = MinValue;
+                _effectsProgression[index] = MinValue;
 
                 for (var i = 0; i < GetAnimationCount(); i++)
                 {
-                    if (animationDirections[i] == AnimationDirection.InOutIn)
+                    if (_animationDirections[i] == AnimationDirection.InOutIn)
                     {
                         return;
                     }
 
-                    if (animationDirections[i] == AnimationDirection.InOutRepeatingIn)
+                    if (_animationDirections[i] == AnimationDirection.InOutRepeatingIn)
                     {
                         return;
                     }
 
-                    if (animationDirections[i] == AnimationDirection.InOutRepeatingOut)
+                    if (_animationDirections[i] == AnimationDirection.InOutRepeatingOut)
                     {
                         return;
                     }
 
-                    if ((animationDirections[i] == AnimationDirection.InOutOut) && (effectsProgression[i] != MinValue))
+                    if ((_animationDirections[i] == AnimationDirection.InOutOut) && (_effectsProgression[i] != MinValue))
                     {
                         return;
                     }
 
-                    if ((animationDirections[i] == AnimationDirection.Out) && (effectsProgression[i] != MinValue))
+                    if ((_animationDirections[i] == AnimationDirection.Out) && (_effectsProgression[i] != MinValue))
                     {
                         return;
                     }
                 }
 
-                animationTimer.Stop();
+                _animationTimer.Stop();
                 OnAnimationFinished?.Invoke(this);
             }
         }
 
         private void IncrementProgress(int index)
         {
-            effectsProgression[index] += Increment;
-            if (effectsProgression[index] > MaxValue)
+            _effectsProgression[index] += Increment;
+            if (_effectsProgression[index] > MaxValue)
             {
-                effectsProgression[index] = MaxValue;
+                _effectsProgression[index] = MaxValue;
 
                 for (var i = 0; i < GetAnimationCount(); i++)
                 {
-                    if (animationDirections[i] == AnimationDirection.InOutIn)
+                    if (_animationDirections[i] == AnimationDirection.InOutIn)
                     {
                         return;
                     }
 
-                    if (animationDirections[i] == AnimationDirection.InOutRepeatingIn)
+                    if (_animationDirections[i] == AnimationDirection.InOutRepeatingIn)
                     {
                         return;
                     }
 
-                    if (animationDirections[i] == AnimationDirection.InOutRepeatingOut)
+                    if (_animationDirections[i] == AnimationDirection.InOutRepeatingOut)
                     {
                         return;
                     }
 
-                    if ((animationDirections[i] == AnimationDirection.InOutOut) && (effectsProgression[i] != MaxValue))
+                    if ((_animationDirections[i] == AnimationDirection.InOutOut) && (_effectsProgression[i] != MaxValue))
                     {
                         return;
                     }
 
-                    if ((animationDirections[i] == AnimationDirection.In) && (effectsProgression[i] != MaxValue))
+                    if ((_animationDirections[i] == AnimationDirection.In) && (_effectsProgression[i] != MaxValue))
                     {
                         return;
                     }
                 }
 
-                animationTimer.Stop();
+                _animationTimer.Stop();
                 OnAnimationFinished?.Invoke(this);
             }
         }

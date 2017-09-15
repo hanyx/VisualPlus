@@ -222,6 +222,8 @@
 
             (_control as VisualCheckBox)?.UpdateTheme(style);
 
+            (_control as VisualCheckedListBox)?.UpdateTheme(style);
+
             (_control as VisualComboBox)?.UpdateTheme(style);
 
             (_control as VisualLabel)?.UpdateTheme(style);

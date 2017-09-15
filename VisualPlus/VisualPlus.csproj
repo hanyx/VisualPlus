@@ -81,6 +81,7 @@
     <Compile Include="Structure\Hatch.cs" />
     <Compile Include="Structure\TextState.cs" />
     <Compile Include="Toolkit\ActionList\BackupDesigner.cs" />
+    <Compile Include="Toolkit\ActionList\VisualCheckedListBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualRichBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualTextBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualListViewTasks.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Toolkit\Components\VisualStyleManager.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Toolkit\Controls\DataManagement\VisualCheckedListBox.cs" />
     <Compile Include="Toolkit\Controls\DataVisualization\VisualGauge.cs" />
     <Compile Include="Toolkit\Controls\DataVisualization\VisualProgressStepper.cs" />
     <Compile Include="Toolkit\Controls\Interactivity\VisualRangeBar.cs" />

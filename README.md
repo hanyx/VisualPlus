@@ -46,7 +46,7 @@ Hit the ⭐️ Star ⭐️ button.
 BitCoin donations are also welcome: `1KKghRonJu6orcu7rf4r1wSnsnAPbnC8B7`
 
 ## Feedback
-- Ask a question on [Gitter](https://gitter.im/VisualPlusUI/Support).
+- Ask a question on [Gitter](https://gitter.im/VisualPlusUI/General).
 - Request a new feature on [GitHub](https://github.com/DarkByte7/VisualPlus/blob/beta/CONTRIBUTE.md).
 - Vote for [popular feature requests](https://github.com/DarkByte7/VisualPlus/issues?q=is:open+is:issue+label:feature-request+sort:reactions-B1-desc).
 - File a bug in [GitHub Issues](https://github.com/DarkByte7/VisualPlus/issues?q=is:open+is:issue).

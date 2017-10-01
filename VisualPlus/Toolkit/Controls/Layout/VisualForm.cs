@@ -648,9 +648,10 @@
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            _minButtonBounds = new Rectangle(Width - Padding.Right - (3 * _buttonSize.Width), (Padding.Top + (_windowBarHeight / 2)) - (_buttonSize.Height / 2), _buttonSize.Width, _buttonSize.Height);
-            _maxButtonBounds = new Rectangle(Width - Padding.Right - (2 * _buttonSize.Width), (Padding.Top + (_windowBarHeight / 2)) - (_buttonSize.Height / 2), _buttonSize.Width, _buttonSize.Height);
-            _xButtonBounds = new Rectangle(Width - Padding.Right - _buttonSize.Width, (Padding.Top + (_windowBarHeight / 2)) - (_buttonSize.Height / 2), _buttonSize.Width, _buttonSize.Height);
+            _vsImage.Point = new Point(_vsImage.Point.X, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
+            _minButtonBounds = new Rectangle(Width - (3 * _buttonSize.Width), (_windowBarHeight / 2) - (_buttonSize.Height / 2), _buttonSize.Width, _buttonSize.Height);
+            _maxButtonBounds = new Rectangle(Width - (2 * _buttonSize.Width), (_windowBarHeight / 2) - (_buttonSize.Height / 2), _buttonSize.Width, _buttonSize.Height);
+            _xButtonBounds = new Rectangle(Width - _buttonSize.Width, (_windowBarHeight / 2) - (_buttonSize.Height / 2), _buttonSize.Width, _buttonSize.Height);
             _statusBarBounds = new Rectangle(0, 0, Width, _windowBarHeight);
         }
 
@@ -927,13 +928,13 @@
 
                 case Alignment.TextAlignment.Left:
                     {
-                        titlePoint = new Point(5 + _vsImage.Size.Width + 5, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
+                        titlePoint = new Point(_vsImage.Point.X + _vsImage.Size.Width, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
                         break;
                     }
 
                 case Alignment.TextAlignment.Right:
                     {
-                        titlePoint = new Point(_minButtonBounds.Left - 5 - _titleTextSize.Width, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
+                        titlePoint = new Point(_minButtonBounds.X - _titleTextSize.Width, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
                         break;
                     }
 

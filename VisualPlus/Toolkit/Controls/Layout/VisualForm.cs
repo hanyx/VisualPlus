@@ -106,8 +106,7 @@
             TransparencyKey = Color.Fuchsia;
             DoubleBuffered = true;
 
-            // Padding-Left: 5 for icon
-            Padding = new Padding(5, 0, 0, 0);
+            Padding = new Padding(0, 0, 0, 0);
 
             _border = new Border
                 {
@@ -116,6 +115,7 @@
                 };
 
             _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16)) { Visible = true };
+            _vsImage.Point = new Point(5, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
 
             // This enables the form to trigger the MouseMove event even when mouse is over another control
             Application.AddMessageFilter(new MouseMessageFilter());
@@ -876,7 +876,6 @@
 
         private void DrawIcon(Graphics graphics)
         {
-            _vsImage.Point = new Point(Padding.Left, (_statusBarBounds.Height / 2) - (_vsImage.Size.Height / 2));
             VisualBitmap.DrawImage(graphics, _vsImage.Border, _vsImage.Point, _vsImage.Image, _vsImage.Size, _vsImage.Visible);
         }
 

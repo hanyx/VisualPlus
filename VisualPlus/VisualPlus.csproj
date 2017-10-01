@@ -80,7 +80,6 @@
     <Compile Include="Structure\ColorState.cs" />
     <Compile Include="Structure\Hatch.cs" />
     <Compile Include="Structure\TextState.cs" />
-    <Compile Include="Toolkit\ActionList\BackupDesigner.cs" />
     <Compile Include="Toolkit\ActionList\VisualCheckedListBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualRichBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualTextBoxTasks.cs" />

@@ -987,13 +987,13 @@
 
             if (maximize)
             {
-                IntPtr monitorHandle = Native.MonitorFromWindow(Handle, MONITOR_DEFAULTTONEAREST);
-                MonitorInfo monitorInfo = new MonitorInfo();
-                Native.GetMonitorInfo(new HandleRef(null, monitorHandle), monitorInfo);
+                IntPtr _monitorHandle = Native.MonitorFromWindow(Handle, MONITOR_DEFAULTTONEAREST);
+                MonitorManager _monitorInfo = new MonitorManager();
+                Native.GetMonitorInfo(new HandleRef(null, _monitorHandle), _monitorInfo);
                 _previousSize = Size;
                 _previousLocation = Location;
-                Size = new Size(monitorInfo.rcWork.Width, monitorInfo.rcWork.Height);
-                Location = new Point(monitorInfo.rcWork.Left, monitorInfo.rcWork.Top);
+                Size = new Size(_monitorInfo.WorkingArea.Width, _monitorInfo.WorkingArea.Height);
+                Location = new Point(_monitorInfo.WorkingArea.Left, _monitorInfo.WorkingArea.Top);
             }
             else
             {
@@ -1022,44 +1022,49 @@
                 return;
             }
 
-            int dir = -1;
+            int _dir = -1;
             switch (direction)
             {
                 case ResizeDirection.BottomLeft:
                     {
-                        dir = HTBOTTOMLEFT;
+                        _dir = HTBOTTOMLEFT;
                         break;
                     }
 
                 case ResizeDirection.Left:
                     {
-                        dir = HTLEFT;
+                        _dir = HTLEFT;
                         break;
                     }
 
                 case ResizeDirection.Right:
                     {
-                        dir = HTRIGHT;
+                        _dir = HTRIGHT;
                         break;
                     }
 
                 case ResizeDirection.BottomRight:
                     {
-                        dir = HTBOTTOMRIGHT;
+                        _dir = HTBOTTOMRIGHT;
                         break;
                     }
 
                 case ResizeDirection.Bottom:
                     {
-                        dir = HTBOTTOM;
+                        _dir = HTBOTTOM;
                         break;
                     }
+
+                case ResizeDirection.None:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
 
             Native.ReleaseCapture();
-            if (dir != -1)
+            if (_dir != -1)
             {
-                Native.SendMessage(Handle, WM_NCLBUTTONDOWN, dir, 0);
+                Native.SendMessage(Handle, WM_NCLBUTTONDOWN, _dir, 0);
             }
         }
 
@@ -1152,22 +1157,6 @@
         #endregion
 
         #region Methods
-
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto, Pack = 4)]
-        private class MonitorInfo
-        {
-            #region Variables
-
-            public int cbSize = Marshal.SizeOf(typeof(MonitorInfo));
-            public int dwFlags = 0;
-            public Rectangle rcMonitor = new Rectangle();
-            public Rectangle rcWork = new Rectangle();
-
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
-            public char[] szDevice = new char[32];
-
-            #endregion
-        }
 
         private class MouseMessageFilter : IMessageFilter
         {

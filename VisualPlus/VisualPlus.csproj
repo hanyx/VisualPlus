@@ -65,6 +65,7 @@
     <Compile Include="Localization\GlobalStrings.cs" />
     <Compile Include="Localization\Category\Propertys.cs" />
     <Compile Include="Managers\ImageManager.cs" />
+    <Compile Include="Managers\MonitorManager.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

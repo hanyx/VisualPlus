@@ -150,6 +150,39 @@
             None
         }
 
+        public enum ControlBoxAlignment
+        {
+            /// <summary>The bottom.</summary>
+            Bottom,
+
+            /// <summary>The center.</summary>
+            Center,
+
+            /// <summary>The top.</summary>
+            Top
+        }
+
+        public enum ResizeDirection
+        {
+            /// <summary>The bottom left.</summary>
+            BottomLeft,
+
+            /// <summary>The left.</summary>
+            Left,
+
+            /// <summary>The right.</summary>
+            Right,
+
+            /// <summary>The bottom right.</summary>
+            BottomRight,
+
+            /// <summary>The bottom.</summary>
+            Bottom,
+
+            /// <summary>The none.</summary>
+            None
+        }
+
         #endregion
 
         #region Properties
@@ -445,14 +478,6 @@
         #endregion
 
         #region Events
-
-        public const int HT_CAPTION = 0x2;
-        public const int WM_LBUTTONDBLCLK = 0x0203;
-        public const int WM_LBUTTONDOWN = 0x0201;
-        public const int WM_LBUTTONUP = 0x0202;
-        public const int WM_MOUSEMOVE = 0x0200;
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int WM_RBUTTONDOWN = 0x0204;
 
         protected virtual void OnBackgroundChanged(ColorEventArgs e)
         {
@@ -772,6 +797,7 @@
             }
         }
 
+        private const int HT_CAPTION = 0x2;
         private const int HTBOTTOM = 15;
         private const int HTBOTTOMLEFT = 16;
         private const int HTBOTTOMRIGHT = 17;
@@ -780,19 +806,21 @@
         private const int HTTOP = 12;
         private const int HTTOPLEFT = 13;
         private const int HTTOPRIGHT = 14;
-
         private const int MONITOR_DEFAULTTONEAREST = 2;
-
         private const uint TPM_LEFTALIGN = 0x0000;
         private const uint TPM_RETURNCMD = 0x0100;
-
+        private const int WM_LBUTTONDBLCLK = 0x0203;
+        private const int WM_LBUTTONDOWN = 0x0201;
+        private const int WM_LBUTTONUP = 0x0202;
+        private const int WM_MOUSEMOVE = 0x0200;
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int WM_RBUTTONDOWN = 0x0204;
         private const int WM_SYSCOMMAND = 0x0112;
         private const int WMSZ_BOTTOM = 6;
         private const int WMSZ_BOTTOMLEFT = 7;
         private const int WMSZ_BOTTOMRIGHT = 8;
         private const int WMSZ_LEFT = 1;
         private const int WMSZ_RIGHT = 2;
-
         private const int WMSZ_TOP = 3;
         private const int WMSZ_TOPLEFT = 4;
         private const int WMSZ_TOPRIGHT = 5;
@@ -1126,7 +1154,7 @@
         #region Methods
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto, Pack = 4)]
-        public class MonitorInfo
+        private class MonitorInfo
         {
             #region Variables
 
@@ -1141,7 +1169,7 @@
             #endregion
         }
 
-        public class MouseMessageFilter : IMessageFilter
+        private class MouseMessageFilter : IMessageFilter
         {
             #region Constructors
 
@@ -1169,28 +1197,6 @@
             private const int WM_MOUSEMOVE = 0x0200;
 
             #endregion
-        }
-
-        internal enum ResizeDirection
-        {
-            BottomLeft,
-            Left,
-            Right,
-            BottomRight,
-            Bottom,
-            None
-        }
-
-        private enum ControlBoxAlignment
-        {
-            /// <summary>The bottom.</summary>
-            Bottom,
-
-            /// <summary>The center.</summary>
-            Center,
-
-            /// <summary>The top.</summary>
-            Top
         }
 
         #endregion

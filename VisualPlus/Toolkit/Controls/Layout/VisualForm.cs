@@ -964,8 +964,8 @@
                 Native.GetMonitorInfo(new HandleRef(null, monitorHandle), monitorInfo);
                 _previousSize = Size;
                 _previousLocation = Location;
-                Size = new Size(monitorInfo.rcWork.Width(), monitorInfo.rcWork.Height());
-                Location = new Point(monitorInfo.rcWork.left, monitorInfo.rcWork.top);
+                Size = new Size(monitorInfo.rcWork.Width, monitorInfo.rcWork.Height);
+                Location = new Point(monitorInfo.rcWork.Left, monitorInfo.rcWork.Top);
             }
             else
             {
@@ -1132,8 +1132,8 @@
 
             public int cbSize = Marshal.SizeOf(typeof(MonitorInfo));
             public int dwFlags = 0;
-            public RECT rcMonitor = new RECT();
-            public RECT rcWork = new RECT();
+            public Rectangle rcMonitor = new Rectangle();
+            public Rectangle rcWork = new Rectangle();
 
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
             public char[] szDevice = new char[32];
@@ -1169,25 +1169,6 @@
             private const int WM_MOUSEMOVE = 0x0200;
 
             #endregion
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct RECT
-        {
-            public int left;
-            public int top;
-            public int right;
-            public int bottom;
-
-            public int Width()
-            {
-                return right - left;
-            }
-
-            public int Height()
-            {
-                return bottom - top;
-            }
         }
 
         internal enum ResizeDirection

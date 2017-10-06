@@ -114,9 +114,9 @@
             _textBox.SizeChanged += TextBox_SizeChanged;
 
             Controls.Add(_textBox);
+            Controls.Add(_borderButton);
+            Controls.Add(_borderImage);
 
-            // Controls.Add(_borderButton);
-            // Controls.Add(_borderImage);
             _waterMarkContainer = null;
 
             if (_watermark.Visible)

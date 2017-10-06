@@ -1095,18 +1095,6 @@
                 // Start location
                 _currentUsedPos = _indentHeight;
 
-                // Draw value tick
-                if (_valueTicksVisible)
-                {
-                    HorizontalStyle(graphics, _workingRectangle, false);
-                }
-
-                // Draw line tick
-                if (_lineTicksVisible)
-                {
-                    HorizontalStyle(graphics, _workingRectangle, true);
-                }
-
                 // Setups the location & sizing
                 switch (TickStyle)
                 {
@@ -1207,18 +1195,6 @@
             {
                 // Start location
                 _currentUsedPos = _indentWidth;
-
-                // Draw value tick
-                if (_valueTicksVisible)
-                {
-                    VerticalStyle(graphics, _workingRectangle, false);
-                }
-
-                // Draw line tick
-                if (_lineTicksVisible)
-                {
-                    VerticalStyle(graphics, _workingRectangle, true);
-                }
 
                 // Setups the location & sizing
                 switch (TickStyle)

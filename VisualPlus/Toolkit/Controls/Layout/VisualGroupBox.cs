@@ -306,6 +306,8 @@
 
                 graphics.DrawString(Text, Font, new SolidBrush(ForeColor), _titleBoxRectangle, stringFormat);
             }
+
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)

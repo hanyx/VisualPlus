@@ -299,13 +299,18 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             _graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
             _graphics.TextRenderingHint = TextRenderingHint;
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
-            _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
+
+            _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
+            _graphics.SetClip(ControlGraphicsPath);
 
             Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
             VisualBackgroundRenderer.DrawBackground(_graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, _border);
 
             DrawProgress(_orientation, _graphics);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+            e.Graphics.ResetClip();
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -350,7 +355,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
                     case Orientation.Horizontal:
                         {
                             _indexValue = (int)Math.Round(((Value - Minimum) / (double)(Maximum - Minimum)) * (Width - 2));
-                            _progressRectangle = new Rectangle(_border.Thickness, _border.Thickness, _indexValue - _border.Thickness, Height - _border.Thickness);
+                            _progressRectangle = new Rectangle(0, 0, _indexValue + _border.Thickness, Height);
                             _progressPath = VisualBorderRenderer.CreateBorderTypePath(_progressRectangle, _border);
                         }
 
@@ -358,7 +363,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
                     case Orientation.Vertical:
                         {
                             _indexValue = (int)Math.Round(((Value - Minimum) / (double)(Maximum - Minimum)) * (Height - 2));
-                            _progressRectangle = new Rectangle(_border.Thickness, Height - _indexValue - _border.Thickness, Width - _border.Thickness, _indexValue);
+                            _progressRectangle = new Rectangle(0, Height - _indexValue - _border.Thickness - 1, Width, _indexValue);
                             _progressPath = VisualBorderRenderer.CreateBorderTypePath(_progressRectangle, _border);
                         }
 
@@ -372,7 +377,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
                 if (_indexValue > 1)
                 {
                     graphics.SetClip(ControlGraphicsPath);
-                    VisualBackgroundRenderer.DrawBackground(graphics, _progressColor, _progressRectangle);
+                    graphics.FillRectangle(new SolidBrush(_progressColor), _progressRectangle);
                     VisualControlRenderer.DrawHatch(graphics, _hatch, _progressPath);
                     graphics.ResetClip();
                 }

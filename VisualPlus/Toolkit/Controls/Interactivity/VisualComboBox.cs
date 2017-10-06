@@ -567,7 +567,9 @@
             Color _textColor = Enabled ? _foreColor : _textDisabledColor;
             Color _backColor = Enabled ? _backColorState.Enabled : _backColorState.Disabled;
 
-            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, _mouseState, _clientRectangle, Border);
+            _graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
+            _graphics.SetClip(_controlGraphicsPath);
+            VisualBackgroundRenderer.DrawBackground(_graphics, _backColor, BackgroundImage, _mouseState, _clientRectangle, Border);
 
             Point _textBoxLocation;
             Point _buttonLocation;
@@ -604,6 +606,9 @@
             {
                 Watermark.DrawWatermark(_graphics, _textBoxRectangle, _stringFormat, _watermark);
             }
+
+            VisualBorderRenderer.DrawBorderStyle(_graphics, _border, _controlGraphicsPath, _mouseState);
+            _graphics.ResetClip();
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)

@@ -52,7 +52,7 @@ namespace VisualPlus.Toolkit.VisualBase
             _border = new Border();
 
             _colorState = new ControlColorState();
-            ConfigureAnimation();
+            ConfigureAnimation(new[] { 0.05, 0.10, 0.08 }, new[] { EffectType.EaseInOut, EffectType.Linear });
         }
 
         #endregion
@@ -232,18 +232,19 @@ namespace VisualPlus.Toolkit.VisualBase
 
         #region Events
 
-        public void ConfigureAnimation()
+        public void ConfigureAnimation(double[] effectIncrement, EffectType[] effectType)
         {
             VFXManager effectsManager = new VFXManager
                 {
-                    Increment = 0.05,
-                    EffectType = EffectType.EaseInOut
+                    Increment = effectIncrement[0],
+                    EffectType = effectType[0]
                 };
+
             _rippleEffectsManager = new VFXManager(false)
                 {
-                    Increment = 0.10,
-                    SecondaryIncrement = 0.08,
-                    EffectType = EffectType.Linear
+                    Increment = effectIncrement[1],
+                    SecondaryIncrement = effectIncrement[2],
+                    EffectType = effectType[1]
                 };
 
             effectsManager.OnAnimationProgress += sender => Invalidate();
@@ -364,8 +365,13 @@ namespace VisualPlus.Toolkit.VisualBase
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.TextRenderingHint = TextRenderingHint;
 
-            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 2, ClientRectangle.Height + 2);
+            Shape _clientShape = new Shape(ShapeType.Rectangle, _backColor, 0);
+
+            GraphicsPath _clientPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _clientShape);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+
+            e.Graphics.SetClip(_clientPath);
 
             _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
@@ -375,12 +381,13 @@ namespace VisualPlus.Toolkit.VisualBase
 
             VisualToggleRenderer.DrawCheckBox(_graphics, Border, _checkStyle, _box, Checked, Enabled, _backColor, BackgroundImage, MouseState, Text, Font, _textColor, _textLocation);
             DrawAnimation(_graphics);
+            e.Graphics.ResetClip();
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
-            e.Graphics.Clear(Parent.BackColor);
+            e.Graphics.Clear(BackColor);
         }
 
         private void AutoFit(Size textSize)

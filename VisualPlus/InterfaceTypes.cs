@@ -5,6 +5,7 @@ namespace VisualPlus
     using System.ComponentModel;
     using System.Drawing;
 
+    using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Structure;
@@ -101,7 +102,9 @@ namespace VisualPlus
         #region Events
 
         /// <summary>Configures the animation settings.</summary>
-        void ConfigureAnimation();
+        /// <param name="effectIncrement">The effect Increment.</param>
+        /// <param name="effectType">The effect Type.</param>
+        void ConfigureAnimation(double[] effectIncrement, EffectType[] effectType);
 
         /// <summary>Draws the animation on the graphics.</summary>
         /// <param name="graphics">The specified graphics to draw on.</param>

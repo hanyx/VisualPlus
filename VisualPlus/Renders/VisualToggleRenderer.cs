@@ -48,16 +48,16 @@
         /// <param name="mouseStates">The mouse States.</param>
         public static void DrawCheckBox(Graphics graphics, Border border, CheckStyle checkStyle, Rectangle rectangle, bool checkState, bool enabled, Color color, Image backgroundImage, MouseStates mouseStates)
         {
-            VisualBackgroundRenderer.DrawBackground(graphics, color, backgroundImage, mouseStates, rectangle, border);
-
-            if (!checkState)
-            {
-                return;
-            }
-
             GraphicsPath _boxGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
             graphics.SetClip(_boxGraphicsPath);
-            DrawCheckMark(graphics, checkStyle, rectangle, enabled);
+            VisualBackgroundRenderer.DrawBackground(graphics, color, backgroundImage, mouseStates, rectangle, border);
+
+            if (checkState)
+            {
+                DrawCheckMark(graphics, checkStyle, rectangle, enabled);
+            }
+
+            VisualBorderRenderer.DrawBorderStyle(graphics, border, _boxGraphicsPath, mouseStates);
             graphics.ResetClip();
         }
 

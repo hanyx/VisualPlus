@@ -61,7 +61,7 @@
                 };
             _visualBitmap.Point = new Point(0, (Height / 2) - (_visualBitmap.Size.Height / 2));
 
-            ConfigureAnimation();
+            ConfigureAnimation(new[] { 0.03, 0.07 }, new[] { EffectType.EaseOut, EffectType.EaseInOut });
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
@@ -165,17 +165,18 @@
 
         #region Events
 
-        public void ConfigureAnimation()
+        public void ConfigureAnimation(double[] effectIncrement, EffectType[] effectType)
         {
             _effectsManager = new VFXManager(false)
                 {
-                    Increment = 0.03,
-                    EffectType = EffectType.EaseOut
+                    Increment = effectIncrement[0],
+                    EffectType = effectType[0]
                 };
+
             _hoverEffectsManager = new VFXManager
                 {
-                    Increment = 0.07,
-                    EffectType = EffectType.Linear
+                    Increment = effectIncrement[1],
+                    EffectType = effectType[1]
                 };
 
             _hoverEffectsManager.OnAnimationProgress += sender => Invalidate();
@@ -288,15 +289,19 @@
             _graphics.TextRenderingHint = TextRenderingHint;
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
-            _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
+            _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
 
             Color _backColor = GDI.GetBackColorState(Enabled, BackColorState.Enabled, BackColorState.Hover, BackColorState.Pressed, BackColorState.Disabled, MouseState);
-            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+
+            e.Graphics.SetClip(ControlGraphicsPath);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, _border);
 
             Color _textColor = Enabled ? ForeColor : ForeColorDisabled;
 
             VisualControlRenderer.DrawInternalContent(e.Graphics, ClientRectangle, Text, Font, _textColor, Image, _textImageRelation);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
             DrawAnimation(e.Graphics);
+            e.Graphics.ResetClip();
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)

@@ -29,8 +29,11 @@
         /// <param name="textImageRelation">The text image relation.</param>
         public static void DrawButton(Graphics graphics, Rectangle rectangle, Color backColor, Image backgroundImage, Border border, MouseStates mouseState, string text, Font font, Color foreColor, VisualBitmap image, TextImageRelation textImageRelation)
         {
+            GraphicsPath _controlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
+
             VisualBackgroundRenderer.DrawBackground(graphics, backColor, backgroundImage, mouseState, rectangle, border);
             DrawInternalContent(graphics, rectangle, text, font, foreColor, image, textImageRelation);
+            VisualBorderRenderer.DrawBorderStyle(graphics, border, _controlGraphicsPath, mouseState);
         }
 
         /// <summary>Draws a hatch component on the specified path.</summary>

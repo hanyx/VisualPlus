@@ -305,9 +305,11 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _graphics.TextRenderingHint = TextRenderingHint;
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
-            _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
-
             Color _backColor = Enabled ? _controlColorState.Enabled : _controlColorState.Disabled;
+
+            _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
+            _graphics.SetClip(ControlGraphicsPath);
+
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
 
             // Determines button/toggle state
@@ -319,6 +321,9 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
             Color _buttonColor = GDI.GetBackColorState(Enabled, ButtonColorState.Enabled, ButtonColorState.Hover, ButtonColorState.Pressed, ButtonColorState.Disabled, MouseState);
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _buttonColor, _buttonRectangle, _buttonBorder);
+
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+            _graphics.ResetClip();
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)

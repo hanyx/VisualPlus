@@ -509,7 +509,8 @@
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
 
-            _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
+            _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
+            _graphics.SetClip(ControlGraphicsPath);
 
             _buttonRectangle = new Rectangle(Width - _buttonWidth, 1, _buttonWidth, Height);
 
@@ -555,9 +556,7 @@
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
 
             _graphics.SetClip(ControlGraphicsPath);
-
-            VisualBackgroundRenderer.DrawBackground(_graphics, _buttonColor, _buttonRectangle);
-
+            _graphics.FillRectangle(new SolidBrush(_buttonColor), _buttonRectangle);
             _graphics.ResetClip();
 
             _graphics.DrawString("+", _buttonFont, new SolidBrush(_buttonForeColor), _incrementButtonPoints[toggleInt]);
@@ -567,12 +566,14 @@
             _borderEdge.Size = new Size(1, Height - _border.Thickness - 1);
 
             DrawText(_graphics);
+
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
-            e.Graphics.Clear(Parent.BackColor);
+            e.Graphics.Clear(BackColor);
         }
 
         private void DrawText(Graphics _graphics)

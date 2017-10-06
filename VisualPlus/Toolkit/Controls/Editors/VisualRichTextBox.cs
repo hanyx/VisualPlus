@@ -572,7 +572,10 @@
                 _richTextBox.BackColor = _backColor;
             }
 
+            e.Graphics.SetClip(ControlGraphicsPath);
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+            e.Graphics.ResetClip();
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)

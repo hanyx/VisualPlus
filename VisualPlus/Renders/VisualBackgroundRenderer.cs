@@ -66,8 +66,6 @@
                 graphics.DrawImage(backgroundImage, new Rectangle(_location, _size));
                 graphics.ResetClip();
             }
-
-            VisualBorderRenderer.DrawBorderStyle(graphics, border, _controlGraphicsPath, mouseState);
         }
 
         /// <summary>Draws the control background, with a BackColor and the specified BackgroundImage.</summary>

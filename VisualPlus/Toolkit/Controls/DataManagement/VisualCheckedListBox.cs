@@ -33,13 +33,13 @@
 
         private bool _alternateColors;
         private Border _border;
+        private Size _box;
+        private int _boxSpacing;
         private CheckedListBox _checkedListBox;
         private ColorState _colorState;
         private Color _itemAlternate;
         private Color _itemNormal;
         private Color _itemSelected;
-        private Size _box;
-        private int _boxSpacing;
 
         #endregion
 
@@ -79,7 +79,6 @@
 
             // _checkedListBox.DrawItem += CheckedListBox_DrawItem;
             // _checkedListBox.MeasureItem += CheckedListBox_MeasureItem;
-
             Controls.Add(_checkedListBox);
 
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
@@ -365,13 +364,16 @@
                 _checkedListBox.BackColor = _backColor;
             }
 
-           VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+            e.Graphics.SetClip(ControlGraphicsPath);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+            e.Graphics.ResetClip();
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
-            e.Graphics.Clear(Parent.BackColor);
+            e.Graphics.Clear(BackColor);
         }
 
         protected override void OnResize(EventArgs e)
@@ -379,11 +381,6 @@
             base.OnResize(e);
             _checkedListBox.Location = GetInternalControlLocation(_border);
             _checkedListBox.Size = GetInternalControlSize(Size, _border);
-        }
-
-        private void CheckedListBox_MeasureItem(object sender, MeasureItemEventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         private void CheckedListBox_DrawItem(object sender, DrawItemEventArgs e)
@@ -463,6 +460,11 @@
                 backgroundBrush.Dispose();
                 textBrush.Dispose();
             }
+        }
+
+        private void CheckedListBox_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

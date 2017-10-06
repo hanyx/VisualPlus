@@ -114,9 +114,9 @@
             _textBox.SizeChanged += TextBox_SizeChanged;
 
             Controls.Add(_textBox);
-            Controls.Add(_borderButton);
-            Controls.Add(_borderImage);
 
+            // Controls.Add(_borderButton);
+            // Controls.Add(_borderImage);
             _waterMarkContainer = null;
 
             if (_watermark.Visible)
@@ -891,7 +891,6 @@
         {
             base.OnPaint(e);
             Graphics graphics = e.Graphics;
-
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
 
@@ -902,7 +901,9 @@
                 _textBox.BackColor = _backColor;
             }
 
-            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+            graphics.SetClip(ControlGraphicsPath);
+
+            VisualBackgroundRenderer.DrawBackground(graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, _border);
 
             _buttonRectangle = new Rectangle(_textBox.Right, _border.Thickness, Width - _textBox.Right - _border.Thickness, Height);
             _imageRectangle = new Rectangle(0, 0, _imageWidth, Height);
@@ -937,12 +938,14 @@
             {
                 DrawWaterMark();
             }
+
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
-            e.Graphics.Clear(Parent.BackColor);
+            e.Graphics.Clear(BackColor);
         }
 
         protected override void OnResize(EventArgs e)

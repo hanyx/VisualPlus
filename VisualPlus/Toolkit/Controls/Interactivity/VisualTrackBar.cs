@@ -35,7 +35,6 @@
 
         #region Variables
 
-        private Image _backgroundImage;
         private int _barThickness;
         private int _barTickSpacing;
         private bool _buttonAutoSize;
@@ -168,22 +167,6 @@
                 }
 
                 _buttonControlColorState = value;
-                Invalidate();
-            }
-        }
-
-        [Browsable(true)]
-        [EditorBrowsable(EditorBrowsableState.Always)]
-        public override Image BackgroundImage
-        {
-            get
-            {
-                return _backgroundImage;
-            }
-
-            set
-            {
-                _backgroundImage = value;
                 Invalidate();
             }
         }
@@ -1009,6 +992,8 @@
 
             DrawProgress(graphics);
 
+            VisualBorderRenderer.DrawBorderStyle(graphics, _trackBarBorder, _trackBarPath, _mouseState);
+
             Size _progressValue = GDI.MeasureText(graphics, Maximum.ToString(), _textFont);
 
             DrawButton(graphics, _progressValue);
@@ -1445,8 +1430,9 @@
             {
                 graphics.FillPath(new SolidBrush(_progressColor), _progressPath);
                 VisualControlRenderer.DrawHatch(graphics, _hatch, _progressPath);
-                graphics.ResetClip();
             }
+
+            graphics.ResetClip();
         }
 
         /// <summary>Draws the progress text.</summary>
@@ -1521,7 +1507,7 @@
             _trackBarPath = VisualBorderRenderer.CreateBorderTypePath(_trackBarRectangle, _trackBarBorder);
 
             Color _backColor = Enabled ? _trackBarColor.Enabled : _trackBarColor.Disabled;
-            VisualBackgroundRenderer.DrawBackground(graphics, _backColor, _backgroundImage, _mouseState, _trackBarRectangle, _trackBarBorder);
+            VisualBackgroundRenderer.DrawBackground(graphics, _backColor, BackgroundImage, _mouseState, _trackBarRectangle, _trackBarBorder);
         }
 
         /// <summary>Draws the horizontal style.</summary>

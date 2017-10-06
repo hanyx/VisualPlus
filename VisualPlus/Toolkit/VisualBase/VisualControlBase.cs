@@ -14,10 +14,9 @@
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
-
-    using Property = VisualPlus.Localization.Descriptions.Property;
 
     #endregion
 
@@ -30,8 +29,6 @@
     {
         #region Variables
 
-        private Color _backgroundColor;
-        private Color _backgroundDisabledColor;
         private Color _foreColorDisabled;
         private MouseStates _mouseState;
         private VisualStyleManager _styleManager;
@@ -41,6 +38,8 @@
 
         #region Constructors
 
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.VisualBase.VisualControlBase" /> class.</summary>
         protected VisualControlBase()
         {
             // Allow transparent BackColor.
@@ -57,81 +56,35 @@
             ResizeRedraw = true;
 
             _mouseState = MouseStates.Normal;
-
             _textRenderingHint = Settings.DefaultValue.TextRenderingHint;
-
             _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
         }
 
-        [Category(Event.Appearance)]
-        [Description(Property.Description.Common.Color)]
-        public event BackgroundChangedEventHandler BackgroundChanged;
-
-        [Category(Event.Appearance)]
-        [Description(Property.Description.Common.Color)]
+        [Category(Localization.Category.Events.Appearance)]
+        [Description(Property.Color)]
         public event BackgroundChangedEventHandler BackgroundDisabledChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Localization.Category.Events.PropertyChanged)]
         [Description("Occours when the ForeColorDisabled property for the control has changed.")]
         public event ForeColorDisabledChangedEventHandler ForeColorDisabledChanged;
 
-        [Category(Event.Mouse)]
+        [Category(Localization.Category.Events.Mouse)]
         [Description("Occours when the MouseState of the control has changed.")]
         public event MouseStateChangedEventHandler MouseStateChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Localization.Category.Events.PropertyChanged)]
         [Description("Occours when the TextRenderingHint property has changed.")]
         public event TextRenderingChangedEventHandler TextRenderingHintChanged;
-
-        [Category(Event.PropertyChanged)]
-        [Description("Occours when the theme changed for the control.")]
-        public event ThemeChangedEventHandler ThemeChanged;
 
         #endregion
 
         #region Properties
 
-        [Category(Localization.Category.Property.Layout)]
-        [Description(Property.Description.Common.AutoSize)]
-        public new bool AutoSize { get; set; }
-
-        [Category(Localization.Category.Property.Appearance)]
-        [Description(Property.Description.Common.Color)]
-        public Color Background
-        {
-            get
-            {
-                return _backgroundColor;
-            }
-
-            set
-            {
-                _backgroundColor = value;
-                OnBackgroundChanged(new ColorEventArgs(_backgroundColor));
-                Invalidate();
-            }
-        }
-
-        [Category(Localization.Category.Property.Appearance)]
-        [Description(Property.Description.Common.Color)]
-        public Color BackgroundDisabled
-        {
-            get
-            {
-                return _backgroundDisabledColor;
-            }
-
-            set
-            {
-                _backgroundDisabledColor = value;
-                OnBackgroundDisabledChanged(new ColorEventArgs(_backgroundDisabledColor));
-                Invalidate();
-            }
-        }
-
-        [Browsable(false)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public Color BackgroundStateColor { get; set; }
+        [Category(Propertys.Layout)]
+        [Description(Property.AutoSize)]
+        [Browsable(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        public override bool AutoSize { get; set; }
 
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -141,10 +94,8 @@
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Gradient[] ControlBrushCollection { get; set; }
 
-        public override Color ForeColor { get; set; }
-
-        [Category(Localization.Category.Property.Appearance)]
-        [Description(Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color ForeColorDisabled
         {
             get
@@ -160,8 +111,8 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
-        [Description(Property.Description.Common.MouseState)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.MouseState)]
         public MouseStates MouseState
         {
             get
@@ -173,6 +124,7 @@
             {
                 _mouseState = value;
                 OnMouseStateChanged(new MouseStateEventArgs(_mouseState));
+                Invalidate();
             }
         }
 
@@ -191,8 +143,8 @@
             }
         }
 
-        [Category(Localization.Category.Property.Appearance)]
-        [Description(Property.Description.Strings.TextRenderingHint)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.TextRenderingHint)]
         public TextRenderingHint TextRenderingHint
         {
             get
@@ -220,25 +172,12 @@
 
         #region Events
 
-        /// <summary>Retrieves the background state color.</summary>
-        /// <param name="control">The control.</param>
-        /// <returns>Background color.</returns>
-        public Color GetBackgroundState(VisualControlBase control)
-        {
-            return control.Enabled ? control.Background : control.BackgroundDisabled;
-        }
-
         /// <summary>Retrieves the fore state color.</summary>
         /// <param name="control">The control.</param>
         /// <returns>The fore color.</returns>
         public Color GetForeColorState(VisualControlBase control)
         {
-            return control.Enabled ? control.Background : control.BackgroundDisabled;
-        }
-
-        protected virtual void OnBackgroundChanged(ColorEventArgs e)
-        {
-            BackgroundChanged?.Invoke(e);
+            return control.Enabled ? control.ForeColor : control.ForeColorDisabled;
         }
 
         protected virtual void OnBackgroundDisabledChanged(ColorEventArgs e)
@@ -279,6 +218,21 @@
         protected virtual void OnTextRenderingHintChanged(TextRenderingEventArgs e)
         {
             TextRenderingHintChanged?.Invoke(e);
+        }
+
+        // Reset all the controls to the user's default Control color. 
+        private void ResetAllControlsBackColor(Control control)
+        {
+            control.BackColor = SystemColors.Control;
+            control.ForeColor = SystemColors.ControlText;
+            if (control.HasChildren)
+            {
+                // Recursively call this method for each child control.
+                foreach (Control childControl in control.Controls)
+                {
+                    ResetAllControlsBackColor(childControl);
+                }
+            }
         }
 
         #endregion

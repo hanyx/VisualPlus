@@ -11,10 +11,12 @@
     using VisualPlus.Delegates;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
 
     #endregion
 
     [ToolboxItem(true)]
+    [ToolboxBitmap(typeof(Component))]
     [Description("The VisualPlus drag component enables controls to be dragged.")]
     [TypeConverter(typeof(DragConverter))]
     public class VisualDrag : Component
@@ -84,16 +86,16 @@
             _horizontal = true;
         }
 
-        [Category(Event.DragDrop)]
-        [Description(Localization.Descriptions.Event.ControlDragChanged)]
+        [Category(Localization.Category.Events.DragDrop)]
+        [Description(Event.ControlDragChanged)]
         public event ControlDragEventHandler ControlDrag;
 
-        [Category(Event.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.CursorChanged)]
+        [Category(Localization.Category.Events.PropertyChanged)]
+        [Description(Event.CursorChanged)]
         public event ControlDragCursorChangedEventHandler ControlDragCursorChanged;
 
-        [Category(Event.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.ControlDragToggleChanged)]
+        [Category(Localization.Category.Events.PropertyChanged)]
+        [Description(Event.ControlDragToggleChanged)]
         public event ControlDragToggleEventHandler ControlDragToggle;
 
         #endregion
@@ -102,7 +104,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description("The control to attach this component.")]
         public Control Control
         {
@@ -119,8 +121,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Property.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Cursor)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.Cursor)]
         public Cursor CursorMove
         {
             get
@@ -142,8 +144,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Property.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.Toggle)]
         public bool Enabled
         {
             get
@@ -173,8 +175,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Property.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.Toggle)]
         public bool Horizontal
         {
             get
@@ -189,15 +191,15 @@
         }
 
         [Browsable(false)]
-        [Category(Property.Behavior)]
-        [Description(Localization.Descriptions.Property.IsDragging)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.IsDragging)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public bool IsDragging { get; private set; }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Property.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.Toggle)]
         public bool Vertical
         {
             get

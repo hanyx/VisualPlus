@@ -7,7 +7,6 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
 
     #endregion
 
@@ -20,7 +19,7 @@
     {
         #region Constructors
 
-        [Category(Event.PropertyChanged)]
+        [Category(Localization.Category.Events.PropertyChanged)]
         [Description("Occours when the toggle has been changed on the control.")]
         public event ToggleChangedEventHandler ToggleChanged;
 

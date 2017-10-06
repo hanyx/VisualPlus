@@ -4,6 +4,7 @@
 
     using System;
     using System.Globalization;
+    using System.Linq;
 
     #endregion
 
@@ -19,11 +20,39 @@
             return (float)((angle * Math.PI) / 180);
         }
 
-        /// <summary>Gets the progress fraction.</summary>
-        /// <param name="value">Current progress value.</param>
-        /// <param name="total">Total bars.</param>
-        /// <returns>Progress fraction.</returns>
-        public static int GetFactor(double value, double total)
+        /// <summary>Retrieves the number closest from the value collection.</summary>
+        /// <param name="value">The intial value to compare with.</param>
+        /// <param name="valueCollection">The value collection to search.</param>
+        /// <returns>The closest value in the collection.</returns>
+        public static int FindClosestValue(int value, int[] valueCollection)
+        {
+            return valueCollection.Aggregate((x, y) => Math.Abs(x - value) < Math.Abs(y - value) ? x : y);
+        }
+
+        /// <summary>Gets the fraction.</summary>
+        /// <param name="value">Current value.</param>
+        /// <param name="total">Total value.</param>
+        /// <param name="digits">The number of fractional digits in the return number.</param>
+        /// <returns>The fraction of the total progress.</returns>
+        public static float GetFraction(double value, double total, int digits)
+        {
+            // Convert to double value
+            double factor = value / 100;
+
+            // Multiply by self
+            factor = total * factor;
+
+            // Round to digits
+            factor = Math.Round(factor, digits);
+
+            return (float)factor;
+        }
+
+        /// <summary>Gets the fraction.</summary>
+        /// <param name="value">Current value.</param>
+        /// <param name="total">Total value.</param>
+        /// <returns>The fraction of the total progress.</returns>
+        public static int GetFraction(double value, double total)
         {
             // Convert to decimal value
             double factor = value / 100;

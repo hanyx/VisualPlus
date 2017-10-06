@@ -29,7 +29,8 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="BadgeLabel" /> class.</summary>
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.VisualBase.BadgeLabel" /> class.</summary>
         public BadgeLabel()
         {
             VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
@@ -49,12 +50,12 @@
         #region Properties
 
         [DefaultValue(typeof(Color), "Blue")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Color Background { get; set; }
 
         [TypeConverter(typeof(ShapeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Shape Shape { get; set; }
 
         #endregion
@@ -69,7 +70,7 @@
         protected override void OnPaint(PaintEventArgs e)
         {
             Size _textSize = GDI.MeasureText(e.Graphics, Text, Font);
-            VisualBadgeRenderer.DrawBadge(e.Graphics, new Rectangle(new Point(0, 0), Size), Background, Text, Font, ForeColor, Shape, new Point((Width / 2) - (_textSize.Width / 2), (Height / 2) - (_textSize.Height / 2)));
+            VisualBadgeRenderer.DrawBadge(e.Graphics, new Rectangle(new Point(0, 0), new Size(Width - 1, Height - 1)), Background, Text, Font, ForeColor, Shape, new Point((Width / 2) - (_textSize.Width / 2), (Height / 2) - (_textSize.Height / 2)));
         }
 
         #endregion

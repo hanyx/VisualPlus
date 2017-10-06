@@ -7,6 +7,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -42,8 +43,8 @@
 
         #region Properties
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Orientation)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Orientation)]
         public Orientation Orientation
         {
             get

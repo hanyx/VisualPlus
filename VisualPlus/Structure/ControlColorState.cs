@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Structure
+namespace VisualPlus.Structure
 {
     #region Namespace
 
@@ -7,9 +7,12 @@
     using System.Drawing;
     using System.Globalization;
     using System.Runtime.InteropServices;
-    using System.Windows.Forms;
+    using System.Text;
 
-    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Delegates;
+    using VisualPlus.EventArgs;
+    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
 
     #endregion
 
@@ -18,13 +21,11 @@
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    [Description("The control color state.")]
-    public class ControlColorState
+    [Description("The control color state of a component.")]
+    public class ControlColorState : ColorState
     {
         #region Variables
 
-        private Color _color;
-        private Color _disabled;
         private Color _hover;
         private Color _pressed;
 
@@ -32,15 +33,31 @@
 
         #region Constructors
 
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Structure.ControlColorState" /> class.</summary>
+        /// <param name="hover">The hover.</param>
+        /// <param name="pressed">The pressed.</param>
+        public ControlColorState(Color hover, Color pressed)
+        {
+            _hover = hover;
+            _pressed = pressed;
+        }
+
+        /// <summary>Initializes a new instance of the <see cref="ControlColorState" /> class.</summary>
         public ControlColorState()
         {
-            VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
-
-            _color = _styleManager.ControlStyle.Background(0);
-            _disabled = _styleManager.FontStyle.ForeColorDisabled;
-            _hover = ControlPaint.Light(_styleManager.ControlStyle.Background(0));
-            _pressed = ControlPaint.Light(_styleManager.ControlStyle.Background(0));
+            // VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _hover = Color.FromArgb(224, 224, 224);
+            _pressed = Color.Silver;
         }
+
+        [Category(Events.PropertyChanged)]
+        [Description(Event.PropertyEventChanged)]
+        public event BackColorStateChangedEventHandler HoverColorChanged;
+
+        [Category(Events.PropertyChanged)]
+        [Description(Event.PropertyEventChanged)]
+        public event BackColorStateChangedEventHandler PressedColorChanged;
 
         #endregion
 
@@ -48,36 +65,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        public Color Color
-        {
-            get
-            {
-                return _color;
-            }
-
-            set
-            {
-                _color = value;
-            }
-        }
-
-        [NotifyParentProperty(true)]
-        [RefreshProperties(RefreshProperties.Repaint)]
-        public Color Disabled
-        {
-            get
-            {
-                return _disabled;
-            }
-
-            set
-            {
-                _disabled = value;
-            }
-        }
-
-        [NotifyParentProperty(true)]
-        [RefreshProperties(RefreshProperties.Repaint)]
+        [Description(Property.Color)]
         public Color Hover
         {
             get
@@ -88,11 +76,23 @@
             set
             {
                 _hover = value;
+                OnDisabledColorChanged(new ColorEventArgs(_hover));
+            }
+        }
+
+        /// <summary>Gets a value indicating whether this <see cref="ControlColorState" /> is empty.</summary>
+        [Browsable(false)]
+        public new bool IsEmpty
+        {
+            get
+            {
+                return _hover.IsEmpty && _pressed.IsEmpty && Disabled.IsEmpty && Enabled.IsEmpty;
             }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
+        [Description(Property.Color)]
         public Color Pressed
         {
             get
@@ -103,7 +103,49 @@
             set
             {
                 _pressed = value;
+                OnDisabledColorChanged(new ColorEventArgs(_pressed));
             }
+        }
+
+        #endregion
+
+        #region Events
+
+        public override string ToString()
+        {
+            StringBuilder _stringBuilder = new StringBuilder();
+            _stringBuilder.Append(GetType().Name);
+            _stringBuilder.Append(" [");
+
+            if (IsEmpty)
+            {
+                _stringBuilder.Append("IsEmpty");
+            }
+            else
+            {
+                _stringBuilder.Append("Disabled=");
+                _stringBuilder.Append(Disabled);
+                _stringBuilder.Append("Hover=");
+                _stringBuilder.Append(Hover);
+                _stringBuilder.Append("Normal=");
+                _stringBuilder.Append(Enabled);
+                _stringBuilder.Append("Pressed=");
+                _stringBuilder.Append(Pressed);
+            }
+
+            _stringBuilder.Append("]");
+
+            return _stringBuilder.ToString();
+        }
+
+        protected virtual void OnHoverColorChanged(ColorEventArgs e)
+        {
+            HoverColorChanged?.Invoke(e);
+        }
+
+        protected virtual void OnPressedColorChanged(ColorEventArgs e)
+        {
+            PressedColorChanged?.Invoke(e);
         }
 
         #endregion
@@ -115,7 +157,7 @@
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
-            return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
+            return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
@@ -124,7 +166,7 @@
 
             if (stringValue != null)
             {
-                return new ControlColorStateWrapper(stringValue);
+                return new ObjectControlColorStateWrapper(stringValue);
             }
 
             return base.ConvertFrom(context, culture, value);
@@ -132,16 +174,16 @@
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            ControlColorState controlColorState;
+            ControlColorState _controlColorState;
             object result;
 
             result = null;
-            controlColorState = value as ControlColorState;
+            _controlColorState = value as ControlColorState;
 
-            if (controlColorState != null && destinationType == typeof(string))
+            if ((_controlColorState != null) && (destinationType == typeof(string)))
             {
                 // result = borderStyle.ToString();
-                result = "Color Settings";
+                result = "Color State Settings";
             }
 
             return result ?? base.ConvertTo(context, culture, value, destinationType);
@@ -151,15 +193,15 @@
     }
 
     [TypeConverter(typeof(ControlColorStateConverter))]
-    public class ControlColorStateWrapper
+    public class ObjectControlColorStateWrapper
     {
         #region Constructors
 
-        public ControlColorStateWrapper()
+        public ObjectControlColorStateWrapper()
         {
         }
 
-        public ControlColorStateWrapper(string value)
+        public ObjectControlColorStateWrapper(string value)
         {
             Value = value;
         }

@@ -2,6 +2,8 @@ namespace VisualPlus
 {
     #region Namespace
 
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
     using System.Drawing.Text;
 
     using VisualPlus.Enumerators;
@@ -40,7 +42,8 @@ namespace VisualPlus
             public const bool HatchVisible = true;
             public const int BarAmount = 5;
             public const Enumerators.Styles DefaultStyle = Enumerators.Styles.Visual;
-            public const float HatchSize = 2F;
+            public static readonly Size HatchSize = new Size(2, 2);
+            public const HatchStyle HatchStyle = System.Drawing.Drawing2D.HatchStyle.DarkDownwardDiagonal;
             public const bool Moveable = false;
             public const bool WatermarkVisible = false;
 

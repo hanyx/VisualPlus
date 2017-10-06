@@ -27,7 +27,7 @@
 
         public static double BlendColor(double foreColor, double backgroundColor, double alpha)
         {
-            double result = backgroundColor + alpha * (foreColor - backgroundColor);
+            double result = backgroundColor + (alpha * (foreColor - backgroundColor));
             if (result < 0.0)
             {
                 result = 0.0;
@@ -45,9 +45,9 @@
         {
             double ratio = blend / 255d;
             double invRatio = 1d - ratio;
-            var r = (int)(backgroundColor.R * invRatio + frontColor.R * ratio);
-            var g = (int)(backgroundColor.G * invRatio + frontColor.G * ratio);
-            var b = (int)(backgroundColor.B * invRatio + frontColor.B * ratio);
+            var r = (int)((backgroundColor.R * invRatio) + (frontColor.R * ratio));
+            var g = (int)((backgroundColor.G * invRatio) + (frontColor.G * ratio));
+            var b = (int)((backgroundColor.B * invRatio) + (frontColor.B * ratio));
             return Color.FromArgb(r, g, b);
         }
 
@@ -222,9 +222,9 @@
             r2 = baseColor.R;
             g2 = baseColor.G;
             b2 = baseColor.B;
-            r3 = (int)(r1 * ((float)opacity / 100) + r2 * (1 - (float)opacity / 100));
-            g3 = (int)(g1 * ((float)opacity / 100) + g2 * (1 - (float)opacity / 100));
-            b3 = (int)(b1 * ((float)opacity / 100) + b2 * (1 - (float)opacity / 100));
+            r3 = (int)((r1 * ((float)opacity / 100)) + (r2 * (1 - ((float)opacity / 100))));
+            g3 = (int)((g1 * ((float)opacity / 100)) + (g2 * (1 - ((float)opacity / 100))));
+            b3 = (int)((b1 * ((float)opacity / 100)) + (b2 * (1 - ((float)opacity / 100))));
             return CreateColorFromRGB(r3, g3, b3);
         }
 
@@ -245,7 +245,7 @@
             }
             else
             {
-                return (int)((1 - 2 * (1 - dbase) * (1 - dblend)) * 255);
+                return (int)((1 - (2 * (1 - dbase) * (1 - dblend))) * 255);
             }
         }
 
@@ -276,6 +276,14 @@
             g3 = OverlayMath(baseColor.G, blendColor.G);
             b3 = OverlayMath(baseColor.B, blendColor.B);
             return OpacityMix(CreateColorFromRGB(r3, g3, b3), baseColor, opacity);
+        }
+
+        /// <summary>Generates a random color.</summary>
+        /// <returns>A random color.</returns>
+        public static Color RandomColor()
+        {
+            Random _random = new Random();
+            return Color.FromArgb(_random.Next(256), _random.Next(256), _random.Next(256));
         }
 
         /// <summary>
@@ -363,11 +371,11 @@
             dblend = (float)blend / 255;
             if (dblend < 0.5)
             {
-                return (int)((2 * dbase * dblend + Math.Pow(dbase, 2) * (1 - 2 * dblend)) * 255);
+                return (int)(((2 * dbase * dblend) + (Math.Pow(dbase, 2) * (1 - (2 * dblend)))) * 255);
             }
             else
             {
-                return (int)((Math.Sqrt(dbase) * (2 * dblend - 1) + 2 * dbase * (1 - dblend)) * 255);
+                return (int)(((Math.Sqrt(dbase) * ((2 * dblend) - 1)) + (2 * dbase * (1 - dblend))) * 255);
             }
         }
 

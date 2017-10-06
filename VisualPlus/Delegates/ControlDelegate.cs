@@ -15,4 +15,6 @@
     public delegate void BackgroundChangedEventHandler(ColorEventArgs e);
 
     public delegate void ToggleChangedEventHandler(ToggleEventArgs e);
+
+    public delegate void BackColorStateChangedEventHandler(ColorEventArgs e);
 }

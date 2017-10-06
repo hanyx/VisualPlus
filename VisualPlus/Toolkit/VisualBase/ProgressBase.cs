@@ -29,6 +29,8 @@
 
         #region Constructors
 
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="ProgressBase" /> class.</summary>
         protected ProgressBase()
         {
             _value = 0;
@@ -38,7 +40,7 @@
             _largeChange = 5;
         }
 
-        [Category(Event.Action)]
+        [Category(Localization.Category.Events.Action)]
         [Description("Occurs when the value of the Value property changes.")]
         public event EventHandler ValueChanged;
 
@@ -47,7 +49,7 @@
         #region Properties
 
         [Bindable(true)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description("Gets or sets a value to be added to or subtracted from the Value property when the scroll box is moved a large distance.")]
         public int LargeChange
         {
@@ -68,7 +70,7 @@
         }
 
         [Bindable(true)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description("The upper bound of the range this ProgressBar is working on.")]
         public int Maximum
         {
@@ -92,7 +94,7 @@
         }
 
         [Bindable(true)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description("The lower bound of the range this ProgressBar is working on.")]
         public int Minimum
         {
@@ -116,7 +118,7 @@
         }
 
         [Bindable(true)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description("Gets or sets the value added to or subtracted from the Value property when the scroll box is moved a small distance.")]
         public int SmallChange
         {
@@ -137,7 +139,7 @@
         }
 
         [Bindable(true)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description("The current value for the ProgressBar, in the range specified by the minimum and maximum properties.")]
         public int Value
         {

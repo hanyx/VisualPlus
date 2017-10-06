@@ -10,8 +10,8 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
-    using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -27,21 +27,20 @@
     {
         #region Variables
 
-        private Gradient lineGradient = new Gradient();
-        private Rectangle lineRectangle;
-        private Orientation separatorOrientation = Orientation.Horizontal;
-        private Gradient shadowGradient = new Gradient();
-        private Rectangle shadowRectangle;
-        private bool shadowVisible;
+        private Color _line;
+        private Orientation _orientation;
+        private Color _shadow;
+        private bool _shadowVisible;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualSeparator" /> class.</summary>
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Layout.VisualSeparator" /> class.</summary>
         public VisualSeparator()
         {
-            BackColor = Color.Transparent;
+            _orientation = Orientation.Horizontal;
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
@@ -49,37 +48,41 @@
 
         #region Properties
 
-        [TypeConverter(typeof(GradientConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
-        public Gradient Line
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
+        public Color Line
         {
             get
             {
-                return lineGradient;
+                return _line;
             }
 
             set
             {
-                lineGradient = value;
+                if (value == _line)
+                {
+                    return;
+                }
+
+                _line = value;
                 Invalidate();
             }
         }
 
-        [Category(Property.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Orientation)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.Orientation)]
         public Orientation Orientation
         {
             get
             {
-                return separatorOrientation;
+                return _orientation;
             }
 
             set
             {
-                separatorOrientation = value;
+                _orientation = value;
 
-                if (separatorOrientation == Orientation.Horizontal)
+                if (_orientation == Orientation.Horizontal)
                 {
                     if (Width < Height)
                     {
@@ -103,35 +106,39 @@
             }
         }
 
-        [TypeConverter(typeof(GradientConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
-        public Gradient Shadow
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
+        public Color Shadow
         {
             get
             {
-                return shadowGradient;
+                return _shadow;
             }
 
             set
             {
-                shadowGradient = value;
+                if (value == _shadow)
+                {
+                    return;
+                }
+
+                _shadow = value;
                 Invalidate();
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Visible)]
         public bool ShadowVisible
         {
             get
             {
-                return shadowVisible;
+                return _shadowVisible;
             }
 
             set
             {
-                shadowVisible = value;
+                _shadowVisible = value;
                 Invalidate();
             }
         }
@@ -147,39 +154,11 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            Background = StyleManager.ControlStyle.Background(0);
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
-
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            Background = StyleManager.ControlStatesStyle.ControlEnabled.Colors[0];
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
-
-            float[] gradientPosition = { 0, 1 / 2f, 1 };
-            float angle = 90;
-
-            Color[] lineColor =
-                {
-                    StyleManager.ControlStyle.Line,
-                    ControlPaint.Light(StyleManager.ControlStyle.Line),
-                    StyleManager.ControlStyle.Line
-                };
-
-            Color[] shadowColor =
-                {
-                    ControlPaint.Light(StyleManager.ControlStyle.Shadow),
-                    StyleManager.ControlStyle.Shadow,
-                    ControlPaint.Light(StyleManager.ControlStyle.Shadow)
-                };
-
-            lineGradient.Angle = angle;
-            lineGradient.Colors = lineColor;
-            lineGradient.Positions = gradientPosition;
-
-            shadowGradient.Angle = angle;
-            shadowGradient.Colors = shadowColor;
-            shadowGradient.Positions = gradientPosition;
+            _line = StyleManager.ControlStyle.Line;
+            _shadow = StyleManager.ControlStyle.Shadow;
 
             Invalidate();
         }
@@ -187,40 +166,38 @@
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+            Graphics _graphics = e.Graphics;
+            _graphics.Clear(Parent.BackColor);
+            _graphics.SmoothingMode = SmoothingMode.HighQuality;
+            _graphics.TextRenderingHint = TextRenderingHint;
 
-            Graphics graphics = e.Graphics;
-            e.Graphics.Clear(Parent.BackColor);
-            e.Graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, Width + 1, Height + 1));
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1);
+            _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
-            Point linePosition;
-            Size lineSize;
-            Point shadowPosition;
-            Size shadowSize;
-            Point[] gradientPoints;
+            Point _linePosition;
+            Size _lineSize;
+            Point _shadowPosition;
+            Size _shadowSize;
 
-            switch (separatorOrientation)
+            switch (_orientation)
             {
                 case Orientation.Horizontal:
                     {
-                        linePosition = new Point(0, 1);
-                        lineSize = new Size(Width, 1);
+                        _linePosition = new Point(0, 1);
+                        _lineSize = new Size(Width, 1);
 
-                        shadowPosition = new Point(0, 2);
-                        shadowSize = new Size(Width, 2);
-
-                        gradientPoints = new[] { new Point { X = ClientRectangle.Width, Y = 0 }, new Point { X = ClientRectangle.Width, Y = ClientRectangle.Width } };
+                        _shadowPosition = new Point(0, 2);
+                        _shadowSize = new Size(Width, 2);
                         break;
                     }
 
                 case Orientation.Vertical:
                     {
-                        linePosition = new Point(1, 0);
-                        lineSize = new Size(1, Height);
+                        _linePosition = new Point(1, 0);
+                        _lineSize = new Size(1, Height);
 
-                        shadowPosition = new Point(2, 0);
-                        shadowSize = new Size(2, Height);
-
-                        gradientPoints = new[] { new Point { X = ClientRectangle.Width, Y = 0 }, new Point { X = ClientRectangle.Width, Y = ClientRectangle.Height } };
+                        _shadowPosition = new Point(2, 0);
+                        _shadowSize = new Size(2, Height);
                         break;
                     }
 
@@ -228,16 +205,13 @@
                     throw new ArgumentOutOfRangeException();
             }
 
-            lineRectangle = new Rectangle(linePosition, lineSize);
+            Rectangle _lineRectangle = new Rectangle(_linePosition, _lineSize);
+            _graphics.DrawRectangle(new Pen(_line), _lineRectangle);
 
-            LinearGradientBrush lineBrush = Gradient.CreateGradientBrush(lineGradient.Colors, gradientPoints, lineGradient.Angle, lineGradient.Positions);
-            graphics.DrawRectangle(new Pen(lineBrush), lineRectangle);
-
-            if (shadowVisible)
+            if (_shadowVisible)
             {
-                shadowRectangle = new Rectangle(shadowPosition, shadowSize);
-                LinearGradientBrush shadowBrush = Gradient.CreateGradientBrush(lineGradient.Colors, gradientPoints, lineGradient.Angle, lineGradient.Positions);
-                graphics.DrawRectangle(new Pen(shadowBrush), shadowRectangle);
+                Rectangle _shadowRectangle = new Rectangle(_shadowPosition, _shadowSize);
+                _graphics.DrawRectangle(new Pen(_shadow), _shadowRectangle);
             }
         }
 
@@ -245,7 +219,7 @@
         {
             base.OnResize(e);
 
-            if (separatorOrientation == Orientation.Horizontal)
+            if (_orientation == Orientation.Horizontal)
             {
                 Height = 4;
             }

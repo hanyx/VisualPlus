@@ -10,7 +10,9 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
+    using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -25,6 +27,8 @@
     {
         #region Variables
 
+        private ColorState _colorState;
+
         private Label _labelMaximum;
         private Label _labelMinimum;
         private Label _labelProgress;
@@ -37,13 +41,16 @@
 
         #region Constructors
 
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Layout.VisualGauge" /> class.</summary>
         public VisualGauge()
         {
             _thickness = 25;
             Maximum = 100;
 
-            ConstructDisplay();
+            _colorState = new ColorState();
 
+            ConstructDisplay();
             Controls.Add(_labelMaximum);
             Controls.Add(_labelMinimum);
             Controls.Add(_labelProgress);
@@ -58,9 +65,25 @@
 
         #region Properties
 
+        [TypeConverter(typeof(ColorStateConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public ColorState BackColorState
+        {
+            get
+            {
+                return _colorState;
+            }
+
+            set
+            {
+                _colorState = value;
+                Invalidate();
+            }
+        }
+
         [DefaultValue(typeof(Color), "Green")]
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color Progress
         {
             get
@@ -76,8 +99,8 @@
         }
 
         [DefaultValue(30)]
-        [Category(Property.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Border.Thickness)]
+        [Category(Propertys.Layout)]
+        [Description(Property.Thickness)]
         public int Thickness
         {
             get
@@ -93,7 +116,7 @@
         }
 
         [DefaultValue(0)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         public new int Value
         {
             get
@@ -119,11 +142,10 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            Background = StyleManager.ControlStyle.Background(0);
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+            BackColorState.Enabled = StyleManager.ControlStyle.Background(3);
+            BackColorState.Disabled = StyleManager.ColorStateStyle.ControlDisabled;
 
-            _progress = StyleManager.ProgressStyle.Progress.Colors[0];
-            Background = StyleManager.ControlStyle.Background(3);
+            _progress = StyleManager.ProgressStyle.Progress;
 
             Invalidate();
         }
@@ -140,9 +162,11 @@
             _graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
 
-            Pen _penBackground = new Pen(Background, _thickness);
-            int width = Size.Width - (_thickness * 2);
-            Rectangle _rectangle = new Rectangle(_thickness, Size.Height / 4, width, width);
+            Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
+
+            Pen _penBackground = new Pen(_backColor, _thickness);
+            int _width = Size.Width - (_thickness * 2);
+            Rectangle _rectangle = new Rectangle(_thickness, Size.Height / 4, _width, _width);
             Pen _penProgress = new Pen(_progress, _thickness);
 
             _graphics.DrawArc(_penBackground, _rectangle, 180F, 180F);

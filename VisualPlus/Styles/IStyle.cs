@@ -4,15 +4,20 @@
 
     using System.Drawing;
 
-    using VisualPlus.Structure;
-
     #endregion
 
-    public interface IBorder
+    public interface IShape
     {
         #region Properties
 
         Color Color { get; }
+
+        #endregion
+    }
+
+    public interface IBorder
+    {
+        #region Properties
 
         Color HoverColor { get; }
 
@@ -23,24 +28,29 @@
     {
         #region Properties
 
-        Gradient DisabledGradient { get; }
-
-        Gradient EnabledGradient { get; }
+        Color CheckColor { get; }
 
         #endregion
     }
 
-    public interface IControlState
+    public interface IColorState
     {
         #region Properties
 
-        Gradient ControlDisabled { get; }
+        Color ControlDisabled { get; }
 
-        Gradient ControlEnabled { get; }
+        Color ControlEnabled { get; }
 
-        Gradient ControlHover { get; }
+        #endregion
+    }
 
-        Gradient ControlPressed { get; }
+    public interface IControlColorState
+    {
+        #region Properties
+
+        Color ControlHover { get; }
+
+        Color ControlPressed { get; }
 
         #endregion
     }
@@ -49,9 +59,9 @@
     {
         #region Properties
 
-        Gradient BoxDisabled { get; }
+        Color BoxDisabled { get; }
 
-        Gradient BoxEnabled { get; }
+        Color BoxEnabled { get; }
 
         Color FlatButtonDisabled { get; }
 
@@ -99,15 +109,15 @@
 
         Color BackCircle { get; }
 
-        Gradient BackProgress { get; }
+        Color BackProgress { get; }
 
         Color ForeCircle { get; }
 
         Color Hatch { get; }
 
-        Gradient Progress { get; }
+        Color Progress { get; }
 
-        Gradient ProgressDisabled { get; }
+        Color ProgressDisabled { get; }
 
         #endregion
     }

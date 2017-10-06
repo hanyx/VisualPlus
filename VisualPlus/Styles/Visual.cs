@@ -7,17 +7,14 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
-    using VisualPlus.Structure;
 
     #endregion
 
-    public class Visual : IBorder, ICheckmark, IControl, IControlState, IFont, IProgress, ITab, IWatermark
+    public class Visual : IBorder, ICheckmark, IControl, IColorState, IControlColorState, IFont, IShape, IProgress, ITab, IWatermark
     {
         #region Variables
 
         private readonly Color defaultBackgroundColorNoDepth = Color.White;
-        private readonly float[] triplePosition = { 0, 1 / 2f, 1 };
-        private readonly float[] twoPosition = { 0, 1 };
 
         #endregion
 
@@ -39,63 +36,35 @@
             }
         }
 
-        public Gradient BackProgress
+        public Color BackProgress
         {
             get
             {
-                Color[] backgroundColors =
-                    {
-                        ControlPaint.Light(Color.Gainsboro),
-                        Color.Gainsboro
-                    };
-
-                Gradient backgroundGradient = new Gradient
-                    {
-                        Colors = backgroundColors,
-                        Positions = twoPosition
-                    };
-
-                return backgroundGradient;
+                return Color.FromArgb(224, 222, 220);
             }
         }
 
-        public Gradient BoxDisabled
+        public Color BoxDisabled
         {
             get
             {
-                Color[] boxDisabledColors =
-                    {
-                        ControlPaint.Light(Color.FromArgb(131, 129, 129)),
-                        Color.FromArgb(131, 129, 129)
-                    };
-
-                Gradient boxDisabled = new Gradient
-                    {
-                        Colors = boxDisabledColors,
-                        Positions = twoPosition
-                    };
-
-                return boxDisabled;
+                return Color.FromArgb(131, 129, 129);
             }
         }
 
-        public Gradient BoxEnabled
+        public Color BoxEnabled
         {
             get
             {
-                Color[] boxEnabledColors =
-                    {
-                        ControlPaint.Light(Color.FromArgb(241, 244, 249)),
-                        Color.FromArgb(241, 244, 249)
-                    };
+                return Color.FromArgb(241, 244, 249);
+            }
+        }
 
-                Gradient boxEnabled = new Gradient
-                    {
-                        Colors = boxEnabledColors,
-                        Positions = twoPosition
-                    };
-
-                return boxEnabled;
+        public Color CheckColor
+        {
+            get
+            {
+                return ColorTranslator.FromHtml("#2D882D");
             }
         }
 
@@ -107,127 +76,35 @@
             }
         }
 
-        public Gradient ControlDisabled
+        public Color ControlDisabled
         {
             get
             {
-                Color[] controlDisabledColors =
-                    {
-                        Color.FromArgb(243, 243, 243),
-                        ControlPaint.Light(Color.FromArgb(243, 243, 243)),
-                        Color.FromArgb(243, 243, 243)
-                    };
-
-                Gradient controlDisabled = new Gradient
-                    {
-                        Colors = controlDisabledColors,
-                        Positions = triplePosition
-                    };
-
-                return controlDisabled;
+                return Color.FromArgb(243, 243, 243);
             }
         }
 
-        public Gradient ControlEnabled
+        public Color ControlEnabled
         {
             get
             {
-                Color[] controlEnabledColors =
-                    {
-                        Color.FromArgb(226, 226, 226),
-                        ControlPaint.Light(Color.FromArgb(226, 226, 226)),
-                        Color.FromArgb(226, 226, 226)
-                    };
-
-                Gradient controlEnabled = new Gradient
-                    {
-                        Colors = controlEnabledColors,
-                        Positions = triplePosition
-                    };
-
-                return controlEnabled;
+                return Color.FromArgb(226, 226, 226);
             }
         }
 
-        public Gradient ControlHover
+        public Color ControlHover
         {
             get
             {
-                Color[] controlHoverColors =
-                    {
-                        Color.FromArgb(181, 181, 181),
-                        ControlPaint.Light(Color.FromArgb(181, 181, 181)),
-                        Color.FromArgb(181, 181, 181)
-                    };
-
-                Gradient controlHover = new Gradient
-                    {
-                        Colors = controlHoverColors,
-                        Positions = triplePosition
-                    };
-
-                return controlHover;
+                return Color.FromArgb(181, 181, 181);
             }
         }
 
-        public Gradient ControlPressed
+        public Color ControlPressed
         {
             get
             {
-                Color[] controlPressedColors =
-                    {
-                        Color.FromArgb(137, 136, 136),
-                        ControlPaint.Light(Color.FromArgb(137, 136, 136)),
-                        Color.FromArgb(137, 136, 136)
-                    };
-
-                Gradient controlPressed = new Gradient
-                    {
-                        Colors = controlPressedColors,
-                        Positions = triplePosition
-                    };
-
-                return controlPressed;
-            }
-        }
-
-        public Gradient DisabledGradient
-        {
-            get
-            {
-                Color[] disabledColors =
-                    {
-                        ControlPaint.Light(Color.FromArgb(131, 129, 129)),
-                        Color.FromArgb(131, 129, 129)
-                    };
-
-                Gradient disabledGradient = new Gradient
-                    {
-                        Colors = disabledColors,
-                        Positions = twoPosition
-                    };
-
-                return disabledGradient;
-            }
-        }
-
-        public Gradient EnabledGradient
-        {
-            get
-            {
-                Color[] enabledColors =
-                    {
-                        ControlPaint.Light(ColorTranslator.FromHtml("#2D882D")),
-                        ColorTranslator.FromHtml("#2D882D")
-                    };
-
-                Gradient enabledGradient = new Gradient
-                    {
-                        Colors = enabledColors,
-                        Positions = twoPosition
-                    };
-
-                return enabledGradient;
+                return Color.FromArgb(137, 136, 136);
             }
         }
 
@@ -359,43 +236,19 @@
             }
         }
 
-        public Gradient Progress
+        public Color Progress
         {
             get
             {
-                Color[] progressColors =
-                    {
-                        ControlPaint.Light(ColorTranslator.FromHtml("#2D882D")),
-                        ColorTranslator.FromHtml("#2D882D")
-                    };
-
-                Gradient progressGradient = new Gradient
-                    {
-                        Colors = progressColors,
-                        Positions = twoPosition
-                    };
-
-                return progressGradient;
+                return ColorTranslator.FromHtml("#2D882D");
             }
         }
 
-        public Gradient ProgressDisabled
+        public Color ProgressDisabled
         {
             get
             {
-                Color[] progressDisabledColors =
-                    {
-                        ControlPaint.Light(Color.FromArgb(131, 129, 129)),
-                        Color.FromArgb(131, 129, 129)
-                    };
-
-                Gradient progressDisabled = new Gradient
-                    {
-                        Colors = progressDisabledColors,
-                        Positions = twoPosition
-                    };
-
-                return progressDisabled;
+                return Color.FromArgb(131, 129, 129);
             }
         }
 

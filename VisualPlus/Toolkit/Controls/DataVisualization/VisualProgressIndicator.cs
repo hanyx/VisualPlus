@@ -10,6 +10,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -45,7 +46,7 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualProgressIndicator"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualProgressIndicator" /> class.</summary>
         public VisualProgressIndicator()
         {
             SetStyle(ControlStyles.ResizeRedraw | ControlStyles.SupportsTransparentBackColor, true);
@@ -61,8 +62,8 @@
 
         #region Properties
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color AnimationColor
         {
             get
@@ -76,8 +77,8 @@
             }
         }
 
-        [Category(Property.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.AnimationSpeed)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.AnimationSpeed)]
         public int AnimationSpeed
         {
             get
@@ -91,8 +92,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color BaseColor
         {
             get
@@ -107,8 +108,8 @@
         }
 
         [DefaultValue(45F)]
-        [Category(Property.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Amount)]
+        [Category(Propertys.Layout)]
+        [Description(Property.Amount)]
         public float Circles
         {
             get
@@ -124,8 +125,8 @@
             }
         }
 
-        [Category(Property.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Category(Propertys.Layout)]
+        [Description(Property.Size)]
         public Size CircleSize
         {
             get
@@ -141,8 +142,8 @@
         }
 
         [DefaultValue(7.5F)]
-        [Category(Property.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Diameter)]
+        [Category(Propertys.Layout)]
+        [Description(Property.Diameter)]
         public float Diameter
         {
             get

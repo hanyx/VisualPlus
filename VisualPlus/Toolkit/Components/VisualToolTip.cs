@@ -9,6 +9,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Properties;
     using VisualPlus.Structure;
@@ -25,52 +26,65 @@
     {
         #region Variables
 
-        private VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
-
-        private bool autoSize = true;
-        private Gradient backgroundGradient;
-        private Border border;
-        private Font font;
-        private Color foreColor;
-        private Image icon = Resources.Icon;
-        private bool iconBorder;
-        private GraphicsPath iconGraphicsPath;
-        private Point iconPoint = new Point(0, 0);
-        private Rectangle iconRectangle;
-        private Size iconSize = new Size(24, 24);
-        private Color lineColor;
-        private Padding padding = new Padding(4, 4, 4, 4);
-        private Rectangle separator;
-        private int separatorThickness = 1;
-        private int spacing = 2;
-        private string text = "Enter your custom text here.";
-        private Point textPoint;
-        private TextRenderingHint textRendererHint = Settings.DefaultValue.TextRenderingHint;
-        private bool textShadow;
-        private string title = "Title";
-        private Color titleColor = Color.Gray;
-        private Font titleFont;
-        private Point titlePoint;
-        private Size toolTipSize = new Size(100, 40);
-        private ToolTipType toolTipType = ToolTipType.Default;
-        private int xWidth;
-        private int yHeight;
+        private bool _autoSize;
+        private Color _background;
+        private Border _border;
+        private Font _font;
+        private Color _foreColor;
+        private Image _icon;
+        private bool _iconBorder;
+        private GraphicsPath _iconGraphicsPath;
+        private Point _iconPoint;
+        private Rectangle _iconRectangle;
+        private Size _iconSize;
+        private Color _lineColor;
+        private Padding _padding;
+        private Rectangle _separator;
+        private int _separatorThickness;
+        private int _spacing;
+        private VisualStyleManager _styleManager;
+        private string _text;
+        private Point _textPoint;
+        private TextRenderingHint _textRendererHint;
+        private bool _textShadow;
+        private string _title;
+        private Color _titleColor;
+        private Font _titleFont;
+        private Point _titlePoint;
+        private Size _toolTipSize;
+        private ToolTipType _toolTipType;
+        private int _xWidth;
+        private int _yHeight;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualToolTip" /> class.</summary>
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Components.VisualToolTip" /> class.</summary>
         public VisualToolTip()
         {
-            backgroundGradient = _styleManager.ControlStatesStyle.ControlEnabled;
-            font = _styleManager.Font;
+            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _iconPoint = new Point(0, 0);
+            _iconSize = new Size(24, 24);
+            _padding = new Padding(4, 4, 4, 4);
+            _separatorThickness = 1;
+            _titleColor = Color.Gray;
+            _toolTipSize = new Size(100, 40);
+            _toolTipType = ToolTipType.Default;
+            _spacing = 2;
+            _title = "Title";
+            _textRendererHint = Settings.DefaultValue.TextRenderingHint;
+            _text = "Enter your custom text here.";
+            _icon = Resources.VisualPlus;
+            _background = _styleManager.ColorStateStyle.ControlEnabled;
+            _font = _styleManager.Font;
+            _autoSize = true;
+            _foreColor = _styleManager.FontStyle.ForeColor;
+            _lineColor = _styleManager.ControlStyle.Line;
+            _titleFont = _styleManager.Font;
 
-            foreColor = _styleManager.FontStyle.ForeColor;
-            lineColor = _styleManager.ControlStyle.Line;
-            titleFont = _styleManager.Font;
-
-            border = new Border();
+            _border = new Border();
 
             IsBalloon = false;
             OwnerDraw = true;
@@ -94,65 +108,64 @@
 
         #region Properties
 
-        [Category(Property.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.AutoSize)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.AutoSize)]
         public bool AutoSize
         {
             get
             {
-                return autoSize;
+                return _autoSize;
             }
 
             set
             {
-                autoSize = value;
+                _autoSize = value;
             }
         }
 
-        [TypeConverter(typeof(GradientConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
-        public Gradient Background
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
+        public Color Background
         {
             get
             {
-                return backgroundGradient;
+                return _background;
             }
 
             set
             {
-                backgroundGradient = value;
+                _background = value;
             }
         }
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
             {
-                return border;
+                return _border;
             }
 
             set
             {
-                border = value;
+                _border = value;
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Strings.Font)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Font)]
         public Font Font
         {
             get
             {
-                return font;
+                return _font;
             }
 
             set
             {
-                font = value;
+                _font = value;
             }
         }
 
@@ -160,238 +173,238 @@
         {
             get
             {
-                return foreColor;
+                return _foreColor;
             }
 
             set
             {
                 base.ForeColor = value;
-                foreColor = value;
+                _foreColor = value;
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Image)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Image)]
         public Image Icon
         {
             get
             {
-                return icon;
+                return _icon;
             }
 
             set
             {
-                icon = value;
+                _icon = value;
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Visible)]
         public bool IconBorder
         {
             get
             {
-                return iconBorder;
+                return _iconBorder;
             }
 
             set
             {
-                iconBorder = value;
+                _iconBorder = value;
             }
         }
 
-        [Category(Property.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Category(Propertys.Layout)]
+        [Description(Property.Size)]
         public Size IconSize
         {
             get
             {
-                return iconSize;
+                return _iconSize;
             }
 
             set
             {
-                iconSize = value;
+                _iconSize = value;
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color LineColor
         {
             get
             {
-                return lineColor;
+                return _lineColor;
             }
 
             set
             {
-                lineColor = value;
+                _lineColor = value;
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Padding)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Padding)]
         public Padding Padding
         {
             get
             {
-                return padding;
+                return _padding;
             }
 
             set
             {
-                padding = value;
+                _padding = value;
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Size)]
         public int SeparatorThickness
         {
             get
             {
-                return separatorThickness;
+                return _separatorThickness;
             }
 
             set
             {
-                separatorThickness = value;
+                _separatorThickness = value;
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Spacing)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Spacing)]
         public int Spacing
         {
             get
             {
-                return spacing;
+                return _spacing;
             }
 
             set
             {
-                spacing = value;
+                _spacing = value;
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Strings.Text)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Text)]
         public string Text
         {
             get
             {
-                return text;
+                return _text;
             }
 
             set
             {
-                text = value;
+                _text = value;
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Strings.TextRenderingHint)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
             get
             {
-                return textRendererHint;
+                return _textRendererHint;
             }
 
             set
             {
-                textRendererHint = value;
+                _textRendererHint = value;
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Visible)]
         public bool TextShadow
         {
             get
             {
-                return textShadow;
+                return _textShadow;
             }
 
             set
             {
-                textShadow = value;
+                _textShadow = value;
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Type)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Type)]
         public ToolTipType TipType
         {
             get
             {
-                return toolTipType;
+                return _toolTipType;
             }
 
             set
             {
-                toolTipType = value;
+                _toolTipType = value;
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Strings.Text)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Text)]
         public string Title
         {
             get
             {
-                return title;
+                return _title;
             }
 
             set
             {
-                title = value;
+                _title = value;
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color TitleColor
         {
             get
             {
-                return titleColor;
+                return _titleColor;
             }
 
             set
             {
-                titleColor = value;
+                _titleColor = value;
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Strings.Font)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Font)]
         public Font TitleFont
         {
             get
             {
-                return titleFont;
+                return _titleFont;
             }
 
             set
             {
-                titleFont = value;
+                _titleFont = value;
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Size)]
         public Size ToolTipSize
         {
             get
             {
-                return toolTipSize;
+                return _toolTipSize;
             }
 
             set
             {
-                toolTipSize = value;
+                _toolTipSize = value;
             }
         }
 
@@ -404,7 +417,7 @@
         /// <returns>New height.</returns>
         private int GetTipHeight(int textHeight)
         {
-            int tipHeight = textHeight > iconSize.Height ? textHeight : iconSize.Height;
+            int tipHeight = textHeight > _iconSize.Height ? textHeight : _iconSize.Height;
             return tipHeight;
         }
 
@@ -414,7 +427,7 @@
         /// <returns>New width.</returns>
         private int GetTipWidth(int titleWidth, int textWidth)
         {
-            int tipWidth = titleWidth > iconSize.Width + textWidth ? titleWidth : iconSize.Width + textWidth;
+            int tipWidth = titleWidth > _iconSize.Width + textWidth ? titleWidth : _iconSize.Width + textWidth;
             return tipWidth;
         }
 
@@ -422,53 +435,49 @@
         {
             Graphics graphics = e.Graphics;
             graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.TextRenderingHint = textRendererHint;
+            graphics.TextRenderingHint = _textRendererHint;
+            graphics.FillRectangle(new SolidBrush(_background), e.Bounds);
 
-            var gradientPoints = new[] { new Point { X = e.Bounds.Width, Y = 0 }, new Point { X = e.Bounds.Width, Y = e.Bounds.Height } };
-
-            LinearGradientBrush gradientBrush = Gradient.CreateGradientBrush(backgroundGradient.Colors, gradientPoints, backgroundGradient.Angle, backgroundGradient.Positions);
-            graphics.FillRectangle(gradientBrush, e.Bounds);
-
-            if (border.Visible)
+            if (_border.Visible)
             {
                 Rectangle boxRectangle = new Rectangle(e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1);
                 GraphicsPath borderPath = new GraphicsPath();
                 borderPath.AddRectangle(boxRectangle);
-                graphics.DrawPath(new Pen(border.Color, border.Thickness), borderPath);
+                graphics.DrawPath(new Pen(_border.Color, _border.Thickness), borderPath);
             }
 
-            if ((textShadow && (toolTipType == ToolTipType.Text)) || (textShadow && (toolTipType == ToolTipType.Default)))
+            if ((_textShadow && (_toolTipType == ToolTipType.Text)) || (_textShadow && (_toolTipType == ToolTipType.Default)))
             {
                 // Draw shadow text
-                graphics.DrawString(text, new Font(Font, FontStyle.Regular), Brushes.Silver, new PointF(textPoint.X + 1, textPoint.Y + 1));
+                graphics.DrawString(_text, new Font(Font, FontStyle.Regular), Brushes.Silver, new PointF(_textPoint.X + 1, _textPoint.Y + 1));
             }
 
-            switch (toolTipType)
+            switch (_toolTipType)
             {
                 case ToolTipType.Default:
                     {
                         // Draw the title
-                        graphics.DrawString(title, titleFont, new SolidBrush(titleColor), new PointF(titlePoint.X, titlePoint.Y));
+                        graphics.DrawString(_title, _titleFont, new SolidBrush(_titleColor), new PointF(_titlePoint.X, _titlePoint.Y));
 
                         // Draw the separator
-                        graphics.DrawLine(new Pen(lineColor), separator.X, separator.Y, separator.Width, separator.Y);
+                        graphics.DrawLine(new Pen(_lineColor), _separator.X, _separator.Y, _separator.Width, _separator.Y);
 
                         // Draw the text
-                        graphics.DrawString(text, Font, new SolidBrush(foreColor), new PointF(textPoint.X, textPoint.Y));
+                        graphics.DrawString(_text, Font, new SolidBrush(_foreColor), new PointF(_textPoint.X, _textPoint.Y));
 
                         if (Icon != null)
                         {
                             // Update point
-                            iconRectangle.Location = iconPoint;
+                            _iconRectangle.Location = _iconPoint;
 
                             // Draw icon border
-                            if (iconBorder)
+                            if (_iconBorder)
                             {
-                                graphics.DrawPath(new Pen(border.Color), iconGraphicsPath);
+                                graphics.DrawPath(new Pen(_border.Color), _iconGraphicsPath);
                             }
 
                             // Draw icon
-                            graphics.DrawImage(Icon, iconRectangle);
+                            graphics.DrawImage(Icon, _iconRectangle);
                         }
 
                         break;
@@ -479,16 +488,16 @@
                         if (Icon != null)
                         {
                             // Update point
-                            iconRectangle.Location = iconPoint;
+                            _iconRectangle.Location = _iconPoint;
 
                             // Draw icon border
-                            if (iconBorder)
+                            if (_iconBorder)
                             {
-                                graphics.DrawPath(new Pen(border.Color), iconGraphicsPath);
+                                graphics.DrawPath(new Pen(_border.Color), _iconGraphicsPath);
                             }
 
                             // Draw icon
-                            graphics.DrawImage(Icon, iconRectangle);
+                            graphics.DrawImage(Icon, _iconRectangle);
                         }
 
                         break;
@@ -497,72 +506,70 @@
                 case ToolTipType.Text:
                     {
                         // Draw the text
-                        graphics.DrawString(text, Font, new SolidBrush(foreColor), new PointF(textPoint.X, textPoint.Y));
+                        graphics.DrawString(_text, Font, new SolidBrush(_foreColor), new PointF(_textPoint.X, _textPoint.Y));
                         break;
                     }
             }
-
-            gradientBrush.Dispose();
         }
 
         private void VisualToolTip_Popup(object sender, PopupEventArgs e)
         {
-            switch (toolTipType)
+            switch (_toolTipType)
             {
                 case ToolTipType.Default:
                     {
-                        if (!autoSize)
+                        if (!_autoSize)
                         {
-                            xWidth = toolTipSize.Width;
-                            yHeight = toolTipSize.Height;
+                            _xWidth = _toolTipSize.Width;
+                            _yHeight = _toolTipSize.Height;
                         }
                         else
                         {
-                            xWidth = GetTipWidth(TextRenderer.MeasureText(title, Font).Width, TextRenderer.MeasureText(text, Font).Width);
-                            yHeight = TextRenderer.MeasureText(title, Font).Height + SeparatorThickness + GetTipHeight(TextRenderer.MeasureText(text, Font).Height);
+                            _xWidth = GetTipWidth(TextRenderer.MeasureText(_title, Font).Width, TextRenderer.MeasureText(_text, Font).Width);
+                            _yHeight = TextRenderer.MeasureText(_title, Font).Height + SeparatorThickness + GetTipHeight(TextRenderer.MeasureText(_text, Font).Height);
                         }
 
-                        titlePoint.X = padding.Left;
-                        titlePoint.Y = padding.Top;
+                        _titlePoint.X = _padding.Left;
+                        _titlePoint.Y = _padding.Top;
 
-                        Point separatorPoint = new Point(padding.Left + Spacing, TextRenderer.MeasureText(title, Font).Height + 5);
-                        Size separatorSize = new Size(xWidth, SeparatorThickness);
-                        separator = new Rectangle(separatorPoint, separatorSize);
+                        Point separatorPoint = new Point(_padding.Left + Spacing, TextRenderer.MeasureText(_title, Font).Height + 5);
+                        Size separatorSize = new Size(_xWidth, SeparatorThickness);
+                        _separator = new Rectangle(separatorPoint, separatorSize);
 
-                        textPoint.X = padding.Left + iconSize.Width + Spacing;
-                        textPoint.Y = separator.Y + Spacing;
+                        _textPoint.X = _padding.Left + _iconSize.Width + Spacing;
+                        _textPoint.Y = _separator.Y + Spacing;
 
-                        iconPoint = new Point(padding.Left, textPoint.Y);
+                        _iconPoint = new Point(_padding.Left, _textPoint.Y);
                         break;
                     }
 
                 case ToolTipType.Image:
                     {
-                        iconPoint = new Point(padding.Left, padding.Top);
-                        xWidth = iconSize.Width + 1;
-                        yHeight = iconSize.Height + 1;
+                        _iconPoint = new Point(_padding.Left, _padding.Top);
+                        _xWidth = _iconSize.Width + 1;
+                        _yHeight = _iconSize.Height + 1;
                         break;
                     }
 
                 case ToolTipType.Text:
                     {
-                        textPoint = new Point(padding.Left, padding.Top);
-                        xWidth = TextRenderer.MeasureText(text, Font).Width;
-                        yHeight = TextRenderer.MeasureText(text, Font).Height;
+                        _textPoint = new Point(_padding.Left, _padding.Top);
+                        _xWidth = TextRenderer.MeasureText(_text, Font).Width;
+                        _yHeight = TextRenderer.MeasureText(_text, Font).Height;
                         break;
                     }
             }
 
             // Create icon rectangle
-            iconRectangle = new Rectangle(iconPoint, iconSize);
+            _iconRectangle = new Rectangle(_iconPoint, _iconSize);
 
             // Create icon path
-            iconGraphicsPath = new GraphicsPath();
-            iconGraphicsPath.AddRectangle(iconRectangle);
-            iconGraphicsPath.CloseAllFigures();
+            _iconGraphicsPath = new GraphicsPath();
+            _iconGraphicsPath.AddRectangle(_iconRectangle);
+            _iconGraphicsPath.CloseAllFigures();
 
             // Initialize new size
-            e.ToolTipSize = new Size(padding.Left + xWidth + padding.Right, padding.Top + yHeight + padding.Bottom);
+            e.ToolTipSize = new Size(_padding.Left + _xWidth + _padding.Right, _padding.Top + _yHeight + _padding.Bottom);
         }
 
         #endregion

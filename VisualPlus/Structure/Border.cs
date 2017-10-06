@@ -11,10 +11,9 @@
     using VisualPlus.Delegates;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Styles;
     using VisualPlus.Toolkit.Components;
-
-    using Property = VisualPlus.Localization.Descriptions.Property;
 
     #endregion
 
@@ -57,12 +56,12 @@
             ConstructBorder(styleManager.BorderStyle.HoverColor, true);
         }
 
-        [Category(Event.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
+        [Category(Events.PropertyChanged)]
+        [Description(Event.PropertyEventChanged)]
         public event BorderHoverColorChangedEventHandler HoverColorChanged;
 
-        [Category(Event.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
+        [Category(Events.PropertyChanged)]
+        [Description(Event.PropertyEventChanged)]
         public event BorderHoverVisibleChangedEventHandler HoverVisibleChanged;
 
         #endregion
@@ -71,7 +70,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color HoverColor
         {
             get
@@ -88,7 +87,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool HoverVisible
         {
             get
@@ -125,7 +124,7 @@
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
-            return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
+            return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
@@ -148,7 +147,7 @@
             result = null;
             border = value as Border;
 
-            if (border != null && destinationType == typeof(string))
+            if ((border != null) && (destinationType == typeof(string)))
             {
                 // result = borderStyle.ToString();
                 result = "Border Settings";

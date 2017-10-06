@@ -59,31 +59,43 @@
     <Compile Include="EventArgs\ToggleEventArgs.cs" />
     <Compile Include="Extensibility\ColorExtension.cs" />
     <Compile Include="Extensibility\StringExtension.cs" />
-    <Compile Include="Localization\Category\Event.cs" />
+    <Compile Include="Localization\Category\Events.cs" />
     <Compile Include="Localization\Descriptions\Event.cs" />
     <Compile Include="Localization\Descriptions\Property.cs" />
     <Compile Include="Localization\GlobalStrings.cs" />
-    <Compile Include="Localization\Category\Property.cs" />
+    <Compile Include="Localization\Category\Propertys.cs" />
+    <Compile Include="Managers\ImageManager.cs" />
+    <Compile Include="Managers\MonitorManager.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Renders\VisualBackgroundRenderer.cs" />
     <Compile Include="Renders\VisualBadgeRenderer.cs" />
     <Compile Include="Renders\VisualBorderRenderer.cs" />
     <Compile Include="Renders\VisualToggleRenderer.cs" />
     <Compile Include="Renders\VisualControlRenderer.cs" />
+    <Compile Include="Structure\BorderEdge.cs" />
     <Compile Include="Structure\ControlColorState.cs" />
-    <Compile Include="Structure\ControlGradientState.cs" />
-    <Compile Include="Toolkit\ActionList\BackupDesigner.cs" />
+    <Compile Include="Structure\ColorState.cs" />
+    <Compile Include="Structure\Hatch.cs" />
+    <Compile Include="Structure\TextState.cs" />
+    <Compile Include="Toolkit\ActionList\VisualCheckedListBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualRichBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualTextBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualListViewTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisualComboBoxTasks.cs" />
     <Compile Include="Toolkit\ActionList\VisuaListBoxTasks.cs" />
-    <Compile Include="Toolkit\Components\VisualStyleManager.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Toolkit\Components\VisualGradient.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Toolkit\Components\VisualStyleManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Toolkit\Controls\DataManagement\VisualCheckedListBox.cs" />
     <Compile Include="Toolkit\Controls\DataVisualization\VisualGauge.cs" />
+    <Compile Include="Toolkit\Controls\DataVisualization\VisualProgressStepper.cs" />
     <Compile Include="Toolkit\Controls\Interactivity\VisualRangeBar.cs" />
     <Compile Include="Toolkit\VisualBase\BadgeLabel.cs" />
     <Compile Include="Toolkit\Components\Expander.cs">
@@ -159,14 +171,13 @@
     </Compile>
     <Compile Include="Toolkit\Controls\Interactivity\VisualLabel.cs" />
     <Compile Include="Toolkit\Controls\Interactivity\VisualRating.cs" />
-    <Compile Include="Toolkit\Controls\Interactivity\VisualShape.cs" />
     <Compile Include="Toolkit\Components\VisualToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Enumerators\Alignment.cs" />
     <Compile Include="InterfaceTypes.cs" />
     <Compile Include="Managers\ControlManager.cs" />
-    <Compile Include="Structure\Checkmark.cs" />
+    <Compile Include="Structure\CheckStyle.cs" />
     <Compile Include="Toolkit\Components\VisualDrag.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -195,7 +206,7 @@
     <Compile Include="Toolkit\Controls\DataVisualization\VisualProgressIndicator.cs" />
     <Compile Include="Toolkit\Controls\Interactivity\VisualRadioButton.cs" />
     <Compile Include="Toolkit\Controls\Editors\VisualRichTextBox.cs" />
-    <Compile Include="Toolkit\Controls\DataVisualization\VisualCircleProgressBar.cs" />
+    <Compile Include="Toolkit\Controls\DataVisualization\VisualRadialProgress.cs" />
     <Compile Include="Toolkit\Controls\Layout\VisualSeparator.cs" />
     <Compile Include="Toolkit\Controls\Navigation\VisualTabControl.cs">
       <SubType>Component</SubType>
@@ -207,11 +218,6 @@
     </Compile>
     <Compile Include="GDI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Toolkit\Controls\Interactivity\VisualKnob.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -223,19 +229,19 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Icon.ico" />
-    <None Include="Resources\search.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Toolkit\Dialogs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Icon.ico" />
+    <EmbeddedResource Include="Resources\ToolboxBitmaps\VisualLabel.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VisualPlus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

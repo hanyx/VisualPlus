@@ -10,6 +10,7 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -29,47 +30,55 @@
         #region Variables
 
         private Border _border;
+        private BorderEdge _borderButtons;
 
-        private Gradient backgroundGradient;
-        private Border buttonBorder;
-        private Font buttonFont;
-        private Color buttonForeColor;
-        private Gradient buttonGradient;
-        private Orientation buttonOrientation;
-        private GraphicsPath buttonPath;
-        private Rectangle buttonRectangle;
-        private int buttonWidth = 50;
-        private Point[] decrementButtonPoints = new Point[2];
-        private Point[] incrementButtonPoints = new Point[2];
-        private bool keyboardNum;
-        private long maximumValue;
-        private long minimumValue;
-        private long numericValue;
-        private int xValue;
-        private int yValue;
+        private BorderEdge _borderEdge;
+        private Color _buttonColor;
+        private Font _buttonFont;
+        private Color _buttonForeColor;
+        private Orientation _buttonOrientation;
+        private GraphicsPath _buttonPath;
+        private Rectangle _buttonRectangle;
+        private int _buttonWidth;
+        private ColorState _colorState;
+        private Point[] _decrementButtonPoints;
+        private Point[] _incrementButtonPoints;
+        private bool _keyboardNum;
+        private long _maximumValue;
+        private long _minimumValue;
+        private long _numericValue;
+        private int _xValue;
+        private int _yValue;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualNumericUpDown"/> class.</summary>
+        /// <inheritdoc />
+        /// <summary>
+        ///     Initializes a new instance of the
+        ///     <see cref="T:VisualPlus.Toolkit.Controls.Interactivity.VisualNumericUpDown" /> class.
+        /// </summary>
         public VisualNumericUpDown()
         {
-            BackColor = Color.Transparent;
-            minimumValue = 0;
-            maximumValue = 100;
+            _decrementButtonPoints = new Point[2];
+            _incrementButtonPoints = new Point[2];
+            _buttonWidth = 50;
+
+            _borderEdge = new BorderEdge();
+            _borderButtons = new BorderEdge();
+
+            _minimumValue = 0;
+            _maximumValue = 100;
             Size = new Size(125, 25);
             MinimumSize = new Size(0, 0);
-
-            buttonOrientation = Orientation.Horizontal;
-
-            buttonBorder = new Border
-                {
-                    HoverVisible = false,
-                    Type = ShapeType.Rectangle
-                };
+            _colorState = new ColorState();
+            _buttonOrientation = Orientation.Horizontal;
 
             _border = new Border();
+
+            Controls.Add(_borderEdge);
+            Controls.Add(_borderButtons);
 
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
@@ -78,26 +87,30 @@
 
         #region Properties
 
-        [TypeConverter(typeof(GradientConverter))]
+        [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
-        public Gradient BackgroundGradient
+        public ColorState BackColorState
         {
             get
             {
-                return backgroundGradient;
+                return _colorState;
             }
 
             set
             {
-                backgroundGradient = value;
+                if (value == _colorState)
+                {
+                    return;
+                }
+
+                _colorState = value;
                 Invalidate();
             }
         }
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
@@ -112,165 +125,164 @@
             }
         }
 
-        [TypeConverter(typeof(GradientConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
-        public Gradient Button
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
+        public Color ButtonColor
         {
             get
             {
-                return buttonGradient;
+                return _buttonColor;
             }
 
             set
             {
-                buttonGradient = value;
+                _buttonColor = value;
                 Invalidate();
             }
         }
 
-        [TypeConverter(typeof(BorderConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
-        public Border ButtonBorder
-        {
-            get
-            {
-                return buttonBorder;
-            }
-
-            set
-            {
-                buttonBorder = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Strings.Font)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Font)]
         public Font ButtonFont
         {
             get
             {
-                return buttonFont;
+                return _buttonFont;
             }
 
             set
             {
-                buttonFont = value;
+                _buttonFont = value;
                 Invalidate();
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color ButtonForeColor
         {
             get
             {
-                return buttonForeColor;
+                return _buttonForeColor;
             }
 
             set
             {
-                buttonForeColor = value;
+                _buttonForeColor = value;
                 Invalidate();
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Alignment)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Alignment)]
         public Orientation ButtonOrientation
         {
             get
             {
-                return buttonOrientation;
+                return _buttonOrientation;
             }
 
             set
             {
-                buttonOrientation = value;
+                _buttonOrientation = value;
                 Invalidate();
             }
         }
 
-        [Category(Property.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Common.Size)]
+        [Category(Propertys.Layout)]
+        [Description(Property.Size)]
         public int ButtonWidth
         {
             get
             {
-                return buttonWidth;
+                return _buttonWidth;
             }
 
             set
             {
-                buttonWidth = value;
+                _buttonWidth = value;
                 Invalidate();
             }
         }
 
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         public long MaximumValue
         {
             get
             {
-                return maximumValue;
+                return _maximumValue;
             }
 
             set
             {
-                if (value > minimumValue)
+                if (value > _minimumValue)
                 {
-                    maximumValue = value;
+                    _maximumValue = value;
                 }
 
-                if (numericValue > maximumValue)
+                if (_numericValue > _maximumValue)
                 {
-                    numericValue = maximumValue;
+                    _numericValue = _maximumValue;
                 }
 
                 Invalidate();
             }
         }
 
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         public long MinimumValue
         {
             get
             {
-                return minimumValue;
+                return _minimumValue;
             }
 
             set
             {
-                if (value < maximumValue)
+                if (value < _maximumValue)
                 {
-                    minimumValue = value;
+                    _minimumValue = value;
                 }
 
-                if (numericValue < minimumValue)
+                if (_numericValue < _minimumValue)
                 {
-                    numericValue = MinimumValue;
+                    _numericValue = MinimumValue;
                 }
 
                 Invalidate();
             }
         }
 
-        [Category(Property.Behavior)]
-        public long Value
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
+        public Color Separator
         {
             get
             {
-                return numericValue;
+                return _borderEdge.BackColor;
             }
 
             set
             {
-                if ((value <= maximumValue) & (value >= minimumValue))
+                _borderEdge.BackColor = value;
+                _borderButtons.BackColor = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Propertys.Behavior)]
+        public long Value
+        {
+            get
+            {
+                return _numericValue;
+            }
+
+            set
+            {
+                if ((value <= _maximumValue) & (value >= _minimumValue))
                 {
-                    numericValue = value;
+                    _numericValue = value;
                 }
 
                 Invalidate();
@@ -283,13 +295,13 @@
 
         public void Decrement(int value)
         {
-            numericValue -= value;
+            _numericValue -= value;
             Invalidate();
         }
 
         public void Increment(int value)
         {
-            numericValue += value;
+            _numericValue += value;
             Invalidate();
         }
 
@@ -297,28 +309,22 @@
         {
             StyleManager = new VisualStyleManager(style);
 
-            buttonForeColor = Color.Gray;
-            backgroundGradient = StyleManager.ControlStyle.BoxEnabled;
-            buttonGradient = StyleManager.ControlStatesStyle.ControlEnabled;
-            buttonFont = new Font(StyleManager.Font.FontFamily, 14, FontStyle.Bold);
-
-            ControlBrushCollection = new[]
-                {
-                    StyleManager.ControlStatesStyle.ControlEnabled,
-                    StyleManager.ControlStatesStyle.ControlHover,
-                    StyleManager.ControlStatesStyle.ControlPressed,
-                    StyleManager.ControlStatesStyle.ControlDisabled
-                };
+            _buttonForeColor = Color.Gray;
+            _buttonFont = new Font(StyleManager.Font.FontFamily, 14, FontStyle.Bold);
+            _buttonColor = StyleManager.ControlStyle.Background(3);
 
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
-            Background = StyleManager.ControlStyle.Background(3);
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
-            _border.Color = StyleManager.BorderStyle.Color;
+
+            _colorState.Enabled = StyleManager.ControlStyle.Background(3);
+            _colorState.Disabled = StyleManager.ControlStyle.Background(0);
+
+            _borderButtons.BackColor = StyleManager.ControlStyle.Line;
+            _borderEdge.BackColor = StyleManager.ControlStyle.Line;
+
+            _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
 
-            buttonBorder.Color = StyleManager.BorderStyle.Color;
-            buttonBorder.HoverColor = StyleManager.BorderStyle.HoverColor;
             Invalidate();
         }
 
@@ -327,14 +333,14 @@
             base.OnKeyPress(e);
             try
             {
-                if (keyboardNum)
+                if (_keyboardNum)
                 {
-                    numericValue = long.Parse(numericValue + e.KeyChar.ToString());
+                    _numericValue = long.Parse(_numericValue + e.KeyChar.ToString());
                 }
 
-                if (numericValue > maximumValue)
+                if (_numericValue > _maximumValue)
                 {
-                    numericValue = maximumValue;
+                    _numericValue = _maximumValue;
                 }
             }
             catch (Exception)
@@ -348,14 +354,14 @@
             base.OnKeyUp(e);
             if (e.KeyCode == Keys.Back)
             {
-                string temporaryValue = numericValue.ToString();
+                string temporaryValue = _numericValue.ToString();
                 temporaryValue = temporaryValue.Remove(Convert.ToInt32(temporaryValue.Length - 1));
                 if (temporaryValue.Length == 0)
                 {
                     temporaryValue = "0";
                 }
 
-                numericValue = Convert.ToInt32(temporaryValue);
+                _numericValue = Convert.ToInt32(temporaryValue);
             }
 
             Invalidate();
@@ -365,32 +371,32 @@
         {
             OnMouseClick(e);
 
-            switch (buttonOrientation)
+            switch (_buttonOrientation)
             {
                 case Orientation.Vertical:
                     {
                         // Check if mouse in X position.
-                        if ((xValue > Width - buttonRectangle.Width) && (xValue < Width))
+                        if ((_xValue > Width - _buttonRectangle.Width) && (_xValue < Width))
                         {
                             // Determine the button middle separator by checking for the Y position.
-                            if ((yValue > buttonRectangle.Y) && (yValue < Height / 2))
+                            if ((_yValue > _buttonRectangle.Y) && (_yValue < Height / 2))
                             {
-                                if (Value + 1 <= maximumValue)
+                                if (Value + 1 <= _maximumValue)
                                 {
-                                    numericValue++;
+                                    _numericValue++;
                                 }
                             }
-                            else if ((yValue > Height / 2) && (yValue < Height))
+                            else if ((_yValue > Height / 2) && (_yValue < Height))
                             {
-                                if (Value - 1 >= minimumValue)
+                                if (Value - 1 >= _minimumValue)
                                 {
-                                    numericValue--;
+                                    _numericValue--;
                                 }
                             }
                         }
                         else
                         {
-                            keyboardNum = !keyboardNum;
+                            _keyboardNum = !_keyboardNum;
                             Focus();
                         }
 
@@ -400,27 +406,27 @@
                 case Orientation.Horizontal:
                     {
                         // Check if mouse in X position.
-                        if ((xValue > Width - buttonRectangle.Width) && (xValue < Width))
+                        if ((_xValue > Width - _buttonRectangle.Width) && (_xValue < Width))
                         {
                             // Determine the button middle separator by checking for the X position.
-                            if ((xValue > buttonRectangle.X) && (xValue < buttonRectangle.X + (buttonRectangle.Width / 2)))
+                            if ((_xValue > _buttonRectangle.X) && (_xValue < _buttonRectangle.X + (_buttonRectangle.Width / 2)))
                             {
-                                if (Value + 1 <= maximumValue)
+                                if (Value + 1 <= _maximumValue)
                                 {
-                                    numericValue++;
+                                    _numericValue++;
                                 }
                             }
-                            else if ((xValue > buttonRectangle.X + (buttonRectangle.Width / 2)) && (xValue < Width))
+                            else if ((_xValue > _buttonRectangle.X + (_buttonRectangle.Width / 2)) && (_xValue < Width))
                             {
-                                if (Value - 1 >= minimumValue)
+                                if (Value - 1 >= _minimumValue)
                                 {
-                                    numericValue--;
+                                    _numericValue--;
                                 }
                             }
                         }
                         else
                         {
-                            keyboardNum = !keyboardNum;
+                            _keyboardNum = !_keyboardNum;
                             Focus();
                         }
 
@@ -453,12 +459,12 @@
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
-            xValue = e.Location.X;
-            yValue = e.Location.Y;
+            _xValue = e.Location.X;
+            _yValue = e.Location.Y;
             Invalidate();
 
             // IBeam cursor toggle
-            if (e.X < buttonRectangle.X)
+            if (e.X < _buttonRectangle.X)
             {
                 Cursor = Cursors.IBeam;
             }
@@ -473,18 +479,18 @@
             base.OnMouseWheel(e);
             if (e.Delta > 0)
             {
-                if (Value + 1 <= maximumValue)
+                if (Value + 1 <= _maximumValue)
                 {
-                    numericValue++;
+                    _numericValue++;
                 }
 
                 Invalidate();
             }
             else
             {
-                if (Value - 1 >= minimumValue)
+                if (Value - 1 >= _minimumValue)
                 {
-                    numericValue--;
+                    _numericValue--;
                 }
 
                 Invalidate();
@@ -495,44 +501,44 @@
         {
             base.OnPaint(e);
 
-            Graphics graphics = e.Graphics;
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
+            Graphics _graphics = e.Graphics;
+            _graphics.Clear(Parent.BackColor);
+            _graphics.SmoothingMode = SmoothingMode.HighQuality;
+            _graphics.TextRenderingHint = TextRenderingHint;
 
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
-            buttonRectangle = new Rectangle(Width - buttonWidth, 0, buttonWidth, Height);
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
 
-            Size incrementSize = GDI.MeasureText(graphics, "+", buttonFont);
-            Size decrementSize = GDI.MeasureText(graphics, "-", buttonFont);
+            _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
+            _graphics.SetClip(ControlGraphicsPath);
 
-            incrementButtonPoints[0] = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (incrementSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - (buttonRectangle.Height / 4) - (incrementSize.Height / 2));
-            decrementButtonPoints[0] = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (decrementSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2) + (buttonRectangle.Height / 4)) - (decrementSize.Height / 2));
+            _buttonRectangle = new Rectangle(Width - _buttonWidth, 1, _buttonWidth, Height);
 
-            incrementButtonPoints[1] = new Point((buttonRectangle.X + (buttonRectangle.Width / 4)) - (incrementSize.Width / 2), (Height / 2) - (incrementSize.Height / 2));
-            decrementButtonPoints[1] = new Point((buttonRectangle.X + (buttonRectangle.Width / 2) + (buttonRectangle.Width / 4)) - (decrementSize.Width / 2), (Height / 2) - (decrementSize.Height / 2));
+            Size incrementSize = GDI.MeasureText(_graphics, "+", _buttonFont);
+            Size decrementSize = GDI.MeasureText(_graphics, "-", _buttonFont);
 
-            var verticalSeparator = new Point[2];
-            verticalSeparator[0] = new Point(buttonRectangle.X, buttonRectangle.Y + (buttonRectangle.Height / 2));
-            verticalSeparator[1] = new Point(buttonRectangle.X + buttonRectangle.Width, buttonRectangle.Y + (buttonRectangle.Height / 2));
+            _incrementButtonPoints[0] = new Point((_buttonRectangle.X + (_buttonRectangle.Width / 2)) - (incrementSize.Width / 2), (_buttonRectangle.Y + (_buttonRectangle.Height / 2)) - (_buttonRectangle.Height / 4) - (incrementSize.Height / 2));
+            _decrementButtonPoints[0] = new Point((_buttonRectangle.X + (_buttonRectangle.Width / 2)) - (decrementSize.Width / 2), (_buttonRectangle.Y + (_buttonRectangle.Height / 2) + (_buttonRectangle.Height / 4)) - (decrementSize.Height / 2));
 
-            var horizontalSeparator = new Point[2];
-            horizontalSeparator[0] = new Point(buttonRectangle.X + (buttonRectangle.Width / 2), buttonRectangle.Y);
-            horizontalSeparator[1] = new Point(buttonRectangle.X + (buttonRectangle.Width / 2), buttonRectangle.Y + buttonRectangle.Height);
+            _incrementButtonPoints[1] = new Point((_buttonRectangle.X + (_buttonRectangle.Width / 4)) - (incrementSize.Width / 2), (Height / 2) - (incrementSize.Height / 2));
+            _decrementButtonPoints[1] = new Point((_buttonRectangle.X + (_buttonRectangle.Width / 2) + (_buttonRectangle.Width / 4)) - (decrementSize.Width / 2), (Height / 2) - (decrementSize.Height / 2));
 
-            Point[] tempSeparator;
             int toggleInt;
-            switch (buttonOrientation)
+            switch (_buttonOrientation)
             {
-                case Orientation.Vertical:
-                    {
-                        toggleInt = 0;
-                        tempSeparator = verticalSeparator;
-                        break;
-                    }
-
                 case Orientation.Horizontal:
                     {
                         toggleInt = 1;
-                        tempSeparator = horizontalSeparator;
+                        _borderButtons.Location = new Point(_buttonRectangle.X + (_buttonRectangle.Width / 2), _border.Thickness);
+                        _borderButtons.Size = new Size(1, Height - _border.Thickness - 1);
+                        break;
+                    }
+
+                case Orientation.Vertical:
+                    {
+                        toggleInt = 0;
+                        _borderButtons.Location = new Point(_buttonRectangle.X, (_buttonRectangle.Bottom / 2) - _border.Thickness);
+                        _borderButtons.Size = new Size(Width - _border.Thickness - 1, 1);
                         break;
                     }
 
@@ -542,44 +548,43 @@
                     }
             }
 
-            buttonPath = new GraphicsPath();
-            buttonPath.AddRectangle(buttonRectangle);
-            buttonPath.CloseAllFigures();
+            _buttonPath = new GraphicsPath();
+            _buttonPath.AddRectangle(_buttonRectangle);
+            _buttonPath.CloseAllFigures();
 
-            Gradient backgroundCheckTemp = Enabled ? backgroundGradient : ControlBrushCollection[3];
-            Gradient buttonCheckTemp = Enabled ? buttonGradient : ControlBrushCollection[3];
+            Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
 
-            graphics.SetClip(ControlGraphicsPath);
+            _graphics.SetClip(ControlGraphicsPath);
+            _graphics.FillRectangle(new SolidBrush(_buttonColor), _buttonRectangle);
+            _graphics.ResetClip();
 
-            var gradientPoints = GDI.GetGradientPoints(ClientRectangle);
+            _graphics.DrawString("+", _buttonFont, new SolidBrush(_buttonForeColor), _incrementButtonPoints[toggleInt]);
+            _graphics.DrawString("-", _buttonFont, new SolidBrush(_buttonForeColor), _decrementButtonPoints[toggleInt]);
 
-            LinearGradientBrush backgroundGradientBrush = Gradient.CreateGradientBrush(backgroundCheckTemp.Colors, gradientPoints, backgroundCheckTemp.Angle, backgroundCheckTemp.Positions);
-            graphics.FillPath(backgroundGradientBrush, ControlGraphicsPath);
+            _borderEdge.Location = new Point(_buttonRectangle.X, _border.Thickness);
+            _borderEdge.Size = new Size(1, Height - _border.Thickness - 1);
 
-            LinearGradientBrush buttonGradientBrush = Gradient.CreateGradientBrush(buttonCheckTemp.Colors, gradientPoints, buttonCheckTemp.Angle, buttonCheckTemp.Positions);
-            graphics.FillPath(buttonGradientBrush, buttonPath);
+            DrawText(_graphics);
 
-            VisualBorderRenderer.DrawBorderStyle(graphics, buttonBorder, MouseState, buttonPath);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+        }
 
-            graphics.ResetClip();
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            e.Graphics.Clear(BackColor);
+        }
 
-            graphics.DrawString("+", buttonFont, new SolidBrush(buttonForeColor), incrementButtonPoints[toggleInt]);
-            graphics.DrawString("-", buttonFont, new SolidBrush(buttonForeColor), decrementButtonPoints[toggleInt]);
-
-            graphics.DrawLine(new Pen(StyleManager.BorderStyle.Color), tempSeparator[0], tempSeparator[1]);
-
-            VisualBorderRenderer.DrawBorderStyle(graphics, _border, MouseState, ControlGraphicsPath);
-
-            // Draw value string
+        private void DrawText(Graphics _graphics)
+        {
             Rectangle textBoxRectangle = new Rectangle(6, 0, Width - 1, Height - 1);
-
             StringFormat stringFormat = new StringFormat
                 {
                     // Alignment = StringAlignment.Center,
                     LineAlignment = StringAlignment.Center
                 };
-
-            graphics.DrawString(Convert.ToString(Value), Font, new SolidBrush(ForeColor), textBoxRectangle, stringFormat);
+            _graphics.DrawString(Convert.ToString(Value), Font, new SolidBrush(ForeColor), textBoxRectangle, stringFormat);
         }
 
         #endregion

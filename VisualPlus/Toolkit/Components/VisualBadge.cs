@@ -8,12 +8,14 @@
     using System.Windows.Forms;
 
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
     [ToolboxItem(true)]
+    [ToolboxBitmap(typeof(Component))]
     [Description("The VisualPlus badge component enables controls to have a badge with text displayed.")]
     public class VisualBadge : Component
     {
@@ -162,7 +164,7 @@
 
         #region Properties
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Color Background
         {
             get
@@ -179,7 +181,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description("The control to attach this component.")]
         public Control Control
         {
@@ -210,8 +212,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Property.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Toggle)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.Toggle)]
         public bool Enabled
         {
             get
@@ -239,7 +241,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Font Font
         {
             get
@@ -254,7 +256,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Color ForeColor
         {
             get
@@ -287,7 +289,7 @@
 
         [TypeConverter(typeof(ShapeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Shape Shape
         {
             get

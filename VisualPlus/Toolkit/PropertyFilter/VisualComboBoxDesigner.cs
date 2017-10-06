@@ -26,8 +26,6 @@
             properties.Remove("ImageList");
             properties.Remove("TextImageRelation");
             properties.Remove("DropDownStyle");
-            properties.Remove("BackgroundImage");
-            properties.Remove("BackgroundImageLayout");
             properties.Remove("UseVisualStyleBackColor");
             properties.Remove("RightToLeft");
 

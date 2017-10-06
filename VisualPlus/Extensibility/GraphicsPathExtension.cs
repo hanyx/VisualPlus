@@ -20,7 +20,7 @@
         /// <returns>Converted border path.</returns>
         public static GraphicsPath ToBorderPath(this GraphicsPath borderPath, Border border)
         {
-            return VisualBorderRenderer.GetBorderShape(borderPath.GetBounds().ToRectangle(), border.Type, border.Rounding);
+            return VisualBorderRenderer.CreateBorderTypePath(borderPath.GetBounds().ToRectangle(), border);
         }
 
         /// <summary>Converts the Rectangle to a GraphicsPath.</summary>

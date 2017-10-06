@@ -31,7 +31,8 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualPanel"/> class.</summary>
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Layout.VisualPanel" /> class.</summary>
         public VisualPanel()
         {
             Size = new Size(187, 117);
@@ -47,7 +48,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
@@ -73,10 +74,10 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            Background = StyleManager.ControlStyle.Background(0);
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+            BackColorState.Enabled = StyleManager.ControlStyle.Background(0);
+            BackColorState.Disabled = StyleManager.ControlStyle.Background(0);
 
-            _border.Color = StyleManager.BorderStyle.Color;
+            _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
 
             Invalidate();
@@ -87,14 +88,21 @@
             base.OnPaint(e);
 
             Graphics graphics = e.Graphics;
-            graphics.Clear(Parent.BackColor);
-            graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
             graphics.SmoothingMode = SmoothingMode.HighQuality;
 
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border.Type, _border.Rounding);
-            graphics.FillPath(new SolidBrush(Background), ControlGraphicsPath);
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+            graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
-            VisualBorderRenderer.DrawBorderStyle(graphics, _border, MouseState, ControlGraphicsPath);
+            Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            e.Graphics.Clear(BackColor);
         }
 
         #endregion

@@ -10,11 +10,11 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Properties;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -25,12 +25,13 @@
     [DefaultProperty("Text")]
     [Description("The Visual Button")]
     [Designer(ControlManager.FilterProperties.VisualButton)]
-    public class VisualButton : VisualControlBase, IAnimate, IControlStates
+    public class VisualButton : VisualControlBase, IAnimationSupport, IThemeSupport
     {
         #region Variables
 
         private bool _animation;
 
+        private ControlColorState _backColorState;
         private Border _border;
         private VFXManager _effectsManager;
         private VFXManager _hoverEffectsManager;
@@ -41,35 +42,33 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualButton"/> class.</summary>
+        /// <inheritdoc />
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Interactivity.VisualButton" />
+        ///     class.
+        /// </summary>
         public VisualButton()
         {
             Size = new Size(140, 45);
             _animation = Settings.DefaultValue.Animation;
-            ColorGradientToggle = true;
-
-            _visualBitmap = new VisualBitmap(Resources.Icon, new Size(24, 24))
+            _border = new Border();
+            _textImageRelation = TextImageRelation.Overlay;
+            _backColorState = new ControlColorState();
+            _visualBitmap = new VisualBitmap(Resources.VisualPlus, new Size(24, 24))
                 {
                     Visible = false,
-                    Image = Resources.Icon
+                    Image = Resources.VisualPlus
                 };
-
-            _border = new Border();
             _visualBitmap.Point = new Point(0, (Height / 2) - (_visualBitmap.Size.Height / 2));
 
-            _textImageRelation = TextImageRelation.Overlay;
-
-            ConfigureAnimation();
-            UpdateTheme(StyleManager.Style);
+            ConfigureAnimation(new[] { 0.03, 0.07 }, new[] { EffectType.EaseOut, EffectType.EaseInOut });
+            UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
         #endregion
 
         #region Properties
 
-        [DefaultValue(Settings.DefaultValue.Animation)]
-        [Category(Property.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Animation)]
         public bool Animation
         {
             get
@@ -91,9 +90,30 @@
             }
         }
 
+        [TypeConverter(typeof(ControlColorStateConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public ControlColorState BackColorState
+        {
+            get
+            {
+                return _backColorState;
+            }
+
+            set
+            {
+                if (value == _backColorState)
+                {
+                    return;
+                }
+
+                _backColorState = value;
+                Invalidate();
+            }
+        }
+
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
@@ -108,71 +128,9 @@
             }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Property.Appearance)]
-        public Gradient DisabledGradient
-        {
-            get
-            {
-                return ControlBrushCollection[3];
-            }
-
-            set
-            {
-                ControlBrushCollection[3] = value;
-            }
-        }
-
-        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Property.Appearance)]
-        public Gradient EnabledGradient
-        {
-            get
-            {
-                return ControlBrushCollection[0];
-            }
-
-            set
-            {
-                ControlBrushCollection[0] = value;
-            }
-        }
-
-        [DefaultValue(true)]
-        [Category(Property.Behavior)]
-        [Description("Gets or sets the color gradient toggle.")]
-        public bool GradientToggle
-        {
-            get
-            {
-                return ColorGradientToggle;
-            }
-
-            set
-            {
-                ColorGradientToggle = value;
-                Invalidate();
-            }
-        }
-
-        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Property.Appearance)]
-        public Gradient HoverGradient
-        {
-            get
-            {
-                return ControlBrushCollection[1];
-            }
-
-            set
-            {
-                ControlBrushCollection[1] = value;
-            }
-        }
-
         [TypeConverter(typeof(VisualBitmapConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public VisualBitmap Image
         {
             get
@@ -187,23 +145,8 @@
             }
         }
 
-        [Description(Localization.Descriptions.Property.Description.Common.ColorGradient)]
-        [Category(Property.Appearance)]
-        public Gradient PressedGradient
-        {
-            get
-            {
-                return ControlBrushCollection[2];
-            }
-
-            set
-            {
-                ControlBrushCollection[2] = value;
-            }
-        }
-
-        [Category(Property.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.TextImageRelation)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.TextImageRelation)]
         public TextImageRelation TextImageRelation
         {
             get
@@ -218,23 +161,22 @@
             }
         }
 
-        internal bool ColorGradientToggle { get; set; }
-
         #endregion
 
         #region Events
 
-        public void ConfigureAnimation()
+        public void ConfigureAnimation(double[] effectIncrement, EffectType[] effectType)
         {
             _effectsManager = new VFXManager(false)
                 {
-                    Increment = 0.03,
-                    EffectType = EffectType.EaseOut
+                    Increment = effectIncrement[0],
+                    EffectType = effectType[0]
                 };
+
             _hoverEffectsManager = new VFXManager
                 {
-                    Increment = 0.07,
-                    EffectType = EffectType.Linear
+                    Increment = effectIncrement[1],
+                    EffectType = effectType[1]
                 };
 
             _hoverEffectsManager.OnAnimationProgress += sender => Invalidate();
@@ -265,22 +207,17 @@
 
         public void UpdateTheme(Styles style)
         {
-            StyleManager = new VisualStyleManager(style);
-            _border.Color = StyleManager.BorderStyle.Color;
+            StyleManager.Style = style;
+            _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+            Font = StyleManager.Font;
 
-            Background = StyleManager.ControlStyle.Background(0);
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
-
-            ControlBrushCollection = new[]
-                {
-                    StyleManager.ControlStatesStyle.ControlEnabled,
-                    StyleManager.ControlStatesStyle.ControlHover,
-                    StyleManager.ControlStatesStyle.ControlPressed,
-                    StyleManager.ControlStatesStyle.ControlDisabled
-                };
+            _backColorState.Enabled = StyleManager.ControlStyle.Background(0);
+            _backColorState.Disabled = Color.FromArgb(224, 224, 224);
+            _backColorState.Hover = Color.FromArgb(224, 224, 224);
+            _backColorState.Pressed = Color.Silver;
 
             Invalidate();
         }
@@ -346,10 +283,31 @@
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
-            BackgroundStateGradientBrush = GDI.GetControlBrush(e.Graphics, Enabled, MouseState, ControlBrushCollection, ClientRectangle);
-            VisualControlRenderer.DrawButton(e.Graphics, ClientRectangle, Text, Font, ForeColor, Image, _border, _textImageRelation, BackgroundStateColor, BackgroundStateGradientBrush, ColorGradientToggle, MouseState);
+            Graphics _graphics = e.Graphics;
+            _graphics.Clear(Parent.BackColor);
+            _graphics.SmoothingMode = SmoothingMode.HighQuality;
+            _graphics.TextRenderingHint = TextRenderingHint;
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+            _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
+
+            Color _backColor = GDI.GetBackColorState(Enabled, BackColorState.Enabled, BackColorState.Hover, BackColorState.Pressed, BackColorState.Disabled, MouseState);
+
+            e.Graphics.SetClip(ControlGraphicsPath);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, _border);
+
+            Color _textColor = Enabled ? ForeColor : ForeColorDisabled;
+
+            VisualControlRenderer.DrawInternalContent(e.Graphics, ClientRectangle, Text, Font, _textColor, Image, _textImageRelation);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
             DrawAnimation(e.Graphics);
+            e.Graphics.ResetClip();
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            e.Graphics.Clear(BackColor);
         }
 
         #endregion

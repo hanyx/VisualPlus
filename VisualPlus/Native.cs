@@ -8,7 +8,7 @@
     using System.Runtime.InteropServices;
     using System.Text;
 
-    using VisualPlus.Toolkit.Controls.Layout;
+    using VisualPlus.Managers;
 
     #endregion
 
@@ -28,7 +28,7 @@
         public static extern bool GetCursorPos(ref Point lpPoint);
 
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
-        public static extern bool GetMonitorInfo(HandleRef hmonitor, [In] [Out] VisualForm.MonitorInfo info);
+        public static extern bool GetMonitorInfo(HandleRef hmonitor, [In] [Out] MonitorManager info);
 
         [DllImport("user32.dll")]
         public static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);

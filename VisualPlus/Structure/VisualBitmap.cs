@@ -67,7 +67,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Image)]
+        [Description(Property.Image)]
         public Bitmap Image
         {
             get
@@ -82,7 +82,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Point)]
+        [Description(Property.Point)]
         public Point Point
         {
             get
@@ -97,7 +97,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Size)]
+        [Description(Property.Size)]
         public Size Size
         {
             get
@@ -112,7 +112,7 @@
         }
 
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool Visible
         {
             get
@@ -147,7 +147,7 @@
 
                     if (_border.Visible)
                     {
-                        VisualBorderRenderer.DrawBorder(graphics, imagePath, _border.Thickness, _border.Color);
+                        VisualBorderRenderer.DrawBorder(graphics, imagePath, _border.Color, thickness: _border.Thickness);
                     }
                 }
 
@@ -175,7 +175,7 @@
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
-            return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
+            return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
@@ -198,7 +198,7 @@
             result = null;
             visualBitmap = value as VisualBitmap;
 
-            if (visualBitmap != null && destinationType == typeof(string))
+            if ((visualBitmap != null) && (destinationType == typeof(string)))
             {
                 // result = borderStyle.ToString();
                 result = "Image Settings";

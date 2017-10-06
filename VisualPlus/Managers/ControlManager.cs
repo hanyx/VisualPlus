@@ -52,7 +52,7 @@
 
             public const string VisualButton = DesignerFilterPath + "Button" + DesignerSuffix;
             public const string VisualCheckBox = DesignerFilterPath + "CheckBox" + DesignerSuffix;
-            public const string VisualCircleProgressBar = DesignerFilterPath + "CircleProgressBar" + DesignerSuffix;
+            public const string VisualRadialProgress = DesignerFilterPath + "CircleProgressBar" + DesignerSuffix;
             public const string VisualComboBox = DesignerFilterPath + "ComboBox" + DesignerSuffix;
             public const string VisualContextMenu = DesignerFilterPath + "ContextMenu" + DesignerSuffix;
             public const string VisualForm = DesignerFilterPath + "Form" + DesignerSuffix;

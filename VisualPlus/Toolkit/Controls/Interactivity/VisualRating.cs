@@ -24,30 +24,44 @@
     {
         #region Variables
 
-        private readonly BufferedGraphicsContext _bufferedContext = BufferedGraphicsManager.Current;
-        private bool allowHalfStar = true;
-        private BufferedGraphics bufferedGraphics;
-        private int maximum = 5;
-        private float mouseOverIndex = -1;
-        private StarType ratingType = StarType.Thick;
-        private bool settingRating;
-        private SolidBrush starBrush = new SolidBrush(Color.Yellow);
-        private SolidBrush starDullBrush = new SolidBrush(Color.Silver);
-        private Pen starDullStroke = new Pen(Color.Gray, 3f);
-        private int starSpacing = 1;
-        private Pen starStroke = new Pen(Color.Gold, 3f);
-        private int starWidth = 25;
-        private float value;
+        private readonly BufferedGraphicsContext _bufferedContext;
+        private BufferedGraphics _bufferedGraphics;
+        private int _maximum;
+        private float _mouseOverIndex;
+        private StarType _ratingType;
+        private bool _settingRating;
+        private SolidBrush _starBrush;
+        private SolidBrush _starDullBrush;
+        private Pen _starDullStroke;
+        private int _starSpacing;
+        private Pen _starStroke;
+        private int _starWidth;
+        private bool _toggleHalfStar;
+        private float _value;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualRating"/> class.</summary>
+        /// <inheritdoc />
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Interactivity.VisualRating" />
+        ///     class.
+        /// </summary>
         public VisualRating()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer, true);
-
+            _bufferedContext = BufferedGraphicsManager.Current;
+            _toggleHalfStar = true;
+            _maximum = 5;
+            _mouseOverIndex = -1;
+            _ratingType = StarType.Thick;
+            _starBrush = new SolidBrush(Color.Yellow);
+            _starDullStroke = new Pen(Color.Gray, 3f);
+            _starDullBrush = new SolidBrush(Color.Silver);
+            _starSpacing = 1;
+            _starStroke = new Pen(Color.Gold, 3f);
+            _starWidth = 25;
             SetPenBrushDefaults();
             Size = new Size(200, 100);
             UpdateGraphicsBuffer();
@@ -75,43 +89,20 @@
 
         #region Properties
 
-        [Description("Determines whether the user can rate with a half a star of specificity")]
-        [Category(Property.Behavior)]
-        [DefaultValue(false)]
-        public bool AllowHalfStar
-        {
-            get
-            {
-                return allowHalfStar;
-            }
-
-            set
-            {
-                bool disabled = !value && allowHalfStar;
-                allowHalfStar = value;
-
-                if (disabled)
-                {
-                    // Only set rating if half star was enabled and now disabled
-                    Value = (int)(Value + 0.5);
-                }
-            }
-        }
-
         [Description("The number of stars to display")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [DefaultValue(5)]
         public int Maximum
         {
             get
             {
-                return maximum;
+                return _maximum;
             }
 
             set
             {
-                bool changed = maximum != value;
-                maximum = value;
+                bool changed = _maximum != value;
+                _maximum = value;
 
                 if (changed)
                 {
@@ -126,7 +117,7 @@
         {
             get
             {
-                return mouseOverIndex;
+                return _mouseOverIndex;
             }
         }
 
@@ -134,35 +125,35 @@
         ///     Gets or sets the preset appearance of the star
         /// </summary>
         [Description("The star style to use")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [DefaultValue(StarType.Thick)]
         public StarType RatingType
         {
             get
             {
-                return ratingType;
+                return _ratingType;
             }
 
             set
             {
-                ratingType = value;
+                _ratingType = value;
                 Invalidate();
             }
         }
 
         [Description("The color to use for the star borders when they are illuminated")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [DefaultValue(typeof(Color), "Gold")]
         public Color StarBorderColor
         {
             get
             {
-                return starStroke.Color;
+                return _starStroke.Color;
             }
 
             set
             {
-                starStroke.Color = value;
+                _starStroke.Color = value;
                 Invalidate();
             }
         }
@@ -171,19 +162,19 @@
         ///     Gets or sets the width of the border around the star (including the dull version)
         /// </summary>
         [Description("The width of the star border")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [DefaultValue(3f)]
         public float StarBorderWidth
         {
             get
             {
-                return starStroke.Width;
+                return _starStroke.Width;
             }
 
             set
             {
-                starStroke.Width = value;
-                starDullStroke.Width = value;
+                _starStroke.Width = value;
+                _starDullStroke.Width = value;
                 UpdateSize();
                 Invalidate();
             }
@@ -194,45 +185,45 @@
         {
             get
             {
-                return starBrush;
+                return _starBrush;
             }
 
             set
             {
-                starBrush = value;
+                _starBrush = value;
             }
         }
 
         [Description("The color to use for the star when they are illuminated")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [DefaultValue(typeof(Color), "Yellow")]
         public Color StarColor
         {
             get
             {
-                return starBrush.Color;
+                return _starBrush.Color;
             }
 
             set
             {
-                starBrush.Color = value;
+                _starBrush.Color = value;
                 Invalidate();
             }
         }
 
         [Description("The color to use for the star borders when they are not illuminated")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [DefaultValue(typeof(Color), "Gray")]
         public Color StarDullBorderColor
         {
             get
             {
-                return starDullStroke.Color;
+                return _starDullStroke.Color;
             }
 
             set
             {
-                starDullStroke.Color = value;
+                _starDullStroke.Color = value;
                 Invalidate();
             }
         }
@@ -242,28 +233,28 @@
         {
             get
             {
-                return starDullBrush;
+                return _starDullBrush;
             }
 
             set
             {
-                starDullBrush = value;
+                _starDullBrush = value;
             }
         }
 
         [Description("The color to use for the stars when they are not illuminated")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [DefaultValue(typeof(Color), "Silver")]
         public Color StarDullColor
         {
             get
             {
-                return starDullBrush.Color;
+                return _starDullBrush.Color;
             }
 
             set
             {
-                starDullBrush.Color = value;
+                _starDullBrush.Color = value;
                 Invalidate();
             }
         }
@@ -273,28 +264,28 @@
         {
             get
             {
-                return starDullStroke;
+                return _starDullStroke;
             }
 
             set
             {
-                starDullStroke = value;
+                _starDullStroke = value;
             }
         }
 
         [Description("The amount of space between each star")]
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [DefaultValue(1)]
         public int StarSpacing
         {
             get
             {
-                return starSpacing;
+                return _starSpacing;
             }
 
             set
             {
-                starSpacing = starSpacing < 0 ? 0 : value;
+                _starSpacing = _starSpacing < 0 ? 0 : value;
                 UpdateSize();
                 Invalidate();
             }
@@ -305,48 +296,71 @@
         {
             get
             {
-                return starStroke;
+                return _starStroke;
             }
 
             set
             {
-                starStroke = value;
+                _starStroke = value;
             }
         }
 
         [Description("The width and height of the star in pixels (not including the border)")]
-        [Category(Property.Layout)]
+        [Category(Propertys.Layout)]
         [DefaultValue(25)]
         public int StarWidth
         {
             get
             {
-                return starWidth;
+                return _starWidth;
             }
 
             set
             {
-                starWidth = starWidth < 1 ? 1 : value;
+                _starWidth = _starWidth < 1 ? 1 : value;
                 UpdateSize();
                 Invalidate();
             }
         }
 
+        [Description("Determines whether the user can rate with a half a star of specificity")]
+        [Category(Propertys.Behavior)]
+        [DefaultValue(false)]
+        public bool ToggleHalfStar
+        {
+            get
+            {
+                return _toggleHalfStar;
+            }
+
+            set
+            {
+                bool disabled = !value && _toggleHalfStar;
+                _toggleHalfStar = value;
+
+                if (disabled)
+                {
+                    // Only set rating if half star was enabled and now disabled
+                    Value = (int)(Value + 0.5);
+                }
+            }
+        }
+
         [Description("The number of stars selected (Note: 0 is considered un-rated")]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         [DefaultValue(0f)]
         public float Value
         {
             get
             {
-                return value;
+                return _value;
             }
 
             set
             {
-                if (value > maximum)
+                if (value > _maximum)
                 {
-                    value = maximum; // bounds check
+                    value = _maximum;
                 }
                 else if (value < 0)
                 {
@@ -354,8 +368,7 @@
                 }
                 else
                 {
-                    // Rounding to whole number or near .5 appropriately
-                    if (allowHalfStar)
+                    if (_toggleHalfStar)
                     {
                         value = RoundToNearestHalf(value);
                     }
@@ -365,17 +378,17 @@
                     }
                 }
 
-                bool changed = value != this.value;
-                this.value = value;
+                bool changed = value != _value;
+                _value = value;
 
                 if (changed)
                 {
-                    if (!settingRating)
+                    if (!_settingRating)
                     {
-                        mouseOverIndex = this.value;
-                        if (!allowHalfStar)
+                        _mouseOverIndex = _value;
+                        if (!_toggleHalfStar)
                         {
-                            mouseOverIndex -= 1f;
+                            _mouseOverIndex -= 1f;
                         }
                     }
 
@@ -390,7 +403,7 @@
         {
             get
             {
-                return (maximum - 1) * starSpacing;
+                return (_maximum - 1) * _starSpacing;
             }
         }
 
@@ -399,7 +412,7 @@
         {
             get
             {
-                return maximum * starWidth;
+                return _maximum * _starWidth;
             }
         }
 
@@ -408,7 +421,7 @@
         {
             get
             {
-                return maximum * starStroke.Width;
+                return _maximum * _starStroke.Width;
             }
         }
 
@@ -420,11 +433,11 @@
         {
             base.OnMouseClick(e);
 
-            if (value == 0f)
+            if (_value == 0f)
             {
-                settingRating = true;
-                Value = allowHalfStar ? mouseOverIndex : mouseOverIndex + 1f;
-                settingRating = false;
+                _settingRating = true;
+                Value = _toggleHalfStar ? _mouseOverIndex : _mouseOverIndex + 1f;
+                _settingRating = false;
                 Invalidate();
             }
         }
@@ -432,28 +445,28 @@
         protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
-            if (value > 0)
+            if (_value > 0)
             {
                 return;
             }
 
-            mouseOverIndex = -1; // No stars will be highlighted
+            _mouseOverIndex = -1; // No stars will be highlighted
             Invalidate();
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
-            if (value > 0)
+            if (_value > 0)
             {
                 return;
             }
 
             float index = GetHoveredStarIndex(e.Location);
 
-            if (index != mouseOverIndex)
+            if (index != _mouseOverIndex)
             {
-                mouseOverIndex = index;
+                _mouseOverIndex = index;
                 OnStarsPanned();
                 Invalidate();
             }
@@ -463,10 +476,10 @@
         {
             base.OnPaint(e);
 
-            bufferedGraphics.Graphics.Clear(BackColor);
+            _bufferedGraphics.Graphics.Clear(BackColor);
             DrawDullStars();
             DrawIlluminatedStars();
-            bufferedGraphics.Render(e.Graphics);
+            _bufferedGraphics.Render(e.Graphics);
         }
 
         protected override void OnSizeChanged(EventArgs e)
@@ -602,88 +615,88 @@
 
         private void DrawDullStars()
         {
-            float height = Height - starStroke.Width;
-            float lastX = starStroke.Width / 2f; // Start off at stroke size and increment
-            float width = (Width - TotalSpacing - TotalStrokeWidth) / maximum;
+            float height = Height - _starStroke.Width;
+            float lastX = _starStroke.Width / 2f; // Start off at stroke size and increment
+            float width = (Width - TotalSpacing - TotalStrokeWidth) / _maximum;
 
             // Draw stars
-            for (var i = 0; i < maximum; i++)
+            for (var i = 0; i < _maximum; i++)
             {
-                RectangleF rect = new RectangleF(lastX, starStroke.Width / 2f, width, height);
+                RectangleF rect = new RectangleF(lastX, _starStroke.Width / 2f, width, height);
                 var polygon = GetStarPolygon(rect);
-                bufferedGraphics.Graphics.FillPolygon(starDullBrush, polygon);
-                bufferedGraphics.Graphics.DrawPolygon(starDullStroke, polygon);
-                lastX += starWidth + starSpacing + starStroke.Width;
-                bufferedGraphics.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                bufferedGraphics.Graphics.FillPolygon(starDullBrush, polygon);
-                bufferedGraphics.Graphics.DrawPolygon(starDullStroke, polygon);
-                bufferedGraphics.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
+                _bufferedGraphics.Graphics.FillPolygon(_starDullBrush, polygon);
+                _bufferedGraphics.Graphics.DrawPolygon(_starDullStroke, polygon);
+                lastX += _starWidth + _starSpacing + _starStroke.Width;
+                _bufferedGraphics.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                _bufferedGraphics.Graphics.FillPolygon(_starDullBrush, polygon);
+                _bufferedGraphics.Graphics.DrawPolygon(_starDullStroke, polygon);
+                _bufferedGraphics.Graphics.PixelOffsetMode = PixelOffsetMode.Default;
             }
         }
 
         private void DrawIlluminatedStars()
         {
-            float height = Height - starStroke.Width;
-            float lastX = starStroke.Width / 2f; // Start off at stroke size and increment
-            float width = (Width - TotalSpacing - TotalStrokeWidth) / maximum;
+            float height = Height - _starStroke.Width;
+            float lastX = _starStroke.Width / 2f; // Start off at stroke size and increment
+            float width = (Width - TotalSpacing - TotalStrokeWidth) / _maximum;
 
-            if (allowHalfStar)
+            if (_toggleHalfStar)
             {
                 // Draw stars
-                for (var i = 0; i < maximum; i++)
+                for (var i = 0; i < _maximum; i++)
                 {
-                    RectangleF rect = new RectangleF(lastX, starStroke.Width / 2f, width, height);
+                    RectangleF rect = new RectangleF(lastX, _starStroke.Width / 2f, width, height);
 
-                    if (i < mouseOverIndex - 0.5f)
+                    if (i < _mouseOverIndex - 0.5f)
                     {
                         var polygon = GetStarPolygon(rect);
-                        bufferedGraphics.Graphics.FillPolygon(starBrush, polygon);
-                        bufferedGraphics.Graphics.DrawPolygon(starStroke, polygon);
+                        _bufferedGraphics.Graphics.FillPolygon(_starBrush, polygon);
+                        _bufferedGraphics.Graphics.DrawPolygon(_starStroke, polygon);
                     }
-                    else if (i == mouseOverIndex - 0.5f)
+                    else if (i == _mouseOverIndex - 0.5f)
                     {
                         var polygon = GetSemiStarPolygon(rect);
-                        bufferedGraphics.Graphics.FillPolygon(starBrush, polygon);
-                        bufferedGraphics.Graphics.DrawPolygon(starStroke, polygon);
+                        _bufferedGraphics.Graphics.FillPolygon(_starBrush, polygon);
+                        _bufferedGraphics.Graphics.DrawPolygon(_starStroke, polygon);
                     }
                     else
                     {
                         break;
                     }
 
-                    lastX += starWidth + starSpacing + starStroke.Width;
+                    lastX += _starWidth + _starSpacing + _starStroke.Width;
                 }
             }
             else
             {
                 // Draw stars
-                for (var i = 0; i < maximum; i++)
+                for (var i = 0; i < _maximum; i++)
                 {
-                    RectangleF rect = new RectangleF(lastX, starStroke.Width / 2f, width, height);
+                    RectangleF rect = new RectangleF(lastX, _starStroke.Width / 2f, width, height);
                     var polygon = GetStarPolygon(rect);
 
-                    if (i <= mouseOverIndex)
+                    if (i <= _mouseOverIndex)
                     {
-                        bufferedGraphics.Graphics.FillPolygon(starBrush, polygon);
-                        bufferedGraphics.Graphics.DrawPolygon(starStroke, polygon);
+                        _bufferedGraphics.Graphics.FillPolygon(_starBrush, polygon);
+                        _bufferedGraphics.Graphics.DrawPolygon(_starStroke, polygon);
                     }
                     else
                     {
                         break;
                     }
 
-                    lastX += starWidth + starSpacing + starStroke.Width;
+                    lastX += _starWidth + _starSpacing + _starStroke.Width;
                 }
             }
         }
 
         private float GetHoveredStarIndex(Point pos)
         {
-            if (allowHalfStar)
+            if (_toggleHalfStar)
             {
-                float widthSection = Width / (float)maximum / 2f;
+                float widthSection = Width / (float)_maximum / 2f;
 
-                for (var i = 0f; i < maximum; i += 0.5f)
+                for (var i = 0f; i < _maximum; i += 0.5f)
                 {
                     float starX = i * widthSection * 2f;
 
@@ -698,9 +711,9 @@
             }
             else
             {
-                var widthSection = (int)((Width / (double)maximum) + 0.5);
+                var widthSection = (int)((Width / (double)_maximum) + 0.5);
 
-                for (var i = 0; i < maximum; i++)
+                for (var i = 0; i < _maximum; i++)
                 {
                     float starX = i * widthSection;
 
@@ -717,7 +730,7 @@
 
         private PointF[] GetSemiStarPolygon(RectangleF rect)
         {
-            switch (ratingType)
+            switch (_ratingType)
             {
                 case StarType.Default: return GetNormalSemiStar(rect);
                 case StarType.Thick: return GetFatSemiStar(rect);
@@ -728,7 +741,7 @@
 
         private PointF[] GetStarPolygon(RectangleF rect)
         {
-            switch (ratingType)
+            switch (_ratingType)
             {
                 case StarType.Default: return GetNormalStar(rect);
                 case StarType.Thick: return GetFatStar(rect);
@@ -749,10 +762,10 @@
 
         private void SetPenBrushDefaults()
         {
-            starStroke.LineJoin = LineJoin.Round;
-            starStroke.Alignment = PenAlignment.Outset;
-            starDullStroke.LineJoin = LineJoin.Round;
-            starDullStroke.Alignment = PenAlignment.Outset;
+            _starStroke.LineJoin = LineJoin.Round;
+            _starStroke.Alignment = PenAlignment.Outset;
+            _starDullStroke.LineJoin = LineJoin.Round;
+            _starDullStroke.Alignment = PenAlignment.Outset;
         }
 
         private void UpdateGraphicsBuffer()
@@ -760,14 +773,14 @@
             if ((Width > 0) && (Height > 0))
             {
                 _bufferedContext.MaximumBuffer = new Size(Width + 1, Height + 1);
-                bufferedGraphics = _bufferedContext.Allocate(CreateGraphics(), ClientRectangle);
-                bufferedGraphics.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                _bufferedGraphics = _bufferedContext.Allocate(CreateGraphics(), ClientRectangle);
+                _bufferedGraphics.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             }
         }
 
         private void UpdateSize()
         {
-            var height = (int)(starWidth + starStroke.Width + 0.5);
+            var height = (int)(_starWidth + _starStroke.Width + 0.5);
             var width = (int)(TotalStarWidth + TotalSpacing + TotalStrokeWidth + 0.5);
             Size = new Size(width, height);
         }

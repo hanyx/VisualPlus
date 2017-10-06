@@ -12,10 +12,10 @@
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
+    using VisualPlus.Styles;
     using VisualPlus.Toolkit.Components;
-
-    using Property = VisualPlus.Localization.Descriptions.Property;
 
     #endregion
 
@@ -25,7 +25,7 @@
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [Description("The shape.")]
-    public class Shape
+    public class Shape : IShape
     {
         #region Variables
 
@@ -43,10 +43,11 @@
         public Shape()
         {
             VisualStyleManager styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
-            ConstructShape(ShapeType.Rounded, styleManager.BorderStyle.Color, Settings.DefaultValue.Rounding.Default, Settings.DefaultValue.BorderThickness, true);
+            ConstructShape(ShapeType.Rounded, styleManager.ShapeStyle.Color, Settings.DefaultValue.Rounding.Default, Settings.DefaultValue.BorderThickness, true);
         }
 
-        /// <summary>Initializes a new instance of the <see cref="Shape" /> class.</summary>
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Structure.Shape" /> class.</summary>
         /// <param name="shapeType">The shape type.</param>
         /// <param name="color">The color.</param>
         /// <param name="rounding">The rounding.</param>
@@ -55,7 +56,8 @@
             ConstructShape(shapeType, color, rounding, _thickness, _visible);
         }
 
-        /// <summary>Initializes a new instance of the <see cref="Shape" /> class.</summary>
+        /// <inheritdoc />
+        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Structure.Shape" /> class.</summary>
         /// <param name="shapeType">The shape type.</param>
         /// <param name="color">The color.</param>
         /// <param name="rounding">The rounding.</param>
@@ -76,24 +78,24 @@
             ConstructShape(shapeType, color, rounding, thickness, visible);
         }
 
-        [Category(Event.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
+        [Category(Events.PropertyChanged)]
+        [Description(Event.PropertyEventChanged)]
         public event BorderColorChangedEventHandler ColorChanged;
 
-        [Category(Event.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
+        [Category(Events.PropertyChanged)]
+        [Description(Event.PropertyEventChanged)]
         public event BorderRoundingChangedEventHandler RoundingChanged;
 
-        [Category(Event.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
+        [Category(Events.PropertyChanged)]
+        [Description(Event.PropertyEventChanged)]
         public event BorderThicknessChangedEventHandler ThicknessChanged;
 
-        [Category(Event.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
+        [Category(Events.PropertyChanged)]
+        [Description(Event.PropertyEventChanged)]
         public event BorderTypeChangedEventHandler TypeChanged;
 
-        [Category(Event.PropertyChanged)]
-        [Description(Localization.Descriptions.Event.PropertyEventChanged)]
+        [Category(Events.PropertyChanged)]
+        [Description(Event.PropertyEventChanged)]
         public event BorderVisibleChangedEventHandler VisibleChanged;
 
         #endregion
@@ -102,7 +104,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color Color
         {
             get
@@ -119,7 +121,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Border.Rounding)]
+        [Description(Property.Rounding)]
         public int Rounding
         {
             get
@@ -129,17 +131,19 @@
 
             set
             {
-                if (ExceptionManager.ArgumentOutOfRangeException(value, Settings.MinimumRounding, Settings.MaximumRounding))
+                if (_rounding == value)
                 {
-                    _rounding = value;
-                    RoundingChanged?.Invoke();
+                    return;
                 }
+
+                _rounding = ExceptionManager.ArgumentOutOfRangeException(value, Settings.MinimumRounding, Settings.MaximumRounding, true);
+                RoundingChanged?.Invoke();
             }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Border.Thickness)]
+        [Description(Property.Thickness)]
         public int Thickness
         {
             get
@@ -149,17 +153,19 @@
 
             set
             {
-                if (ExceptionManager.ArgumentOutOfRangeException(value, Settings.MinimumBorderSize, Settings.MaximumBorderSize))
+                if (_thickness == value)
                 {
-                    _thickness = value;
-                    ThicknessChanged?.Invoke();
+                    return;
                 }
+
+                _thickness = ExceptionManager.ArgumentOutOfRangeException(value, Settings.MinimumBorderSize, Settings.MaximumBorderSize, true);
+                ThicknessChanged?.Invoke();
             }
         }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Border.Shape)]
+        [Description(Property.Shape)]
         public ShapeType Type
         {
             get
@@ -176,7 +182,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool Visible
         {
             get
@@ -219,7 +225,7 @@
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
-            return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
+            return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
@@ -242,7 +248,7 @@
             result = null;
             shape = value as Shape;
 
-            if (shape != null && destinationType == typeof(string))
+            if ((shape != null) && (destinationType == typeof(string)))
             {
                 // result = borderStyle.ToString();
                 result = "Border Shape Settings";

@@ -20,11 +20,11 @@
     [DefaultProperty("Checked")]
     [Description("The Visual RadioButton")]
     [Designer(ControlManager.FilterProperties.VisualRadioButton)]
-    public class VisualRadioButton : RadioButtonBase
+    public class VisualRadioButton : RadioButtonBase, IThemeSupport
     {
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualRadioButton"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualRadioButton" /> class.</summary>
         public VisualRadioButton()
         {
             Cursor = Cursors.Hand;
@@ -32,13 +32,11 @@
 
             Border = new Border { Rounding = Settings.DefaultValue.Rounding.RoundedRectangle };
 
-            CheckMark = new Checkmark(ClientRectangle)
+            CheckStyle = new CheckStyle(ClientRectangle)
                 {
-                    Style = Checkmark.CheckType.Shape,
-                    Location = new Point(3, 8),
-                    ImageSize = new Size(19, 16),
-                    ShapeSize = new Size(8, 8),
-                    ShapeRounding = Settings.DefaultValue.Rounding.Default
+                    Style = CheckStyle.CheckType.Shape,
+                    ShapeRounding = Settings.DefaultValue.Rounding.Default,
+                    Bounds = new Rectangle(new Point(), new Size(8, 8))
                 };
 
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
@@ -55,21 +53,14 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            Background = StyleManager.ControlStyle.Background(0);
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+            CheckStyle.CheckColor = StyleManager.CheckmarkStyle.CheckColor;
 
-            CheckMark.EnabledGradient = StyleManager.CheckmarkStyle.EnabledGradient;
-            CheckMark.DisabledGradient = StyleManager.CheckmarkStyle.DisabledGradient;
+            BoxColorState.Enabled = StyleManager.ControlStyle.Background(0);
+            BoxColorState.Disabled = Color.FromArgb(224, 224, 224);
+            BoxColorState.Hover = Color.FromArgb(224, 224, 224);
+            BoxColorState.Pressed = Color.Silver;
 
-            ControlBrushCollection = new[]
-                {
-                    StyleManager.ControlStatesStyle.ControlEnabled,
-                    StyleManager.ControlStatesStyle.ControlHover,
-                    StyleManager.ControlStatesStyle.ControlPressed,
-                    StyleManager.ControlStatesStyle.ControlDisabled
-                };
-
-            Border.Color = StyleManager.BorderStyle.Color;
+            Border.Color = StyleManager.ShapeStyle.Color;
             Border.HoverColor = StyleManager.BorderStyle.HoverColor;
 
             Invalidate();

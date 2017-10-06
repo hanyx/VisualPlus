@@ -13,6 +13,11 @@
     {
         #region Constructors
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.VisualBase.VisualToolStripMenuItem" />
+        ///     class.
+        /// </summary>
         public VisualToolStripMenuItem()
         {
             AutoSize = false;

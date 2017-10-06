@@ -4,7 +4,6 @@
 
     using System.ComponentModel;
     using System.ComponentModel.Design;
-    using System.Drawing;
     using System.Drawing.Design;
     using System.Windows.Forms;
     using System.Windows.Forms.Design;
@@ -13,7 +12,7 @@
 
     #endregion
 
-    internal class BackupDesignerDesigner : ControlDesigner
+    internal class VisualCheckedListBoxTasks : ControlDesigner
     {
         #region Variables
 
@@ -30,7 +29,7 @@
             {
                 if (actionListCollection == null)
                 {
-                    actionListCollection = new DesignerActionListCollection { new VisualListBoxActionList(Component) };
+                    actionListCollection = new DesignerActionListCollection { new VisualCheckedListBoxActionList(Component) };
                 }
 
                 return actionListCollection;
@@ -40,23 +39,23 @@
         #endregion
     }
 
-    internal class BackupDesignerActionList : DesignerActionList
+    internal class VisualCheckedListBoxActionList : DesignerActionList
     {
         #region Variables
 
-        private VisualListBox _listBox;
+        private VisualCheckedListBox _checkedListBox;
         private IComponentChangeService _service;
 
-        private VisualListBox buttonControl;
+        private VisualCheckedListBox buttonControl;
         private DesignerActionUIService designerService;
 
         #endregion
 
         #region Constructors
 
-        public BackupDesignerActionList(IComponent component) : base(component)
+        public VisualCheckedListBoxActionList(IComponent component) : base(component)
         {
-            buttonControl = (VisualListBox)component;
+            buttonControl = (VisualCheckedListBox)component;
             designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
         }
 
@@ -64,26 +63,13 @@
 
         #region Properties
 
-        public Color ForeColor
-        {
-            get
-            {
-                return buttonControl.ForeColor;
-            }
-
-            set
-            {
-                buttonControl.ForeColor = value;
-            }
-        }
-
         [Category("Data")]
         [Description("The items in the VisualListBox.")]
         [Editor("System.Windows.Forms.Design.ListControlStringCollectionEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [MergableProperty(false)]
         [Localizable(true)]
-        public virtual ListBox.ObjectCollection Items
+        public virtual CheckedListBox.ObjectCollection Items
         {
             get
             {
@@ -99,30 +85,11 @@
         {
             DesignerActionItemCollection items = new DesignerActionItemCollection
                 {
-                    new DesignerActionHeaderItem("Category 1"),
-                    new DesignerActionPropertyItem("ForeColor", "Foreground Color", "Category 1"),
-                    new DesignerActionMethodItem(this, "MakeSquare", "Make Button Square"),
-
                     new DesignerActionHeaderItem("Unbound Mode"),
                     new DesignerActionPropertyItem("Items", "Edit Items...", "Unbound Mode")
                 };
 
             return items;
-        }
-
-        public void MakeSquare()
-        {
-            // Resize Button
-            if (buttonControl.Width > buttonControl.Height)
-            {
-                buttonControl.Width = buttonControl.Height;
-            }
-            else
-            {
-                buttonControl.Height = buttonControl.Width;
-            }
-
-            designerService.Refresh(buttonControl);
         }
 
         #endregion

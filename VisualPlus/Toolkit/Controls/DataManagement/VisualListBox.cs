@@ -11,6 +11,7 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
@@ -32,6 +33,7 @@
 
         private bool _alternateColors;
         private Border _border;
+        private ColorState _colorState;
 
         private FixedContentValue _contentValues = new FixedContentValue();
         private Color _itemAlternate;
@@ -43,7 +45,7 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualListBox"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualListBox" /> class.</summary>
         public VisualListBox()
         {
             // Contains another control
@@ -53,10 +55,10 @@
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
 
             _border = new Border();
-
+            _colorState = new ColorState();
             _listBox = new ListBox
                 {
-                    BackColor = Background,
+                    BackColor = BackColorState.Enabled,
                     Size = GetInternalControlSize(Size, _border),
                     BorderStyle = BorderStyle.None,
                     IntegralHeight = false,
@@ -67,7 +69,6 @@
                 };
 
             AutoSize = true;
-            BackColor = Color.Transparent;
             Size = new Size(250, 150);
 
             _listBox.DataSourceChanged += ListBox_DataSourceChanged;
@@ -137,7 +138,7 @@
         #region Properties
 
         [DefaultValue(true)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         public bool AlternateColors
         {
             get
@@ -152,23 +153,32 @@
             }
         }
 
-        public new Color Background
+        [TypeConverter(typeof(ColorStateConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(Propertys.Appearance)]
+        public ColorState BackColorState
         {
             get
             {
-                return base.Background;
+                return _colorState;
             }
 
             set
             {
-                _listBox.BackColor = value;
-                base.Background = value;
+                if (value == _colorState)
+                {
+                    return;
+                }
+
+                _colorState = value;
+                _listBox.BackColor = value.Enabled;
+                Invalidate();
             }
         }
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
@@ -321,8 +331,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color ItemAlternate
         {
             get
@@ -353,8 +363,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color ItemNormal
         {
             get
@@ -383,8 +393,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color ItemSelected
         {
             get
@@ -701,16 +711,16 @@
         public void UpdateTheme(Styles style)
         {
             StyleManager = new VisualStyleManager(style);
-            _border.Color = StyleManager.BorderStyle.Color;
+            _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            Background = StyleManager.ControlStyle.Background(3);
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+            _colorState.Enabled = StyleManager.ControlStyle.Background(3);
+            _colorState.Disabled = StyleManager.ControlStyle.Background(0);
 
-            _itemNormal = Background;
-            _itemAlternate = StyleManager.BorderStyle.Color;
+            _itemNormal = BackColorState.Enabled;
+            _itemAlternate = StyleManager.ShapeStyle.Color;
             _itemSelected = StyleManager.BorderStyle.HoverColor;
 
             Invalidate();
@@ -761,15 +771,26 @@
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
 
-            if (_listBox.BackColor != Background)
+            Color _backColor = Enabled ? _colorState.Enabled : _colorState.Disabled;
+
+            if (_listBox.BackColor != _backColor)
             {
-                _listBox.BackColor = Background;
+                _listBox.BackColor = _backColor;
             }
 
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
-            e.Graphics.FillPath(new SolidBrush(Background), ControlGraphicsPath);
-            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, MouseState, ControlGraphicsPath);
+            e.Graphics.SetClip(ControlGraphicsPath);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+            e.Graphics.ResetClip();
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            e.Graphics.Clear(Parent.BackColor);
         }
 
         protected override void OnResize(EventArgs e)

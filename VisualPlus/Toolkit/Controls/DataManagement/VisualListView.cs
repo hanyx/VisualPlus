@@ -12,6 +12,7 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
@@ -31,6 +32,8 @@
         #region Variables
 
         private Border _border;
+
+        private ColorState _colorState;
         private Color _columnHeaderColor;
         private Color _itemSelected;
         private ListView _listView;
@@ -44,7 +47,7 @@
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualListView"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualListView" /> class.</summary>
         public VisualListView()
         {
             // Contains another control
@@ -55,9 +58,11 @@
 
             headerFont = StyleManager.Font;
             _border = new Border();
+            _colorState = new ColorState();
+
             _listView = new ListView
                 {
-                    BackColor = Background,
+                    BackColor = BackColorState.Enabled,
                     Size = GetInternalControlSize(Size, _border),
                     BorderStyle = BorderStyle.None,
                     View = View.Details,
@@ -73,7 +78,6 @@
                 };
 
             AutoSize = true;
-            BackColor = Color.Transparent;
             Size = new Size(250, 150);
 
             // _listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -107,23 +111,32 @@
             }
         }
 
-        public new Color Background
+        [TypeConverter(typeof(ColorStateConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(Propertys.Appearance)]
+        public ColorState BackColorState
         {
             get
             {
-                return base.Background;
+                return _colorState;
             }
 
             set
             {
-                _listView.BackColor = value;
-                base.Background = value;
+                if (value == _colorState)
+                {
+                    return;
+                }
+
+                _colorState = value;
+                _listView.BackColor = value.Enabled;
+                Invalidate();
             }
         }
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
@@ -160,8 +173,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color ColumnHeaderColor
         {
             get
@@ -248,8 +261,8 @@
             }
         }
 
-        [Category(Property.Layout)]
-        [Description(Localization.Descriptions.Property.Description.Strings.Font)]
+        [Category(Propertys.Layout)]
+        [Description(Property.Font)]
         public Font HeaderFont
         {
             get
@@ -280,8 +293,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color HeaderText
         {
             get
@@ -344,8 +357,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color ItemBackground
         {
             get
@@ -360,7 +373,7 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public int ItemPadding
         {
             get
@@ -389,8 +402,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color ItemSelectedColor
         {
             get
@@ -507,7 +520,7 @@
         }
 
         [DefaultValue(false)]
-        [Category(Property.Behavior)]
+        [Category(Propertys.Behavior)]
         [Description("Draws the background of the column header.")]
         public bool StandardHeader
         {
@@ -578,13 +591,13 @@
         public void UpdateTheme(Styles style)
         {
             StyleManager = new VisualStyleManager(style);
-            _border.Color = StyleManager.BorderStyle.Color;
+            _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            Background = StyleManager.ControlStyle.Background(3);
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+            BackColorState.Enabled = StyleManager.ControlStyle.Background(3);
+            BackColorState.Disabled = StyleManager.ControlStyle.Background(0);
 
             _columnHeaderColor = StyleManager.ControlStyle.FlatButtonDisabled;
             headerText = StyleManager.FontStyle.ForeColor;
@@ -604,14 +617,26 @@
         {
             base.OnPaint(e);
 
-            if (_listView.BackColor != Background)
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+
+            Color _backColor = Enabled ? BackColorState.Enabled : BackColorState.Disabled;
+
+            if (_listView.BackColor != _backColor)
             {
-                _listView.BackColor = Background;
+                _listView.BackColor = _backColor;
             }
 
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
-            e.Graphics.FillPath(new SolidBrush(Background), ControlGraphicsPath);
-            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, MouseState, ControlGraphicsPath);
+            e.Graphics.SetClip(ControlGraphicsPath);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+            e.Graphics.ResetClip();
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            e.Graphics.Clear(Parent.BackColor);
         }
 
         protected override void OnResize(EventArgs e)
@@ -669,7 +694,7 @@
             Graphics graphics = Graphics.FromImage(bitmap);
 
             // always draw default background
-            graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
+            graphics.FillRectangle(new SolidBrush(BackColorState.Enabled), new Rectangle(new Point(e.Bounds.X, 0), e.Bounds.Size));
 
             if (e.State.HasFlag(ListViewItemStates.Selected))
             {

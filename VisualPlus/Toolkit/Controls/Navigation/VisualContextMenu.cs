@@ -11,6 +11,7 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
 
@@ -25,16 +26,22 @@
     {
         #region Variables
 
-        private VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+        private VisualStyleManager _styleManager;
         private ToolStripItemClickedEventArgs clickedEventArgs;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualContextMenuStrip" /> class.</summary>
+        /// <inheritdoc />
+        /// <summary>
+        ///     Initializes a new instance of the
+        ///     <see cref="T:VisualPlus.Toolkit.Controls.Navigation.VisualContextMenuStrip" /> class.
+        /// </summary>
         public VisualContextMenuStrip()
         {
+            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+
             Renderer = new VisualToolStripRender();
             ConfigureStyleManager();
         }
@@ -47,8 +54,8 @@
 
         #region Properties
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color ArrowColor
         {
             get
@@ -63,8 +70,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color ArrowDisabledColor
         {
             get
@@ -80,8 +87,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.BorderVisible)]
-        [Category(Property.Behavior)]
-        [Description(Localization.Descriptions.Property.Description.Common.Visible)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.Visible)]
         public bool ArrowVisible
         {
             get
@@ -96,8 +103,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color Background
         {
             get
@@ -114,7 +121,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
@@ -144,8 +151,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Strings.Font)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Font)]
         public Font MenuFont
         {
             get
@@ -160,8 +167,8 @@
             }
         }
 
-        [Category(Property.Appearance)]
-        [Description(Localization.Descriptions.Property.Description.Common.Color)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public Color TextDisabledColor
         {
             get

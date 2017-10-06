@@ -11,6 +11,7 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;
@@ -30,14 +31,14 @@
         #region Variables
 
         private Border _border;
-
+        private ColorState _colorState;
         private RichTextBox _richTextBox;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualRichTextBox"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualRichTextBox" /> class.</summary>
         public VisualRichTextBox()
         {
             SetStyle(ControlStyles.UserPaint | ControlStyles.SupportsTransparentBackColor, true);
@@ -47,6 +48,9 @@
 
             // Cannot select this control, only the child and does not generate a click event
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
+
+            _colorState = new ColorState();
+
             _border = new Border();
             _richTextBox = new RichTextBox
                 {
@@ -56,12 +60,10 @@
                     BorderStyle = BorderStyle.None,
                     Font = Font,
                     ForeColor = ForeColor,
-                    BackColor = Background,
+                    BackColor = _colorState.Enabled,
                     Multiline = true
                 };
 
-            BackColor = Color.Transparent;
-            AutoSize = false;
             Size = new Size(150, 100);
 
             Controls.Add(_richTextBox);
@@ -73,23 +75,26 @@
 
         #region Properties
 
-        public new Color Background
+        [TypeConverter(typeof(ColorStateConverter))]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [Category(Propertys.Appearance)]
+        public ColorState BackColorState
         {
             get
             {
-                return base.Background;
+                return _colorState;
             }
 
             set
             {
-                _richTextBox.BackColor = value;
-                base.Background = value;
+                _colorState = value;
+                Invalidate();
             }
         }
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Property.Appearance)]
+        [Category(Propertys.Appearance)]
         public Border Border
         {
             get
@@ -108,14 +113,10 @@
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(false)]
         [Description("Gets access to the contained control.")]
-        public RichTextBox ContainedControl
-        {
-            get
-            {
-                return _richTextBox;
-            }
-        }
+        public RichTextBox ContainedControl => _richTextBox;
 
+        [Category(Propertys.Appearance)]
+        [Description(Property.Font)]
         public new Font Font
         {
             get
@@ -130,6 +131,8 @@
             }
         }
 
+        [Category(Propertys.Appearance)]
+        [Description(Property.Color)]
         public new Color ForeColor
         {
             get
@@ -144,7 +147,93 @@
             }
         }
 
-        [Category(Property.Appearance)]
+        [DefaultValue(32767)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.MaxLength)]
+        public int MaxLength
+        {
+            get
+            {
+                return _richTextBox.MaxLength;
+            }
+
+            set
+            {
+                _richTextBox.MaxLength = value;
+            }
+        }
+
+        [Category(Propertys.Behavior)]
+        [Description(Property.ReadOnly)]
+        public bool ReadOnly
+        {
+            get
+            {
+                return _richTextBox.ReadOnly;
+            }
+
+            set
+            {
+                _richTextBox.ReadOnly = value;
+            }
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.ScrollBars)]
+        public RichTextBoxScrollBars ScrollBars
+        {
+            get
+            {
+                return _richTextBox.ScrollBars;
+            }
+
+            set
+            {
+                _richTextBox.ScrollBars = value;
+            }
+        }
+
+        [DefaultValue(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.ShortcutsEnabled)]
+        public bool ShortcutsEnabled
+        {
+            get
+            {
+                return _richTextBox.ShortcutsEnabled;
+            }
+
+            set
+            {
+                _richTextBox.ShortcutsEnabled = value;
+            }
+        }
+
+        [DefaultValue(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.ShowSelectionMargin)]
+        public bool ShowSelectionMargin
+        {
+            get
+            {
+                return _richTextBox.ShowSelectionMargin;
+            }
+
+            set
+            {
+                _richTextBox.ShowSelectionMargin = value;
+            }
+        }
+
+        [Category(Propertys.Appearance)]
         [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [Localizable(false)]
         public new string Text
@@ -158,6 +247,24 @@
             {
                 _richTextBox.Text = value;
                 base.Text = value;
+            }
+        }
+
+        [DefaultValue(true)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Browsable(true)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.WordWrap)]
+        public bool WordWrap
+        {
+            get
+            {
+                return _richTextBox.WordWrap;
+            }
+
+            set
+            {
+                _richTextBox.WordWrap = value;
             }
         }
 
@@ -444,10 +551,10 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            Background = StyleManager.ControlStyle.Background(3);
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+            _colorState.Enabled = StyleManager.ControlStyle.Background(3);
+            _colorState.Disabled = StyleManager.ControlStyle.Background(0);
 
-            _border.Color = StyleManager.BorderStyle.Color;
+            _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
 
             Invalidate();
@@ -456,14 +563,25 @@
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            if (_richTextBox.BackColor != Background)
+            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+            Color _backColor = Enabled ? _colorState.Enabled : _colorState.Disabled;
+
+            if (_richTextBox.BackColor != _backColor)
             {
-                _richTextBox.BackColor = Background;
+                _richTextBox.BackColor = _backColor;
             }
 
-            ControlGraphicsPath = VisualBorderRenderer.GetBorderShape(ClientRectangle, _border);
-            e.Graphics.FillPath(new SolidBrush(Background), ControlGraphicsPath);
-            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, MouseState, ControlGraphicsPath);
+            e.Graphics.SetClip(ControlGraphicsPath);
+            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, Border);
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+            e.Graphics.ResetClip();
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+            e.Graphics.Clear(Parent.BackColor);
         }
 
         protected override void OnResize(EventArgs e)

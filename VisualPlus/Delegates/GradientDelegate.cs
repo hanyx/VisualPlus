@@ -4,5 +4,7 @@
 
     public delegate void GradientPositionsChangedEventHandler();
 
+    public delegate void GradientRectangleChangedEventHandler();
+
     public delegate void GradientColorChangedEventHandler();
 }

@@ -9,10 +9,9 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.Localization.Category;
+    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Styles;
     using VisualPlus.Toolkit.Components;
-
-    using Property = VisualPlus.Localization.Descriptions.Property;
 
     #endregion
 
@@ -53,23 +52,23 @@
             Brush = new SolidBrush(inactiveColor);
         }
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description("Occours when the active color property has changed.")]
         public event WatermarkActiveColorChangedEventHandler ActiveColorChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description("Occours when the font property has changed.")]
         public event WatermarkFontChangedEventHandler FontChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description("Occours when the inactive property has changed.")]
         public event WatermarkInactiveColorChangedEventHandler InactiveColorChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description("Occours when the text property has changed.")]
         public event WatermarkTextChangedEventHandler TextChanged;
 
-        [Category(Event.PropertyChanged)]
+        [Category(Events.PropertyChanged)]
         [Description("Occours when the visible property has changed.")]
         public event WatermarkVisibleChangedEventHandler VisibleChanged;
 
@@ -79,7 +78,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color ActiveColor
         {
             get
@@ -96,7 +95,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Strings.Font)]
+        [Description(Property.Font)]
         public Font Font
         {
             get
@@ -113,7 +112,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Color)]
+        [Description(Property.Color)]
         public Color InactiveColor
         {
             get
@@ -130,7 +129,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Strings.Text)]
+        [Description(Property.Text)]
         public string Text
         {
             get
@@ -147,7 +146,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Description.Common.Visible)]
+        [Description(Property.Visible)]
         public bool Visible
         {
             get

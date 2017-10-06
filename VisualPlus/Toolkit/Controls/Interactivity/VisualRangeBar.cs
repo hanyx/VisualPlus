@@ -19,13 +19,5 @@
     // [Designer(ControlManager.FilterProperties.VisualProgressBar)]
     public class VisualRangeBar : VisualControlBase
     {
-        #region Constructors
-
-        public VisualRangeBar()
-        {
-            BackColor = Color.Transparent;
-        }
-
-        #endregion
     }
 }

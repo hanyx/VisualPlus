@@ -23,9 +23,10 @@
             properties.Remove("ImageIndex");
             properties.Remove("ImageKey");
             properties.Remove("ImageList");
-            properties.Remove("BackgroundImage");
-            properties.Remove("BackgroundImageLayout");
-            properties.Remove("UseVisualStyleBackColor");
+
+            // properties.Remove("BackgroundImage");
+            // properties.Remove("BackgroundImageLayout");
+            // properties.Remove("UseVisualStyleBackColor");
             properties.Remove("RightToLeft");
 
             base.PreFilterProperties(properties);

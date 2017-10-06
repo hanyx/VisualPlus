@@ -20,11 +20,11 @@
     [DefaultProperty("Checked")]
     [Description("The Visual CheckBox")]
     [Designer(ControlManager.FilterProperties.VisualCheckBox)]
-    public class VisualCheckBox : CheckBoxBase
+    public class VisualCheckBox : CheckBoxBase, IThemeSupport
     {
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="VisualCheckBox"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualCheckBox" /> class.</summary>
         public VisualCheckBox()
         {
             Cursor = Cursors.Hand;
@@ -32,12 +32,9 @@
 
             Border = new Border { Rounding = Settings.DefaultValue.Rounding.BoxRounding };
 
-            CheckMark = new Checkmark(ClientRectangle)
+            CheckStyle = new CheckStyle(ClientRectangle)
                 {
-                    Style = Checkmark.CheckType.Character,
-                    Location = new Point(-1, 5),
-                    ImageSize = new Size(19, 16),
-                    ShapeSize = new Size(8, 8)
+                    Style = CheckStyle.CheckType.Character
                 };
 
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
@@ -53,22 +50,17 @@
 
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+            Font = StyleManager.Font;
 
-            Background = StyleManager.ControlStyle.Background(0);
-            BackgroundDisabled = StyleManager.ControlStyle.Background(0);
+            BoxColorState.Enabled = StyleManager.ControlStyle.Background(0);
+            BoxColorState.Disabled = Color.FromArgb(224, 224, 224);
+            BoxColorState.Hover = Color.FromArgb(224, 224, 224);
+            BoxColorState.Pressed = Color.Silver;
 
-            CheckMark.EnabledGradient = StyleManager.CheckmarkStyle.EnabledGradient;
-            CheckMark.DisabledGradient = StyleManager.CheckmarkStyle.DisabledGradient;
+            CheckStyle.CheckColor = StyleManager.CheckmarkStyle.CheckColor;
 
-            ControlBrushCollection = new[]
-                {
-                    StyleManager.ControlStatesStyle.ControlEnabled,
-                    StyleManager.ControlStatesStyle.ControlHover,
-                    StyleManager.ControlStatesStyle.ControlPressed,
-                    StyleManager.ControlStatesStyle.ControlDisabled
-                };
-            Border.Color = StyleManager.BorderStyle.Color;
-           Border.HoverColor = StyleManager.BorderStyle.HoverColor;
+            Border.Color = StyleManager.ShapeStyle.Color;
+            Border.HoverColor = StyleManager.BorderStyle.HoverColor;
             Invalidate();
         }
 

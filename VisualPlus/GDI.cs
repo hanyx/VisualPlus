@@ -60,7 +60,9 @@
                     }
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(anchorStyle), anchorStyle, null);
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(anchorStyle), anchorStyle, null);
+                    }
             }
 
             Rectangle anchoredRectangle = new Rectangle(anchoredLocation, anchoredSize);
@@ -83,19 +85,19 @@
 
         /// <summary>Apply a gradient background image on the control.</summary>
         /// <param name="control">The control.</param>
+        /// <param name="size">The size.</param>
         /// <param name="topLeft">The color for top-left.</param>
         /// <param name="topRight">The color for top-right.</param>
         /// <param name="bottomLeft">The color for bottom-left.</param>
         /// <param name="bottomRight">The color for bottom-right.</param>
-        /// <param name="quality">The quality.</param>
-        public static void ApplyGradientBackground(Control control, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight, int quality = 10)
+        public static void ApplyGradientBackground(Control control, Size size, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight)
         {
             if (control.BackgroundImageLayout != ImageLayout.Stretch)
             {
                 control.BackgroundImageLayout = ImageLayout.Stretch;
             }
 
-            Bitmap _bitmap = CreateGradientBitmap(control.Size, topLeft, topRight, bottomLeft, bottomRight, quality);
+            Bitmap _bitmap = CreateGradientBitmap(size, topLeft, topRight, bottomLeft, bottomRight);
             control.BackgroundImage = _bitmap;
         }
 
@@ -194,7 +196,9 @@
                     }
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(relation), relation, null);
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(relation), relation, null);
+                    }
             }
 
             if (imagePoint)
@@ -259,15 +263,10 @@
         /// <param name="topRight">The color for top-right.</param>
         /// <param name="bottomLeft">The color for bottom-left.</param>
         /// <param name="bottomRight">The color for bottom-right.</param>
-        /// <param name="quality">The bitmap quality.</param>
         /// <returns>A bitmap with a gradient.</returns>
-        public static Bitmap CreateGradientBitmap(Size size, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight, int quality = 10)
+        public static Bitmap CreateGradientBitmap(Size size, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight)
         {
-            Bitmap _bitmap = new Bitmap(quality, quality);
-            if (quality == 100)
-            {
-                _bitmap = new Bitmap(size.Width, size.Width);
-            }
+            Bitmap _bitmap = new Bitmap(size.Width, size.Height);
 
             for (var i = 0; i < _bitmap.Width; i++)
             {
@@ -291,33 +290,67 @@
             control.DrawToBitmap(_bitmap, new Rectangle(point.X, point.Y, _bitmap.Width, _bitmap.Height));
         }
 
-        /// <summary>Draws the rounded rectangle from specific values.</summary>
+        /// <summary>Draws the rounded rectangle with the specific values.</summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        /// <param name="curve">The curve.</param>
+        /// <param name="rounding">The curve.</param>
         /// <returns>The <see cref="GraphicsPath" />.</returns>
-        public static GraphicsPath DrawRoundedRectangle(int x, int y, int width, int height, int curve)
+        public static GraphicsPath DrawRoundedRectangle(int x, int y, int width, int height, int rounding)
         {
-            Rectangle rectangleShape = new Rectangle(x, y, width, height);
-            GraphicsPath graphicsPath = DrawRoundedRectangle(rectangleShape, curve);
-            return graphicsPath;
+            Rectangle _rectangle = new Rectangle(x, y, width, height);
+            GraphicsPath _graphicsPath = DrawRoundedRectangle(_rectangle, rounding);
+            return _graphicsPath;
         }
 
-        /// <summary> Draws the rounded rectangle from a rectangle shape.</summary>
-        /// <param name="rectangleShape">The rectangle shape.</param>
-        /// <param name="curve">The curve.</param>
+        /// <summary>Draws the rounded rectangle with the specified values.</summary>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="rounding">The rounding.</param>
         /// <returns>The <see cref="GraphicsPath" />.</returns>
-        public static GraphicsPath DrawRoundedRectangle(Rectangle rectangleShape, int curve)
+        public static GraphicsPath DrawRoundedRectangle(Rectangle rectangle, int rounding)
         {
-            GraphicsPath graphicPath = new GraphicsPath(FillMode.Winding);
-            graphicPath.AddArc(rectangleShape.X, rectangleShape.Y, curve, curve, 180.0F, 90.0F);
-            graphicPath.AddArc(rectangleShape.Right - curve, rectangleShape.Y, curve, curve, 270.0F, 90.0F);
-            graphicPath.AddArc(rectangleShape.Right - curve, rectangleShape.Bottom - curve, curve, curve, 0.0F, 90.0F);
-            graphicPath.AddArc(rectangleShape.X, rectangleShape.Bottom - curve, curve, curve, 90.0F, 90.0F);
-            graphicPath.CloseFigure();
-            return graphicPath;
+            GraphicsPath _graphicsPath = new GraphicsPath();
+            _graphicsPath.AddArc(rectangle.X, rectangle.Y, rounding, rounding, 180F, 90F);
+            _graphicsPath.AddArc(rectangle.Width - rounding, rectangle.Y, rounding, rounding, 270F, 90F);
+            _graphicsPath.AddArc(rectangle.Width - rounding, rectangle.Height - rounding, rounding, rounding, 90F, 90F);
+            _graphicsPath.AddArc(rectangle.X, rectangle.Height - rounding, rounding, rounding, 90F, 90F);
+            return _graphicsPath;
+        }
+
+        /// <summary>Draws the rounded rectangle with the specific values.</summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="rounding">The curve.</param>
+        /// <param name="addline">Adds a line between to extend to the curve.</param>
+        /// <returns>The <see cref="GraphicsPath" />.</returns>
+        public static GraphicsPath DrawRoundedRectangle2(int x, int y, int width, int height, int rounding, bool addline)
+        {
+            Rectangle _rectangle = new Rectangle(x, y, width, height);
+            GraphicsPath _rectangleGraphicsPath = DrawRoundedRectangle(_rectangle, rounding);
+            return _rectangleGraphicsPath;
+        }
+
+        /// <summary>Draws the rounded rectangle with the specified values.</summary>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <param name="rounding">The rounding.</param>
+        /// <returns>The <see cref="GraphicsPath" />.</returns>
+        public static GraphicsPath DrawRoundedRectangle2(Rectangle rectangle, int rounding)
+        {
+            using (GraphicsPath _graphicsPath = new GraphicsPath())
+            {
+                _graphicsPath.StartFigure();
+                _graphicsPath.AddArc(rectangle.X, rectangle.Y, rounding, rounding, 180F, 90F);
+                _graphicsPath.AddLine(rounding, rectangle.Y, rectangle.Width - rounding, 90F);
+                _graphicsPath.AddArc(rectangle.Width - rounding, rectangle.Y, rounding, rounding, 270F, 90F);
+                _graphicsPath.AddLine(rectangle.Width, rounding, rectangle.Width, rectangle.Height - rounding);
+                _graphicsPath.AddArc(rectangle.Width - rounding, rectangle.Height - rounding, rounding, rounding, 90F, 90F);
+                _graphicsPath.AddLine(rectangle.Width - rounding, rectangle.Height, rounding, rectangle.Height);
+                _graphicsPath.AddArc(rectangle.X, rectangle.Height - rounding, rounding, rounding, 90F, 90F);
+                return _graphicsPath;
+            }
         }
 
         /// <summary>Draws the hatch brush as an image and then converts it to a texture brush for scaling.</summary>
@@ -325,11 +358,11 @@
         /// <returns>Texture brush.</returns>
         public static TextureBrush DrawTextureUsingHatch(HatchBrush hatchBrush)
         {
-            using (Bitmap bitmap = new Bitmap(8, 8))
-            using (Graphics graphics = Graphics.FromImage(bitmap))
+            using (Bitmap _bitmap = new Bitmap(8, 8))
+            using (Graphics graphics = Graphics.FromImage(_bitmap))
             {
                 graphics.FillRectangle(hatchBrush, 0, 0, 8, 8);
-                return new TextureBrush(bitmap);
+                return new TextureBrush(_bitmap);
             }
         }
 
@@ -525,12 +558,52 @@
             return newSize;
         }
 
-        /// <summary>Gets the gradients points from the rectangle.</summary>
-        /// <param name="rectangle">Rectangle points to set.</param>
-        /// <returns>Gradient points.</returns>
-        public static Point[] GetGradientPoints(Rectangle rectangle)
+        /// <summary>Gets the back color state.</summary>
+        /// <param name="enabled">Enabled state.</param>
+        /// <param name="normal">The normal.</param>
+        /// <param name="hover">The hover.</param>
+        /// <param name="down">The down.</param>
+        /// <param name="disabled">The disabled.</param>
+        /// <param name="mouseState">Mouse state.</param>
+        /// <returns>Back color state.</returns>
+        public static Color GetBackColorState(bool enabled, Color normal, Color hover, Color down, Color disabled, MouseStates mouseState)
         {
-            return new[] { new Point { X = rectangle.Width, Y = 0 }, new Point { X = rectangle.Width, Y = rectangle.Height } };
+            Color _color;
+
+            if (enabled)
+            {
+                switch (mouseState)
+                {
+                    case MouseStates.Normal:
+                        {
+                            _color = normal;
+                            break;
+                        }
+
+                    case MouseStates.Hover:
+                        {
+                            _color = hover;
+                            break;
+                        }
+
+                    case MouseStates.Down:
+                        {
+                            _color = down;
+                            break;
+                        }
+
+                    default:
+                        {
+                            throw new ArgumentOutOfRangeException(nameof(mouseState), mouseState, null);
+                        }
+                }
+            }
+            else
+            {
+                _color = disabled;
+            }
+
+            return _color;
         }
 
         /// <summary>Retrieves the transition color between two other colors.</summary>
@@ -680,47 +753,6 @@
             return Graphics.FromImage(drawArea);
         }
 
-        /// <summary>Draws the rounded rectangle from a rectangle shape.</summary>
-        /// <param name="rectangle">The rectangle.</param>
-        /// <param name="curve">The curve.</param>
-        /// <returns>The <see cref="GraphicsPath" />.</returns>
-        internal static GraphicsPath CreateFormPath(Rectangle rectangle, int curve)
-        {
-            GraphicsPath _graphicsPath = new GraphicsPath();
-            _graphicsPath.StartFigure();
-            _graphicsPath.AddArc(rectangle.X, rectangle.Y, curve, curve, 180F, 90F);
-            _graphicsPath.AddLine(curve, rectangle.Y, rectangle.Width - curve, 90F);
-            _graphicsPath.AddArc(rectangle.Width - curve, rectangle.Y, curve, curve, 270F, 90F);
-            _graphicsPath.AddLine(rectangle.Width, curve, rectangle.Width, rectangle.Height - curve);
-            _graphicsPath.AddArc(rectangle.Width - curve, rectangle.Height - curve, curve, curve, 90F, 90F);
-            _graphicsPath.AddLine(rectangle.Width - curve, rectangle.Height, curve, rectangle.Height);
-            _graphicsPath.AddArc(rectangle.X, rectangle.Height - curve, curve, curve, 90F, 90F);
-            return _graphicsPath;
-        }
-
-        /// <summary>Draw background image.</summary>
-        /// <param name="graphics">Graphics controller.</param>
-        /// <param name="rectangle">The rectangle.</param>
-        /// <param name="image">The image.</param>
-        /// <param name="centered">Center image.</param>
-        internal static void DrawBackgroundImage(Graphics graphics, Rectangle rectangle, Bitmap image, bool centered = true)
-        {
-            if (image != null)
-            {
-                Point imageLocation = centered ? new Point((rectangle.X + (rectangle.Width / 2)) - (image.Size.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - (image.Size.Height / 2)) : new Point(0, 0);
-                graphics.DrawImage(image, new Rectangle(imageLocation, image.Size));
-            }
-        }
-
-        /// <summary>Fills the background.</summary>
-        /// <param name="graphics">Graphics controller.</param>
-        /// <param name="graphicsPath">The graphics path.</param>
-        /// <param name="gradientBrush">The gradient brush.</param>
-        internal static void FillBackground(Graphics graphics, GraphicsPath graphicsPath, Brush gradientBrush)
-        {
-            graphics.FillPath(gradientBrush, graphicsPath);
-        }
-
         /// <summary>Gets the control brush.</summary>
         /// <param name="graphics">Graphics controller.</param>
         /// <param name="enabled">Enabled state.</param>
@@ -765,8 +797,7 @@
                 tempGradient = controlStates[3];
             }
 
-            var gradientPoints = GetGradientPoints(rectangle);
-            return Gradient.CreateGradientBrush(tempGradient.Colors, gradientPoints, tempGradient.Angle, tempGradient.Positions);
+            return Gradient.CreateBrush(tempGradient.Angle, tempGradient.Colors, tempGradient.Locations, rectangle);
         }
 
         #endregion

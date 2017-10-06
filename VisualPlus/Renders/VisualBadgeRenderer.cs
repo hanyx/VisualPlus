@@ -24,9 +24,9 @@
         /// <param name="textLocation">The _text Location.</param>
         public static void DrawBadge(Graphics graphics, Rectangle rectangle, Color backColor, string text, Font font, Color foreColor, Shape shape, Point textLocation)
         {
-            GraphicsPath _badgePath = VisualBorderRenderer.GetBorderShape(rectangle, shape.Type, shape.Rounding);
+            GraphicsPath _badgePath = VisualBorderRenderer.CreateBorderTypePath(rectangle, shape.Rounding, shape.Thickness, shape.Type);
             graphics.FillPath(new SolidBrush(backColor), _badgePath);
-            VisualBorderRenderer.DrawBorder(graphics, _badgePath, shape);
+            VisualBorderRenderer.DrawBorder(graphics, _badgePath, shape.Color, shape.Thickness);
             graphics.DrawString(text, font, new SolidBrush(foreColor), textLocation);
         }
 

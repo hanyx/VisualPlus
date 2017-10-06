@@ -61,7 +61,7 @@ Send me a message to add a project to this list:
 ## Screenshots
 ![Example](http://i.imgur.com/iyFs1W3.jpg)
 
-![ToolBox](http://i.imgur.com/IUZEEiS.jpg)
+![ToolBox](https://i.imgur.com/vhY2yfU.jpg)
 
 ## License
 This repository is licensed with the [GPLv3](LICENSE) license.

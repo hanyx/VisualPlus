@@ -446,7 +446,6 @@
                 Rectangle _boxRect = new Rectangle(new Point(e.Bounds.X, e.Bounds.Y + 0), _box);
 
                 // CheckBoxRenderer.DrawCheckBox(g, new Point(b.X + checkPad, b.Y + checkPad), new Rectangle(new Point(b.X + b.Height, b.Y), new Size(b.Width - b.Height, b.Height)), text, this.Font, TextFormatFlags.Left, false, state);
-                LinearGradientBrush _boxBrush = GDI.GetControlBrush(graphics, Enabled, MouseState, ControlBrushCollection, new Rectangle(e.Bounds.Location, e.Bounds.Size));
 
                 Size textSize = GDI.MeasureText(graphics, Text, Font);
                 Point textPoint = new Point(_boxRect.Right + _boxSpacing, (_boxRect.Y + (_boxRect.Height / 2)) - (textSize.Height / 2));

@@ -10,7 +10,6 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
-    using VisualPlus.Structure;
     using VisualPlus.Toolkit.Controls.DataVisualization;
 
     #endregion
@@ -751,53 +750,6 @@
             Bitmap drawArea = new Bitmap(new PictureBox { SizeMode = pictureBoxSizeMode }.Size.Width, new PictureBox { SizeMode = pictureBoxSizeMode }.Size.Height);
             new PictureBox { SizeMode = pictureBoxSizeMode }.Image = drawArea;
             return Graphics.FromImage(drawArea);
-        }
-
-        /// <summary>Gets the control brush.</summary>
-        /// <param name="graphics">Graphics controller.</param>
-        /// <param name="enabled">Enabled state.</param>
-        /// <param name="mouseState">Mouse state.</param>
-        /// <param name="controlStates">The gradient color states.</param>
-        /// <param name="rectangle">The rectangle</param>
-        /// <returns>Control brush state.</returns>
-        internal static LinearGradientBrush GetControlBrush(Graphics graphics, bool enabled, MouseStates mouseState, Gradient[] controlStates, Rectangle rectangle)
-        {
-            Gradient tempGradient;
-            if (enabled)
-            {
-                switch (mouseState)
-                {
-                    case MouseStates.Normal:
-                        {
-                            tempGradient = controlStates[0];
-                            break;
-                        }
-
-                    case MouseStates.Hover:
-                        {
-                            tempGradient = controlStates[1];
-                            break;
-                        }
-
-                    case MouseStates.Down:
-                        {
-                            tempGradient = controlStates[2];
-                            break;
-                        }
-
-                    default:
-                        {
-                            tempGradient = controlStates[0];
-                            break;
-                        }
-                }
-            }
-            else
-            {
-                tempGradient = controlStates[3];
-            }
-
-            return Gradient.CreateBrush(tempGradient.Angle, tempGradient.Colors, tempGradient.Locations, rectangle);
         }
 
         #endregion

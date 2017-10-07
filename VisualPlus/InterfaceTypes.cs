@@ -8,7 +8,6 @@ namespace VisualPlus
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
-    using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
 
     #endregion
@@ -124,28 +123,6 @@ namespace VisualPlus
         Color BackgroundHover { get; set; }
 
         Color BackgroundPressed { get; set; }
-
-        #endregion
-    }
-
-    public interface IControlState
-    {
-        #region Properties
-
-        Gradient DisabledGradient { get; }
-
-        Gradient EnabledGradient { get; }
-
-        #endregion
-    }
-
-    public interface IControlStates : IControlState
-    {
-        #region Properties
-
-        Gradient HoverGradient { get; }
-
-        Gradient PressedGradient { get; }
 
         #endregion
     }

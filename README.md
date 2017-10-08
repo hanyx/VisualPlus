@@ -59,8 +59,6 @@ Send me a message to add a project to this list:
 - [VisualPlus](https://github.com/DarkByte7/VisualPlus)
 
 ## Screenshots
-![Example](http://i.imgur.com/iyFs1W3.jpg)
-
 ![ToolBox](https://i.imgur.com/vhY2yfU.jpg)
 
 ## License

@@ -8,7 +8,9 @@
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
+    using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
@@ -21,7 +23,7 @@
 
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(NumericUpDown))]
-    [DefaultEvent("Click")]
+    [DefaultEvent("ValueChanged")]
     [DefaultProperty("Value")]
     [Description("The Visual NumericUpDown")]
     [Designer(ControlManager.FilterProperties.VisualNumericUpDown)]
@@ -46,7 +48,7 @@
         private bool _keyboardNum;
         private long _maximumValue;
         private long _minimumValue;
-        private long _numericValue;
+        private long _value;
         private int _xValue;
         private int _yValue;
 
@@ -82,6 +84,10 @@
 
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
+
+        [Category(Localization.Category.Events.PropertyChanged)]
+        [Description(Event.PropertyEventChanged)]
+        public event ValueChangedEventHandler ValueChanged;
 
         #endregion
 
@@ -220,9 +226,10 @@
                     _maximumValue = value;
                 }
 
-                if (_numericValue > _maximumValue)
+                if (_value > _maximumValue)
                 {
-                    _numericValue = _maximumValue;
+                    _value = _maximumValue;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
                 }
 
                 Invalidate();
@@ -244,9 +251,10 @@
                     _minimumValue = value;
                 }
 
-                if (_numericValue < _minimumValue)
+                if (_value < _minimumValue)
                 {
-                    _numericValue = MinimumValue;
+                    _value = MinimumValue;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
                 }
 
                 Invalidate();
@@ -275,14 +283,15 @@
         {
             get
             {
-                return _numericValue;
+                return _value;
             }
 
             set
             {
                 if ((value <= _maximumValue) & (value >= _minimumValue))
                 {
-                    _numericValue = value;
+                    _value = value;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
                 }
 
                 Invalidate();
@@ -295,13 +304,15 @@
 
         public void Decrement(int value)
         {
-            _numericValue -= value;
+            _value -= value;
+            OnValueChanged(new ValueChangedEventArgs(_value));
             Invalidate();
         }
 
         public void Increment(int value)
         {
-            _numericValue += value;
+            _value += value;
+            OnValueChanged(new ValueChangedEventArgs(_value));
             Invalidate();
         }
 
@@ -335,12 +346,14 @@
             {
                 if (_keyboardNum)
                 {
-                    _numericValue = long.Parse(_numericValue + e.KeyChar.ToString());
+                    _value = long.Parse(_value + e.KeyChar.ToString());
+                    OnValueChanged(new ValueChangedEventArgs(_value));
                 }
 
-                if (_numericValue > _maximumValue)
+                if (_value > _maximumValue)
                 {
-                    _numericValue = _maximumValue;
+                    _value = _maximumValue;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
                 }
             }
             catch (Exception)
@@ -354,14 +367,15 @@
             base.OnKeyUp(e);
             if (e.KeyCode == Keys.Back)
             {
-                string temporaryValue = _numericValue.ToString();
+                string temporaryValue = _value.ToString();
                 temporaryValue = temporaryValue.Remove(Convert.ToInt32(temporaryValue.Length - 1));
                 if (temporaryValue.Length == 0)
                 {
                     temporaryValue = "0";
                 }
 
-                _numericValue = Convert.ToInt32(temporaryValue);
+                _value = Convert.ToInt32(temporaryValue);
+                OnValueChanged(new ValueChangedEventArgs(_value));
             }
 
             Invalidate();
@@ -383,14 +397,16 @@
                             {
                                 if (Value + 1 <= _maximumValue)
                                 {
-                                    _numericValue++;
+                                    _value++;
+                                    OnValueChanged(new ValueChangedEventArgs(_value));
                                 }
                             }
                             else if ((_yValue > Height / 2) && (_yValue < Height))
                             {
                                 if (Value - 1 >= _minimumValue)
                                 {
-                                    _numericValue--;
+                                    _value--;
+                                    OnValueChanged(new ValueChangedEventArgs(_value));
                                 }
                             }
                         }
@@ -413,14 +429,16 @@
                             {
                                 if (Value + 1 <= _maximumValue)
                                 {
-                                    _numericValue++;
+                                    _value++;
+                                    OnValueChanged(new ValueChangedEventArgs(_value));
                                 }
                             }
                             else if ((_xValue > _buttonRectangle.X + (_buttonRectangle.Width / 2)) && (_xValue < Width))
                             {
                                 if (Value - 1 >= _minimumValue)
                                 {
-                                    _numericValue--;
+                                    _value--;
+                                    OnValueChanged(new ValueChangedEventArgs(_value));
                                 }
                             }
                         }
@@ -481,7 +499,8 @@
             {
                 if (Value + 1 <= _maximumValue)
                 {
-                    _numericValue++;
+                    _value++;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
                 }
 
                 Invalidate();
@@ -490,7 +509,8 @@
             {
                 if (Value - 1 >= _minimumValue)
                 {
-                    _numericValue--;
+                    _value--;
+                    OnValueChanged(new ValueChangedEventArgs(_value));
                 }
 
                 Invalidate();
@@ -574,6 +594,11 @@
         {
             base.OnPaintBackground(e);
             e.Graphics.Clear(BackColor);
+        }
+
+        protected virtual void OnValueChanged(ValueChangedEventArgs e)
+        {
+            ValueChanged?.Invoke(e);
         }
 
         private void DrawText(Graphics _graphics)

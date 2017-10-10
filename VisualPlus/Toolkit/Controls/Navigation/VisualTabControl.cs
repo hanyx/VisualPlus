@@ -622,6 +622,12 @@
             Appearance = TabAppearance.Normal;
         }
 
+        protected override void OnBackColorChanged(EventArgs e)
+        {
+            base.OnBackColorChanged(e);
+            GDI.ApplyContainerBackColorChange(this, _backgroundColor);
+        }
+
         protected override void OnControlAdded(ControlEventArgs e)
         {
             base.OnControlAdded(e);
@@ -643,8 +649,13 @@
             }
             finally
             {
-                e.Control.BackColor = _backgroundColor;
+                GDI.SetControlBackColor(e.Control, _backgroundColor, false);
             }
+        }
+
+        protected override void OnControlRemoved(ControlEventArgs e)
+        {
+            GDI.SetControlBackColor(e.Control, Parent.BackColor, true);
         }
 
         protected override void OnMouseEnter(EventArgs e)

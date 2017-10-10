@@ -317,7 +317,7 @@
             }
         }
 
-        [Browsable(false)]
+        [Browsable(true)]
         public new Icon Icon
         {
             get
@@ -659,7 +659,7 @@
             graphics.FillRectangle(new SolidBrush(_windowBarColor), _statusBarBounds);
 
             DrawButtons(graphics);
-            DrawIcon(graphics);
+            DrawImageIcon(graphics);
 
             graphics.SetClip(_clientPath);
 
@@ -903,7 +903,7 @@
             }
         }
 
-        private void DrawIcon(Graphics graphics)
+        private void DrawImageIcon(Graphics graphics)
         {
             VisualBitmap.DrawImage(graphics, _vsImage.Border, _vsImage.Point, _vsImage.Image, _vsImage.Size, _vsImage.Visible);
         }

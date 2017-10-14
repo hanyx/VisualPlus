@@ -98,7 +98,7 @@
             UpdateStyles();
             DropDownHeight = 100;
 
-            BackColor = SystemColors.Control;
+           // BackColor = SystemColors.Control;
 
             _border = new Border();
 
@@ -656,10 +656,10 @@
             _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.TextRenderingHint = _textRendererHint;
-            _graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
 
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             _controlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+            _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
 
             Color _textColor = Enabled ? _foreColor : _textDisabledColor;
             Color _backColor = Enabled ? _backColorState.Enabled : _backColorState.Disabled;
@@ -699,7 +699,7 @@
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             base.OnPaintBackground(e);
-            e.Graphics.Clear(Parent.BackColor);
+            e.Graphics.Clear(BackColor);
         }
 
         protected override void OnSelectionChangeCommitted(EventArgs e)

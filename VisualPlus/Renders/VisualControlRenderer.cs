@@ -2,6 +2,7 @@
 {
     #region Namespace
 
+    using System;
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
@@ -34,6 +35,69 @@
             VisualBackgroundRenderer.DrawBackground(graphics, backColor, backgroundImage, mouseState, rectangle, border);
             DrawInternalContent(graphics, rectangle, text, font, foreColor, image, textImageRelation);
             VisualBorderRenderer.DrawBorderStyle(graphics, border, _controlGraphicsPath, mouseState);
+        }
+
+        /// <summary>Draws the text and image content.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
+        /// <param name="text">The string to draw.</param>
+        /// <param name="font">The font to use in the string.</param>
+        /// <param name="foreColor">The color of the string.</param>
+        /// <param name="image">The image to draw.</param>
+        /// <param name="imageSize">The image Size.</param>
+        /// <param name="textImageRelation">The text image relation.</param>
+        public static void DrawContent(Graphics graphics, Rectangle rectangle, string text, Font font, Color foreColor, Image image, Size imageSize, TextImageRelation textImageRelation)
+        {
+            Rectangle _imageRectangle = new Rectangle(new Point(), imageSize);
+            Point _imagePoint = GDI.ApplyTextImageRelation(graphics, textImageRelation, _imageRectangle, text, font, rectangle, true);
+            Point _textPoint = GDI.ApplyTextImageRelation(graphics, textImageRelation, _imageRectangle, text, font, rectangle, false);
+
+            graphics.DrawImage(image, new Rectangle(_imagePoint, imageSize));
+            graphics.DrawString(text, font, new SolidBrush(foreColor), _textPoint);
+        }
+
+        /// <summary>Draws the text content.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
+        /// <param name="text">The string to draw.</param>
+        /// <param name="font">The font to use in the string.</param>
+        /// <param name="foreColor">The color of the string.</param>
+        /// <param name="stringAlignment">The string Alignment.</param>
+        public static void DrawContentText(Graphics graphics, Rectangle rectangle, string text, Font font, Color foreColor, StringAlignment stringAlignment)
+        {
+            const int Padding = 0;
+
+            Size _textSize = GDI.MeasureText(graphics, text, font);
+            int yPos = (rectangle.Height / 2) - (_textSize.Height / 2);
+            Point _textPoint;
+
+            switch (stringAlignment)
+            {
+                case StringAlignment.Near:
+                    {
+                        _textPoint = new Point(rectangle.X + Padding, yPos);
+                        break;
+                    }
+
+                case StringAlignment.Center:
+                    {
+                        _textPoint = new Point((rectangle.Width / 2) - (_textSize.Width / 2), yPos);
+                        break;
+                    }
+
+                case StringAlignment.Far:
+                    {
+                        _textPoint = new Point(rectangle.Width - Padding - _textSize.Width, yPos);
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(stringAlignment), stringAlignment, null);
+                    }
+            }
+
+            graphics.DrawString(text, font, new SolidBrush(foreColor), _textPoint);
         }
 
         /// <summary>Draws a hatch component on the specified path.</summary>

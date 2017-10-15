@@ -30,11 +30,13 @@
         private Border _border;
         private BorderEdge _borderEdge;
         private GroupBoxStyle _boxStyle;
+        private Image _image;
         private StringAlignment _stringAlignment;
-        private TitleAlignments _titleAlignment;
+        private StringAlignment _textAlignment;
+        private TextImageRelation _textImageRelation;
+        private StringAlignment _textLineAlignment;
         private int _titleBoxHeight;
         private Rectangle _titleBoxRectangle;
-        private bool _titleBoxVisible;
 
         #endregion
 
@@ -46,11 +48,11 @@
         {
             _boxStyle = GroupBoxStyle.Default;
             _stringAlignment = StringAlignment.Center;
-            _titleAlignment = TitleAlignments.Top;
-            _titleBoxVisible = Settings.DefaultValue.TitleBoxVisible;
             _titleBoxHeight = 25;
             _borderEdge = new BorderEdge();
-
+            _textImageRelation = TextImageRelation.ImageBeforeText;
+            _textAlignment = StringAlignment.Center;
+            _textLineAlignment = StringAlignment.Center;
             Size = new Size(220, 180);
             _border = new Border();
             Padding = new Padding(5, _titleBoxHeight + _border.Thickness, 5, 5);
@@ -67,15 +69,6 @@
 
             /// <summary>The classic.</summary>
             Classic
-        }
-
-        public enum TitleAlignments
-        {
-            /// <summary>The bottom.</summary>
-            Bottom,
-
-            /// <summary>The top.</summary>
-            Top
         }
 
         #endregion
@@ -126,6 +119,22 @@
         }
 
         [Category(Propertys.Appearance)]
+        [Description(Property.Image)]
+        public Image Image
+        {
+            get
+            {
+                return _image;
+            }
+
+            set
+            {
+                _image = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Propertys.Appearance)]
         [Description(Property.Color)]
         public bool Separator
         {
@@ -163,33 +172,48 @@
         {
             get
             {
-                return _stringAlignment;
+                return _textAlignment;
             }
 
             set
             {
-                _stringAlignment = value;
+                _textAlignment = value;
                 Invalidate();
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Alignment)]
-        public TitleAlignments TitleAlignment
+        [Category(Propertys.Behavior)]
+        [Description(Property.TextImageRelation)]
+        public TextImageRelation TextImageRelation
         {
             get
             {
-                return _titleAlignment;
+                return _textImageRelation;
             }
 
             set
             {
-                _titleAlignment = value;
+                _textImageRelation = value;
                 Invalidate();
             }
         }
 
-        [DefaultValue("25")]
+        [Category(Propertys.Appearance)]
+        [Description(Property.Alignment)]
+        public StringAlignment TextLineAlignment
+        {
+            get
+            {
+                return _textLineAlignment;
+            }
+
+            set
+            {
+                _textLineAlignment = value;
+                Invalidate();
+            }
+        }
+
         [Category(Propertys.Layout)]
         [Description(Property.Size)]
         public int TitleBoxHeight
@@ -202,23 +226,6 @@
             set
             {
                 _titleBoxHeight = value;
-                Invalidate();
-            }
-        }
-
-        [DefaultValue(Settings.DefaultValue.TitleBoxVisible)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Visible)]
-        public bool TitleBoxVisible
-        {
-            get
-            {
-                return _titleBoxVisible;
-            }
-
-            set
-            {
-                _titleBoxVisible = value;
                 Invalidate();
             }
         }
@@ -266,45 +273,25 @@
 
             if (_borderEdge.Visible)
             {
-                switch (TitleAlignment)
-                {
-                    case TitleAlignments.Bottom:
-                        {
-                            _borderEdge.Location = new Point(_titleBoxRectangle.X + _border.Thickness, _titleBoxRectangle.Y);
-                            _borderEdge.Size = new Size(Width - _border.Thickness - 1, 1);
-                            break;
-                        }
-
-                    case TitleAlignments.Top:
-                        {
-                            _borderEdge.Location = new Point(_titleBoxRectangle.X + _border.Thickness, _titleBoxRectangle.Bottom);
-                            _borderEdge.Size = new Size(Width - _border.Thickness - 1, 1);
-                            break;
-                        }
-
-                    default:
-                        {
-                            throw new ArgumentOutOfRangeException();
-                        }
-                }
+                _borderEdge.Location = new Point(_titleBoxRectangle.X + _border.Thickness, _titleBoxRectangle.Bottom);
+                _borderEdge.Size = new Size(Width - _border.Thickness - 1, 1);
             }
 
             VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
 
             if (_boxStyle == GroupBoxStyle.Classic)
             {
-                graphics.FillRectangle(new SolidBrush(BackColorState.Enabled), _titleBoxRectangle);
-                graphics.DrawString(Text, Font, new SolidBrush(ForeColor), _titleBoxRectangle);
+                Point _titleBoxBackground = GDI.GetTextImageRelationLocation(e.Graphics, _textImageRelation, new Rectangle(new Point(), _image.Size), Text, Font, _titleBoxRectangle, false);
+                graphics.FillRectangle(new SolidBrush(BackColorState.Enabled), new Rectangle(new Point(_titleBoxBackground.X, _titleBoxBackground.Y), new Size(_titleBoxRectangle.Width, _titleBoxRectangle.Height)));
+            }
+
+            if (_image != null)
+            {
+                VisualControlRenderer.DrawContent(e.Graphics, _titleBoxRectangle, Text, Font, ForeColor, _image, _image.Size, _textImageRelation);
             }
             else
             {
-                StringFormat stringFormat = new StringFormat
-                    {
-                        Alignment = _stringAlignment,
-                        LineAlignment = StringAlignment.Center
-                    };
-
-                graphics.DrawString(Text, Font, new SolidBrush(ForeColor), _titleBoxRectangle, stringFormat);
+                VisualControlRenderer.DrawContentText(e.Graphics, _titleBoxRectangle, Text, Font, ForeColor, _textAlignment, _textLineAlignment);
             }
         }
 
@@ -329,16 +316,8 @@
 
                 case GroupBoxStyle.Classic:
                     {
-                        if (_titleAlignment == TitleAlignments.Top)
-                        {
-                            groupBoxPoint = new Point(0, textArea.Height / 2);
-                            groupBoxSize = new Size(Width - _border.Thickness, Height - (textArea.Height / 2) - _border.Thickness);
-                        }
-                        else
-                        {
-                            groupBoxPoint = new Point(0, 0);
-                            groupBoxSize = new Size(Width - _border.Thickness, Height - (textArea.Height / 2));
-                        }
+                        groupBoxPoint = new Point(0, textArea.Height / 2);
+                        groupBoxSize = new Size(Width - _border.Thickness, Height - (textArea.Height / 2) - _border.Thickness);
 
                         break;
                     }
@@ -361,32 +340,16 @@
             {
                 case GroupBoxStyle.Default:
                     {
-                        // Declare Y
-                        if (_titleAlignment == TitleAlignments.Top)
-                        {
-                            titlePoint = new Point(titlePoint.X, 0);
-                        }
-                        else
-                        {
-                            titlePoint = new Point(titlePoint.X, Height - _titleBoxHeight);
-                        }
+                        titlePoint = new Point(titlePoint.X, 0);
 
                         break;
                     }
 
                 case GroupBoxStyle.Classic:
                     {
-                        _titleBoxVisible = false;
-                        var spacing = 5;
+                        const int Spacing = 5;
 
-                        if (_titleAlignment == TitleAlignments.Top)
-                        {
-                            titlePoint = new Point(titlePoint.X, 0);
-                        }
-                        else
-                        {
-                            titlePoint = new Point(titlePoint.X, Height - textArea.Height);
-                        }
+                        titlePoint = new Point(titlePoint.X, 0);
 
                         // +1 extra whitespace in case of FontStyle=Bold
                         titleSize = new Size(textArea.Width + 2, textArea.Height);
@@ -407,21 +370,26 @@
 
                             case StringAlignment.Far:
                                 {
-                                    titlePoint.X = Width - textArea.Width - spacing;
+                                    titlePoint.X = Width - textArea.Width - Spacing;
                                     break;
                                 }
+
+                            default:
+                                throw new ArgumentOutOfRangeException();
                         }
 
                         break;
                     }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
             }
 
-            Rectangle titleRectangle = new Rectangle(titlePoint, titleSize);
-            return titleRectangle;
+            return new Rectangle(titlePoint, titleSize);
         }
 
         #endregion
-
-        // private Color _titleColor;
     }
 }

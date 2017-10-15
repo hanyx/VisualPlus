@@ -212,24 +212,26 @@
 
         public void DrawAnimation(Graphics graphics)
         {
-            if (_effectsManager.IsAnimating() && _animation)
+            if (!_effectsManager.IsAnimating() || !_animation)
             {
-                graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                for (var i = 0; i < _effectsManager.GetAnimationCount(); i++)
-                {
-                    double animationValue = _effectsManager.GetProgress(i);
-                    Point animationSource = _effectsManager.GetSource(i);
-
-                    using (Brush rippleBrush = new SolidBrush(Color.FromArgb((int)(101 - (animationValue * 100)), Color.Black)))
-                    {
-                        var rippleSize = (int)(animationValue * Width * 2);
-                        graphics.SetClip(ControlGraphicsPath);
-                        graphics.FillEllipse(rippleBrush, new Rectangle(animationSource.X - (rippleSize / 2), animationSource.Y - (rippleSize / 2), rippleSize, rippleSize));
-                    }
-                }
-
-                graphics.SmoothingMode = SmoothingMode.None;
+                return;
             }
+
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            for (var i = 0; i < _effectsManager.GetAnimationCount(); i++)
+            {
+                double _value = _effectsManager.GetProgress(i);
+                Point _source = _effectsManager.GetSource(i);
+
+                using (Brush _rippleBrush = new SolidBrush(Color.FromArgb((int)(101 - (_value * 100)), Color.Black)))
+                {
+                    var _rippleSize = (int)(_value * Width * 2);
+                    graphics.SetClip(ControlGraphicsPath);
+                    graphics.FillEllipse(_rippleBrush, new Rectangle(_source.X - (_rippleSize / 2), _source.Y - (_rippleSize / 2), _rippleSize, _rippleSize));
+                }
+            }
+
+            graphics.SmoothingMode = SmoothingMode.None;
         }
 
         public void UpdateTheme(Styles style)

@@ -27,13 +27,13 @@
         /// <param name="font">The font to use in the string.</param>
         /// <param name="foreColor">The color of the string.</param>
         /// <param name="image">The image to draw.</param>
+        /// <param name="imageSize">The image Size.</param>
         /// <param name="textImageRelation">The text image relation.</param>
-        public static void DrawButton(Graphics graphics, Rectangle rectangle, Color backColor, Image backgroundImage, Border border, MouseStates mouseState, string text, Font font, Color foreColor, VisualBitmap image, TextImageRelation textImageRelation)
+        public static void DrawButton(Graphics graphics, Rectangle rectangle, Color backColor, Image backgroundImage, Border border, MouseStates mouseState, string text, Font font, Color foreColor, Image image, Size imageSize, TextImageRelation textImageRelation)
         {
             GraphicsPath _controlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
-
             VisualBackgroundRenderer.DrawBackground(graphics, backColor, backgroundImage, mouseState, rectangle, border);
-            DrawInternalContent(graphics, rectangle, text, font, foreColor, image, textImageRelation);
+            DrawContent(graphics, rectangle, text, font, foreColor, image, imageSize, textImageRelation);
             VisualBorderRenderer.DrawBorderStyle(graphics, border, _controlGraphicsPath, mouseState);
         }
 
@@ -62,42 +62,69 @@
         /// <param name="text">The string to draw.</param>
         /// <param name="font">The font to use in the string.</param>
         /// <param name="foreColor">The color of the string.</param>
-        /// <param name="stringAlignment">The string Alignment.</param>
-        public static void DrawContentText(Graphics graphics, Rectangle rectangle, string text, Font font, Color foreColor, StringAlignment stringAlignment)
+        /// <param name="alignment">The string Alignment.</param>
+        /// <param name="lineAlignment">The line Alignment.</param>
+        public static void DrawContentText(Graphics graphics, Rectangle rectangle, string text, Font font, Color foreColor, StringAlignment alignment, StringAlignment lineAlignment)
         {
             const int Padding = 0;
-
+            
+            int _xPosition;
+            int _yPosition;
             Size _textSize = GDI.MeasureText(graphics, text, font);
-            int yPos = (rectangle.Height / 2) - (_textSize.Height / 2);
-            Point _textPoint;
 
-            switch (stringAlignment)
+            switch (alignment)
             {
                 case StringAlignment.Near:
                     {
-                        _textPoint = new Point(rectangle.X + Padding, yPos);
+                        _xPosition = rectangle.X + Padding;
                         break;
                     }
 
                 case StringAlignment.Center:
                     {
-                        _textPoint = new Point((rectangle.Width / 2) - (_textSize.Width / 2), yPos);
+                        _xPosition = (rectangle.Width / 2) - (_textSize.Width / 2);
                         break;
                     }
 
                 case StringAlignment.Far:
                     {
-                        _textPoint = new Point(rectangle.Width - Padding - _textSize.Width, yPos);
+                        _xPosition = rectangle.Width - Padding - _textSize.Width;
                         break;
                     }
 
                 default:
                     {
-                        throw new ArgumentOutOfRangeException(nameof(stringAlignment), stringAlignment, null);
+                        throw new ArgumentOutOfRangeException(nameof(alignment), alignment, null);
                     }
             }
 
-            graphics.DrawString(text, font, new SolidBrush(foreColor), _textPoint);
+            switch (lineAlignment)
+            {
+                case StringAlignment.Near:
+                    {
+                        _yPosition = rectangle.Y + Padding;
+                        break;
+                    }
+
+                case StringAlignment.Center:
+                    {
+                        _yPosition = (rectangle.Height / 2) - (_textSize.Height / 2);
+                        break;
+                    }
+
+                case StringAlignment.Far:
+                    {
+                        _yPosition = rectangle.Height - Padding - _textSize.Height;
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(lineAlignment), lineAlignment, null);
+                    }
+            }
+
+            graphics.DrawString(text, font, new SolidBrush(foreColor), new Point(_xPosition, _yPosition));
         }
 
         /// <summary>Draws a hatch component on the specified path.</summary>
@@ -117,22 +144,6 @@
                 _textureBrush.ScaleTransform(hatch.Size.Width, hatch.Size.Height);
                 graphics.FillPath(_textureBrush, hatchGraphicsPath);
             }
-        }
-
-        /// <summary>Draws the internal text and image content.</summary>
-        /// <param name="graphics">The graphics to draw on.</param>
-        /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
-        /// <param name="text">The string to draw.</param>
-        /// <param name="font">The font to use in the string.</param>
-        /// <param name="foreColor">The color of the string.</param>
-        /// <param name="image">The image to draw.</param>
-        /// <param name="textImageRelation">The text image relation.</param>
-        public static void DrawInternalContent(Graphics graphics, Rectangle rectangle, string text, Font font, Color foreColor, VisualBitmap image, TextImageRelation textImageRelation)
-        {
-            image.Point = GDI.GetTextImageRelationLocation(graphics, textImageRelation, new Rectangle(image.Point, image.Size), text, font, rectangle, true);
-            Point textPoint = GDI.GetTextImageRelationLocation(graphics, textImageRelation, new Rectangle(image.Point, image.Size), text, font, rectangle, false);
-            VisualBitmap.DrawImage(graphics, image.Border, image.Point, image.Image, image.Size, image.Visible);
-            graphics.DrawString(text, font, new SolidBrush(foreColor), textPoint);
         }
 
         #endregion

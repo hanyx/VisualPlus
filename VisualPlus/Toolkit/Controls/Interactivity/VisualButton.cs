@@ -12,7 +12,6 @@
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
-    using VisualPlus.Properties;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.VisualBase;
@@ -35,8 +34,10 @@
         private Border _border;
         private VFXManager _effectsManager;
         private VFXManager _hoverEffectsManager;
+        private Image _image;
+        private StringAlignment _textAlignment;
         private TextImageRelation _textImageRelation;
-        private VisualBitmap _visualBitmap;
+        private StringAlignment _textLineAlignment;
 
         #endregion
 
@@ -54,13 +55,8 @@
             _border = new Border();
             _textImageRelation = TextImageRelation.Overlay;
             _backColorState = new ControlColorState();
-            _visualBitmap = new VisualBitmap(Resources.VisualPlus, new Size(24, 24))
-                {
-                    Visible = false,
-                    Image = Resources.VisualPlus
-                };
-            _visualBitmap.Point = new Point(0, (Height / 2) - (_visualBitmap.Size.Height / 2));
-
+            _textAlignment = StringAlignment.Center;
+            _textLineAlignment = StringAlignment.Center;
             ConfigureAnimation(new[] { 0.03, 0.07 }, new[] { EffectType.EaseOut, EffectType.EaseInOut });
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
@@ -128,19 +124,34 @@
             }
         }
 
-        [TypeConverter(typeof(VisualBitmapConverter))]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(Propertys.Appearance)]
-        public VisualBitmap Image
+        [Description(Property.Image)]
+        public Image Image
         {
             get
             {
-                return _visualBitmap;
+                return _image;
             }
 
             set
             {
-                _visualBitmap = value;
+                _image = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Propertys.Appearance)]
+        [Description(Property.Alignment)]
+        public StringAlignment TextAlignment
+        {
+            get
+            {
+                return _textAlignment;
+            }
+
+            set
+            {
+                _textAlignment = value;
                 Invalidate();
             }
         }
@@ -157,6 +168,22 @@
             set
             {
                 _textImageRelation = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Propertys.Appearance)]
+        [Description(Property.Alignment)]
+        public StringAlignment TextLineAlignment
+        {
+            get
+            {
+                return _textLineAlignment;
+            }
+
+            set
+            {
+                _textLineAlignment = value;
                 Invalidate();
             }
         }
@@ -298,7 +325,15 @@
 
             Color _textColor = Enabled ? ForeColor : ForeColorDisabled;
 
-            VisualControlRenderer.DrawInternalContent(e.Graphics, ClientRectangle, Text, Font, _textColor, Image, _textImageRelation);
+            if (_image != null)
+            {
+                VisualControlRenderer.DrawContent(e.Graphics, ClientRectangle, Text, Font, _textColor, _image, _image.Size, _textImageRelation);
+            }
+            else
+            {
+                VisualControlRenderer.DrawContentText(e.Graphics, ClientRectangle, Text, Font, _textColor, _textAlignment, _textLineAlignment);
+            }
+
             VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
             DrawAnimation(e.Graphics);
             e.Graphics.ResetClip();

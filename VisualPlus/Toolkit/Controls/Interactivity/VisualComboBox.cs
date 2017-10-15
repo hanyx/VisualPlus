@@ -44,7 +44,6 @@
         private bool _imageVisible;
         private int _index;
         private bool _itemImageVisible;
-        private StringAlignment _itemLineAlignment;
         private Color _menuItemHover;
         private Color _menuItemNormal;
         private Color _menuTextColor;
@@ -53,6 +52,7 @@
         private StringAlignment _textAlignment;
         private Color _textDisabledColor;
         private TextImageRelation _textImageRelation;
+        private StringAlignment _textLineAlignment;
         private TextRenderingHint _textRendererHint;
         private Watermark _watermark;
 
@@ -77,7 +77,7 @@
 
             _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
             _textImageRelation = TextImageRelation.ImageBeforeText;
-            _itemLineAlignment = StringAlignment.Center;
+            _textLineAlignment = StringAlignment.Center;
             _itemImageVisible = true;
             _imageVisible = false;
             _buttonWidth = 30;
@@ -98,8 +98,7 @@
             UpdateStyles();
             DropDownHeight = 100;
 
-           // BackColor = SystemColors.Control;
-
+            // BackColor = SystemColors.Control;
             _border = new Border();
 
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
@@ -312,22 +311,6 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Property.Alignment)]
-        public StringAlignment ItemLineAlignment
-        {
-            get
-            {
-                return _itemLineAlignment;
-            }
-
-            set
-            {
-                _itemLineAlignment = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
         [Description(Property.Color)]
         public Color MenuItemHover
         {
@@ -489,6 +472,22 @@
         }
 
         [Category(Propertys.Appearance)]
+        [Description(Property.Alignment)]
+        public StringAlignment TextLineAlignment
+        {
+            get
+            {
+                return _textLineAlignment;
+            }
+
+            set
+            {
+                _textLineAlignment = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Propertys.Appearance)]
         [Description(Property.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
@@ -574,7 +573,7 @@
 
                 StringFormat _stringFormat = new StringFormat
                     {
-                        LineAlignment = _itemLineAlignment
+                        LineAlignment = _textLineAlignment
                     };
 
                 e.Graphics.DrawString(GetItemText(Items[e.Index]), Font, new SolidBrush(_menuTextColor), new Rectangle(_location, new Size(DropDownWidth, ItemHeight)), _stringFormat);
@@ -677,7 +676,7 @@
             }
             else
             {
-                VisualControlRenderer.DrawContentText(e.Graphics, _textBoxRectangle, Text, Font, _textColor, _textAlignment);
+                VisualControlRenderer.DrawContentText(e.Graphics, _textBoxRectangle, Text, Font, _textColor, _textAlignment, _textLineAlignment);
             }
 
             DrawButton(_graphics, _buttonRectangle);

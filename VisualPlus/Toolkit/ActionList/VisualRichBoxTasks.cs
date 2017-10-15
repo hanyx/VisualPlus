@@ -15,7 +15,7 @@
     {
         #region Variables
 
-        private DesignerActionListCollection actionListCollection;
+        private DesignerActionListCollection _actionListCollection;
 
         #endregion
 
@@ -26,12 +26,12 @@
         {
             get
             {
-                if (actionListCollection == null)
+                if (_actionListCollection == null)
                 {
-                    actionListCollection = new DesignerActionListCollection { new VisualRichBoxActionList(Component) };
+                    _actionListCollection = new DesignerActionListCollection { new VisualRichBoxActionList(Component) };
                 }
 
-                return actionListCollection;
+                return _actionListCollection;
             }
         }
 
@@ -42,9 +42,8 @@
     {
         #region Variables
 
-        private IComponentChangeService _service;
-        private VisualRichTextBox buttonControl;
-        private DesignerActionUIService designerService;
+        private VisualRichTextBox _control;
+        private DesignerActionUIService _designerService;
 
         #endregion
 
@@ -52,8 +51,8 @@
 
         public VisualRichBoxActionList(IComponent component) : base(component)
         {
-            buttonControl = (VisualRichTextBox)component;
-            designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
+            _control = (VisualRichTextBox)component;
+            _designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
         }
 
         #endregion
@@ -66,12 +65,12 @@
         {
             get
             {
-                return buttonControl.Text;
+                return _control.Text;
             }
 
             set
             {
-                buttonControl.Text = value;
+                _control.Text = value;
             }
         }
 

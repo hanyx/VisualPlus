@@ -16,7 +16,7 @@
     {
         #region Variables
 
-        private DesignerActionListCollection actionListCollection;
+        private DesignerActionListCollection _actionListCollection;
 
         #endregion
 
@@ -27,12 +27,12 @@
         {
             get
             {
-                if (actionListCollection == null)
+                if (_actionListCollection == null)
                 {
-                    actionListCollection = new DesignerActionListCollection { new VisualCheckedListBoxActionList(Component) };
+                    _actionListCollection = new DesignerActionListCollection { new VisualCheckedListBoxActionList(Component) };
                 }
 
-                return actionListCollection;
+                return _actionListCollection;
             }
         }
 
@@ -43,11 +43,8 @@
     {
         #region Variables
 
-        private VisualCheckedListBox _checkedListBox;
-        private IComponentChangeService _service;
-
-        private VisualCheckedListBox buttonControl;
-        private DesignerActionUIService designerService;
+        private VisualCheckedListBox _control;
+        private DesignerActionUIService _designerService;
 
         #endregion
 
@@ -55,8 +52,8 @@
 
         public VisualCheckedListBoxActionList(IComponent component) : base(component)
         {
-            buttonControl = (VisualCheckedListBox)component;
-            designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
+            _control = (VisualCheckedListBox)component;
+            _designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
         }
 
         #endregion
@@ -73,7 +70,7 @@
         {
             get
             {
-                return buttonControl.Items;
+                return _control.Items;
             }
         }
 

@@ -15,7 +15,7 @@
     {
         #region Variables
 
-        private DesignerActionListCollection actionListCollection;
+        private DesignerActionListCollection _actionListCollection;
 
         #endregion
 
@@ -26,12 +26,12 @@
         {
             get
             {
-                if (actionListCollection == null)
+                if (_actionListCollection == null)
                 {
-                    actionListCollection = new DesignerActionListCollection { new VisualTextBoxActionList(Component) };
+                    _actionListCollection = new DesignerActionListCollection { new VisualTextBoxActionList(Component) };
                 }
 
-                return actionListCollection;
+                return _actionListCollection;
             }
         }
 
@@ -42,9 +42,8 @@
     {
         #region Variables
 
-        private IComponentChangeService _service;
-        private VisualTextBox buttonControl;
-        private DesignerActionUIService designerService;
+        private VisualTextBox _control;
+        private DesignerActionUIService _designerService;
 
         #endregion
 
@@ -52,8 +51,8 @@
 
         public VisualTextBoxActionList(IComponent component) : base(component)
         {
-            buttonControl = (VisualTextBox)component;
-            designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
+            _control = (VisualTextBox)component;
+            _designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
         }
 
         #endregion
@@ -67,13 +66,13 @@
         {
             get
             {
-                return buttonControl.MultiLine;
+                return _control.MultiLine;
             }
 
             set
             {
-                buttonControl.MultiLine = value;
-                buttonControl.Invalidate();
+                _control.MultiLine = value;
+                _control.Invalidate();
             }
         }
 
@@ -83,12 +82,12 @@
         {
             get
             {
-                return buttonControl.Text;
+                return _control.Text;
             }
 
             set
             {
-                buttonControl.Text = value;
+                _control.Text = value;
             }
         }
 

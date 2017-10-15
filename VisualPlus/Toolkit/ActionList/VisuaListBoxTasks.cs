@@ -16,7 +16,7 @@
     {
         #region Variables
 
-        private DesignerActionListCollection actionListCollection;
+        private DesignerActionListCollection _actionListCollection;
 
         #endregion
 
@@ -27,12 +27,12 @@
         {
             get
             {
-                if (actionListCollection == null)
+                if (_actionListCollection == null)
                 {
-                    actionListCollection = new DesignerActionListCollection { new VisualListBoxActionList(Component) };
+                    _actionListCollection = new DesignerActionListCollection { new VisualListBoxActionList(Component) };
                 }
 
-                return actionListCollection;
+                return _actionListCollection;
             }
         }
 
@@ -43,11 +43,8 @@
     {
         #region Variables
 
-        private VisualListBox _listBox;
-        private IComponentChangeService _service;
-
-        private VisualListBox buttonControl;
-        private DesignerActionUIService designerService;
+        private VisualListBox _control;
+        private DesignerActionUIService _designerService;
 
         #endregion
 
@@ -55,8 +52,8 @@
 
         public VisualListBoxActionList(IComponent component) : base(component)
         {
-            buttonControl = (VisualListBox)component;
-            designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
+            _control = (VisualListBox)component;
+            _designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
         }
 
         #endregion
@@ -73,7 +70,7 @@
         {
             get
             {
-                return buttonControl.Items;
+                return _control.Items;
             }
         }
 

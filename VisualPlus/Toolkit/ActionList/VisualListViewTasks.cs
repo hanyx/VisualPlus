@@ -16,7 +16,7 @@ namespace VisualPlus.Toolkit.ActionList
     {
         #region Variables
 
-        private DesignerActionListCollection actionListCollection;
+        private DesignerActionListCollection _actionListCollection;
 
         #endregion
 
@@ -27,12 +27,12 @@ namespace VisualPlus.Toolkit.ActionList
         {
             get
             {
-                if (actionListCollection == null)
+                if (_actionListCollection == null)
                 {
-                    actionListCollection = new DesignerActionListCollection { new VisualListViewActionList(Component) };
+                    _actionListCollection = new DesignerActionListCollection { new VisualListViewActionList(Component) };
                 }
 
-                return actionListCollection;
+                return _actionListCollection;
             }
         }
 
@@ -43,12 +43,11 @@ namespace VisualPlus.Toolkit.ActionList
     {
         #region Variables
 
-        private IComponentChangeService _service;
-        private VisualListView buttonControl;
-        private DesignerActionUIService designerService;
+        private VisualListView _control;
+        private DesignerActionUIService _designerService;
 
-        private bool dockState;
-        private string dockText;
+        private bool _dockState;
+        private string _dockText;
 
         #endregion
 
@@ -56,11 +55,11 @@ namespace VisualPlus.Toolkit.ActionList
 
         public VisualListViewActionList(IComponent component) : base(component)
         {
-            buttonControl = (VisualListView)component;
-            designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
+            _control = (VisualListView)component;
+            _designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
 
-            dockText = "Dock in Parent Container.";
-            dockState = false;
+            _dockText = "Dock in Parent Container.";
+            _dockState = false;
         }
 
         #endregion
@@ -77,7 +76,7 @@ namespace VisualPlus.Toolkit.ActionList
         {
             get
             {
-                return buttonControl.Columns;
+                return _control.Columns;
             }
         }
 
@@ -91,7 +90,7 @@ namespace VisualPlus.Toolkit.ActionList
         {
             get
             {
-                return buttonControl.Groups;
+                return _control.Groups;
             }
         }
 
@@ -105,7 +104,7 @@ namespace VisualPlus.Toolkit.ActionList
         {
             get
             {
-                return buttonControl.Items;
+                return _control.Items;
             }
         }
 
@@ -116,12 +115,12 @@ namespace VisualPlus.Toolkit.ActionList
         {
             get
             {
-                return buttonControl.View;
+                return _control.View;
             }
 
             set
             {
-                buttonControl.View = value;
+                _control.View = value;
             }
         }
 
@@ -131,20 +130,20 @@ namespace VisualPlus.Toolkit.ActionList
 
         public void DockContainer()
         {
-            if (!dockState)
+            if (!_dockState)
             {
-                buttonControl.Dock = DockStyle.None;
-                dockText = ContainerText.Docked;
-                dockState = true;
+                _control.Dock = DockStyle.None;
+                _dockText = ContainerText.Docked;
+                _dockState = true;
             }
             else
             {
-                buttonControl.Dock = DockStyle.Fill;
-                dockText = ContainerText.Undock;
-                dockState = false;
+                _control.Dock = DockStyle.Fill;
+                _dockText = ContainerText.Undock;
+                _dockState = false;
             }
 
-            designerService.Refresh(buttonControl);
+            _designerService.Refresh(_control);
         }
 
         public override DesignerActionItemCollection GetSortedActionItems()
@@ -155,7 +154,7 @@ namespace VisualPlus.Toolkit.ActionList
                     new DesignerActionPropertyItem("Columns", "Edit Columns..."),
                     new DesignerActionPropertyItem("Groups", "Edit Groups..."),
                     new DesignerActionPropertyItem("View", "View:"),
-                    new DesignerActionMethodItem(this, "DockContainer", dockText)
+                    new DesignerActionMethodItem(this, "DockContainer", _dockText)
                 };
 
             return items;

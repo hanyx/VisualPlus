@@ -8,6 +8,7 @@
 
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Managers;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion

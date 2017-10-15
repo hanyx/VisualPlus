@@ -12,6 +12,7 @@
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.ActionList;

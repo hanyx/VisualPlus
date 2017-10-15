@@ -9,6 +9,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Localization.Category;
+    using VisualPlus.Managers;
 
     #endregion
 

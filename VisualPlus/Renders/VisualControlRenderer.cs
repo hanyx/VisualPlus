@@ -8,6 +8,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.Managers;
     using VisualPlus.Structure;
 
     #endregion
@@ -67,7 +68,7 @@
         public static void DrawContentText(Graphics graphics, Rectangle rectangle, string text, Font font, Color foreColor, StringAlignment alignment, StringAlignment lineAlignment)
         {
             const int Padding = 0;
-            
+
             int _xPosition;
             int _yPosition;
             Size _textSize = GDI.MeasureText(graphics, text, font);

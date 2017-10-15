@@ -49,8 +49,8 @@
         public static void DrawContent(Graphics graphics, Rectangle rectangle, string text, Font font, Color foreColor, Image image, Size imageSize, TextImageRelation textImageRelation)
         {
             Rectangle _imageRectangle = new Rectangle(new Point(), imageSize);
-            Point _imagePoint = GDI.ApplyTextImageRelation(graphics, textImageRelation, _imageRectangle, text, font, rectangle, true);
-            Point _textPoint = GDI.ApplyTextImageRelation(graphics, textImageRelation, _imageRectangle, text, font, rectangle, false);
+            Point _imagePoint = GDI.GetTextImageRelationLocation(graphics, textImageRelation, _imageRectangle, text, font, rectangle, true);
+            Point _textPoint = GDI.GetTextImageRelationLocation(graphics, textImageRelation, _imageRectangle, text, font, rectangle, false);
 
             graphics.DrawImage(image, new Rectangle(_imagePoint, imageSize));
             graphics.DrawString(text, font, new SolidBrush(foreColor), _textPoint);
@@ -129,8 +129,8 @@
         /// <param name="textImageRelation">The text image relation.</param>
         public static void DrawInternalContent(Graphics graphics, Rectangle rectangle, string text, Font font, Color foreColor, VisualBitmap image, TextImageRelation textImageRelation)
         {
-            image.Point = GDI.ApplyTextImageRelation(graphics, textImageRelation, new Rectangle(image.Point, image.Size), text, font, rectangle, true);
-            Point textPoint = GDI.ApplyTextImageRelation(graphics, textImageRelation, new Rectangle(image.Point, image.Size), text, font, rectangle, false);
+            image.Point = GDI.GetTextImageRelationLocation(graphics, textImageRelation, new Rectangle(image.Point, image.Size), text, font, rectangle, true);
+            Point textPoint = GDI.GetTextImageRelationLocation(graphics, textImageRelation, new Rectangle(image.Point, image.Size), text, font, rectangle, false);
             VisualBitmap.DrawImage(graphics, image.Border, image.Point, image.Image, image.Size, image.Visible);
             graphics.DrawString(text, font, new SolidBrush(foreColor), textPoint);
         }

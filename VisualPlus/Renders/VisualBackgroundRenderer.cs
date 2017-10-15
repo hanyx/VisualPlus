@@ -175,7 +175,7 @@
         /// <returns>The background path filled.</returns>
         private static GraphicsPath FillBackgroundPath(Graphics graphics, Color background, Rectangle rectangle, int rounding)
         {
-            GraphicsPath backgroundPath = GDI.DrawRoundedRectangle(rectangle, rounding);
+            GraphicsPath backgroundPath = GraphicsManager.DrawRoundedRectangle(rectangle, rounding);
             graphics.SetClip(backgroundPath);
             graphics.FillRectangle(new SolidBrush(background), rectangle);
             graphics.ResetClip();

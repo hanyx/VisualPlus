@@ -426,7 +426,7 @@
             set
             {
                 _orientation = value;
-                Size = GDI.FlipOrientationSize(_orientation, Size);
+                Size = GraphicsManager.FlipOrientationSize(_orientation, Size);
                 Invalidate();
             }
         }
@@ -994,7 +994,7 @@
 
             VisualBorderRenderer.DrawBorderStyle(graphics, _trackBarBorder, _trackBarPath, _mouseState);
 
-            Size _progressValue = GDI.MeasureText(graphics, Maximum.ToString(), _textFont);
+            Size _progressValue = GraphicsManager.MeasureText(graphics, Maximum.ToString(), _textFont);
 
             DrawButton(graphics, _progressValue);
             DrawText(graphics, _progressValue);
@@ -1324,7 +1324,7 @@
                 return;
             }
 
-            Color _backColor = GDI.GetBackColorState(Enabled, _buttonControlColorState.Enabled, _buttonControlColorState.Hover, _buttonControlColorState.Pressed, _buttonControlColorState.Disabled, _mouseState);
+            Color _backColor = GraphicsManager.GetBackColorState(Enabled, _buttonControlColorState.Enabled, _buttonControlColorState.Hover, _buttonControlColorState.Pressed, _buttonControlColorState.Disabled, _mouseState);
 
             _buttonPath = VisualBorderRenderer.CreateBorderTypePath(_buttonRectangle, _buttonBorder);
             graphics.FillPath(new SolidBrush(_backColor), _buttonPath);
@@ -1496,7 +1496,7 @@
             _currentUsedPos = _indentHeight;
             Point _location;
             Size _size;
-            _textAreaSize = GDI.MeasureText(graphics, Maximum.ToString(), _textFont);
+            _textAreaSize = GraphicsManager.MeasureText(graphics, Maximum.ToString(), _textFont);
 
             if (line)
             {
@@ -1509,7 +1509,7 @@
 
                     // Move next tick area
                     _currentUsedPos += _tickHeight;
-                    GDI.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
+                    GraphicsManager.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
                 }
 
                 if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
@@ -1524,7 +1524,7 @@
 
                     // Move next tick area
                     _currentUsedPos += _tickHeight;
-                    GDI.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
+                    GraphicsManager.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
                 }
             }
             else
@@ -1541,7 +1541,7 @@
 
                     // Move next text area
                     _currentUsedPos += _tickHeight;
-                    GDI.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
+                    GraphicsManager.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
                 }
 
                 if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
@@ -1556,7 +1556,7 @@
 
                     // Move next text area
                     _currentUsedPos += _tickHeight;
-                    GDI.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
+                    GraphicsManager.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
                 }
             }
         }
@@ -1617,7 +1617,7 @@
             _currentUsedPos = _indentWidth;
             Point _location;
             Size _size;
-            _textAreaSize = GDI.MeasureText(graphics, Maximum.ToString(), _textFont);
+            _textAreaSize = GraphicsManager.MeasureText(graphics, Maximum.ToString(), _textFont);
 
             if (line)
             {
@@ -1630,7 +1630,7 @@
 
                     // Move next tick area
                     _currentUsedPos += _tickHeight;
-                    GDI.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
+                    GraphicsManager.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
                 }
 
                 if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
@@ -1642,7 +1642,7 @@
 
                     // Move next tick area
                     _currentUsedPos += _tickHeight;
-                    GDI.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
+                    GraphicsManager.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
                 }
             }
             else
@@ -1656,7 +1656,7 @@
 
                     // Move next text area
                     _currentUsedPos += _tickHeight;
-                    GDI.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
+                    GraphicsManager.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
                 }
 
                 if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
@@ -1668,7 +1668,7 @@
 
                     // Move next text area
                     _currentUsedPos += _tickHeight;
-                    GDI.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
+                    GraphicsManager.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
                 }
             }
         }

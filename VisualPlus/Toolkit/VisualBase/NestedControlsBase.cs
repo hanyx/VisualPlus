@@ -69,17 +69,17 @@
         protected override void OnBackColorChanged(EventArgs e)
         {
             base.OnBackColorChanged(e);
-            GDI.ApplyContainerBackColorChange(this, BackColorState.Enabled);
+            GraphicsManager.ApplyContainerBackColorChange(this, BackColorState.Enabled);
         }
 
         protected override void OnControlAdded(ControlEventArgs e)
         {
-            GDI.SetControlBackColor(e.Control, BackColorState.Enabled, false);
+            GraphicsManager.SetControlBackColor(e.Control, BackColorState.Enabled, false);
         }
 
         protected override void OnControlRemoved(ControlEventArgs e)
         {
-            GDI.SetControlBackColor(e.Control, Parent.BackColor, true);
+            GraphicsManager.SetControlBackColor(e.Control, Parent.BackColor, true);
         }
 
         protected override void OnMouseHover(EventArgs e)

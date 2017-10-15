@@ -103,7 +103,7 @@
         /// <param name="thickness">The thickness.</param>
         public static void DrawBorder(Graphics graphics, Rectangle rectangle, Color color, int rounding, float thickness)
         {
-            GraphicsPath _borderGraphicsPath = GDI.DrawRoundedRectangle(rectangle, rounding);
+            GraphicsPath _borderGraphicsPath = GraphicsManager.DrawRoundedRectangle(rectangle, rounding);
             Pen _borderPen = new Pen(color, thickness);
             graphics.DrawPath(_borderPen, _borderGraphicsPath);
         }

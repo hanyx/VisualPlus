@@ -100,7 +100,7 @@
         /// <param name="state">The expanded toggle.</param>
         public static void Draw(Graphics graphics, Rectangle rectangle, Color color, bool state)
         {
-            GDI.DrawTriangle(graphics, rectangle, new SolidBrush(color), state);
+            GraphicsManager.DrawTriangle(graphics, rectangle, new SolidBrush(color), state);
         }
 
         /// <summary>Gets the back color from the expander.</summary>

@@ -187,7 +187,7 @@
             get
             {
                 Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
-                return GDI.CreateGradientBitmap(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
+                return GraphicsManager.CreateGradientBitmap(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
             }
         }
 
@@ -286,7 +286,7 @@
                 return;
             }
 
-            GDI.ApplyGradientBackground(_control, _gradientSize, _topLeft, _topRight, _bottomLeft, _bottomRight);
+            GraphicsManager.ApplyGradientBackground(_control, _gradientSize, _topLeft, _topRight, _bottomLeft, _bottomRight);
         }
 
         private void Control_Resize(object sender, EventArgs e)

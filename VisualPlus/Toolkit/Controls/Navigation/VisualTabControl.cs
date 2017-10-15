@@ -626,7 +626,7 @@
         protected override void OnBackColorChanged(EventArgs e)
         {
             base.OnBackColorChanged(e);
-            GDI.ApplyContainerBackColorChange(this, _backgroundColor);
+            GraphicsManager.ApplyContainerBackColorChange(this, _backgroundColor);
         }
 
         protected override void OnControlAdded(ControlEventArgs e)
@@ -650,13 +650,13 @@
             }
             finally
             {
-                GDI.SetControlBackColor(e.Control, _backgroundColor, false);
+                GraphicsManager.SetControlBackColor(e.Control, _backgroundColor, false);
             }
         }
 
         protected override void OnControlRemoved(ControlEventArgs e)
         {
-            GDI.SetControlBackColor(e.Control, Parent.BackColor, true);
+            GraphicsManager.SetControlBackColor(e.Control, Parent.BackColor, true);
         }
 
         protected override void OnMouseEnter(EventArgs e)
@@ -718,8 +718,8 @@
                 ConfigureAlignmentStyle(tabIndex);
 
                 // Draws the TabSelector
-                Rectangle selectorRectangle = GDI.ApplyAnchor(_selectorAlignment, GetTabRect(tabIndex), _selectorThickness);
-                Rectangle selectorRectangle2 = GDI.ApplyAnchor(SelectorAlignment2, GetTabRect(tabIndex), _selectorThickness);
+                Rectangle selectorRectangle = GraphicsManager.ApplyAnchor(_selectorAlignment, GetTabRect(tabIndex), _selectorThickness);
+                Rectangle selectorRectangle2 = GraphicsManager.ApplyAnchor(SelectorAlignment2, GetTabRect(tabIndex), _selectorThickness);
 
                 StringFormat stringFormat = new StringFormat
                     {

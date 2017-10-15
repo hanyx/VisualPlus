@@ -15,7 +15,7 @@
 
     #endregion
 
-    public sealed class GDI
+    public sealed class GraphicsManager
     {
         #region Events
 

@@ -56,7 +56,7 @@
             set
             {
                 _orientation = value;
-                Size = GDI.FlipOrientationSize(_orientation, Size);
+                Size = GraphicsManager.FlipOrientationSize(_orientation, Size);
                 Invalidate();
             }
         }

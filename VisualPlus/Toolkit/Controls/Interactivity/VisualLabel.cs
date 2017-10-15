@@ -88,7 +88,7 @@
             set
             {
                 _orientation = value;
-                Size = GDI.FlipOrientationSize(_orientation, Size);
+                Size = GraphicsManager.FlipOrientationSize(_orientation, Size);
                 Invalidate();
             }
         }
@@ -318,7 +318,7 @@
 
             if (_reflection && (_orientation == Orientation.Vertical))
             {
-                textBoxRectangle = new Rectangle(GDI.MeasureText(graphics, Text, Font).Height, 0, ClientRectangle.Width, ClientRectangle.Height);
+                textBoxRectangle = new Rectangle(GraphicsManager.MeasureText(graphics, Text, Font).Height, 0, ClientRectangle.Width, ClientRectangle.Height);
             }
             else
             {
@@ -396,17 +396,17 @@
             {
                 case Orientation.Horizontal:
                     {
-                        imageGraphics.TranslateTransform(0, GDI.MeasureText(graphics, Text, Font).Height);
+                        imageGraphics.TranslateTransform(0, GraphicsManager.MeasureText(graphics, Text, Font).Height);
                         imageGraphics.ScaleTransform(1, -1);
 
-                        reflectionLocation = new Point(0, textBoxRectangle.Y - (GDI.MeasureText(graphics, Text, Font).Height / 2) - _reflectionSpacing);
+                        reflectionLocation = new Point(0, textBoxRectangle.Y - (GraphicsManager.MeasureText(graphics, Text, Font).Height / 2) - _reflectionSpacing);
                         break;
                     }
 
                 case Orientation.Vertical:
                     {
                         imageGraphics.ScaleTransform(-1, 1);
-                        reflectionLocation = new Point((textBoxRectangle.X - (GDI.MeasureText(graphics, Text, Font).Width / 2)) + _reflectionSpacing, 0);
+                        reflectionLocation = new Point((textBoxRectangle.X - (GraphicsManager.MeasureText(graphics, Text, Font).Width / 2)) + _reflectionSpacing, 0);
                         break;
                     }
             }

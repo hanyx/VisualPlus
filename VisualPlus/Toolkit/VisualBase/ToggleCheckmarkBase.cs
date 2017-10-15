@@ -298,7 +298,7 @@ namespace VisualPlus.Toolkit.VisualBase
                 {
                     MouseState = MouseStates.Down;
 
-                    if (_animation && (args.Button == MouseButtons.Left) && GDI.IsMouseInBounds(_mouseLocation, _box))
+                    if (_animation && (args.Button == MouseButtons.Left) && GraphicsManager.IsMouseInBounds(_mouseLocation, _box))
                     {
                         _rippleEffectsManager.SecondaryIncrement = 0;
                         _rippleEffectsManager.StartNewAnimation(AnimationDirection.InOutIn, new object[] { Toggle });
@@ -312,7 +312,7 @@ namespace VisualPlus.Toolkit.VisualBase
             MouseMove += (sender, args) =>
                 {
                     _mouseLocation = args.Location;
-                    Cursor = GDI.IsMouseInBounds(_mouseLocation, _box) ? Cursors.Hand : Cursors.Default;
+                    Cursor = GraphicsManager.IsMouseInBounds(_mouseLocation, _box) ? Cursors.Hand : Cursors.Default;
                 };
         }
 
@@ -358,7 +358,7 @@ namespace VisualPlus.Toolkit.VisualBase
                 _box = new Rectangle(new Point(Padding.Left, (ClientRectangle.Height / 2) - (_box.Height / 2)), _box.Size);
             }
 
-            Color _backColor = GDI.GetBackColorState(Enabled, BoxColorState.Enabled, BoxColorState.Hover, BoxColorState.Pressed, BoxColorState.Disabled, MouseState);
+            Color _backColor = GraphicsManager.GetBackColorState(Enabled, BoxColorState.Enabled, BoxColorState.Hover, BoxColorState.Pressed, BoxColorState.Disabled, MouseState);
 
             Graphics _graphics = e.Graphics;
             _graphics.Clear(Parent.BackColor);
@@ -375,7 +375,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
             _graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
-            _textSize = GDI.MeasureText(_graphics, Text, Font);
+            _textSize = GraphicsManager.MeasureText(_graphics, Text, Font);
             Point _textLocation = new Point(_box.Right + _boxSpacing, (ClientRectangle.Height / 2) - (_textSize.Height / 2));
             Color _textColor = Enabled ? ForeColor : ForeColorDisabled;
 
@@ -392,7 +392,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         private void AutoFit(Size textSize)
         {
-            if (GDI.TextLargerThanRectangle(textSize, _box))
+            if (GraphicsManager.TextLargerThanRectangle(textSize, _box))
             {
                 IsBoxLarger = false;
                 Size = new Size(_box.X + _box.Width + _boxSpacing + textSize.Width, textSize.Height);

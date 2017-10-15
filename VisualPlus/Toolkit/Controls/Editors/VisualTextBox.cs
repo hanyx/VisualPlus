@@ -866,7 +866,7 @@
             base.OnMouseMove(e);
             _xValue = e.Location.X;
             _yValue = e.Location.Y;
-            MouseOnButton = GDI.IsMouseInBounds(e.Location, _buttonRectangle);
+            MouseOnButton = GraphicsManager.IsMouseInBounds(e.Location, _buttonRectangle);
 
             Invalidate();
 
@@ -1032,7 +1032,7 @@
             _borderButton.Location = new Point(_buttonRectangle.X, _border.Thickness);
             _borderButton.Size = new Size(1, Height - _border.Thickness - 1);
 
-            Size textSize = GDI.MeasureText(graphics, _buttontext, _buttonFont);
+            Size textSize = GraphicsManager.MeasureText(graphics, _buttontext, _buttonFont);
             graphics.SetClip(buttonPath);
             graphics.DrawString(_buttontext, Font, new SolidBrush(ForeColor), new PointF(_buttonRectangle.X + _buttonIndent, (Height / 2) - (textSize.Height / 2)));
             graphics.ResetClip();
@@ -1075,11 +1075,11 @@
         {
             if (_textBox.TextLength > 0)
             {
-                return GDI.MeasureText(Text, Font).Height;
+                return GraphicsManager.MeasureText(Text, Font).Height;
             }
             else
             {
-                return GDI.MeasureText("Hello World.", Font).Height;
+                return GraphicsManager.MeasureText("Hello World.", Font).Height;
             }
         }
 

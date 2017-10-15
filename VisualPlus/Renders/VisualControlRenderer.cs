@@ -50,8 +50,8 @@
         public static void DrawContent(Graphics graphics, Rectangle rectangle, string text, Font font, Color foreColor, Image image, Size imageSize, TextImageRelation textImageRelation)
         {
             Rectangle _imageRectangle = new Rectangle(new Point(), imageSize);
-            Point _imagePoint = GDI.GetTextImageRelationLocation(graphics, textImageRelation, _imageRectangle, text, font, rectangle, true);
-            Point _textPoint = GDI.GetTextImageRelationLocation(graphics, textImageRelation, _imageRectangle, text, font, rectangle, false);
+            Point _imagePoint = GraphicsManager.GetTextImageRelationLocation(graphics, textImageRelation, _imageRectangle, text, font, rectangle, true);
+            Point _textPoint = GraphicsManager.GetTextImageRelationLocation(graphics, textImageRelation, _imageRectangle, text, font, rectangle, false);
 
             graphics.DrawImage(image, new Rectangle(_imagePoint, imageSize));
             graphics.DrawString(text, font, new SolidBrush(foreColor), _textPoint);
@@ -71,7 +71,7 @@
 
             int _xPosition;
             int _yPosition;
-            Size _textSize = GDI.MeasureText(graphics, text, font);
+            Size _textSize = GraphicsManager.MeasureText(graphics, text, font);
 
             switch (alignment)
             {
@@ -140,7 +140,7 @@
             }
 
             HatchBrush _hatchBrush = new HatchBrush(hatch.Style, hatch.ForeColor, hatch.BackColor);
-            using (TextureBrush _textureBrush = GDI.DrawTextureUsingHatch(_hatchBrush))
+            using (TextureBrush _textureBrush = GraphicsManager.DrawTextureUsingHatch(_hatchBrush))
             {
                 _textureBrush.ScaleTransform(hatch.Size.Width, hatch.Size.Height);
                 graphics.FillPath(_textureBrush, hatchGraphicsPath);

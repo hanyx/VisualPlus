@@ -259,7 +259,7 @@
             graphics.SmoothingMode = SmoothingMode.HighQuality;
             graphics.CompositingQuality = CompositingQuality.GammaCorrected;
 
-            Size textArea = GDI.MeasureText(graphics, Text, Font);
+            Size textArea = GraphicsManager.MeasureText(graphics, Text, Font);
             Rectangle group = ConfigureStyleBox(textArea);
             Rectangle title = ConfigureStyleTitleBox(textArea);
 
@@ -282,7 +282,7 @@
 
             if (_boxStyle == GroupBoxStyle.Classic)
             {
-                Point _titleBoxBackground = GDI.GetTextImageRelationLocation(e.Graphics, _textImageRelation, new Rectangle(new Point(), _image.Size), Text, Font, _titleBoxRectangle, false);
+                Point _titleBoxBackground = GraphicsManager.GetTextImageRelationLocation(e.Graphics, _textImageRelation, new Rectangle(new Point(), _image.Size), Text, Font, _titleBoxRectangle, false);
                 graphics.FillRectangle(new SolidBrush(BackColorState.Enabled), new Rectangle(new Point(_titleBoxBackground.X, _titleBoxBackground.Y), new Size(_titleBoxRectangle.Width, _titleBoxRectangle.Height)));
             }
 

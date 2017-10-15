@@ -1000,7 +1000,7 @@
             }
             else
             {
-                int _textHeight = GDI.MeasureText(e.Graphics, Items[e.Index].ToString(), Font).Height;
+                int _textHeight = GraphicsManager.MeasureText(e.Graphics, Items[e.Index].ToString(), Font).Height;
 
                 if (_imageList != null)
                 {

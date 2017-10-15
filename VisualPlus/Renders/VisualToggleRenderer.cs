@@ -72,7 +72,7 @@
         /// <param name="enabled">The state to draw the check mark in.</param>
         public static void DrawCheckMark(Graphics graphics, CheckStyle checkStyle, Rectangle rectangle, bool enabled)
         {
-            Size _characterSize = GDI.MeasureText(graphics, checkStyle.Character.ToString(), checkStyle.Font);
+            Size _characterSize = GraphicsManager.MeasureText(graphics, checkStyle.Character.ToString(), checkStyle.Font);
 
             int _styleCount = checkStyle.Style.Count();
             var _defaultLocations = new Point[_styleCount];

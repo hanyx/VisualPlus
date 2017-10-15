@@ -719,7 +719,7 @@
                         {
                             _buttonImageSize = new Size(10, 6);
                             _buttonImageLocation = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (_buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - (_buttonImageSize.Height / 2));
-                            GDI.DrawTriangle(graphics, new Rectangle(_buttonImageLocation, _buttonImageSize), new SolidBrush(_buttonColor), false);
+                            GraphicsManager.DrawTriangle(graphics, new Rectangle(_buttonImageLocation, _buttonImageSize), new SolidBrush(_buttonColor), false);
                             break;
                         }
 

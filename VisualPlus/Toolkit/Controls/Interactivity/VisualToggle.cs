@@ -319,7 +319,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _buttonRectangle = new Rectangle(_buttonLocation, _buttonSize);
             DrawToggleText(_graphics);
 
-            Color _buttonColor = GDI.GetBackColorState(Enabled, ButtonColorState.Enabled, ButtonColorState.Hover, ButtonColorState.Pressed, ButtonColorState.Disabled, MouseState);
+            Color _buttonColor = GraphicsManager.GetBackColorState(Enabled, ButtonColorState.Enabled, ButtonColorState.Hover, ButtonColorState.Pressed, ButtonColorState.Disabled, MouseState);
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _buttonColor, _buttonRectangle, _buttonBorder);
 
             VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
@@ -393,7 +393,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
             else
             {
-                Size textSize = GDI.MeasureText(graphics, _textProcessor, Font);
+                Size textSize = GraphicsManager.MeasureText(graphics, _textProcessor, Font);
                 textBoxRectangle = new Rectangle(Width - (textSize.Width / 2) - (XOn * 2), 0, Width - 1, Height - 1);
             }
 

@@ -482,18 +482,18 @@
 
         protected virtual void OnBackgroundChanged(ColorEventArgs e)
         {
-            GDI.ApplyContainerBackColorChange(this, Background);
+            GraphicsManager.ApplyContainerBackColorChange(this, Background);
             BackgroundChanged?.Invoke(e);
         }
 
         protected override void OnControlAdded(ControlEventArgs e)
         {
-            GDI.SetControlBackColor(e.Control, Background, false);
+            GraphicsManager.SetControlBackColor(e.Control, Background, false);
         }
 
         protected override void OnControlRemoved(ControlEventArgs e)
         {
-            GDI.SetControlBackColor(e.Control, Background, true);
+            GraphicsManager.SetControlBackColor(e.Control, Background, true);
         }
 
         protected override void OnEnter(EventArgs e)
@@ -944,7 +944,7 @@
 
         private void DrawTitle(Graphics graphics)
         {
-            _titleTextSize = GDI.MeasureText(graphics, Text, Font);
+            _titleTextSize = GraphicsManager.MeasureText(graphics, Text, Font);
             Point titlePoint;
 
             switch (_titleAlignment)

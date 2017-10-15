@@ -34,9 +34,10 @@
         private bool _alternateColors;
         private Border _border;
         private ColorState _colorState;
-
         private FixedContentValue _contentValues = new FixedContentValue();
+        private ImageList _imageList;
         private Color _itemAlternate;
+        private StringAlignment _itemLineAlignment;
         private Color _itemNormal;
         private Color _itemSelected;
         private ListBox _listBox;
@@ -53,6 +54,8 @@
 
             // Cannot select this control, only the child and does not generate a click event
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
+
+            _itemLineAlignment = StringAlignment.Center;
 
             _border = new Border();
             _colorState = new ColorState();
@@ -137,7 +140,7 @@
 
         #region Properties
 
-        [DefaultValue(true)]
+        [Description(Property.Toggle)]
         [Category(Propertys.Behavior)]
         public bool AlternateColors
         {
@@ -332,6 +335,22 @@
         }
 
         [Category(Propertys.Appearance)]
+        [Description(Property.Image)]
+        public ImageList ImageList
+        {
+            get
+            {
+                return _imageList;
+            }
+
+            set
+            {
+                _imageList = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Propertys.Appearance)]
         [Description(Property.Color)]
         public Color ItemAlternate
         {
@@ -360,6 +379,22 @@
             set
             {
                 _listBox.ItemHeight = value;
+            }
+        }
+
+        [Category(Propertys.Appearance)]
+        [Description(Property.Alignment)]
+        public StringAlignment ItemLineAlignment
+        {
+            get
+            {
+                return _itemLineAlignment;
+            }
+
+            set
+            {
+                _itemLineAlignment = value;
+                Invalidate();
             }
         }
 
@@ -886,9 +921,25 @@
                 e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
 
                 // Draw the text
-                e.Graphics.DrawString(_listBox.GetItemText(_listBox.Items[e.Index].ToString()), e.Font, new SolidBrush(ForeColor), new RectangleF(e.Bounds.Location, e.Bounds.Size), StringFormat.GenericDefault);
+                Point _location;
 
-                // Clean up
+                if (_imageList != null)
+                {
+                    e.Graphics.DrawImage(_imageList.Images[e.Index], e.Bounds.X, (e.Bounds.Y + (e.Bounds.Height / 2)) - (_imageList.ImageSize.Height / 2), _imageList.ImageSize.Width, _imageList.ImageSize.Height);
+
+                    _location = new Point(e.Bounds.X + _imageList.ImageSize.Width, e.Bounds.Y);
+                }
+                else
+                {
+                    _location = new Point(e.Bounds.X, e.Bounds.Y);
+                }
+
+                StringFormat _stringFormat = new StringFormat
+                    {
+                        LineAlignment = _itemLineAlignment
+                    };
+
+                e.Graphics.DrawString(GetItemText(Items[e.Index]), Font, new SolidBrush(ForeColor), new Rectangle(_location, e.Bounds.Size), _stringFormat);
                 backgroundBrush.Dispose();
                 textBrush.Dispose();
             }
@@ -948,7 +999,16 @@
             }
             else
             {
-                e.ItemHeight = GDI.MeasureText(e.Graphics, Items[e.Index].ToString(), Font).Height;
+                int _textHeight = GDI.MeasureText(e.Graphics, Items[e.Index].ToString(), Font).Height;
+
+                if (_imageList != null)
+                {
+                    e.ItemHeight = _imageList.ImageSize.Height > _textHeight ? _imageList.ImageSize.Height : _textHeight;
+                }
+                else
+                {
+                    e.ItemHeight = _textHeight;
+                }
             }
         }
 

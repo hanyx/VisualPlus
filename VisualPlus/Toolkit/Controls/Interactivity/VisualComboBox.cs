@@ -78,7 +78,7 @@
             _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
             _textImageRelation = TextImageRelation.ImageBeforeText;
             _itemLineAlignment = StringAlignment.Center;
-            ItemImageVisible = true;
+            _itemImageVisible = true;
             _imageVisible = false;
             _buttonWidth = 30;
             _buttonStyles = DropDownButtons.Arrow;

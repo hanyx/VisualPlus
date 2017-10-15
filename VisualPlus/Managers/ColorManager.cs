@@ -6,6 +6,8 @@
     using System.Drawing;
     using System.Drawing.Imaging;
 
+    using VisualPlus.PInvoke;
+
     #endregion
 
     internal class ColorManager
@@ -107,7 +109,7 @@
         public static Color CurrentPointerColor()
         {
             Point cursor = new Point();
-            Native.GetCursorPos(ref cursor);
+            User32.GetCursorPos(ref cursor);
             return GetColorFromPosition(cursor);
         }
 
@@ -122,7 +124,7 @@
                 {
                     IntPtr handleContextSource = graphicsSource.GetHdc();
                     IntPtr handleContextDestination = graphicsDestination.GetHdc();
-                    int retrieval = Native.BitBlt(handleContextDestination, 0, 0, 1, 1, handleContextSource, location.X, location.Y, (int)CopyPixelOperation.SourceCopy);
+                    int retrieval = Gdi32.BitBlt(handleContextDestination, 0, 0, 1, 1, handleContextSource, location.X, location.Y, (int)CopyPixelOperation.SourceCopy);
                     graphicsDestination.ReleaseHdc();
                     graphicsSource.ReleaseHdc();
                 }

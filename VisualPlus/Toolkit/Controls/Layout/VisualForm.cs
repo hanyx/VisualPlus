@@ -18,6 +18,7 @@
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
+    using VisualPlus.PInvoke;
     using VisualPlus.Properties;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -616,7 +617,7 @@
             UpdateButtons(e, true);
 
             base.OnMouseUp(e);
-            Native.ReleaseCapture();
+            User32.ReleaseCapture();
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -739,16 +740,16 @@
                     }
 
                     Size = _previousSize;
-                    Native.ReleaseCapture();
-                    Native.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                    User32.ReleaseCapture();
+                    User32.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
                 }
             }
             else if ((m.Msg == WM_LBUTTONDOWN) && _statusBarBounds.Contains(PointToClient(Cursor.Position)) && !(_minButtonBounds.Contains(PointToClient(Cursor.Position)) || _maxButtonBounds.Contains(PointToClient(Cursor.Position)) || _xButtonBounds.Contains(PointToClient(Cursor.Position))))
             {
                 if (!_maximized)
                 {
-                    Native.ReleaseCapture();
-                    Native.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                    User32.ReleaseCapture();
+                    User32.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
                 }
                 else
                 {
@@ -763,10 +764,10 @@
                     !_maxButtonBounds.Contains(cursorPos) && !_xButtonBounds.Contains(cursorPos))
                 {
                     // Show default system menu when right clicking titlebar
-                    int id = Native.TrackPopupMenuEx(Native.GetSystemMenu(Handle, false), TPM_LEFTALIGN | TPM_RETURNCMD, Cursor.Position.X, Cursor.Position.Y, Handle, IntPtr.Zero);
+                    int id = User32.TrackPopupMenuEx(User32.GetSystemMenu(Handle, false), TPM_LEFTALIGN | TPM_RETURNCMD, Cursor.Position.X, Cursor.Position.Y, Handle, IntPtr.Zero);
 
                     // Pass the command as a WM_SYSCOMMAND message
-                    Native.SendMessage(Handle, WM_SYSCOMMAND, id, 0);
+                    User32.SendMessage(Handle, WM_SYSCOMMAND, id, 0);
                 }
             }
             else if (m.Msg == WM_NCLBUTTONDOWN)
@@ -788,7 +789,7 @@
 
                 if (bFlag != 0)
                 {
-                    Native.SendMessage(Handle, WM_SYSCOMMAND, 0xF000 | bFlag, (int)m.LParam);
+                    User32.SendMessage(Handle, WM_SYSCOMMAND, 0xF000 | bFlag, (int)m.LParam);
                 }
             }
             else if (m.Msg == WM_LBUTTONUP)
@@ -987,9 +988,9 @@
 
             if (maximize)
             {
-                IntPtr _monitorHandle = Native.MonitorFromWindow(Handle, MONITOR_DEFAULTTONEAREST);
+                IntPtr _monitorHandle = User32.MonitorFromWindow(Handle, MONITOR_DEFAULTTONEAREST);
                 MonitorManager _monitorInfo = new MonitorManager();
-                Native.GetMonitorInfo(new HandleRef(null, _monitorHandle), _monitorInfo);
+                User32.GetMonitorInfo(new HandleRef(null, _monitorHandle), _monitorInfo);
                 _previousSize = Size;
                 _previousLocation = Location;
                 Size = new Size(_monitorInfo.WorkingArea.Width, _monitorInfo.WorkingArea.Height);
@@ -1061,10 +1062,10 @@
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
 
-            Native.ReleaseCapture();
+            User32.ReleaseCapture();
             if (_dir != -1)
             {
-                Native.SendMessage(Handle, WM_NCLBUTTONDOWN, _dir, 0);
+                User32.SendMessage(Handle, WM_NCLBUTTONDOWN, _dir, 0);
             }
         }
 

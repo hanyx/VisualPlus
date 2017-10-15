@@ -67,6 +67,9 @@
     <Compile Include="Localization\Category\Propertys.cs" />
     <Compile Include="Managers\ImageManager.cs" />
     <Compile Include="Managers\MonitorManager.cs" />
+    <Compile Include="PInvoke\Gdi32.cs" />
+    <Compile Include="PInvoke\Shlwapi.cs" />
+    <Compile Include="PInvoke\User32.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -191,7 +194,6 @@
     <Compile Include="Enumerators\Styles.cs" />
     <Compile Include="Structure\VisualBitmap.cs" />
     <Compile Include="Structure\Watermark.cs" />
-    <Compile Include="Native.cs" />
     <Compile Include="Styles\Enigma.cs" />
     <Compile Include="Styles\IStyle.cs" />
     <Compile Include="Settings.cs" />

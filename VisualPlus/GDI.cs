@@ -10,6 +10,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
+    using VisualPlus.PInvoke;
     using VisualPlus.Toolkit.Controls.DataVisualization;
 
     #endregion
@@ -98,116 +99,6 @@
 
             Bitmap _bitmap = CreateGradientBitmap(size, topLeft, topRight, bottomLeft, bottomRight);
             control.BackgroundImage = _bitmap;
-        }
-
-        /// <summary>Draws the text image relation.</summary>
-        /// <param name="graphics">The graphics.</param>
-        /// <param name="relation">The relation type.</param>
-        /// <param name="image">The image rectangle.</param>
-        /// <param name="text">The text.</param>
-        /// <param name="font">The font.</param>
-        /// <param name="bounds">The outer bounds.</param>
-        /// <param name="imagePoint">Return image point.</param>
-        /// <returns>The return point.</returns>
-        public static Point GetTextImageRelationLocation(Graphics graphics, TextImageRelation relation, Rectangle image, string text, Font font, Rectangle bounds, bool imagePoint)
-        {
-            Point newPosition = new Point(0, 0);
-            Point newImagePoint = new Point(0, 0);
-            Point newTextPoint = new Point(0, 0);
-            Size textSize = MeasureText(graphics, text, font);
-
-            switch (relation)
-            {
-                case TextImageRelation.Overlay:
-                    {
-                        // Set center
-                        newPosition.X = bounds.Width / 2;
-                        newPosition.Y = bounds.Height / 2;
-
-                        // Set image
-                        newImagePoint.X = newPosition.X - (image.Width / 2);
-                        newImagePoint.Y = newPosition.Y - (image.Height / 2);
-
-                        // Set text
-                        newTextPoint.X = newPosition.X - (textSize.Width / 2);
-                        newTextPoint.Y = newPosition.Y - (textSize.Height / 2);
-                        break;
-                    }
-
-                case TextImageRelation.ImageBeforeText:
-                    {
-                        // Set center
-                        newPosition.Y = bounds.Height / 2;
-
-                        // Set image
-                        newImagePoint.X = newPosition.X + 4;
-                        newImagePoint.Y = newPosition.Y - (image.Height / 2);
-
-                        // Set text
-                        newTextPoint.X = newImagePoint.X + image.Width;
-                        newTextPoint.Y = newPosition.Y - (textSize.Height / 2);
-                        break;
-                    }
-
-                case TextImageRelation.TextBeforeImage:
-                    {
-                        // Set center
-                        newPosition.Y = bounds.Height / 2;
-
-                        // Set text
-                        newTextPoint.X = newPosition.X + 4;
-                        newTextPoint.Y = newPosition.Y - (textSize.Height / 2);
-
-                        // Set image
-                        newImagePoint.X = newTextPoint.X + textSize.Width;
-                        newImagePoint.Y = newPosition.Y - (image.Height / 2);
-                        break;
-                    }
-
-                case TextImageRelation.ImageAboveText:
-                    {
-                        // Set center
-                        newPosition.X = bounds.Width / 2;
-
-                        // Set image
-                        newImagePoint.X = newPosition.X - (image.Width / 2);
-                        newImagePoint.Y = newPosition.Y + 4;
-
-                        // Set text
-                        newTextPoint.X = newPosition.X - (textSize.Width / 2);
-                        newTextPoint.Y = newImagePoint.Y + image.Height;
-                        break;
-                    }
-
-                case TextImageRelation.TextAboveImage:
-                    {
-                        // Set center
-                        newPosition.X = bounds.Width / 2;
-
-                        // Set text
-                        newTextPoint.X = newPosition.X - (textSize.Width / 2);
-                        newTextPoint.Y = newImagePoint.Y + 4;
-
-                        // Set image
-                        newImagePoint.X = newPosition.X - (image.Width / 2);
-                        newImagePoint.Y = newPosition.Y + textSize.Height + 4;
-                        break;
-                    }
-
-                default:
-                    {
-                        throw new ArgumentOutOfRangeException(nameof(relation), relation, null);
-                    }
-            }
-
-            if (imagePoint)
-            {
-                return newImagePoint;
-            }
-            else
-            {
-                return newTextPoint;
-            }
         }
 
         /// <summary>Calculates a 5 point star.</summary>
@@ -605,6 +496,116 @@
             return _color;
         }
 
+        /// <summary>Draws the text image relation.</summary>
+        /// <param name="graphics">The graphics.</param>
+        /// <param name="relation">The relation type.</param>
+        /// <param name="image">The image rectangle.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="bounds">The outer bounds.</param>
+        /// <param name="imagePoint">Return image point.</param>
+        /// <returns>The return point.</returns>
+        public static Point GetTextImageRelationLocation(Graphics graphics, TextImageRelation relation, Rectangle image, string text, Font font, Rectangle bounds, bool imagePoint)
+        {
+            Point newPosition = new Point(0, 0);
+            Point newImagePoint = new Point(0, 0);
+            Point newTextPoint = new Point(0, 0);
+            Size textSize = MeasureText(graphics, text, font);
+
+            switch (relation)
+            {
+                case TextImageRelation.Overlay:
+                    {
+                        // Set center
+                        newPosition.X = bounds.Width / 2;
+                        newPosition.Y = bounds.Height / 2;
+
+                        // Set image
+                        newImagePoint.X = newPosition.X - (image.Width / 2);
+                        newImagePoint.Y = newPosition.Y - (image.Height / 2);
+
+                        // Set text
+                        newTextPoint.X = newPosition.X - (textSize.Width / 2);
+                        newTextPoint.Y = newPosition.Y - (textSize.Height / 2);
+                        break;
+                    }
+
+                case TextImageRelation.ImageBeforeText:
+                    {
+                        // Set center
+                        newPosition.Y = bounds.Height / 2;
+
+                        // Set image
+                        newImagePoint.X = newPosition.X + 4;
+                        newImagePoint.Y = newPosition.Y - (image.Height / 2);
+
+                        // Set text
+                        newTextPoint.X = newImagePoint.X + image.Width;
+                        newTextPoint.Y = newPosition.Y - (textSize.Height / 2);
+                        break;
+                    }
+
+                case TextImageRelation.TextBeforeImage:
+                    {
+                        // Set center
+                        newPosition.Y = bounds.Height / 2;
+
+                        // Set text
+                        newTextPoint.X = newPosition.X + 4;
+                        newTextPoint.Y = newPosition.Y - (textSize.Height / 2);
+
+                        // Set image
+                        newImagePoint.X = newTextPoint.X + textSize.Width;
+                        newImagePoint.Y = newPosition.Y - (image.Height / 2);
+                        break;
+                    }
+
+                case TextImageRelation.ImageAboveText:
+                    {
+                        // Set center
+                        newPosition.X = bounds.Width / 2;
+
+                        // Set image
+                        newImagePoint.X = newPosition.X - (image.Width / 2);
+                        newImagePoint.Y = newPosition.Y + 4;
+
+                        // Set text
+                        newTextPoint.X = newPosition.X - (textSize.Width / 2);
+                        newTextPoint.Y = newImagePoint.Y + image.Height;
+                        break;
+                    }
+
+                case TextImageRelation.TextAboveImage:
+                    {
+                        // Set center
+                        newPosition.X = bounds.Width / 2;
+
+                        // Set text
+                        newTextPoint.X = newPosition.X - (textSize.Width / 2);
+                        newTextPoint.Y = newImagePoint.Y + 4;
+
+                        // Set image
+                        newImagePoint.X = newPosition.X - (image.Width / 2);
+                        newImagePoint.Y = newPosition.Y + textSize.Height + 4;
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(relation), relation, null);
+                    }
+            }
+
+            if (imagePoint)
+            {
+                return newImagePoint;
+            }
+            else
+            {
+                return newTextPoint;
+            }
+        }
+
         /// <summary>Retrieves the transition color between two other colors.</summary>
         /// <param name="value">The progress value in the transition.</param>
         /// <param name="beginColor">The beginning color.</param>
@@ -681,7 +682,7 @@
         {
             try
             {
-                control.Region = Region.FromHrgn(Native.CreateRoundRectRgn(0, 0, control.Width, control.Height, rounding, rounding));
+                control.Region = Region.FromHrgn(Gdi32.CreateRoundRectRgn(0, 0, control.Width, control.Height, rounding, rounding));
             }
             catch (Exception e)
             {
@@ -698,7 +699,7 @@
             try
             {
                 form.FormBorderStyle = FormBorderStyle.None;
-                form.Region = Region.FromHrgn(Native.CreateRoundRectRgn(0, 0, form.Width, form.Height, rounding, rounding));
+                form.Region = Region.FromHrgn(Gdi32.CreateRoundRectRgn(0, 0, form.Width, form.Height, rounding, rounding));
             }
             catch (Exception e)
             {

@@ -248,8 +248,6 @@
             base.OnPaint(e);
 
             Graphics graphics = e.Graphics;
-
-            // graphics.Clear(Parent.BackColor);
             graphics.SmoothingMode = SmoothingMode.HighQuality;
             graphics.CompositingQuality = CompositingQuality.GammaCorrected;
 
@@ -259,7 +257,7 @@
 
             _titleBoxRectangle = new Rectangle(title.X, title.Y, title.Width - 1, title.Height);
 
-            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+            Rectangle _clientRectangle = new Rectangle(group.X, group.Y, group.Width, group.Height);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
             graphics.FillRectangle(new SolidBrush(BackColor), _clientRectangle);
 
@@ -291,6 +289,8 @@
                 }
             }
 
+            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+
             if (_boxStyle == GroupBoxStyle.Classic)
             {
                 graphics.FillRectangle(new SolidBrush(BackColorState.Enabled), _titleBoxRectangle);
@@ -306,8 +306,6 @@
 
                 graphics.DrawString(Text, Font, new SolidBrush(ForeColor), _titleBoxRectangle, stringFormat);
             }
-
-            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -318,7 +316,7 @@
 
         private Rectangle ConfigureStyleBox(Size textArea)
         {
-            Size groupBoxSize = new Size(Width, Height);
+            Size groupBoxSize;
             Point groupBoxPoint = new Point(0, 0);
 
             switch (_boxStyle)

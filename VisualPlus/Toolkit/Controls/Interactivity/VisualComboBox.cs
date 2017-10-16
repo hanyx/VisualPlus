@@ -680,39 +680,22 @@
             _controlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
 
             _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
-
-            Color _textColor = Enabled ? _foreColor : _textDisabledColor;
-            Color _backColor = Enabled ? _backColorState.Enabled : _backColorState.Disabled;
-
             _graphics.SetClip(_controlGraphicsPath);
+
+            Color _backColor = Enabled ? _backColorState.Enabled : _backColorState.Disabled;
             VisualBackgroundRenderer.DrawBackground(_graphics, _backColor, BackgroundImage, _mouseState, _clientRectangle, Border);
 
             Rectangle _buttonRectangle = new Rectangle(new Point(Width - _buttonWidth, 0), new Size(_buttonWidth, Height));
             Rectangle _textBoxRectangle = new Rectangle(0, 0, Width - _buttonWidth, Height);
 
-            if ((SelectedIndex != -1) && (_imageList != null) && _imageVisible)
-            {
-                VisualControlRenderer.DrawContent(e.Graphics, _textBoxRectangle, Text, Font, _textColor, _imageList.Images[SelectedIndex], _imageList.ImageSize, _textImageRelation);
-            }
-            else
-            {
-                VisualControlRenderer.DrawContentText(e.Graphics, _textBoxRectangle, Text, Font, _textColor, _textAlignment, _textLineAlignment);
-            }
+            ConfigureSeparator(_buttonRectangle);
 
+            DrawContent(_graphics, _textBoxRectangle);
             DrawButton(_graphics, _buttonRectangle);
-            DrawSeparator(_buttonRectangle);
-
-            if (Text.Length == 0)
-            {
-                StringFormat _stringFormat = new StringFormat
-                    {
-                        Alignment = _textAlignment
-                    };
-
-                Watermark.DrawWatermark(_graphics, _textBoxRectangle, _stringFormat, _watermark);
-            }
 
             _graphics.ResetClip();
+
+            DrawWatermark(_graphics, _textBoxRectangle);
             VisualBorderRenderer.DrawBorderStyle(_graphics, _border, _controlGraphicsPath, _mouseState);
         }
 
@@ -727,7 +710,21 @@
             OnLostFocus(e);
         }
 
-        private void DrawButton(Graphics graphics, Rectangle buttonRectangle)
+        private void ConfigureSeparator(Rectangle rectangle)
+        {
+            if (!_borderEdge.Visible)
+            {
+                return;
+            }
+
+            _borderEdge.Location = new Point(rectangle.X - 1, _border.Thickness);
+            _borderEdge.Size = new Size(1, Height - _border.Thickness - 1);
+        }
+
+        /// <summary>Draws the button.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="rectangle">The rectangle to draw on.</param>
+        private void DrawButton(Graphics graphics, Rectangle rectangle)
         {
             if (!_buttonVisible)
             {
@@ -742,16 +739,18 @@
                 case ButtonStyles.Arrow:
                     {
                         _buttonImageSize = new Size(10, 6);
-                        _buttonImageLocation = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (_buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - (_buttonImageSize.Height / 2));
+                        _buttonImageLocation = new Point((rectangle.X + (rectangle.Width / 2)) - (_buttonImageSize.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - (_buttonImageSize.Height / 2));
                         GraphicsManager.DrawTriangle(graphics, new Rectangle(_buttonImageLocation, _buttonImageSize), new SolidBrush(_buttonColor), false);
+
                         break;
                     }
 
                 case ButtonStyles.Bars:
                     {
                         _buttonImageSize = new Size(18, 10);
-                        _buttonImageLocation = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (_buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - _buttonImageSize.Height);
+                        _buttonImageLocation = new Point((rectangle.X + (rectangle.Width / 2)) - (_buttonImageSize.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - _buttonImageSize.Height);
                         Bars.DrawBars(graphics, _buttonImageLocation, _buttonImageSize, _buttonColor, 3, 5);
+
                         break;
                     }
 
@@ -759,10 +758,7 @@
                     {
                         if (_buttonImage != null)
                         {
-                            _buttonImageLocation = new Point(
-                                (buttonRectangle.X + (buttonRectangle.Width / 2)) - (_buttonImage.Width / 2),
-                                (buttonRectangle.Y + (buttonRectangle.Height / 2)) - (_buttonImage.Height / 2));
-
+                            _buttonImageLocation = new Point((rectangle.X + (rectangle.Width / 2)) - (_buttonImage.Width / 2), (rectangle.Y + (rectangle.Height / 2)) - (_buttonImage.Height / 2));
                             graphics.DrawImage(_buttonImage, _buttonImageLocation);
                         }
 
@@ -776,15 +772,39 @@
             }
         }
 
-        private void DrawSeparator(Rectangle rectangle)
+        /// <summary>Draws the button.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="rectangle">The rectangle to draw on.</param>
+        private void DrawContent(Graphics graphics, Rectangle rectangle)
         {
-            if (!_borderEdge.Visible)
+            Color _textColor = Enabled ? _foreColor : _textDisabledColor;
+
+            if ((SelectedIndex != -1) && (_imageList != null) && _imageVisible)
+            {
+                VisualControlRenderer.DrawContent(graphics, rectangle, Text, Font, _textColor, _imageList.Images[SelectedIndex], _imageList.ImageSize, _textImageRelation);
+            }
+            else
+            {
+                VisualControlRenderer.DrawContentText(graphics, rectangle, Text, Font, _textColor, _textAlignment, _textLineAlignment);
+            }
+        }
+
+        /// <summary>Draws the watermark.</summary>
+        /// <param name="graphics">The graphics to draw on.</param>
+        /// <param name="rectangle">The rectangle to draw on.</param>
+        private void DrawWatermark(Graphics graphics, Rectangle rectangle)
+        {
+            if (Text.Length != 0)
             {
                 return;
             }
 
-            _borderEdge.Location = new Point(rectangle.X - 1, _border.Thickness);
-            _borderEdge.Size = new Size(1, Height - _border.Thickness - 1);
+            StringFormat _stringFormat = new StringFormat
+                {
+                    Alignment = _textAlignment
+                };
+
+            Watermark.DrawWatermark(graphics, rectangle, _stringFormat, _watermark);
         }
 
         #endregion

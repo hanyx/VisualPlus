@@ -678,12 +678,12 @@
 
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             _controlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+
             _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
 
             Color _textColor = Enabled ? _foreColor : _textDisabledColor;
             Color _backColor = Enabled ? _backColorState.Enabled : _backColorState.Disabled;
 
-            _graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
             _graphics.SetClip(_controlGraphicsPath);
             VisualBackgroundRenderer.DrawBackground(_graphics, _backColor, BackgroundImage, _mouseState, _clientRectangle, Border);
 

@@ -35,7 +35,8 @@
         private Border _border;
         private BorderEdge _borderEdge;
         private Color _buttonColor;
-        private DropDownButtons _buttonStyles;
+        private Image _buttonImage;
+        private ButtonStyles _buttonStyle;
         private bool _buttonVisible;
         private int _buttonWidth;
         private GraphicsPath _controlGraphicsPath;
@@ -81,7 +82,7 @@
             _itemImageVisible = true;
             _imageVisible = false;
             _buttonWidth = 30;
-            _buttonStyles = DropDownButtons.Arrow;
+            _buttonStyle = ButtonStyles.Arrow;
             _buttonVisible = Settings.DefaultValue.TextVisible;
             _textAlignment = StringAlignment.Center;
             _watermark = new Watermark();
@@ -107,13 +108,16 @@
             UpdateTheme(Settings.DefaultValue.DefaultStyle);
         }
 
-        public enum DropDownButtons
+        public enum ButtonStyles
         {
-            /// <summary>Use arrow button.</summary>
+            /// <summary>Arrow style.</summary>
             Arrow,
 
-            /// <summary>Use bars button.</summary>
-            Bars
+            /// <summary>Bars style.</summary>
+            Bars,
+
+            /// <summary>Image style.</summary>
+            Image
         }
 
         #endregion
@@ -175,17 +179,33 @@
         }
 
         [Category(Propertys.Appearance)]
-        [Description(Property.Type)]
-        public DropDownButtons ButtonStyles
+        [Description(Property.Image)]
+        public Image ButtonImage
         {
             get
             {
-                return _buttonStyles;
+                return _buttonImage;
             }
 
             set
             {
-                _buttonStyles = value;
+                _buttonImage = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Propertys.Appearance)]
+        [Description(Property.Type)]
+        public ButtonStyles ButtonStyle
+        {
+            get
+            {
+                return _buttonStyle;
+            }
+
+            set
+            {
+                _buttonStyle = value;
                 Invalidate();
             }
         }
@@ -688,6 +708,7 @@
                     {
                         Alignment = _textAlignment
                     };
+
                 Watermark.DrawWatermark(_graphics, _textBoxRectangle, _stringFormat, _watermark);
             }
 
@@ -708,29 +729,50 @@
 
         private void DrawButton(Graphics graphics, Rectangle buttonRectangle)
         {
-            if (_buttonVisible)
+            if (!_buttonVisible)
             {
-                Point _buttonImageLocation;
-                Size _buttonImageSize;
+                return;
+            }
 
-                switch (_buttonStyles)
-                {
-                    case DropDownButtons.Arrow:
+            Point _buttonImageLocation;
+            Size _buttonImageSize;
+
+            switch (_buttonStyle)
+            {
+                case ButtonStyles.Arrow:
+                    {
+                        _buttonImageSize = new Size(10, 6);
+                        _buttonImageLocation = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (_buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - (_buttonImageSize.Height / 2));
+                        GraphicsManager.DrawTriangle(graphics, new Rectangle(_buttonImageLocation, _buttonImageSize), new SolidBrush(_buttonColor), false);
+                        break;
+                    }
+
+                case ButtonStyles.Bars:
+                    {
+                        _buttonImageSize = new Size(18, 10);
+                        _buttonImageLocation = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (_buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - _buttonImageSize.Height);
+                        Bars.DrawBars(graphics, _buttonImageLocation, _buttonImageSize, _buttonColor, 3, 5);
+                        break;
+                    }
+
+                case ButtonStyles.Image:
+                    {
+                        if (_buttonImage != null)
                         {
-                            _buttonImageSize = new Size(10, 6);
-                            _buttonImageLocation = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (_buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - (_buttonImageSize.Height / 2));
-                            GraphicsManager.DrawTriangle(graphics, new Rectangle(_buttonImageLocation, _buttonImageSize), new SolidBrush(_buttonColor), false);
-                            break;
+                            _buttonImageLocation = new Point(
+                                (buttonRectangle.X + (buttonRectangle.Width / 2)) - (_buttonImage.Width / 2),
+                                (buttonRectangle.Y + (buttonRectangle.Height / 2)) - (_buttonImage.Height / 2));
+
+                            graphics.DrawImage(_buttonImage, _buttonImageLocation);
                         }
 
-                    case DropDownButtons.Bars:
-                        {
-                            _buttonImageSize = new Size(18, 10);
-                            _buttonImageLocation = new Point((buttonRectangle.X + (buttonRectangle.Width / 2)) - (_buttonImageSize.Width / 2), (buttonRectangle.Y + (buttonRectangle.Height / 2)) - _buttonImageSize.Height);
-                            Bars.DrawBars(graphics, _buttonImageLocation, _buttonImageSize, _buttonColor, 3, 5);
-                            break;
-                        }
-                }
+                        break;
+                    }
+
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
             }
         }
 

@@ -463,7 +463,7 @@ namespace VisualPlus.Managers
         #endregion
     }
 
-    internal class AnimationLinear
+    public class AnimationLinear
     {
         #region Events
 
@@ -475,7 +475,7 @@ namespace VisualPlus.Managers
         #endregion
     }
 
-    internal class AnimationEaseInOut
+    public class AnimationEaseInOut
     {
         #region Events
 

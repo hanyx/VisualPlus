@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("VisualPlus")]
 [assembly: AssemblyProduct("VisualPlus")]
 [assembly: AssemblyCopyright("Copyright ©  2016 - 2017")]
-[assembly: AssemblyTrademark("https://github.com/DarkByte7/VisualPlus")]
+[assembly: AssemblyTrademark("https://darkbyte7.github.io/VisualPlus/")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

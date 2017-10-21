@@ -22,6 +22,7 @@ namespace VisualPlus.Structure
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [Description("The control color state of a component.")]
+    [Category(Propertys.Appearance)]
     public class ControlColorState : ColorState
     {
         #region Variables

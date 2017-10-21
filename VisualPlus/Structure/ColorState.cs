@@ -23,6 +23,7 @@
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [Description("The color states of a component.")]
+    [Category(Propertys.Appearance)]
     public class ColorState
     {
         #region Variables

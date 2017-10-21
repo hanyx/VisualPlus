@@ -251,7 +251,7 @@
             if ((shape != null) && (destinationType == typeof(string)))
             {
                 // result = borderStyle.ToString();
-                result = "Border Shape Settings";
+                result = "Shape Settings";
             }
 
             return result ?? base.ConvertTo(context, culture, value, destinationType);

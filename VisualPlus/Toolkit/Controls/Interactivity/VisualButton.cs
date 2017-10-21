@@ -29,7 +29,6 @@
         #region Variables
 
         private bool _animation;
-
         private ControlColorState _backColorState;
         private Border _border;
         private VFXManager _effectsManager;
@@ -65,6 +64,9 @@
 
         #region Properties
 
+        [DefaultValue(Settings.DefaultValue.Animation)]
+        [Category(Propertys.Behavior)]
+        [Description(Property.Animation)]
         public bool Animation
         {
             get

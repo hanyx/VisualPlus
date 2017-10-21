@@ -181,6 +181,7 @@
 
         /// <summary>Gets the <see cref="VisualGradient" /> as a bitmap.</summary>
         [Browsable(true)]
+        [Category(Propertys.Appearance)]
         [Description(Property.Image)]
         public Image Image
         {

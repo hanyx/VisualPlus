@@ -164,6 +164,7 @@
 
         #region Properties
 
+        [Description(Property.Color)]
         [Category(Propertys.Appearance)]
         public Color Background
         {
@@ -241,6 +242,7 @@
             }
         }
 
+        [Description(Property.Font)]
         [Category(Propertys.Appearance)]
         public Font Font
         {
@@ -256,6 +258,7 @@
             }
         }
 
+        [Description(Property.Color)]
         [Category(Propertys.Appearance)]
         public Color ForeColor
         {
@@ -273,6 +276,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
+        [Description(Property.Color)]
+        [Category(Propertys.Appearance)]
         public Point Location
         {
             get
@@ -304,6 +309,8 @@
             }
         }
 
+        [Description(Property.Size)]
+        [Category(Propertys.Appearance)]
         public Size Size
         {
             get
@@ -318,6 +325,8 @@
             }
         }
 
+        [Description(Property.Text)]
+        [Category(Propertys.Appearance)]
         public string Text
         {
             get

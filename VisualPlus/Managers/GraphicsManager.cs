@@ -23,7 +23,7 @@
         /// <param name="anchorStyle">Alignment style.</param>
         /// <param name="baseRectangle">Base rectangle.</param>
         /// <param name="anchorWidth">Anchor width.</param>
-        /// <returns>Anchored rectangle.</returns>
+        /// <returns>The <see cref="Rectangle"/>.</returns>
         public static Rectangle ApplyAnchor(TabAlignment anchorStyle, Rectangle baseRectangle, int anchorWidth)
         {
             Point anchoredLocation;
@@ -105,7 +105,7 @@
         /// <param name="originF"> The originF is the middle of the star.</param>
         /// <param name="outerRadius">Radius of the surrounding circle.</param>
         /// <param name="innerRadius">Radius of the circle for the "inner" points</param>
-        /// <returns>10 PointF array.</returns>
+        /// <returns>The <see cref="PointF"/>.</returns>
         public static PointF[] Calculate5PointStar(PointF originF, float outerRadius, float innerRadius)
         {
             // Define some variables to avoid as much calculations as possible
@@ -153,7 +153,7 @@
         /// <param name="topRight">The color for top-right.</param>
         /// <param name="bottomLeft">The color for bottom-left.</param>
         /// <param name="bottomRight">The color for bottom-right.</param>
-        /// <returns>A bitmap with a gradient.</returns>
+        /// <returns>The <see cref="Bitmap"/>.</returns>
         public static Bitmap CreateGradientBitmap(Size size, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight)
         {
             Bitmap _bitmap = new Bitmap(size.Width, size.Height);
@@ -245,7 +245,7 @@
 
         /// <summary>Draws the hatch brush as an image and then converts it to a texture brush for scaling.</summary>
         /// <param name="hatchBrush">Hatch brush pattern.</param>
-        /// <returns>Texture brush.</returns>
+        /// <returns>The <see cref="TextureBrush"/>.</returns>
         public static TextureBrush DrawTextureUsingHatch(HatchBrush hatchBrush)
         {
             using (Bitmap _bitmap = new Bitmap(8, 8))
@@ -424,7 +424,7 @@
         /// <summary>Flip the size by orientation.</summary>
         /// <param name="orientation">The orientation.</param>
         /// <param name="size">Current size.</param>
-        /// <returns>New size.</returns>
+        /// <returns>The <see cref="Size"/>.</returns>
         public static Size FlipOrientationSize(Orientation orientation, Size size)
         {
             Size newSize = new Size(0, 0);
@@ -455,7 +455,7 @@
         /// <param name="down">The down.</param>
         /// <param name="disabled">The disabled.</param>
         /// <param name="mouseState">Mouse state.</param>
-        /// <returns>Back color state.</returns>
+        /// <returns>The <see cref="Color"/>.</returns>
         public static Color GetBackColorState(bool enabled, Color normal, Color hover, Color down, Color disabled, MouseStates mouseState)
         {
             Color _color;
@@ -504,7 +504,7 @@
         /// <param name="font">The font.</param>
         /// <param name="bounds">The outer bounds.</param>
         /// <param name="imagePoint">Return image point.</param>
-        /// <returns>The return point.</returns>
+        /// <returns>The <see cref="Point"/>.</returns>
         public static Point GetTextImageRelationLocation(Graphics graphics, TextImageRelation relation, Rectangle image, string text, Font font, Rectangle bounds, bool imagePoint)
         {
             Point newPosition = new Point(0, 0);
@@ -610,7 +610,7 @@
         /// <param name="value">The progress value in the transition.</param>
         /// <param name="beginColor">The beginning color.</param>
         /// <param name="endColor">The ending color.</param>
-        /// <returns>The color in between.</returns>
+        /// <returns>The <see cref="Color"/>.</returns>
         public static Color GetTransitionColor(int value, Color beginColor, Color endColor)
         {
             try
@@ -637,7 +637,7 @@
         /// <summary>Insert the color on to another color.</summary>
         /// <param name="color0">The color0.</param>
         /// <param name="color1">The color1.</param>
-        /// <returns>The returning inserted color.</returns>
+        /// <returns>The <see cref="Color"/>.</returns>
         public static Color InsertColor(Color color0, Color color1)
         {
             return Color.FromArgb((color0.R + color1.R) / 2, (color0.G + color1.G) / 2, (color0.B + color1.B) / 2);
@@ -646,7 +646,7 @@
         /// <summary>Checks whether the mouse is inside the bounds.</summary>
         /// <param name="mousePoint">Mouse location.</param>
         /// <param name="bounds">The rectangle.</param>
-        /// <returns>Returns value.</returns>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool IsMouseInBounds(Point mousePoint, Rectangle bounds)
         {
             return bounds.Contains(mousePoint);
@@ -655,7 +655,7 @@
         /// <summary>Measures the specified string when draw with the specified font.</summary>
         /// <param name="text">The text to measure.</param>
         /// <param name="font">The font to apply to the measured text.</param>
-        /// <returns>Measured text size.</returns>
+        /// <returns>The <see cref="Size"/>.</returns>
         public static Size MeasureText(string text, Font font)
         {
             return TextRenderer.MeasureText(text, font);
@@ -665,7 +665,7 @@
         /// <param name="graphics">Graphics input.</param>
         /// <param name="text">The text to measure.</param>
         /// <param name="font">The font to apply to the measured text.</param>
-        /// <returns>Measured text size.</returns>
+        /// <returns>The <see cref="Size"/>.</returns>
         public static Size MeasureText(Graphics graphics, string text, Font font)
         {
             int width = Convert.ToInt32(graphics.MeasureString(text, font).Width);
@@ -737,7 +737,7 @@
         /// <summary>Checks if the text is larger than the rectangle.</summary>
         /// <param name="text">The text.</param>
         /// <param name="rectangle">The rectangle.</param>
-        /// <returns>Returns result.</returns>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool TextLargerThanRectangle(Size text, Rectangle rectangle)
         {
             return text.Height > rectangle.Size.Height;
@@ -745,7 +745,7 @@
 
         /// <summary>Sets the graphics using picture box size mode.</summary>
         /// <param name="pictureBoxSizeMode">The picture box size mode.</param>
-        /// <returns>Graphics controller.</returns>
+        /// <returns>The <see cref="Graphics"/>.</returns>
         public Graphics SetPictureBoxSizeMode(PictureBoxSizeMode pictureBoxSizeMode)
         {
             Bitmap drawArea = new Bitmap(new PictureBox { SizeMode = pictureBoxSizeMode }.Size.Width, new PictureBox { SizeMode = pictureBoxSizeMode }.Size.Height);

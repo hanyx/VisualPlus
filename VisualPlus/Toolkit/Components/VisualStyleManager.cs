@@ -166,7 +166,7 @@
 
         /// <summary>Gets the style object.</summary>
         /// <param name="styles">The Style.</param>
-        /// <returns>The interface style.</returns>
+        /// <returns>The <see cref="object"/>.</returns>
         protected virtual object GetStyleObject(Styles styles)
         {
             object interfaceObject;

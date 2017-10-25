@@ -105,7 +105,7 @@
         }
 
         /// <summary>Gets the color under the mouse.</summary>
-        /// <returns>The color.</returns>
+        /// <returns>The <see cref="Color"/>.</returns>
         public static Color CurrentPointerColor()
         {
             Point cursor = new Point();
@@ -115,7 +115,7 @@
 
         /// <summary>Get the color from position.</summary>
         /// <param name="location">Cursor position.</param>
-        /// <returns>The color.</returns>
+        /// <returns>The <see cref="Color"/>.</returns>
         public static Color GetColorFromPosition(Point location)
         {
             using (Graphics graphicsDestination = Graphics.FromImage(screenPixel))
@@ -137,7 +137,7 @@
         /// <param name="brightness">The color tint.</param>
         /// <param name="c">The color.</param>
         /// <param name="d">The byte.</param>
-        /// <returns>The new color.</returns>
+        /// <returns>The <see cref="Color"/>.</returns>
         public static Color GetColorTint(Brightness brightness, Color c, byte d)
         {
             Color newColor = new Color();
@@ -206,7 +206,7 @@
         /// <param name="blendColor"></param>
         /// <param name="baseColor"></param>
         /// <param name="opacity"></param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Color"/>.</returns>
         public static Color OpacityMix(Color blendColor, Color baseColor, int opacity)
         {
             int r1;
@@ -234,7 +234,7 @@
         /// </summary>
         /// <param name="ibase"></param>
         /// <param name="blend"></param>
-        /// <returns></returns>
+        /// <returns>The <see cref="int"/>.</returns>
         public static int OverlayMath(int ibase, int blend)
         {
             double dbase;
@@ -256,7 +256,7 @@
         /// <param name="baseColor"></param>
         /// <param name="blendColor"></param>
         /// <param name="opacity"></param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Color"/>.</returns>
         public static Color OverlayMix(Color baseColor, Color blendColor, int opacity)
         {
             int r1;
@@ -281,7 +281,7 @@
         }
 
         /// <summary>Generates a random color.</summary>
-        /// <returns>A random color.</returns>
+        /// <returns>The <see cref="Color"/>.</returns>
         public static Color RandomColor()
         {
             Random _random = new Random();
@@ -293,7 +293,7 @@
         /// <param name="baseColor"></param>
         /// <param name="blendColor"></param>
         /// <param name="opacity"></param>
-        /// <returns></returns>
+        /// <returns>The <see cref="Color"/>.</returns>
         public static Color SoftLightMix(Color baseColor, Color blendColor, int opacity)
         {
             int r1;
@@ -364,7 +364,7 @@
         /// </summary>
         /// <param name="ibase"></param>
         /// <param name="blend"></param>
-        /// <returns></returns>
+        /// <returns>The <see cref="int"/>.</returns>
         private static int SoftLightMath(int ibase, int blend)
         {
             float dbase;

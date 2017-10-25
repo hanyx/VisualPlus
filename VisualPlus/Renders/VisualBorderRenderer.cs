@@ -18,7 +18,7 @@
 
         /// <summary>Gets the distance from the border.</summary>
         /// <param name="shape">The shape of the container control.</param>
-        /// <returns>The internal control distance.</returns>
+        /// <returns>The <see cref="int"/>.</returns>
         public static int CalculateBorderCurve(Shape shape)
         {
             return (shape.Rounding / 2) + shape.Thickness + 1;
@@ -27,7 +27,7 @@
         /// <summary>Creates a border type path.</summary>
         /// <param name="rectangle">The rectangle.</param>
         /// <param name="shape">The shape.</param>
-        /// <returns>Border graphics path.</returns>
+        /// <returns>The <see cref="GraphicsPath"/>.</returns>
         public static GraphicsPath CreateBorderTypePath(Rectangle rectangle, Shape shape)
         {
             return CreateBorderTypePath(rectangle, shape.Rounding, shape.Thickness, shape.Type);

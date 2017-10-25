@@ -414,7 +414,7 @@
 
         /// <summary>Input the text height to compare it to the icon height.</summary>
         /// <param name="textHeight">The text height.</param>
-        /// <returns>New height.</returns>
+        /// <returns>The <see cref="int"/>.</returns>
         private int GetTipHeight(int textHeight)
         {
             int tipHeight = textHeight > _iconSize.Height ? textHeight : _iconSize.Height;
@@ -424,7 +424,7 @@
         /// <summary>Input the title and text width to retrieve total width.</summary>
         /// <param name="titleWidth">The title width.</param>
         /// <param name="textWidth">The text width.</param>
-        /// <returns>New width.</returns>
+        /// <returns>The <see cref="int"/>.</returns>
         private int GetTipWidth(int titleWidth, int textWidth)
         {
             int tipWidth = titleWidth > _iconSize.Width + textWidth ? titleWidth : _iconSize.Width + textWidth;

@@ -157,7 +157,7 @@
         /// <param name="background">The background color.</param>
         /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
         /// <param name="border">The border type.</param>
-        /// <returns>The background path filled.</returns>
+        /// <returns>The <see cref="GraphicsPath"/>.</returns>
         private static GraphicsPath FillBackgroundPath(Graphics graphics, Color background, Rectangle rectangle, Shape border)
         {
             GraphicsPath backgroundPath = VisualBorderRenderer.CreateBorderTypePath(rectangle, border);
@@ -172,7 +172,7 @@
         /// <param name="background">The background color.</param>
         /// <param name="rectangle">The coordinates of the rectangle to draw.</param>
         /// <param name="rounding">The amount of rounding.</param>
-        /// <returns>The background path filled.</returns>
+        /// <returns>The <see cref="GraphicsPath"/>.</returns>
         private static GraphicsPath FillBackgroundPath(Graphics graphics, Color background, Rectangle rectangle, int rounding)
         {
             GraphicsPath backgroundPath = GraphicsManager.DrawRoundedRectangle(rectangle, rounding);

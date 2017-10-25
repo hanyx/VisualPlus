@@ -300,7 +300,7 @@
         /// <param name="autoSize">The auto size toggle.</param>
         /// <param name="control">The control.</param>
         /// <param name="custom">The custom size.</param>
-        /// <returns>The auto adjusted gradient size.</returns>
+        /// <returns>The <see cref="Size"/>.</returns>
         private Size GetGradientSize(bool autoSize, Control control, Size custom)
         {
             Size _newSize;

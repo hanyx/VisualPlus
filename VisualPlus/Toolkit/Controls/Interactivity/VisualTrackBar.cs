@@ -111,7 +111,6 @@
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
             _tickHeight = 4;
             _valueTicksVisible = Settings.DefaultValue.TextVisible;
-
             _buttonControlColorState = new ControlColorState();
             _trackBarColor = new ColorState();
 
@@ -996,7 +995,7 @@
 
             Size _progressValue = GraphicsManager.MeasureText(graphics, Maximum.ToString(), _textFont);
 
-            DrawButton(graphics, _progressValue);
+            DrawTrackerButton(graphics, _progressValue);
             DrawText(graphics, _progressValue);
         }
 
@@ -1289,49 +1288,6 @@
             }
         }
 
-        /// <summary>Draws the button.</summary>
-        /// <param name="graphics">Graphics input.</param>
-        /// <param name="progressValue">The progress Value.</param>
-        private void DrawButton(Graphics graphics, Size progressValue)
-        {
-            Point _location;
-            graphics.ResetClip();
-
-            switch (Orientation)
-            {
-                case Orientation.Horizontal:
-                    {
-                        _location = new Point(_trackerRectangle.X, (_trackBarRectangle.Top + (_barThickness / 2)) - (_trackerSize.Height / 2));
-                        _trackerSize = _trackerAutoSize ? new Size(progressValue.Width, _trackerSize.Height) : new Size(_trackerSize.Width, _trackerSize.Height);
-                        break;
-                    }
-
-                case Orientation.Vertical:
-                    {
-                        _location = new Point((_trackBarRectangle.Left + (_barThickness / 2)) - (_trackerSize.Width / 2), _trackerRectangle.Y);
-                        _trackerSize = _trackerAutoSize ? new Size(_trackerSize.Width, progressValue.Height) : new Size(_trackerSize.Width, _trackerSize.Height);
-                        break;
-                    }
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            _trackerButtonRectangle = new Rectangle(_location, _trackerSize);
-
-            if (!_trackerVisible)
-            {
-                return;
-            }
-
-            Color _backColor = GraphicsManager.GetBackColorState(Enabled, _buttonControlColorState.Enabled, _buttonControlColorState.Hover, _buttonControlColorState.Pressed, _buttonControlColorState.Disabled, _mouseState);
-
-            _buttonPath = VisualBorderRenderer.CreateBorderTypePath(_trackerButtonRectangle, _trackerBorder);
-            graphics.FillPath(new SolidBrush(_backColor), _buttonPath);
-
-            VisualBorderRenderer.DrawBorderStyle(graphics, _trackerBorder, _buttonPath, _mouseState);
-        }
-
         /// <summary>Draws the TrackBar progress.</summary>
         /// <param name="graphics">Graphics input.</param>
         private void DrawProgress(Graphics graphics)
@@ -1484,6 +1440,49 @@
 
             Color _backColor = Enabled ? _trackBarColor.Enabled : _trackBarColor.Disabled;
             VisualBackgroundRenderer.DrawBackground(graphics, _backColor, BackgroundImage, _mouseState, _trackBarRectangle, _trackBarBorder);
+        }
+
+        /// <summary>Draws the button.</summary>
+        /// <param name="graphics">Graphics input.</param>
+        /// <param name="progressValue">The progress Value.</param>
+        private void DrawTrackerButton(Graphics graphics, Size progressValue)
+        {
+            Point _location;
+            graphics.ResetClip();
+
+            switch (Orientation)
+            {
+                case Orientation.Horizontal:
+                    {
+                        _location = new Point(_trackerRectangle.X, (_trackBarRectangle.Top + (_barThickness / 2)) - (_trackerSize.Height / 2));
+                        _trackerSize = _trackerAutoSize ? new Size(progressValue.Width, _trackerSize.Height) : new Size(_trackerSize.Width, _trackerSize.Height);
+                        break;
+                    }
+
+                case Orientation.Vertical:
+                    {
+                        _location = new Point((_trackBarRectangle.Left + (_barThickness / 2)) - (_trackerSize.Width / 2), _trackerRectangle.Y);
+                        _trackerSize = _trackerAutoSize ? new Size(_trackerSize.Width, progressValue.Height) : new Size(_trackerSize.Width, _trackerSize.Height);
+                        break;
+                    }
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            _trackerButtonRectangle = new Rectangle(_location, _trackerSize);
+
+            if (!_trackerVisible)
+            {
+                return;
+            }
+
+            Color _backColor = GraphicsManager.GetBackColorState(Enabled, _buttonControlColorState.Enabled, _buttonControlColorState.Hover, _buttonControlColorState.Pressed, _buttonControlColorState.Disabled, _mouseState);
+
+            _buttonPath = VisualBorderRenderer.CreateBorderTypePath(_trackerButtonRectangle, _trackerBorder);
+            graphics.FillPath(new SolidBrush(_backColor), _buttonPath);
+
+            VisualBorderRenderer.DrawBorderStyle(graphics, _trackerBorder, _buttonPath, _mouseState);
         }
 
         /// <summary>Draws the horizontal style.</summary>

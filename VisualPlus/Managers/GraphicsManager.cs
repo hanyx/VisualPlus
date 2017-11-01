@@ -5,7 +5,6 @@
     using System;
     using System.Drawing;
     using System.Drawing.Drawing2D;
-    using System.Drawing.Text;
     using System.Globalization;
     using System.Windows.Forms;
 
@@ -23,7 +22,7 @@
         /// <param name="anchorStyle">Alignment style.</param>
         /// <param name="baseRectangle">Base rectangle.</param>
         /// <param name="anchorWidth">Anchor width.</param>
-        /// <returns>The <see cref="Rectangle"/>.</returns>
+        /// <returns>The <see cref="Rectangle" />.</returns>
         public static Rectangle ApplyAnchor(TabAlignment anchorStyle, Rectangle baseRectangle, int anchorWidth)
         {
             Point anchoredLocation;
@@ -105,7 +104,7 @@
         /// <param name="originF"> The originF is the middle of the star.</param>
         /// <param name="outerRadius">Radius of the surrounding circle.</param>
         /// <param name="innerRadius">Radius of the circle for the "inner" points</param>
-        /// <returns>The <see cref="PointF"/>.</returns>
+        /// <returns>The <see cref="PointF" />.</returns>
         public static PointF[] Calculate5PointStar(PointF originF, float outerRadius, float innerRadius)
         {
             // Define some variables to avoid as much calculations as possible
@@ -153,7 +152,7 @@
         /// <param name="topRight">The color for top-right.</param>
         /// <param name="bottomLeft">The color for bottom-left.</param>
         /// <param name="bottomRight">The color for bottom-right.</param>
-        /// <returns>The <see cref="Bitmap"/>.</returns>
+        /// <returns>The <see cref="Bitmap" />.</returns>
         public static Bitmap CreateGradientBitmap(Size size, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight)
         {
             Bitmap _bitmap = new Bitmap(size.Width, size.Height);
@@ -245,7 +244,7 @@
 
         /// <summary>Draws the hatch brush as an image and then converts it to a texture brush for scaling.</summary>
         /// <param name="hatchBrush">Hatch brush pattern.</param>
-        /// <returns>The <see cref="TextureBrush"/>.</returns>
+        /// <returns>The <see cref="TextureBrush" />.</returns>
         public static TextureBrush DrawTextureUsingHatch(HatchBrush hatchBrush)
         {
             using (Bitmap _bitmap = new Bitmap(8, 8))
@@ -253,135 +252,6 @@
             {
                 graphics.FillRectangle(hatchBrush, 0, 0, 8, 8);
                 return new TextureBrush(_bitmap);
-            }
-        }
-
-        /// <summary>Draws the tick line.</summary>
-        /// <param name="graphics">Graphics controller.</param>
-        /// <param name="drawRect">The rectangle</param>
-        /// <param name="tickFrequency">Tick frequency.</param>
-        /// <param name="minimum">The minimum.</param>
-        /// <param name="maximum">The maximum.</param>
-        /// <param name="tickColor">The tick Color.</param>
-        /// <param name="orientation">The orientation.</param>
-        public static void DrawTickLine(Graphics graphics, RectangleF drawRect, int tickFrequency, int minimum, int maximum, Color tickColor, Orientation orientation)
-        {
-            // Check input value
-            if (maximum == minimum)
-            {
-                return;
-            }
-
-            // Create the Pen for drawing Ticks
-            Pen pen = new Pen(tickColor, 1);
-            float tickFrequencySize;
-
-            // Calculate tick number
-            int tickCount = (maximum - minimum) / tickFrequency;
-            if ((maximum - minimum) % tickFrequency == 0)
-            {
-                tickCount -= 1;
-            }
-
-            if (orientation == Orientation.Horizontal)
-            {
-                // Calculate tick's setting
-                tickFrequencySize = (drawRect.Width * tickFrequency) / (maximum - minimum);
-
-                // Draw each tick
-                for (var i = 0; i <= tickCount; i++)
-                {
-                    graphics.DrawLine(pen, drawRect.Left + (tickFrequencySize * i), drawRect.Top, drawRect.Left + (tickFrequencySize * i), drawRect.Bottom);
-                }
-
-                // Draw last tick at Maximum
-                graphics.DrawLine(pen, drawRect.Right, drawRect.Top, drawRect.Right, drawRect.Bottom);
-            }
-            else
-            {
-                // Calculate tick's setting
-                tickFrequencySize = (drawRect.Height * tickFrequency) / (maximum - minimum);
-
-                // Draw each tick
-                for (var i = 0; i <= tickCount; i++)
-                {
-                    graphics.DrawLine(pen, drawRect.Left, drawRect.Bottom - (tickFrequencySize * i), drawRect.Right, drawRect.Bottom - (tickFrequencySize * i));
-                }
-
-                // Draw last tick at Maximum
-                graphics.DrawLine(pen, drawRect.Left, drawRect.Top, drawRect.Right, drawRect.Top);
-            }
-        }
-
-        /// <summary>Draws the tick text.</summary>
-        /// <param name="graphics">Graphics controller.</param>
-        /// <param name="drawRect">The rectangle</param>
-        /// <param name="tickFrequency">Tick frequency.</param>
-        /// <param name="minimum">The minimum.</param>
-        /// <param name="maximum">The maximum.</param>
-        /// <param name="foreColor">Fore color.</param>
-        /// <param name="font">The font.</param>
-        /// <param name="orientation">The orientation.</param>
-        public static void DrawTickTextLine(Graphics graphics, RectangleF drawRect, int tickFrequency, int minimum, int maximum, Color foreColor, Font font, Orientation orientation)
-        {
-            // Check input value
-            if (maximum == minimum)
-            {
-                return;
-            }
-
-            // Calculate tick number
-            int tickCount = (maximum - minimum) / tickFrequency;
-            if ((maximum - minimum) % tickFrequency == 0)
-            {
-                tickCount -= 1;
-            }
-
-            // Prepare for drawing Text
-            StringFormat stringFormat = new StringFormat
-                {
-                    FormatFlags = StringFormatFlags.NoWrap,
-                    LineAlignment = StringAlignment.Center,
-                    Alignment = StringAlignment.Center,
-                    Trimming = StringTrimming.EllipsisCharacter,
-                    HotkeyPrefix = HotkeyPrefix.Show
-                };
-
-            Brush brush = new SolidBrush(foreColor);
-            string text;
-            float tickFrequencySize;
-
-            if (orientation == Orientation.Horizontal)
-            {
-                // Calculate tick's setting
-                tickFrequencySize = (drawRect.Width * tickFrequency) / (maximum - minimum);
-
-                // Draw each tick text
-                for (var i = 0; i <= tickCount; i++)
-                {
-                    text = Convert.ToString(minimum + (tickFrequency * i), 10);
-                    graphics.DrawString(text, font, brush, drawRect.Left + (tickFrequencySize * i), drawRect.Top + (drawRect.Height / 2), stringFormat);
-                }
-
-                // Draw last tick text at Maximum
-                text = Convert.ToString(maximum, 10);
-                graphics.DrawString(text, font, brush, drawRect.Right, drawRect.Top + (drawRect.Height / 2), stringFormat);
-            }
-            else
-            {
-                // Calculate tick's setting
-                tickFrequencySize = (drawRect.Height * tickFrequency) / (maximum - minimum);
-
-                // Draw each tick text
-                for (var i = 0; i <= tickCount; i++)
-                {
-                    text = Convert.ToString(minimum + (tickFrequency * i), 10);
-                    graphics.DrawString(text, font, brush, drawRect.Left + (drawRect.Width / 2), drawRect.Bottom - (tickFrequencySize * i), stringFormat);
-                }
-
-                // Draw last tick text at Maximum
-                text = Convert.ToString(maximum, 10);
-                graphics.DrawString(text, font, brush, drawRect.Left + (drawRect.Width / 2), drawRect.Top, stringFormat);
             }
         }
 
@@ -424,7 +294,7 @@
         /// <summary>Flip the size by orientation.</summary>
         /// <param name="orientation">The orientation.</param>
         /// <param name="size">Current size.</param>
-        /// <returns>The <see cref="Size"/>.</returns>
+        /// <returns>The <see cref="Size" />.</returns>
         public static Size FlipOrientationSize(Orientation orientation, Size size)
         {
             Size newSize = new Size(0, 0);
@@ -455,7 +325,7 @@
         /// <param name="down">The down.</param>
         /// <param name="disabled">The disabled.</param>
         /// <param name="mouseState">Mouse state.</param>
-        /// <returns>The <see cref="Color"/>.</returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color GetBackColorState(bool enabled, Color normal, Color hover, Color down, Color disabled, MouseStates mouseState)
         {
             Color _color;
@@ -504,7 +374,7 @@
         /// <param name="font">The font.</param>
         /// <param name="bounds">The outer bounds.</param>
         /// <param name="imagePoint">Return image point.</param>
-        /// <returns>The <see cref="Point"/>.</returns>
+        /// <returns>The <see cref="Point" />.</returns>
         public static Point GetTextImageRelationLocation(Graphics graphics, TextImageRelation relation, Rectangle image, string text, Font font, Rectangle bounds, bool imagePoint)
         {
             Point newPosition = new Point(0, 0);
@@ -610,7 +480,7 @@
         /// <param name="value">The progress value in the transition.</param>
         /// <param name="beginColor">The beginning color.</param>
         /// <param name="endColor">The ending color.</param>
-        /// <returns>The <see cref="Color"/>.</returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color GetTransitionColor(int value, Color beginColor, Color endColor)
         {
             try
@@ -637,7 +507,7 @@
         /// <summary>Insert the color on to another color.</summary>
         /// <param name="color0">The color0.</param>
         /// <param name="color1">The color1.</param>
-        /// <returns>The <see cref="Color"/>.</returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color InsertColor(Color color0, Color color1)
         {
             return Color.FromArgb((color0.R + color1.R) / 2, (color0.G + color1.G) / 2, (color0.B + color1.B) / 2);
@@ -646,7 +516,7 @@
         /// <summary>Checks whether the mouse is inside the bounds.</summary>
         /// <param name="mousePoint">Mouse location.</param>
         /// <param name="bounds">The rectangle.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>The <see cref="bool" />.</returns>
         public static bool IsMouseInBounds(Point mousePoint, Rectangle bounds)
         {
             return bounds.Contains(mousePoint);
@@ -655,7 +525,7 @@
         /// <summary>Measures the specified string when draw with the specified font.</summary>
         /// <param name="text">The text to measure.</param>
         /// <param name="font">The font to apply to the measured text.</param>
-        /// <returns>The <see cref="Size"/>.</returns>
+        /// <returns>The <see cref="Size" />.</returns>
         public static Size MeasureText(string text, Font font)
         {
             return TextRenderer.MeasureText(text, font);
@@ -665,7 +535,7 @@
         /// <param name="graphics">Graphics input.</param>
         /// <param name="text">The text to measure.</param>
         /// <param name="font">The font to apply to the measured text.</param>
-        /// <returns>The <see cref="Size"/>.</returns>
+        /// <returns>The <see cref="Size" />.</returns>
         public static Size MeasureText(Graphics graphics, string text, Font font)
         {
             int width = Convert.ToInt32(graphics.MeasureString(text, font).Width);
@@ -737,7 +607,7 @@
         /// <summary>Checks if the text is larger than the rectangle.</summary>
         /// <param name="text">The text.</param>
         /// <param name="rectangle">The rectangle.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>The <see cref="bool" />.</returns>
         public static bool TextLargerThanRectangle(Size text, Rectangle rectangle)
         {
             return text.Height > rectangle.Size.Height;
@@ -745,7 +615,7 @@
 
         /// <summary>Sets the graphics using picture box size mode.</summary>
         /// <param name="pictureBoxSizeMode">The picture box size mode.</param>
-        /// <returns>The <see cref="Graphics"/>.</returns>
+        /// <returns>The <see cref="Graphics" />.</returns>
         public Graphics SetPictureBoxSizeMode(PictureBoxSizeMode pictureBoxSizeMode)
         {
             Bitmap drawArea = new Bitmap(new PictureBox { SizeMode = pictureBoxSizeMode }.Size.Width, new PictureBox { SizeMode = pictureBoxSizeMode }.Size.Height);

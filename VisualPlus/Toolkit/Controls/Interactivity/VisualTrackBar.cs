@@ -1508,7 +1508,7 @@
 
                     // Move next tick area
                     _currentUsedPos += _tickHeight;
-                    GraphicsManager.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
+                    TickManager.DrawTickLine(graphics, _tickColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation);
                 }
 
                 if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
@@ -1523,7 +1523,7 @@
 
                     // Move next tick area
                     _currentUsedPos += _tickHeight;
-                    GraphicsManager.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
+                    TickManager.DrawTickLine(graphics, _tickColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation);
                 }
             }
             else
@@ -1540,7 +1540,7 @@
 
                     // Move next text area
                     _currentUsedPos += _tickHeight;
-                    GraphicsManager.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
+                    TickManager.DrawTickTextLine(graphics, _foreColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation, _textFont);
                 }
 
                 if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
@@ -1555,7 +1555,7 @@
 
                     // Move next text area
                     _currentUsedPos += _tickHeight;
-                    GraphicsManager.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
+                    TickManager.DrawTickTextLine(graphics, _foreColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation, _textFont);
                 }
             }
         }
@@ -1629,7 +1629,7 @@
 
                     // Move next tick area
                     _currentUsedPos += _tickHeight;
-                    GraphicsManager.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
+                    TickManager.DrawTickLine(graphics, _tickColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation);
                 }
 
                 if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
@@ -1641,7 +1641,7 @@
 
                     // Move next tick area
                     _currentUsedPos += _tickHeight;
-                    GraphicsManager.DrawTickLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _tickColor, _orientation);
+                    TickManager.DrawTickLine(graphics, _tickColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation);
                 }
             }
             else
@@ -1655,7 +1655,7 @@
 
                     // Move next text area
                     _currentUsedPos += _tickHeight;
-                    GraphicsManager.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
+                    TickManager.DrawTickTextLine(graphics, _foreColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation, _textFont);
                 }
 
                 if ((TickStyle == TickStyle.BottomRight) || (TickStyle == TickStyle.Both))
@@ -1667,7 +1667,7 @@
 
                     // Move next text area
                     _currentUsedPos += _tickHeight;
-                    GraphicsManager.DrawTickTextLine(graphics, _tickRectangle, TickFrequency, Minimum, Maximum, _foreColor, _textFont, _orientation);
+                    TickManager.DrawTickTextLine(graphics, _foreColor, _tickRectangle, TickFrequency, Minimum, Maximum, _orientation, _textFont);
                 }
             }
         }

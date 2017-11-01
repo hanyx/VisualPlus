@@ -67,6 +67,7 @@
     <Compile Include="Localization\Category\Propertys.cs" />
     <Compile Include="Managers\ImageManager.cs" />
     <Compile Include="Managers\MonitorManager.cs" />
+    <Compile Include="Managers\TickManager.cs" />
     <Compile Include="PInvoke\Gdi32.cs" />
     <Compile Include="PInvoke\Shlwapi.cs" />
     <Compile Include="PInvoke\User32.cs" />

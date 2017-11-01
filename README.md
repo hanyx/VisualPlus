@@ -38,7 +38,7 @@ If you are interested in fixing issues and contributing directly to the code bas
 - [Coding Guidelines](https://github.com/DarkByte7/VisualPlus/wiki/Coding-Guidelines)
 - [Submitting pull requests](https://github.com/DarkByte7/VisualPlus/compare)
 
-Enjoy using this VisualPlus or just want to say thanks?
+Enjoy using `VisualPlus` or just want to say thanks?
 Hit the ⭐️ Star ⭐️ button.
 
 BitCoin donations are also welcome: `1KKghRonJu6orcu7rf4r1wSnsnAPbnC8B7`

@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.VisualBase
+﻿namespace VisualPlus.Toolkit.Child
 {
     #region Namespace
 
@@ -15,7 +15,7 @@
 
         /// <inheritdoc />
         /// <summary>
-        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.VisualBase.VisualToolStripMenuItem" />
+        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Child.VisualToolStripMenuItem" />
         ///     class.
         /// </summary>
         public VisualToolStripMenuItem()

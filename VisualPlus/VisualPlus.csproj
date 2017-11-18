@@ -231,7 +231,7 @@
     <Compile Include="Toolkit\Controls\Interactivity\VisualKnob.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Toolkit\VisualBase\VisualToolStripMenuItem.cs">
+    <Compile Include="Toolkit\Child\VisualToolStripMenuItem.cs">
       <SubType>Component</SubType>
     </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />

@@ -50,7 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\VisualTabPageCollectionEditor.cs" />
     <Compile Include="Delegates\StyleManagerDelegate.cs" />
+    <Compile Include="Designer\VisualTabPageDesigner.cs" />
     <Compile Include="EventArgs\ValueChangedEventArgs.cs" />
     <Compile Include="EventArgs\CursorChangedEventArgs.cs" />
     <Compile Include="EventArgs\ThemeEventArgs.cs" />
@@ -92,6 +94,9 @@
     <Compile Include="Designer\ActionList\VisualTextBoxActionList.cs" />
     <Compile Include="Designer\ActionList\VisualListViewActionList.cs" />
     <Compile Include="Designer\ActionList\VisuaListBoxActionList.cs" />
+    <Compile Include="Toolkit\Child\VisualTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Toolkit\Components\VisualGradient.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -239,7 +244,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Collections\" />
     <Folder Include="Toolkit\Dialogs\" />
   </ItemGroup>
   <ItemGroup>

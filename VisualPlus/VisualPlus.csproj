@@ -53,6 +53,7 @@
     <Compile Include="Collections\VisualTabPageCollectionEditor.cs" />
     <Compile Include="Delegates\StyleManagerDelegate.cs" />
     <Compile Include="Designer\VisualTabPageDesigner.cs" />
+    <Compile Include="Enumerators\Brightness.cs" />
     <Compile Include="EventArgs\ValueChangedEventArgs.cs" />
     <Compile Include="EventArgs\CursorChangedEventArgs.cs" />
     <Compile Include="EventArgs\ThemeEventArgs.cs" />

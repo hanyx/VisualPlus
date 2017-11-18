@@ -6,25 +6,13 @@
     using System.Drawing;
     using System.Drawing.Imaging;
 
+    using VisualPlus.Enumerators;
     using VisualPlus.PInvoke;
 
     #endregion
 
     internal class ColorManager
     {
-        #region Constructors
-
-        public enum Brightness
-        {
-            /// <summary>Darker.</summary>
-            Dark,
-
-            /// <summary>Lighter.</summary>
-            Light
-        }
-
-        #endregion
-
         #region Events
 
         public static double BlendColor(double foreColor, double backgroundColor, double alpha)
@@ -147,7 +135,7 @@
 
             switch (brightness)
             {
-                case Brightness.Dark:
+                case Brightness.Darker:
                     {
                         r = 0;
                         g = 0;
@@ -172,7 +160,7 @@
                         break;
                     }
 
-                case Brightness.Light:
+                case Brightness.Lighter:
                     {
                         r = 255;
                         g = 255;

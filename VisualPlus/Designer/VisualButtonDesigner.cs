@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.PropertyFilter
+namespace VisualPlus.Designer
 {
     #region Namespace
 
@@ -7,7 +7,7 @@
 
     #endregion
 
-    internal class VisualSeparatorDesigner : ControlDesigner
+    internal class VisualButtonDesigner : ControlDesigner
     {
         #region Events
 
@@ -19,21 +19,14 @@
             properties.Remove("FlatStyle");
             properties.Remove("AutoEllipsis");
             properties.Remove("UseCompatibleTextRendering");
-            properties.Remove("Image");
             properties.Remove("ImageAlign");
             properties.Remove("ImageIndex");
             properties.Remove("ImageKey");
             properties.Remove("ImageList");
-            properties.Remove("TextImageRelation");
-            properties.Remove("BackColor");
-            properties.Remove("BackgroundImage");
-            properties.Remove("BackgroundImageLayout");
-            properties.Remove("UseVisualStyleBackColor");
-            properties.Remove("ComponentFont");
-            properties.Remove("ForeColor");
-            properties.Remove("ForeColorDisabled");
-            properties.Remove("StyleManager");
-            properties.Remove("TextRenderingHint");
+
+            // properties.Remove("BackgroundImage");
+            // properties.Remove("BackgroundImageLayout");
+            // properties.Remove("UseVisualStyleBackColor");
             properties.Remove("RightToLeft");
 
             base.PreFilterProperties(properties);

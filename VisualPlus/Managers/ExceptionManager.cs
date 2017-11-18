@@ -15,7 +15,7 @@
         /// <param name="minimumValue">Minimum value.</param>
         /// <param name="maximumValue">Maximum value.</param>
         /// <param name="round">Round to nearest value when out of range.</param>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>The <see cref="int" />.</returns>
         public static int ArgumentOutOfRangeException(int sourceValue, int minimumValue, int maximumValue, bool round)
         {
             if ((sourceValue >= minimumValue) && (sourceValue <= maximumValue))
@@ -39,7 +39,7 @@
         /// <param name="sourceValue">The main value.</param>
         /// <param name="minimumValue">Minimum value.</param>
         /// <param name="maximumValue">Maximum value.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>The <see cref="bool" />.</returns>
         public static bool ArgumentOutOfRangeException(float sourceValue, float minimumValue, float maximumValue)
         {
             if ((sourceValue >= minimumValue) && (sourceValue <= maximumValue))

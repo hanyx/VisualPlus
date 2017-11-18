@@ -1,14 +1,44 @@
-﻿namespace VisualPlus.Toolkit.PropertyFilter
+﻿namespace VisualPlus.Designer
 {
     #region Namespace
 
     using System.Collections;
+    using System.ComponentModel.Design;
     using System.Windows.Forms.Design;
+
+    using VisualPlus.Designer.ActionList;
 
     #endregion
 
-    internal class VisualContextMenuDesigner : ControlDesigner
+    internal class VisualListViewDesigner : ControlDesigner
     {
+        #region Variables
+
+        private DesignerActionListCollection _actionListCollection;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>Gets the design-time action lists supported by the component associated with the designer.</summary>
+        public override DesignerActionListCollection ActionLists
+        {
+            get
+            {
+                if (_actionListCollection == null)
+                {
+                    _actionListCollection = new DesignerActionListCollection
+                        {
+                            new VisualListViewActionList(Component)
+                        };
+                }
+
+                return _actionListCollection;
+            }
+        }
+
+        #endregion
+
         #region Events
 
         protected override void PreFilterProperties(IDictionary properties)
@@ -33,9 +63,10 @@
             properties.Remove("BackgroundImageLayout");
             properties.Remove("UseVisualStyleBackColor");
 
-            // properties.Remove("ComponentFont");
+            // properties.Remove("Font");
             // properties.Remove("ForeColor");
             properties.Remove("RightToLeft");
+            properties.Remove("View");
 
             base.PreFilterProperties(properties);
         }

@@ -7,25 +7,28 @@
     using System.Drawing;
     using System.Drawing.Design;
     using System.IO;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.ActionList;
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(RichTextBox))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("TextChanged")]
     [DefaultProperty("Text")]
     [Description("The Visual RichTextBox")]
-    [Designer(typeof(VisualRichBoxTasks))]
+    [Designer(typeof(VisualRichTextBoxDesigner))]
+    [ToolboxBitmap(typeof(RichTextBox), "Resources.ToolboxBitmaps.VisualRichTextBox.bmp")]
+    [ToolboxItem(true)]
     public class VisualRichTextBox : ContainedControlBase, IInputMethods
     {
         #region Variables

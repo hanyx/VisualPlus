@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.PropertyFilter
+﻿namespace VisualPlus.Designer
 {
     #region Namespace
 

@@ -16,7 +16,7 @@
         /// <summary>Sets the image opacity.</summary>
         /// <param name="image">The image.</param>
         /// <param name="opacity">The opacity value.</param>
-        /// <returns>The <see cref="Image"/>.</returns>
+        /// <returns>The <see cref="Image" />.</returns>
         public static Image SetOpacity(Image image, float opacity)
         {
             try

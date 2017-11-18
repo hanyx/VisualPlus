@@ -174,7 +174,7 @@
 
         /// <summary>Retrieves the fore state color.</summary>
         /// <param name="control">The control.</param>
-        /// <returns>The <see cref="Color"/>.</returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public Color GetForeColorState(VisualControlBase control)
         {
             return control.Enabled ? control.ForeColor : control.ForeColorDisabled;

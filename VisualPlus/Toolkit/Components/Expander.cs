@@ -44,7 +44,7 @@
         /// <param name="rectangle">The rectangle.</param>
         /// <param name="contractedHeight">The contracted Height.</param>
         /// <param name="state">The expanded state.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>The <see cref="bool" />.</returns>
         public static bool Add(Control control, Rectangle rectangle, int contractedHeight, bool state)
         {
             if (controlsList.Contains(control))
@@ -62,7 +62,7 @@
         /// <param name="rectangle">The rectangle.</param>
         /// <param name="contractedHeight">The contracted Height.</param>
         /// <param name="state">The expanded state.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>The <see cref="bool" />.</returns>
         public static bool Add(Control control, Color color, Rectangle rectangle, int contractedHeight, bool state)
         {
             if (controlsList.Contains(control))
@@ -81,7 +81,7 @@
         /// <param name="contractedHeight">The contracted Height.</param>
         /// <param name="cursor">The cursor.</param>
         /// <param name="state">The expanded state.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>The <see cref="bool" />.</returns>
         public static bool Add(Control control, Color color, Rectangle rectangle, int contractedHeight, Cursor cursor, bool state)
         {
             if (controlsList.Contains(control))
@@ -105,7 +105,7 @@
 
         /// <summary>Gets the back color from the expander.</summary>
         /// <param name="control">The control.</param>
-        /// <returns>The <see cref="Color"/>.</returns>
+        /// <returns>The <see cref="Color" />.</returns>
         public static Color GetColor(Control control)
         {
             Expander _expander = GetExpander(control);
@@ -114,7 +114,7 @@
 
         /// <summary>Gets the contracted height from the expander.</summary>
         /// <param name="control">The control.</param>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>The <see cref="int" />.</returns>
         public static int GetContractedHeight(Control control)
         {
             Expander _expander = GetExpander(control);
@@ -123,7 +123,7 @@
 
         /// <summary>Gets the cursor from the expander.</summary>
         /// <param name="control">The control.</param>
-        /// <returns>The <see cref="Cursor"/>.</returns>
+        /// <returns>The <see cref="Cursor" />.</returns>
         public static Cursor GetCursor(Control control)
         {
             Expander _expander = GetExpander(control);
@@ -132,7 +132,7 @@
 
         /// <summary>Gets the expander from the control.</summary>
         /// <param name="control">The control.</param>
-        /// <returns>The <see cref="Expander"/>.</returns>
+        /// <returns>The <see cref="Expander" />.</returns>
         public static Expander GetExpander(Control control)
         {
             for (var i = 0; i < control.Controls.Count; i++)
@@ -148,7 +148,7 @@
 
         /// <summary>Gets the original size from the expander.</summary>
         /// <param name="control">The control.</param>
-        /// <returns>The <see cref="Size"/>.</returns>
+        /// <returns>The <see cref="Size" />.</returns>
         public static Size GetOriginal(Control control)
         {
             Expander _expander = GetExpander(control);
@@ -157,7 +157,7 @@
 
         /// <summary>Gets the position for the expander.</summary>
         /// <param name="control">The control.</param>
-        /// <returns>The <see cref="Point"/>.</returns>
+        /// <returns>The <see cref="Point" />.</returns>
         public static Point GetPosition(Control control)
         {
             Expander _expander = GetExpander(control);
@@ -166,7 +166,7 @@
 
         /// <summary>Gets the size for the expander.</summary>
         /// <param name="control">The control.</param>
-        /// <returns>The <see cref="Size"/>.</returns>
+        /// <returns>The <see cref="Size" />.</returns>
         public static Size GetSize(Control control)
         {
             Expander _expander = GetExpander(control);
@@ -175,7 +175,7 @@
 
         /// <summary>Gets the expanded state from the expander.</summary>
         /// <param name="control">The control.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>The <see cref="bool" />.</returns>
         public static bool GetState(Control control)
         {
             Expander _expander = GetExpander(control);
@@ -184,7 +184,7 @@
 
         /// <summary>Remove the expander from the control.</summary>
         /// <param name="control">The control to remove the expander from.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>The <see cref="bool" />.</returns>
         public static bool Remove(Control control)
         {
             Expander _expander = GetExpander(control);

@@ -8,6 +8,7 @@
     using System.Drawing.Drawing2D;
     using System.Drawing.Text;
     using System.Linq;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
     using VisualPlus.Enumerators;
@@ -16,17 +17,17 @@
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.ActionList;
     using VisualPlus.Toolkit.Components;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(ComboBox))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("SelectedIndexChanged")]
     [DefaultProperty("Items")]
     [Description("The Visual ComboBox")]
-    [Designer(ControlManager.FilterProperties.VisualComboBox, typeof(VisualComboBoxTasks))]
+    [ToolboxBitmap(typeof(ComboBox), "Resources.ToolboxBitmaps.VisualComboBox.bmp")]
+    [ToolboxItem(true)]
     public class VisualComboBox : ComboBox
     {
         #region Variables

@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.PropertyFilter
+﻿namespace VisualPlus.Designer
 {
     #region Namespace
 
@@ -7,7 +7,7 @@
 
     #endregion
 
-    internal class VisualRichTextBoxDesigner : ControlDesigner
+    internal class VisualToggleDesigner : ControlDesigner
     {
         #region Events
 
@@ -25,7 +25,6 @@
             properties.Remove("ImageKey");
             properties.Remove("ImageList");
             properties.Remove("TextImageRelation");
-            properties.Remove("BackgroundImage");
             properties.Remove("BackgroundImageLayout");
             properties.Remove("UseVisualStyleBackColor");
             properties.Remove("RightToLeft");

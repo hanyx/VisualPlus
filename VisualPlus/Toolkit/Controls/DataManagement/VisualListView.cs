@@ -8,25 +8,28 @@
     using System.Drawing.Design;
     using System.Drawing.Drawing2D;
     using System.Globalization;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.ActionList;
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(ListView))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("SelectedIndexChanged")]
     [DefaultProperty("Items")]
     [Description("The Visual ListView")]
-    [Designer(typeof(VisualListViewTasks))]
+    [Designer(typeof(VisualListViewDesigner))]
+    [ToolboxBitmap(typeof(ListView), "Resources.ToolboxBitmaps.VisualListView.bmp")]
+    [ToolboxItem(true)]
     public class VisualListView : ContainedControlBase
     {
         #region Variables

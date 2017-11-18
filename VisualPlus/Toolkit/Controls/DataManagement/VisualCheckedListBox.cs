@@ -7,27 +7,30 @@
     using System.Drawing;
     using System.Drawing.Design;
     using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.ActionList;
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(CheckedListBox))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("SelectedIndexChanged")]
     [DefaultProperty("Items")]
     [DefaultBindingProperty("Items")]
     [Description("The Visual CheckedListBox")]
-    [Designer(typeof(VisualCheckedListBoxTasks))]
+    [Designer(typeof(VisualCheckedListBoxDesigner))]
+    [ToolboxBitmap(typeof(CheckedListBox), "Resources.ToolboxBitmaps.CheckedListBox.bmp")]
+    [ToolboxItem(true)]
     public class VisualCheckedListBox : ContainedControlBase
     {
         #region Variables

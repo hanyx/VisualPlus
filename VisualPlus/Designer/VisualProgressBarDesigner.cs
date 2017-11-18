@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.PropertyFilter
+﻿namespace VisualPlus.Designer
 {
     #region Namespace
 
@@ -7,7 +7,7 @@
 
     #endregion
 
-    internal class VisualPanelDesigner : ControlDesigner
+    internal class VisualProgressBarDesigner : ControlDesigner
     {
         #region Events
 
@@ -27,7 +27,6 @@
             properties.Remove("TextImageRelation");
             properties.Remove("BackgroundImageLayout");
             properties.Remove("UseVisualStyleBackColor");
-            properties.Remove("ForeColor");
             properties.Remove("RightToLeft");
 
             base.PreFilterProperties(properties);

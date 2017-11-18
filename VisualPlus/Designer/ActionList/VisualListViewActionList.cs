@@ -1,4 +1,4 @@
-namespace VisualPlus.Toolkit.ActionList
+namespace VisualPlus.Designer.ActionList
 {
     #region Namespace
 
@@ -6,38 +6,10 @@ namespace VisualPlus.Toolkit.ActionList
     using System.ComponentModel.Design;
     using System.Drawing.Design;
     using System.Windows.Forms;
-    using System.Windows.Forms.Design;
 
     using VisualPlus.Toolkit.Controls.DataManagement;
 
     #endregion
-
-    internal class VisualListViewTasks : ControlDesigner
-    {
-        #region Variables
-
-        private DesignerActionListCollection _actionListCollection;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>Gets the design-time action lists supported by the component associated with the designer.</summary>
-        public override DesignerActionListCollection ActionLists
-        {
-            get
-            {
-                if (_actionListCollection == null)
-                {
-                    _actionListCollection = new DesignerActionListCollection { new VisualListViewActionList(Component) };
-                }
-
-                return _actionListCollection;
-            }
-        }
-
-        #endregion
-    }
 
     internal class VisualListViewActionList : DesignerActionList
     {

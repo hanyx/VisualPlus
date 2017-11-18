@@ -192,7 +192,7 @@
 
         /// <summary>Creates a gradient brush.</summary>
         /// <param name="gradient">The gradient.</param>
-        /// <returns>The <see cref="LinearGradientBrush"/>.</returns>
+        /// <returns>The <see cref="LinearGradientBrush" />.</returns>
         public static LinearGradientBrush CreateBrush(Gradient gradient)
         {
             return CreateBrush(gradient.Angle, gradient.Colors, gradient.Locations, gradient.Rectangle);
@@ -203,7 +203,7 @@
         /// <param name="colors">The colors.</param>
         /// <param name="positions">The positions.</param>
         /// <param name="rectangle">The rectangle.</param>
-        /// <returns>The <see cref="LinearGradientBrush"/>.</returns>
+        /// <returns>The <see cref="LinearGradientBrush" />.</returns>
         public static LinearGradientBrush CreateBrush(float angle, Color[] colors, float[] positions, Rectangle rectangle)
         {
             var _points = new[] { new Point { X = rectangle.Width, Y = 0 }, new Point { X = rectangle.Width, Y = rectangle.Height } };
@@ -234,7 +234,7 @@
 
         /// <summary>Sorts the offsets to an entire <see cref="Array" />.</summary>
         /// <param name="customOffsets">The custom offsets for the colors to be positioned.</param>
-        /// <returns>The <see cref="float"/>.</returns>
+        /// <returns>The <see cref="float" />.</returns>
         public static float[] SortPositions(float[] customOffsets)
         {
             if (!customOffsets.Contains(StartPoint))

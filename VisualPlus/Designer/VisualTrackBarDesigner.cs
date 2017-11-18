@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.PropertyFilter
+﻿namespace VisualPlus.Designer
 {
     #region Namespace
 
@@ -7,7 +7,7 @@
 
     #endregion
 
-    internal class VisualCheckBoxDesigner : ControlDesigner
+    internal class VisualTrackBarDesigner : ControlDesigner
     {
         #region Events
 
@@ -25,11 +25,8 @@
             properties.Remove("ImageKey");
             properties.Remove("ImageList");
             properties.Remove("TextImageRelation");
-
-            // properties.Remove("BackgroundImage");
-            // properties.Remove("BackgroundImageLayout");
+            properties.Remove("BackgroundImageLayout");
             properties.Remove("UseVisualStyleBackColor");
-            properties.Remove("CheckAlign");
             properties.Remove("RightToLeft");
 
             base.PreFilterProperties(properties);

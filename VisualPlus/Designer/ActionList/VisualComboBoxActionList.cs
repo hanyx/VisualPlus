@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.ActionList
+﻿namespace VisualPlus.Designer.ActionList
 {
     #region Namespace
 
@@ -6,53 +6,25 @@
     using System.ComponentModel.Design;
     using System.Drawing.Design;
     using System.Windows.Forms;
-    using System.Windows.Forms.Design;
 
-    using VisualPlus.Toolkit.Controls.DataManagement;
+    using VisualPlus.Toolkit.Controls.Interactivity;
 
     #endregion
 
-    internal class VisualListBoxTasks : ControlDesigner
+    internal class VisualComboBoxActionList : DesignerActionList
     {
         #region Variables
 
-        private DesignerActionListCollection _actionListCollection;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>Gets the design-time action lists supported by the component associated with the designer.</summary>
-        public override DesignerActionListCollection ActionLists
-        {
-            get
-            {
-                if (_actionListCollection == null)
-                {
-                    _actionListCollection = new DesignerActionListCollection { new VisualListBoxActionList(Component) };
-                }
-
-                return _actionListCollection;
-            }
-        }
-
-        #endregion
-    }
-
-    internal class VisualListBoxActionList : DesignerActionList
-    {
-        #region Variables
-
-        private VisualListBox _control;
+        private VisualComboBox _control;
         private DesignerActionUIService _designerService;
 
         #endregion
 
         #region Constructors
 
-        public VisualListBoxActionList(IComponent component) : base(component)
+        public VisualComboBoxActionList(IComponent component) : base(component)
         {
-            _control = (VisualListBox)component;
+            _control = (VisualComboBox)component;
             _designerService = (DesignerActionUIService)GetService(typeof(DesignerActionUIService));
         }
 
@@ -61,12 +33,12 @@
         #region Properties
 
         [Category("Data")]
-        [Description("The items in the VisualListBox.")]
+        [Description("The items in the VisualComboBox.")]
         [Editor("System.Windows.Forms.Design.ListControlStringCollectionEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [MergableProperty(false)]
         [Localizable(true)]
-        public virtual ListBox.ObjectCollection Items
+        public virtual ComboBox.ObjectCollection Items
         {
             get
             {

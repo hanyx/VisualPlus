@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.PropertyFilter
+﻿namespace VisualPlus.Designer
 {
     #region Namespace
 
@@ -7,7 +7,7 @@
 
     #endregion
 
-    internal class VisualListBoxDesigner : ControlDesigner
+    internal class VisualRadioButtonDesigner : ControlDesigner
     {
         #region Events
 
@@ -25,9 +25,11 @@
             properties.Remove("ImageKey");
             properties.Remove("ImageList");
             properties.Remove("TextImageRelation");
-            properties.Remove("BackgroundImage");
-            properties.Remove("BackgroundImageLayout");
+
+            // properties.Remove("BackgroundImage");
+            // properties.Remove("BackgroundImageLayout");
             properties.Remove("UseVisualStyleBackColor");
+            properties.Remove("CheckAlign");
             properties.Remove("RightToLeft");
 
             base.PreFilterProperties(properties);

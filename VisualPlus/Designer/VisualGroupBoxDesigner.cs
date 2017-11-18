@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.PropertyFilter
+﻿namespace VisualPlus.Designer
 {
     #region Namespace
 
@@ -7,7 +7,7 @@
 
     #endregion
 
-    internal class VisualButtonDesigner : ControlDesigner
+    internal class VisualGroupBoxDesigner : ControlDesigner
     {
         #region Events
 
@@ -19,14 +19,15 @@
             properties.Remove("FlatStyle");
             properties.Remove("AutoEllipsis");
             properties.Remove("UseCompatibleTextRendering");
+            properties.Remove("Image");
             properties.Remove("ImageAlign");
             properties.Remove("ImageIndex");
             properties.Remove("ImageKey");
             properties.Remove("ImageList");
-
-            // properties.Remove("BackgroundImage");
-            // properties.Remove("BackgroundImageLayout");
-            // properties.Remove("UseVisualStyleBackColor");
+            properties.Remove("TextImageRelation");
+            properties.Remove("BackgroundImage");
+            properties.Remove("BackgroundImageLayout");
+            properties.Remove("UseVisualStyleBackColor");
             properties.Remove("RightToLeft");
 
             base.PreFilterProperties(properties);

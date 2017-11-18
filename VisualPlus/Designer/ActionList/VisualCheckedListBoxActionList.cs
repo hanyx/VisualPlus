@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Toolkit.ActionList
+﻿namespace VisualPlus.Designer.ActionList
 {
     #region Namespace
 
@@ -6,38 +6,10 @@
     using System.ComponentModel.Design;
     using System.Drawing.Design;
     using System.Windows.Forms;
-    using System.Windows.Forms.Design;
 
     using VisualPlus.Toolkit.Controls.DataManagement;
 
     #endregion
-
-    internal class VisualCheckedListBoxTasks : ControlDesigner
-    {
-        #region Variables
-
-        private DesignerActionListCollection _actionListCollection;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>Gets the design-time action lists supported by the component associated with the designer.</summary>
-        public override DesignerActionListCollection ActionLists
-        {
-            get
-            {
-                if (_actionListCollection == null)
-                {
-                    _actionListCollection = new DesignerActionListCollection { new VisualCheckedListBoxActionList(Component) };
-                }
-
-                return _actionListCollection;
-            }
-        }
-
-        #endregion
-    }
 
     internal class VisualCheckedListBoxActionList : DesignerActionList
     {
@@ -82,7 +54,6 @@
         {
             DesignerActionItemCollection items = new DesignerActionItemCollection
                 {
-                    new DesignerActionHeaderItem("Unbound Mode"),
                     new DesignerActionPropertyItem("Items", "Edit Items...", "Unbound Mode")
                 };
 

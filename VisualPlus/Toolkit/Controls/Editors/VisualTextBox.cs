@@ -7,27 +7,29 @@
     using System.Drawing;
     using System.Drawing.Design;
     using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.ActionList;
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    // TODO: Clear Button
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(TextBox))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("TextChanged")]
     [DefaultProperty("Text")]
     [Description("The Visual TextBox")]
-    [Designer(typeof(VisualTextBoxTasks))]
+    [Designer(typeof(VisualTextBoxDesigner))]
+    [ToolboxBitmap(typeof(TextBox), "Resources.ToolboxBitmaps.VisualTextBox.bmp")]
+    [ToolboxItem(true)]
     public class VisualTextBox : ContainedControlBase, IInputMethods
     {
         #region Variables

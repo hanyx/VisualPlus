@@ -13,6 +13,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Delegates;
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
@@ -26,10 +27,16 @@
 
     #endregion
 
-    [ToolboxItem(false)]
-    [ToolboxBitmap(typeof(Form))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
+    [DefaultEvent("Load")]
+    [DefaultProperty("Text")]
     [Description("The Visual Form")]
-    [Designer(ControlManager.FilterProperties.VisualForm)]
+    [Designer(typeof(VisualFormDesigner))]
+    [DesignerCategory("Form")]
+    [InitializationEvent("Load")]
+    [ToolboxBitmap(typeof(VisualForm), "Resources.ToolboxBitmaps.VisualForm.bmp")]
+    [ToolboxItem(false)]
     public class VisualForm : Form
     {
         #region Variables

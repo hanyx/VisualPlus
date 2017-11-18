@@ -6,8 +6,10 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
@@ -18,12 +20,14 @@
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(ProgressBar))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("Click")]
     [DefaultProperty("Value")]
-    [Description("The Visual Radial ProgressBar")]
-    [Designer(ControlManager.FilterProperties.VisualRadialProgress)]
+    [Description("The Visual Radial Progress")]
+    [Designer(typeof(VisualRadialProgressDesigner))]
+    [ToolboxBitmap(typeof(VisualRadialProgress), "Resources.ToolboxBitmaps.VisualRadialProgress.bmp")]
+    [ToolboxItem(true)]
     public class VisualRadialProgress : ProgressBase, IThemeSupport
     {
         #region Variables

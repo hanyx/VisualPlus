@@ -6,23 +6,26 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
-    using VisualPlus.Managers;
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(Control))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("Click")]
-    [DefaultProperty("Enabled")]
+    [DefaultProperty("Orientation")]
     [Description("The Visual Separator")]
-    [Designer(ControlManager.FilterProperties.VisualSeparator)]
+    [Designer(typeof(VisualProgressBarDesigner))]
+    [ToolboxBitmap(typeof(VisualSeparator), "Resources.ToolboxBitmaps.VisualSeparator.bmp")]
+    [ToolboxItem(true)]
     public class VisualSeparator : VisualControlBase
     {
         #region Variables

@@ -6,8 +6,10 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
@@ -18,12 +20,14 @@
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(Button))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("Click")]
     [DefaultProperty("Text")]
     [Description("The Visual Button")]
-    [Designer(ControlManager.FilterProperties.VisualButton)]
+    [Designer(typeof(VisualButtonDesigner))]
+    [ToolboxBitmap(typeof(VisualButton), "Resources.ToolboxBitmaps.VisualButton.bmp")]
+    [ToolboxItem(true)]
     public class VisualButton : VisualControlBase, IAnimationSupport, IThemeSupport
     {
         #region Variables
@@ -322,7 +326,7 @@
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
             _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
 
-            Color _backColor = GraphicsManager.GetBackColorState(Enabled, BackColorState.Enabled, BackColorState.Hover, BackColorState.Pressed, BackColorState.Disabled, MouseState);
+            Color _backColor = ColorManager.BackColorState(BackColorState, Enabled, MouseState);
 
             e.Graphics.SetClip(ControlGraphicsPath);
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, _border);

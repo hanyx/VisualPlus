@@ -358,7 +358,7 @@ namespace VisualPlus.Toolkit.VisualBase
                 _box = new Rectangle(new Point(Padding.Left, (ClientRectangle.Height / 2) - (_box.Height / 2)), _box.Size);
             }
 
-            Color _backColor = GraphicsManager.GetBackColorState(Enabled, BoxColorState.Enabled, BoxColorState.Hover, BoxColorState.Pressed, BoxColorState.Disabled, MouseState);
+            Color _backColor = ColorManager.BackColorState(BoxColorState, Enabled, MouseState);
 
             Graphics _graphics = e.Graphics;
             _graphics.Clear(Parent.BackColor);

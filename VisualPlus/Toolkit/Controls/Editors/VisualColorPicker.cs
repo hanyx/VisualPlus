@@ -8,6 +8,7 @@
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Drawing.Imaging;
+    using System.Runtime.InteropServices;
     using System.Text;
     using System.Windows.Forms;
 
@@ -22,11 +23,13 @@
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(ColorDialog))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("ColorChanged")]
     [DefaultProperty("Color")]
-    [Description("The Visual ColorPicker")]
+    [Description("The Visual Color Picker")]
+    [ToolboxBitmap(typeof(VisualColorPicker), "Resources.ToolboxBitmaps.VisualColorPicker.bmp")]
+    [ToolboxItem(true)]
     public class VisualColorPicker : VisualControlBase
     {
         #region Variables
@@ -826,7 +829,7 @@
             if (_pickType == PickerType.Rectangle)
             {
                 LockUpdates = true;
-                Color = ColorManager.CurrentPointerColor();
+                Color = ColorManager.CursorPointerColor();
                 LockUpdates = false;
             }
             else

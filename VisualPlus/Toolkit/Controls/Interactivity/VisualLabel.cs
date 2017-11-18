@@ -7,8 +7,10 @@
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Drawing.Text;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
@@ -18,12 +20,14 @@
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(Label))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("Click")]
     [DefaultProperty("Text")]
     [Description("The Visual Label")]
-    [Designer(ControlManager.FilterProperties.VisualLabel)]
+    [Designer(typeof(VisualLabelDesigner))]
+    [ToolboxBitmap(typeof(VisualLabel), "Resources.ToolboxBitmaps.VisualLabel.bmp")]
+    [ToolboxItem(true)]
     public class VisualLabel : VisualControlBase
     {
         #region Variables

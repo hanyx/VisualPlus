@@ -7,8 +7,10 @@
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Drawing.Text;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
@@ -19,12 +21,14 @@
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(TrackBar))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("ValueChanged")]
     [DefaultProperty("Value")]
     [Description("The Visual TrackBar")]
-    [Designer(ControlManager.FilterProperties.VisualTrackBar)]
+    [Designer(typeof(VisualTrackBarDesigner))]
+    [ToolboxBitmap(typeof(VisualTrackBar), "Resources.ToolboxBitmaps.VisualTrackBar.bmp")]
+    [ToolboxItem(true)]
     public class VisualTrackBar : TrackBar
     {
         #region Variables
@@ -1477,7 +1481,7 @@
                 return;
             }
 
-            Color _backColor = GraphicsManager.GetBackColorState(Enabled, _buttonControlColorState.Enabled, _buttonControlColorState.Hover, _buttonControlColorState.Pressed, _buttonControlColorState.Disabled, _mouseState);
+            Color _backColor = ColorManager.BackColorState(_buttonControlColorState, Enabled, _mouseState);
 
             _buttonPath = VisualBorderRenderer.CreateBorderTypePath(_trackerButtonRectangle, _trackerBorder);
             graphics.FillPath(new SolidBrush(_backColor), _buttonPath);

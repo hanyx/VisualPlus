@@ -3,52 +3,54 @@
     #region Namespace
 
     using System;
+    using System.ComponentModel;
 
     #endregion
 
-    internal class ExceptionManager
+    [Description("The exception manager.")]
+    public sealed class ExceptionManager
     {
         #region Events
 
         /// <summary>Returns a bool indicating whether the value is in range.</summary>
-        /// <param name="sourceValue">The main value.</param>
-        /// <param name="minimumValue">Minimum value.</param>
-        /// <param name="maximumValue">Maximum value.</param>
+        /// <param name="value">The main value.</param>
+        /// <param name="minimum">Minimum value.</param>
+        /// <param name="maximum">Maximum value.</param>
         /// <param name="round">Round to nearest value when out of range.</param>
         /// <returns>The <see cref="int" />.</returns>
-        public static int ArgumentOutOfRangeException(int sourceValue, int minimumValue, int maximumValue, bool round)
+        public static int ArgumentOutOfRangeException(int value, int minimum, int maximum, bool round)
         {
-            if ((sourceValue >= minimumValue) && (sourceValue <= maximumValue))
+            if ((value >= minimum) && (value <= maximum))
             {
-                return sourceValue;
+                return value;
             }
             else
             {
                 if (round)
                 {
-                    return MathManager.FindClosestValue(sourceValue, new[] { minimumValue, maximumValue });
+                    return MathManager.FindClosestValue(value, new[] { minimum, maximum });
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException(nameof(sourceValue), $@"The value ({sourceValue}) must be in range of ({minimumValue}) to ({maximumValue}).");
+                    throw new ArgumentOutOfRangeException(nameof(value), $@"The value ({value}) must be in range of ({minimum}) to ({maximum}).");
                 }
             }
         }
 
         /// <summary>Returns a bool indicating whether the value is in range.</summary>
-        /// <param name="sourceValue">The main value.</param>
-        /// <param name="minimumValue">Minimum value.</param>
-        /// <param name="maximumValue">Maximum value.</param>
+        /// <param name="value">The main value.</param>
+        /// <param name="minimum">Minimum value.</param>
+        /// <param name="maximum">Maximum value.</param>
         /// <returns>The <see cref="bool" />.</returns>
-        public static bool ArgumentOutOfRangeException(float sourceValue, float minimumValue, float maximumValue)
+        public static bool ArgumentOutOfRangeException(float value, float minimum, float maximum)
         {
-            if ((sourceValue >= minimumValue) && (sourceValue <= maximumValue))
+            if ((value >= minimum) && (value <= maximum))
             {
                 return true;
             }
             else
             {
-                throw new ArgumentOutOfRangeException(nameof(sourceValue), $@"The value ({sourceValue}) must be in range of ({minimumValue}) to ({maximumValue}).");
+                throw new ArgumentOutOfRangeException(nameof(value), $@"The value ({value}) must be in range of ({minimum}) to ({maximum}).");
             }
         }
 

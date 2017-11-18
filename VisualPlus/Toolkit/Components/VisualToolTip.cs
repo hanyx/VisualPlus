@@ -6,22 +6,25 @@
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Drawing.Text;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Designer;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
-    using VisualPlus.Managers;
     using VisualPlus.Properties;
     using VisualPlus.Structure;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(ToolTip))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("Popup")]
     [DefaultProperty("Text")]
-    [Description("The Visual ToolTip")]
-    [Designer(ControlManager.FilterProperties.VisualToolTip)]
+    [Description("The Visual Tool Tip")]
+    [Designer(typeof(VisualToolTipDesigner))]
+    [ToolboxBitmap(typeof(VisualToolTip), "Resources.ToolboxBitmaps.VisualButton.bmp")]
+    [ToolboxItem(true)]
     public class VisualToolTip : ToolTip
     {
         #region Variables

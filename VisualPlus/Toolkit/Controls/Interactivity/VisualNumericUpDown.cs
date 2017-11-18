@@ -6,9 +6,11 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
     using VisualPlus.Delegates;
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
@@ -21,12 +23,14 @@
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(NumericUpDown))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("ValueChanged")]
     [DefaultProperty("Value")]
     [Description("The Visual NumericUpDown")]
-    [Designer(ControlManager.FilterProperties.VisualNumericUpDown)]
+    [Designer(typeof(VisualNumericUpDownDesigner))]
+    [ToolboxBitmap(typeof(VisualNumericUpDown), "Resources.ToolboxBitmaps.VisualNumericUpDown.bmp")]
+    [ToolboxItem(true)]
     public class VisualNumericUpDown : VisualControlBase
     {
         #region Variables

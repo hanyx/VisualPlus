@@ -6,12 +6,13 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
-    using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
@@ -19,12 +20,14 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(ProgressBar))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("Click")]
     [DefaultProperty("Value")]
     [Description("The Visual ProgressBar")]
-    [Designer(ControlManager.FilterProperties.VisualProgressBar)]
+    [Designer(typeof(VisualProgressBarDesigner))]
+    [ToolboxBitmap(typeof(VisualProgressBar), "Resources.ToolboxBitmaps.VisualProgressBar.bmp")]
+    [ToolboxItem(true)]
     public class VisualProgressBar : ProgressBase
     {
         #region Variables

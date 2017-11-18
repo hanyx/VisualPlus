@@ -7,7 +7,7 @@
 
     #endregion
 
-    internal class VisualCircleProgressBarDesigner : ControlDesigner
+    internal class VisualRadialProgressDesigner : ControlDesigner
     {
         #region Events
 

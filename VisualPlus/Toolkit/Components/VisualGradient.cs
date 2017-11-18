@@ -188,7 +188,7 @@
             get
             {
                 Size _gradientSize = GetGradientSize(_autoSize, _control, _size);
-                return GraphicsManager.CreateGradientBitmap(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
+                return ImageManager.CreateGradientBitmap(_gradientSize, _bottomLeft, _bottomRight, _topLeft, _topRight);
             }
         }
 

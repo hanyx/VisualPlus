@@ -3,17 +3,17 @@
     #region Namespace
 
     using System;
+    using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
-    using System.Globalization;
     using System.Windows.Forms;
 
-    using VisualPlus.Enumerators;
     using VisualPlus.PInvoke;
     using VisualPlus.Toolkit.Controls.DataVisualization;
 
     #endregion
 
+    [Description("The graphics manager.")]
     public sealed class GraphicsManager
     {
         #region Events
@@ -96,8 +96,8 @@
                 control.BackgroundImageLayout = ImageLayout.Stretch;
             }
 
-            Bitmap _bitmap = CreateGradientBitmap(size, topLeft, topRight, bottomLeft, bottomRight);
-            control.BackgroundImage = _bitmap;
+            Image _image = ImageManager.CreateGradientBitmap(size, topLeft, topRight, bottomLeft, bottomRight);
+            control.BackgroundImage = _image;
         }
 
         /// <summary>Calculates a 5 point star.</summary>
@@ -144,30 +144,6 @@
             pointsArray[9].Y = pointsArray[1].Y; // mirror point
 
             return pointsArray;
-        }
-
-        /// <summary>Creates a gradient bitmap.</summary>
-        /// <param name="size">The size of the gradient.</param>
-        /// <param name="topLeft">The color for top-left.</param>
-        /// <param name="topRight">The color for top-right.</param>
-        /// <param name="bottomLeft">The color for bottom-left.</param>
-        /// <param name="bottomRight">The color for bottom-right.</param>
-        /// <returns>The <see cref="Bitmap" />.</returns>
-        public static Bitmap CreateGradientBitmap(Size size, Color topLeft, Color topRight, Color bottomLeft, Color bottomRight)
-        {
-            Bitmap _bitmap = new Bitmap(size.Width, size.Height);
-
-            for (var i = 0; i < _bitmap.Width; i++)
-            {
-                Color _xColor = GetTransitionColor(int.Parse(Math.Round((i / (double)_bitmap.Width) * 100.0, 0).ToString(CultureInfo.CurrentCulture)), topLeft, topRight);
-                for (var j = 0; j < _bitmap.Height; j++)
-                {
-                    Color _yColor = GetTransitionColor(int.Parse(Math.Round((j / (double)_bitmap.Height) * 100.0, 0).ToString(CultureInfo.CurrentCulture)), bottomLeft, bottomRight);
-                    _bitmap.SetPixel(i, j, InsertColor(_xColor, _yColor));
-                }
-            }
-
-            return _bitmap;
         }
 
         /// <summary>Draws the control.</summary>
@@ -318,54 +294,6 @@
             return newSize;
         }
 
-        /// <summary>Gets the back color state.</summary>
-        /// <param name="enabled">Enabled state.</param>
-        /// <param name="normal">The normal.</param>
-        /// <param name="hover">The hover.</param>
-        /// <param name="down">The down.</param>
-        /// <param name="disabled">The disabled.</param>
-        /// <param name="mouseState">Mouse state.</param>
-        /// <returns>The <see cref="Color" />.</returns>
-        public static Color GetBackColorState(bool enabled, Color normal, Color hover, Color down, Color disabled, MouseStates mouseState)
-        {
-            Color _color;
-
-            if (enabled)
-            {
-                switch (mouseState)
-                {
-                    case MouseStates.Normal:
-                        {
-                            _color = normal;
-                            break;
-                        }
-
-                    case MouseStates.Hover:
-                        {
-                            _color = hover;
-                            break;
-                        }
-
-                    case MouseStates.Down:
-                        {
-                            _color = down;
-                            break;
-                        }
-
-                    default:
-                        {
-                            throw new ArgumentOutOfRangeException(nameof(mouseState), mouseState, null);
-                        }
-                }
-            }
-            else
-            {
-                _color = disabled;
-            }
-
-            return _color;
-        }
-
         /// <summary>Draws the text image relation.</summary>
         /// <param name="graphics">The graphics.</param>
         /// <param name="relation">The relation type.</param>
@@ -476,43 +404,6 @@
             }
         }
 
-        /// <summary>Retrieves the transition color between two other colors.</summary>
-        /// <param name="value">The progress value in the transition.</param>
-        /// <param name="beginColor">The beginning color.</param>
-        /// <param name="endColor">The ending color.</param>
-        /// <returns>The <see cref="Color" />.</returns>
-        public static Color GetTransitionColor(int value, Color beginColor, Color endColor)
-        {
-            try
-            {
-                try
-                {
-                    int _red = int.Parse(Math.Round(beginColor.R + ((endColor.R - beginColor.R) * value * 0.01), 0).ToString(CultureInfo.CurrentCulture));
-                    int _green = int.Parse(Math.Round(beginColor.G + ((endColor.G - beginColor.G) * value * 0.01), 0).ToString(CultureInfo.CurrentCulture));
-                    int _blue = int.Parse(Math.Round(beginColor.B + ((endColor.B - beginColor.B) * value * 0.01), 0).ToString(CultureInfo.CurrentCulture));
-                    return Color.FromArgb(255, _red, _green, _blue);
-                }
-                catch (Exception)
-                {
-                    return beginColor;
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        /// <summary>Insert the color on to another color.</summary>
-        /// <param name="color0">The color0.</param>
-        /// <param name="color1">The color1.</param>
-        /// <returns>The <see cref="Color" />.</returns>
-        public static Color InsertColor(Color color0, Color color1)
-        {
-            return Color.FromArgb((color0.R + color1.R) / 2, (color0.G + color1.G) / 2, (color0.B + color1.B) / 2);
-        }
-
         /// <summary>Checks whether the mouse is inside the bounds.</summary>
         /// <param name="mousePoint">Mouse location.</param>
         /// <param name="bounds">The rectangle.</param>
@@ -621,6 +512,10 @@
             Bitmap drawArea = new Bitmap(new PictureBox { SizeMode = pictureBoxSizeMode }.Size.Width, new PictureBox { SizeMode = pictureBoxSizeMode }.Size.Height);
             new PictureBox { SizeMode = pictureBoxSizeMode }.Image = drawArea;
             return Graphics.FromImage(drawArea);
+        }
+
+        private void Test()
+        {
         }
 
         #endregion

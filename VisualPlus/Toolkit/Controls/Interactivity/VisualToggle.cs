@@ -6,8 +6,10 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Drawing2D;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
@@ -20,12 +22,14 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(Control))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("ToggleChanged")]
     [DefaultProperty("Toggled")]
     [Description("The Visual Toggle")]
-    [Designer(ControlManager.FilterProperties.VisualToggle)]
+    [Designer(typeof(VisualToggleDesigner))]
+    [ToolboxBitmap(typeof(VisualToggle), "Resources.ToolboxBitmaps.VisualToggle.bmp")]
+    [ToolboxItem(true)]
     public class VisualToggle : ToggleBase
     {
         #region Variables
@@ -319,7 +323,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _buttonRectangle = new Rectangle(_buttonLocation, _buttonSize);
             DrawToggleText(_graphics);
 
-            Color _buttonColor = GraphicsManager.GetBackColorState(Enabled, ButtonColorState.Enabled, ButtonColorState.Hover, ButtonColorState.Pressed, ButtonColorState.Disabled, MouseState);
+            Color _buttonColor = ColorManager.BackColorState(ButtonColorState, Enabled, MouseState);
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _buttonColor, _buttonRectangle, _buttonBorder);
 
             VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);

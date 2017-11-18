@@ -3,12 +3,14 @@
     #region Namespace
 
     using System;
+    using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Text;
     using System.Windows.Forms;
 
     #endregion
 
+    [Description("The tick manager.")]
     public sealed class TickManager
     {
         #region Events

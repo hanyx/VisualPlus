@@ -3,12 +3,14 @@
     #region Namespace
 
     using System;
+    using System.ComponentModel;
     using System.Globalization;
     using System.Linq;
 
     #endregion
 
-    internal class MathManager
+    [Description("The math manager.")]
+    public sealed class MathManager
     {
         #region Events
 

@@ -2,11 +2,13 @@
 {
     #region Namespace
 
+    using System.ComponentModel;
     using System.Drawing;
     using System.Runtime.InteropServices;
 
     #endregion
 
+    [Description("The monitor manager.")]
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto, Pack = 4)]
     public class MonitorManager
     {

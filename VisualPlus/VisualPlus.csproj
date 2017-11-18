@@ -147,7 +147,7 @@
     <Compile Include="Delegates\ControlDelegate.cs" />
     <Compile Include="Delegates\ControlDragDelegate.cs" />
     <Compile Include="EventArgs\DragControlEventArgs.cs" />
-    <Compile Include="Designer\VisualCircleProgressBarDesigner.cs" />
+    <Compile Include="Designer\VisualRadialProgressDesigner.cs" />
     <Compile Include="Designer\VisualContextMenuDesigner.cs" />
     <Compile Include="Designer\VisualLabelDesigner.cs" />
     <Compile Include="Designer\VisualRatingDesigner.cs" />

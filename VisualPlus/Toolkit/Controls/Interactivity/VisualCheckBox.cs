@@ -4,22 +4,25 @@
 
     using System.ComponentModel;
     using System.Drawing;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Designer;
     using VisualPlus.Enumerators;
-    using VisualPlus.Managers;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
-    [ToolboxItem(true)]
-    [ToolboxBitmap(typeof(CheckBox))]
+    [ClassInterface(ClassInterfaceType.AutoDispatch)]
+    [ComVisible(true)]
     [DefaultEvent("ToggleChanged")]
     [DefaultProperty("Checked")]
     [Description("The Visual CheckBox")]
-    [Designer(ControlManager.FilterProperties.VisualCheckBox)]
+    [Designer(typeof(VisualCheckBoxDesigner))]
+    [ToolboxBitmap(typeof(VisualCheckBox), "Resources.ToolboxBitmaps.VisualCheckBox.bmp")]
+    [ToolboxItem(true)]
     public class VisualCheckBox : CheckBoxBase, IThemeSupport
     {
         #region Constructors

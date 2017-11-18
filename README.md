@@ -1,9 +1,18 @@
-![VisualPlus](http://i.imgur.com/KwWQDQZ.png)
-# VisualPlus
+<p align="center">
+<a href="https://github.com/DarkByte7/VisualPlus">
+    <img alt="VisualPlus" width="100" heigth="100" src="http://i.imgur.com/KwWQDQZ.png">
+  </a>
+</p >
+
+<h1  align="center">VisualPlus</h1>
+
 [![NuGet](https://img.shields.io/nuget/v/VisualPlus.svg?style=flat)](https://www.nuget.org/packages/VisualPlus/)
 [![NuGetPre](https://img.shields.io/nuget/vpre/VisualPlus.svg?style=flat)](https://www.nuget.org/packages/VisualPlus/)
 [![Issues](https://img.shields.io/github/issues/DarkByte7/VisualPlus.svg?style=flat)](https://github.com/DarkByte7/VisualPlus/issues)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/VisualPlusUI/General)
+[![Forks](https://img.shields.io/github/forks/DarkByte7/VisualPlus.svg?style=flat)](https://github.com/DarkByte7/VisualPlus/Forks)
+[![Stars](https://img.shields.io/github/stars/DarkByte7/VisualPlus.svg?style=flat)](https://github.com/DarkByte7/VisualPlus/stargazers)
+[![Licence](https://img.shields.io/badge/GPL-3.0-blue.svg?style=flat)](https://raw.githubusercontent.com/DarkByte7/VisualPlus/master/LICENSE.md)
  
 The VisualPlus Framework (VPF), VisualPlus UI for WinForms allows you to rapidly deploy professional .NET applications with customizable controls.
 

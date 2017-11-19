@@ -24,6 +24,7 @@
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Controls.Interactivity;
 
     #endregion
 
@@ -495,7 +496,10 @@
 
         protected override void OnControlAdded(ControlEventArgs e)
         {
-            GraphicsManager.SetControlBackColor(e.Control, Background, false);
+            if (!(e.Control is VisualControlBox))
+            {
+                GraphicsManager.SetControlBackColor(e.Control, Background, false);
+            }
         }
 
         protected override void OnControlRemoved(ControlEventArgs e)

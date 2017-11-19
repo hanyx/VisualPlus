@@ -51,9 +51,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\VisualTabPageCollectionEditor.cs" />
+    <Compile Include="Delegates\ControlBoxDelegate.cs" />
     <Compile Include="Delegates\StyleManagerDelegate.cs" />
+    <Compile Include="Designer\VisualControlBoxDesigner.cs" />
     <Compile Include="Designer\VisualTabPageDesigner.cs" />
     <Compile Include="Enumerators\Brightness.cs" />
+    <Compile Include="EventArgs\ControlBoxEventArgs.cs" />
     <Compile Include="EventArgs\ValueChangedEventArgs.cs" />
     <Compile Include="EventArgs\CursorChangedEventArgs.cs" />
     <Compile Include="EventArgs\ThemeEventArgs.cs" />
@@ -85,6 +88,7 @@
     <Compile Include="Renders\VisualToggleRenderer.cs" />
     <Compile Include="Renders\VisualControlRenderer.cs" />
     <Compile Include="Structure\BorderEdge.cs" />
+    <Compile Include="Structure\HoverColorState.cs" />
     <Compile Include="Structure\ControlColorState.cs" />
     <Compile Include="Structure\ColorState.cs" />
     <Compile Include="Structure\Hatch.cs" />
@@ -110,6 +114,9 @@
     <Compile Include="Toolkit\Controls\Interactivity\VisualRangeBar.cs" />
     <Compile Include="Designer\ActionList\VisualComboBoxActionList.cs" />
     <Compile Include="Designer\VisualComboBoxDesigner.cs" />
+    <Compile Include="Toolkit\Controls\Interactivity\VisualControlBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Toolkit\VisualBase\BadgeLabel.cs" />
     <Compile Include="Toolkit\Components\Expander.cs">
       <SubType>Component</SubType>

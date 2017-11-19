@@ -87,7 +87,6 @@
             _buttonVisible = Settings.DefaultValue.TextVisible;
             _textAlignment = StringAlignment.Center;
             _watermark = new Watermark();
-            _backColorState = new ColorState();
             _mouseState = MouseStates.Normal;
 
             DrawMode = DrawMode.OwnerDrawVariable;
@@ -558,8 +557,11 @@
             _foreColor = _styleManager.FontStyle.ForeColor;
             _textDisabledColor = _styleManager.FontStyle.ForeColorDisabled;
 
-            _backColorState.Enabled = _styleManager.ControlStyle.BoxEnabled;
-            _backColorState.Disabled = _styleManager.ControlStyle.BoxDisabled;
+            _backColorState = new ColorState
+                {
+                    Enabled = _styleManager.ControlStyle.BoxEnabled,
+                    Disabled = _styleManager.ControlStyle.BoxDisabled
+                };
 
             _buttonColor = _styleManager.ControlStyle.FlatButtonEnabled;
             _menuTextColor = _styleManager.FontStyle.ForeColor;

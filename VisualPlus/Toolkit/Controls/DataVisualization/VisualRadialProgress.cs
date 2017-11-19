@@ -63,7 +63,6 @@
         {
             _backCircleVisible = true;
             _foreCircleVisible = true;
-            _colorState = new ControlColorState();
             _imageSize = new Size(16, 16);
             _lineCap = LineCap.Round;
             _progressSize = 5F;
@@ -433,8 +432,11 @@
             _superscriptColor = StyleManager.FontStyle.ForeColor;
             _subscriptColor = StyleManager.FontStyle.ForeColor;
 
-            BackColorState.Enabled = StyleManager.ControlStyle.Background(0);
-            BackColorState.Disabled = StyleManager.ControlStyle.Background(0);
+            _colorState = new ControlColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(0),
+                    Disabled = StyleManager.ControlStyle.Background(0)
+                };
 
             _backCircleColor = StyleManager.ProgressStyle.BackCircle;
             _foreCircleColor = StyleManager.ProgressStyle.ForeCircle;

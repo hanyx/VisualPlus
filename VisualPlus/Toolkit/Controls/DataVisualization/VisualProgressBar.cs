@@ -59,7 +59,6 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         {
             Maximum = 100;
             _hatch = new Hatch();
-            _colorState = new ColorState();
             _orientation = Orientation.Horizontal;
             _marqueeWidth = 20;
             Size = new Size(100, 20);
@@ -279,8 +278,11 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            _colorState.Enabled = StyleManager.ProgressStyle.BackProgress;
-            _colorState.Disabled = StyleManager.ProgressStyle.ProgressDisabled;
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ProgressStyle.BackProgress,
+                    Disabled = StyleManager.ProgressStyle.ProgressDisabled
+                };
 
             _hatch.BackColor = StyleManager.ProgressStyle.Hatch;
             _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);

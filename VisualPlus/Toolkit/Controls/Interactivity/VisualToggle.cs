@@ -62,8 +62,6 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                 };
 
             _animationTimer.Tick += AnimationTimerTick;
-            _controlColorState = new ColorState();
-            _buttonColorState = new ControlColorState();
             _toggleType = ToggleTypes.YesNo;
             _buttonSize = new Size(20, 20);
 
@@ -251,13 +249,19 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            _controlColorState.Enabled = StyleManager.ControlStyle.Background(3);
-            _controlColorState.Disabled = StyleManager.ControlStyle.Background(0);
+            _controlColorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3),
+                    Disabled = StyleManager.ControlStyle.Background(0)
+                };
 
-            _buttonColorState.Enabled = StyleManager.ControlStyle.Background(0);
-            _buttonColorState.Disabled = Color.FromArgb(224, 224, 224);
-            _buttonColorState.Hover = Color.FromArgb(224, 224, 224);
-            _buttonColorState.Pressed = Color.Silver;
+            _buttonColorState = new ControlColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(0),
+                    Disabled = Color.FromArgb(224, 224, 224),
+                    Hover = Color.FromArgb(224, 224, 224),
+                    Pressed = Color.Silver
+                };
 
             _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;
@@ -323,7 +327,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             _buttonRectangle = new Rectangle(_buttonLocation, _buttonSize);
             DrawToggleText(_graphics);
 
-            Color _buttonColor = ColorManager.BackColorState(ButtonColorState, Enabled, MouseState);
+            Color _buttonColor = ControlColorState.BackColorState(ButtonColorState, Enabled, MouseState);
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _buttonColor, _buttonRectangle, _buttonBorder);
 
             VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);

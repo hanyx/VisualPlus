@@ -60,14 +60,15 @@
             // Cannot select this control, only the child and does not generate a click event
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
 
-            _colorState = new ColorState();
-
             _border = new Border();
 
             _alternateColors = true;
 
             _box = new Size(25, 25);
             _boxSpacing = 5;
+
+            StyleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _colorState = new ColorState { Enabled = StyleManager.ControlStyle.Background(3) };
 
             _checkedListBox = new CheckedListBox
                 {
@@ -342,8 +343,11 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            _colorState.Enabled = StyleManager.ControlStyle.Background(3);
-            _colorState.Disabled = StyleManager.ControlStyle.Background(0);
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3),
+                    Disabled = StyleManager.ControlStyle.Background(0)
+                };
 
             _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;

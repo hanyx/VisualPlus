@@ -78,7 +78,6 @@
             _maximumValue = 100;
             Size = new Size(125, 25);
             MinimumSize = new Size(0, 0);
-            _colorState = new ColorState();
             _buttonOrientation = Orientation.Horizontal;
 
             _border = new Border();
@@ -331,8 +330,11 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            _colorState.Enabled = StyleManager.ControlStyle.Background(3);
-            _colorState.Disabled = StyleManager.ControlStyle.Background(0);
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3),
+                    Disabled = StyleManager.ControlStyle.Background(0)
+                };
 
             _borderButtons.BackColor = StyleManager.ControlStyle.Line;
             _borderEdge.BackColor = StyleManager.ControlStyle.Line;

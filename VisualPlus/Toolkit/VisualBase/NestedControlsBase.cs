@@ -33,7 +33,6 @@
         protected NestedControlsBase()
         {
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-
             _colorState = new ColorState();
         }
 

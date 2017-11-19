@@ -10,7 +10,6 @@
 
     using VisualPlus.Enumerators;
     using VisualPlus.PInvoke;
-    using VisualPlus.Structure;
 
     #endregion
 
@@ -18,53 +17,6 @@
     public sealed class ColorManager
     {
         #region Events
-
-        /// <summary>Get the control back color state.</summary>
-        /// <param name="controlColorState">The control color state.</param>
-        /// <param name="enabled">The enabled toggle.</param>
-        /// <param name="mouseState">The mouse state.</param>
-        /// <returns>
-        ///     <see cref="Color" />
-        /// </returns>
-        public static Color BackColorState(ControlColorState controlColorState, bool enabled, MouseStates mouseState)
-        {
-            Color _color;
-
-            if (enabled)
-            {
-                switch (mouseState)
-                {
-                    case MouseStates.Normal:
-                        {
-                            _color = controlColorState.Enabled;
-                            break;
-                        }
-
-                    case MouseStates.Hover:
-                        {
-                            _color = controlColorState.Hover;
-                            break;
-                        }
-
-                    case MouseStates.Down:
-                        {
-                            _color = controlColorState.Pressed;
-                            break;
-                        }
-
-                    default:
-                        {
-                            throw new ArgumentOutOfRangeException(nameof(mouseState), mouseState, null);
-                        }
-                }
-            }
-            else
-            {
-                _color = controlColorState.Disabled;
-            }
-
-            return _color;
-        }
 
         /// <summary>Blends the colors.</summary>
         /// <param name="backColor">The back color.</param>
@@ -395,7 +347,9 @@
                     }
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(brightness), brightness, null);
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(brightness), brightness, null);
+                    }
             }
 
             return _tintedColor;

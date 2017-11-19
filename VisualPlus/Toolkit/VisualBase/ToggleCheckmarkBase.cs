@@ -50,7 +50,6 @@ namespace VisualPlus.Toolkit.VisualBase
             _animation = Settings.DefaultValue.Animation;
             _checkStyle = new CheckStyle(ClientRectangle);
             _border = new Border();
-
             _colorState = new ControlColorState();
             ConfigureAnimation(new[] { 0.05, 0.10, 0.08 }, new[] { EffectType.EaseInOut, EffectType.Linear });
         }
@@ -358,7 +357,7 @@ namespace VisualPlus.Toolkit.VisualBase
                 _box = new Rectangle(new Point(Padding.Left, (ClientRectangle.Height / 2) - (_box.Height / 2)), _box.Size);
             }
 
-            Color _backColor = ColorManager.BackColorState(BoxColorState, Enabled, MouseState);
+            Color _backColor = ControlColorState.BackColorState(BoxColorState, Enabled, MouseState);
 
             Graphics _graphics = e.Graphics;
             _graphics.Clear(Parent.BackColor);

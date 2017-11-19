@@ -76,11 +76,15 @@
 
             _borderImage = new BorderEdge { Visible = false };
 
-            _backColorState = new ColorState();
-            _buttonColorState = new ControlColorState();
-
             _textWidth = 125;
             _border = new Border();
+
+            StyleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _backColorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3)
+                };
+
             _textBox = new TextBox
                 {
                     Size = new Size(_textWidth, 25),
@@ -753,8 +757,11 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            BackColorState.Enabled = StyleManager.ControlStyle.Background(3);
-            BackColorState.Disabled = StyleManager.ControlStyle.Background(0);
+            _backColorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3),
+                    Disabled = StyleManager.ControlStyle.Background(0)
+                };
 
             _border.Color = StyleManager.ShapeStyle.Color;
             _border.HoverColor = StyleManager.BorderStyle.HoverColor;

@@ -61,10 +61,16 @@
             _itemLineAlignment = StringAlignment.Center;
 
             _border = new Border();
-            _colorState = new ColorState();
+
+            StyleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3)
+                };
+
             _listBox = new ListBox
                 {
-                    BackColor = BackColorState.Enabled,
+                    BackColor = _colorState.Enabled,
                     Size = GetInternalControlSize(Size, _border),
                     BorderStyle = BorderStyle.None,
                     IntegralHeight = false,
@@ -754,8 +760,11 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            _colorState.Enabled = StyleManager.ControlStyle.Background(3);
-            _colorState.Disabled = StyleManager.ControlStyle.Background(0);
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3),
+                    Disabled = StyleManager.ControlStyle.Background(0)
+                };
 
             _itemNormal = BackColorState.Enabled;
             _itemAlternate = StyleManager.ShapeStyle.Color;

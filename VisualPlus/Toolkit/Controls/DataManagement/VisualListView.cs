@@ -61,11 +61,16 @@
 
             headerFont = StyleManager.Font;
             _border = new Border();
-            _colorState = new ColorState();
+
+            StyleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3)
+                };
 
             _listView = new ListView
                 {
-                    BackColor = BackColorState.Enabled,
+                    BackColor = _colorState.Enabled,
                     Size = GetInternalControlSize(Size, _border),
                     BorderStyle = BorderStyle.None,
                     View = View.Details,
@@ -599,8 +604,11 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            BackColorState.Enabled = StyleManager.ControlStyle.Background(3);
-            BackColorState.Disabled = StyleManager.ControlStyle.Background(0);
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3),
+                    Disabled = StyleManager.ControlStyle.Background(0)
+                };
 
             _columnHeaderColor = StyleManager.ControlStyle.FlatButtonDisabled;
             headerText = StyleManager.FontStyle.ForeColor;

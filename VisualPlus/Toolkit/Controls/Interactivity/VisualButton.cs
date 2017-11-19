@@ -57,7 +57,6 @@
             _animation = Settings.DefaultValue.Animation;
             _border = new Border();
             _textImageRelation = TextImageRelation.Overlay;
-            _backColorState = new ControlColorState();
             _textAlignment = StringAlignment.Center;
             _textLineAlignment = StringAlignment.Center;
             ConfigureAnimation(new[] { 0.03, 0.07 }, new[] { EffectType.EaseOut, EffectType.EaseInOut });
@@ -249,10 +248,13 @@
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
             Font = StyleManager.Font;
 
-            _backColorState.Enabled = StyleManager.ControlStyle.Background(0);
-            _backColorState.Disabled = Color.FromArgb(224, 224, 224);
-            _backColorState.Hover = Color.FromArgb(224, 224, 224);
-            _backColorState.Pressed = Color.Silver;
+            _backColorState = new ControlColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(0),
+                    Disabled = Color.FromArgb(224, 224, 224),
+                    Hover = Color.FromArgb(224, 224, 224),
+                    Pressed = Color.Silver
+                };
 
             Invalidate();
         }
@@ -326,7 +328,7 @@
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
             _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
 
-            Color _backColor = ColorManager.BackColorState(BackColorState, Enabled, MouseState);
+            Color _backColor = ControlColorState.BackColorState(BackColorState, Enabled, MouseState);
 
             e.Graphics.SetClip(ControlGraphicsPath);
             VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, _border);

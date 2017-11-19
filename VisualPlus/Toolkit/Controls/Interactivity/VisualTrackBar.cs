@@ -115,8 +115,6 @@
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
             _tickHeight = 4;
             _valueTicksVisible = Settings.DefaultValue.TextVisible;
-            _buttonControlColorState = new ControlColorState();
-            _trackBarColor = new ColorState();
 
             BackColor = Color.Transparent;
             DoubleBuffered = true;
@@ -763,13 +761,19 @@
 
             _progressColor = _styleManager.ProgressStyle.Progress;
 
-            _buttonControlColorState.Enabled = _styleManager.ControlStyle.Background(0);
-            _buttonControlColorState.Disabled = Color.FromArgb(224, 224, 224);
-            _buttonControlColorState.Hover = Color.FromArgb(224, 224, 224);
-            _buttonControlColorState.Pressed = Color.Silver;
+            _buttonControlColorState = new ControlColorState
+                {
+                    Enabled = _styleManager.ControlStyle.Background(0),
+                    Disabled = Color.FromArgb(224, 224, 224),
+                    Hover = Color.FromArgb(224, 224, 224),
+                    Pressed = Color.Silver
+                };
 
-            _trackBarColor.Enabled = _styleManager.ProgressStyle.BackProgress;
-            _trackBarColor.Disabled = _styleManager.ProgressStyle.ProgressDisabled;
+            _trackBarColor = new ColorState
+                {
+                    Enabled = _styleManager.ProgressStyle.BackProgress,
+                    Disabled = _styleManager.ProgressStyle.ProgressDisabled
+                };
 
             _hatch.BackColor = _styleManager.ProgressStyle.Hatch;
             _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);
@@ -1481,7 +1485,7 @@
                 return;
             }
 
-            Color _backColor = ColorManager.BackColorState(_buttonControlColorState, Enabled, _mouseState);
+            Color _backColor = ControlColorState.BackColorState(_buttonControlColorState, Enabled, _mouseState);
 
             _buttonPath = VisualBorderRenderer.CreateBorderTypePath(_trackerButtonRectangle, _trackerBorder);
             graphics.FillPath(new SolidBrush(_backColor), _buttonPath);

@@ -48,8 +48,6 @@
             _thickness = 25;
             Maximum = 100;
 
-            _colorState = new ColorState();
-
             ConstructDisplay();
             Controls.Add(_labelMaximum);
             Controls.Add(_labelMinimum);
@@ -142,8 +140,11 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
-            BackColorState.Enabled = StyleManager.ControlStyle.Background(3);
-            BackColorState.Disabled = StyleManager.ColorStateStyle.ControlDisabled;
+            _colorState = new ColorState
+                {
+                    Enabled = StyleManager.ControlStyle.Background(3),
+                    Disabled = StyleManager.ColorStateStyle.ControlDisabled
+                };
 
             _progress = StyleManager.ProgressStyle.Progress;
 

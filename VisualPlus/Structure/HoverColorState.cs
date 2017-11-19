@@ -17,48 +17,63 @@ namespace VisualPlus.Structure
 
     #endregion
 
-    [TypeConverter(typeof(ControlColorStateConverter))]
+    [TypeConverter(typeof(HoverColorStateConverter))]
     [ToolboxItem(false)]
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    [Description("The control color state of a component.")]
+    [Description("The hover color state of a component.")]
     [Category(Propertys.Appearance)]
-    public class ControlColorState : HoverColorState
+    public class HoverColorState : ColorState
     {
         #region Variables
 
-        private Color _pressed;
+        private Color _hover;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>Initializes a new instance of the <see cref="ControlColorState" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="HoverColorState" /> class.</summary>
         /// <param name="disabled">The disabled color</param>
         /// <param name="enabled">The enabled color.</param>
         /// <param name="hover">The hover color.</param>
-        /// <param name="pressed">The pressed color.</param>
-        public ControlColorState(Color disabled, Color enabled, Color hover, Color pressed)
+        public HoverColorState(Color disabled, Color enabled, Color hover)
         {
             Disabled = disabled;
             Enabled = enabled;
-            Hover = hover;
-            _pressed = pressed;
+            _hover = hover;
         }
 
-        /// <summary>Initializes a new instance of the <see cref="ControlColorState" /> class.</summary>
-        public ControlColorState()
+        /// <summary>Initializes a new instance of the <see cref="HoverColorState" /> class.</summary>
+        public HoverColorState()
         {
         }
 
         [Category(Events.PropertyChanged)]
         [Description(Event.PropertyEventChanged)]
-        public event BackColorStateChangedEventHandler PressedColorChanged;
+        public event BackColorStateChangedEventHandler HoverColorChanged;
 
         #endregion
 
         #region Properties
+
+        [NotifyParentProperty(true)]
+        [RefreshProperties(RefreshProperties.Repaint)]
+        [Description(Property.Color)]
+        public Color Hover
+        {
+            get
+            {
+                return _hover;
+            }
+
+            set
+            {
+                _hover = value;
+                OnDisabledColorChanged(new ColorEventArgs(_hover));
+            }
+        }
 
         /// <summary>Gets a value indicating whether this <see cref="ControlColorState" /> is empty.</summary>
         [Browsable(false)]
@@ -66,24 +81,7 @@ namespace VisualPlus.Structure
         {
             get
             {
-                return Hover.IsEmpty && _pressed.IsEmpty && Disabled.IsEmpty && Enabled.IsEmpty;
-            }
-        }
-
-        [NotifyParentProperty(true)]
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Color)]
-        public Color Pressed
-        {
-            get
-            {
-                return _pressed;
-            }
-
-            set
-            {
-                _pressed = value;
-                OnDisabledColorChanged(new ColorEventArgs(_pressed));
+                return _hover.IsEmpty && Disabled.IsEmpty && Enabled.IsEmpty;
             }
         }
 
@@ -92,13 +90,13 @@ namespace VisualPlus.Structure
         #region Events
 
         /// <summary>Get the control back color state.</summary>
-        /// <param name="controlColorState">The control color state.</param>
+        /// <param name="hoverColorState">The hover Color State.</param>
         /// <param name="enabled">The enabled toggle.</param>
         /// <param name="mouseState">The mouse state.</param>
         /// <returns>
         ///     <see cref="Color" />
         /// </returns>
-        public static Color BackColorState(ControlColorState controlColorState, bool enabled, MouseStates mouseState)
+        public static Color BackColorState(HoverColorState hoverColorState, bool enabled, MouseStates mouseState)
         {
             Color _color;
 
@@ -108,19 +106,13 @@ namespace VisualPlus.Structure
                 {
                     case MouseStates.Normal:
                         {
-                            _color = controlColorState.Enabled;
+                            _color = hoverColorState.Enabled;
                             break;
                         }
 
                     case MouseStates.Hover:
                         {
-                            _color = controlColorState.Hover;
-                            break;
-                        }
-
-                    case MouseStates.Down:
-                        {
-                            _color = controlColorState.Pressed;
+                            _color = hoverColorState.Hover;
                             break;
                         }
 
@@ -132,7 +124,7 @@ namespace VisualPlus.Structure
             }
             else
             {
-                _color = controlColorState.Disabled;
+                _color = hoverColorState.Disabled;
             }
 
             return _color;
@@ -156,8 +148,6 @@ namespace VisualPlus.Structure
                 _stringBuilder.Append(Hover);
                 _stringBuilder.Append("Normal=");
                 _stringBuilder.Append(Enabled);
-                _stringBuilder.Append("Pressed=");
-                _stringBuilder.Append(Pressed);
             }
 
             _stringBuilder.Append("]");
@@ -165,15 +155,15 @@ namespace VisualPlus.Structure
             return _stringBuilder.ToString();
         }
 
-        protected virtual void OnPressedColorChanged(ColorEventArgs e)
+        protected virtual void OnHoverColorChanged(ColorEventArgs e)
         {
-            PressedColorChanged?.Invoke(e);
+            HoverColorChanged?.Invoke(e);
         }
 
         #endregion
     }
 
-    public class ControlColorStateConverter : ExpandableObjectConverter
+    public class HoverColorStateConverter : ExpandableObjectConverter
     {
         #region Events
 
@@ -196,13 +186,13 @@ namespace VisualPlus.Structure
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            ControlColorState _controlColorState;
+            HoverColorState _hoverColorState;
             object result;
 
             result = null;
-            _controlColorState = value as ControlColorState;
+            _hoverColorState = value as HoverColorState;
 
-            if ((_controlColorState != null) && (destinationType == typeof(string)))
+            if ((_hoverColorState != null) && (destinationType == typeof(string)))
             {
                 // result = borderStyle.ToString();
                 result = "Color State Settings";
@@ -214,16 +204,16 @@ namespace VisualPlus.Structure
         #endregion
     }
 
-    [TypeConverter(typeof(ControlColorStateConverter))]
-    public class ObjectControlColorStateWrapper
+    [TypeConverter(typeof(HoverColorStateConverter))]
+    public class ObjectHoverColorStateWrapper
     {
         #region Constructors
 
-        public ObjectControlColorStateWrapper()
+        public ObjectHoverColorStateWrapper()
         {
         }
 
-        public ObjectControlColorStateWrapper(string value)
+        public ObjectHoverColorStateWrapper(string value)
         {
             Value = value;
         }

@@ -68,8 +68,8 @@
             UpdateStyles();
 
             Anchor = AnchorStyles.Top | AnchorStyles.Right;
-
             BackColor = Color.Transparent;
+            Size = new Size(100, 25);
 
             _minimizeVisible = true;
             _maximizeVisible = true;

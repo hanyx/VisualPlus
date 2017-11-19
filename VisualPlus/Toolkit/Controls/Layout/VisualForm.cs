@@ -46,21 +46,11 @@
         private readonly Dictionary<int, int> _resizedLocationsCommand;
         private Color _background;
         private Border _border;
-        private Color _buttonBackHoverColor;
-        private Color _buttonBackPressedColor;
-        private Size _buttonSize;
-        private ButtonState _buttonState;
-        private Color _closeColor;
         private bool _headerMouseDown;
         private bool _magnetic;
         private int _magneticRadius;
-        private Rectangle _maxButtonBounds;
-        private Color _maxColor;
         private bool _maximized;
-        private Rectangle _minButtonBounds;
-        private Color _minColor;
         private MouseStates _mouseState;
-        private Point _previousLocation;
         private Size _previousSize;
         private ResizeDirection _resizeDir;
         private Rectangle _statusBarBounds;
@@ -70,7 +60,6 @@
         private VisualBitmap _vsImage;
         private Color _windowBarColor;
         private int _windowBarHeight;
-        private Rectangle _xButtonBounds;
 
         #endregion
 
@@ -100,13 +89,6 @@
             _titleAlignment = Alignment.TextAlignment.Center;
             FormBorderStyle = FormBorderStyle.None;
             Sizable = true;
-            _closeColor = Color.IndianRed;
-            _buttonBackHoverColor = _styleManager.ControlColorStateStyle.ControlHover;
-            _buttonBackPressedColor = _styleManager.ControlColorStateStyle.ControlPressed;
-            _buttonState = ButtonState.None;
-            _maxColor = _styleManager.ControlStyle.FlatButtonEnabled;
-            _minColor = _styleManager.ControlStyle.FlatButtonEnabled;
-            _buttonSize = new Size(25, 25);
             _windowBarColor = _styleManager.ControlStyle.Background(0);
             _background = _styleManager.ControlStyle.Background(3);
             _magneticRadius = 100;
@@ -226,102 +208,6 @@
             set
             {
                 _border = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color ButtonBackHoverColor
-        {
-            get
-            {
-                return _buttonBackHoverColor;
-            }
-
-            set
-            {
-                _buttonBackHoverColor = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color ButtonBackPressedColor
-        {
-            get
-            {
-                return _buttonBackPressedColor;
-            }
-
-            set
-            {
-                _buttonBackPressedColor = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color ButtonCloseColor
-        {
-            get
-            {
-                return _closeColor;
-            }
-
-            set
-            {
-                _closeColor = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color ButtonMaximizeColor
-        {
-            get
-            {
-                return _maxColor;
-            }
-
-            set
-            {
-                _maxColor = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
-        public Color ButtonMinimizeColor
-        {
-            get
-            {
-                return _minColor;
-            }
-
-            set
-            {
-                _minColor = value;
-                Invalidate();
-            }
-        }
-
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
-        public Size ButtonSize
-        {
-            get
-            {
-                return _buttonSize;
-            }
-
-            set
-            {
-                _buttonSize = value;
                 Invalidate();
             }
         }
@@ -538,30 +424,12 @@
                 return;
             }
 
-            UpdateButtons(e);
-
             if ((e.Button == MouseButtons.Left) && !_maximized)
             {
                 ResizeForm(_resizeDir);
             }
 
             base.OnMouseDown(e);
-        }
-
-        protected override void OnMouseLeave(EventArgs e)
-        {
-            base.OnMouseLeave(e);
-
-            if (DesignMode)
-            {
-                return;
-            }
-
-            if (_buttonState != ButtonState.None)
-            {
-                _buttonState = ButtonState.None;
-                Invalidate();
-            }
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -614,8 +482,6 @@
                     }
                 }
             }
-
-            UpdateButtons(e);
         }
 
         protected override void OnMouseUp(MouseEventArgs e)
@@ -624,8 +490,6 @@
             {
                 return;
             }
-
-            UpdateButtons(e, true);
 
             base.OnMouseUp(e);
             User32.ReleaseCapture();
@@ -670,7 +534,6 @@
             // Title box
             graphics.FillRectangle(new SolidBrush(_windowBarColor), _statusBarBounds);
 
-            DrawButtons(graphics);
             DrawImageIcon(graphics);
 
             graphics.SetClip(_clientPath);
@@ -686,9 +549,6 @@
         {
             base.OnResize(e);
             _vsImage.Point = new Point(_vsImage.Point.X, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
-            _minButtonBounds = new Rectangle(Width - (3 * _buttonSize.Width), (_windowBarHeight / 2) - (_buttonSize.Height / 2), _buttonSize.Width, _buttonSize.Height);
-            _maxButtonBounds = new Rectangle(Width - (2 * _buttonSize.Width), (_windowBarHeight / 2) - (_buttonSize.Height / 2), _buttonSize.Width, _buttonSize.Height);
-            _xButtonBounds = new Rectangle(Width - _buttonSize.Width, (_windowBarHeight / 2) - (_buttonSize.Height / 2), _buttonSize.Width, _buttonSize.Height);
             _statusBarBounds = new Rectangle(0, 0, Width, _windowBarHeight);
         }
 
@@ -729,11 +589,7 @@
                 return;
             }
 
-            if (m.Msg == WM_LBUTTONDBLCLK)
-            {
-                MaximizeWindow(!_maximized);
-            }
-            else if ((m.Msg == WM_MOUSEMOVE) && _maximized && _statusBarBounds.Contains(PointToClient(Cursor.Position)) && !(_minButtonBounds.Contains(PointToClient(Cursor.Position)) || _maxButtonBounds.Contains(PointToClient(Cursor.Position)) || _xButtonBounds.Contains(PointToClient(Cursor.Position))))
+            if ((m.Msg == WM_MOUSEMOVE) && _maximized && _statusBarBounds.Contains(PointToClient(Cursor.Position)))
             {
                 if (_headerMouseDown)
                 {
@@ -755,7 +611,7 @@
                     User32.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
                 }
             }
-            else if ((m.Msg == WM_LBUTTONDOWN) && _statusBarBounds.Contains(PointToClient(Cursor.Position)) && !(_minButtonBounds.Contains(PointToClient(Cursor.Position)) || _maxButtonBounds.Contains(PointToClient(Cursor.Position)) || _xButtonBounds.Contains(PointToClient(Cursor.Position))))
+            else if ((m.Msg == WM_LBUTTONDOWN) && _statusBarBounds.Contains(PointToClient(Cursor.Position)))
             {
                 if (!_maximized)
                 {
@@ -771,8 +627,7 @@
             {
                 Point cursorPos = PointToClient(Cursor.Position);
 
-                if (_statusBarBounds.Contains(cursorPos) && !_minButtonBounds.Contains(cursorPos) &&
-                    !_maxButtonBounds.Contains(cursorPos) && !_xButtonBounds.Contains(cursorPos))
+                if (_statusBarBounds.Contains(cursorPos))
                 {
                     // Show default system menu when right clicking titlebar
                     int id = User32.TrackPopupMenuEx(User32.GetSystemMenu(Handle, false), TPM_LEFTALIGN | TPM_RETURNCMD, Cursor.Position.X, Cursor.Position.Y, Handle, IntPtr.Zero);
@@ -848,109 +703,9 @@
             return (position - edge > 0) && (position - edge <= _magneticRadius);
         }
 
-        private void DrawButtons(Graphics graphics)
-        {
-            // Determine whether or not we even should be drawing the buttons.
-            bool showMin = MinimizeBox && ControlBox;
-            bool showMax = MaximizeBox && ControlBox;
-            SolidBrush hoverBrush = new SolidBrush(_buttonBackHoverColor);
-            SolidBrush downBrush = new SolidBrush(_buttonBackPressedColor);
-
-            // When MaximizeButton == false, the minimize button will be painted in its place
-            DrawMinimizeOverMaximizeButton(graphics, showMin, showMax, hoverBrush, downBrush);
-
-            var penWidth = 2;
-            Pen minPen = new Pen(_minColor, penWidth);
-            Pen maxPen = new Pen(_maxColor, penWidth);
-            Pen closePen = new Pen(_closeColor, penWidth);
-
-            // Minimize button.
-            if (showMin)
-            {
-                int x = showMax ? _minButtonBounds.X : _maxButtonBounds.X;
-                int y = showMax ? _minButtonBounds.Y : _maxButtonBounds.Y;
-
-                graphics.DrawLine(
-                    minPen,
-                    x + (int)(_minButtonBounds.Width * 0.33),
-                    y + (int)(_minButtonBounds.Height * 0.66),
-                    x + (int)(_minButtonBounds.Width * 0.66),
-                    y + (int)(_minButtonBounds.Height * 0.66));
-            }
-
-            // Maximize button
-            if (showMax)
-            {
-                graphics.DrawRectangle(
-                    maxPen,
-                    _maxButtonBounds.X + (int)(_maxButtonBounds.Width * 0.33),
-                    _maxButtonBounds.Y + (int)(_maxButtonBounds.Height * 0.36),
-                    (int)(_maxButtonBounds.Width * 0.39),
-                    (int)(_maxButtonBounds.Height * 0.35));
-
-                graphics.DrawRectangle(
-                    maxPen,
-                    _maxButtonBounds.X + (int)(_maxButtonBounds.Width * 0.33),
-                    _maxButtonBounds.Y + (int)(_maxButtonBounds.Height * 0.36),
-                    (int)(_maxButtonBounds.Width * 0.39),
-                    (int)(_maxButtonBounds.Height * 0.08));
-            }
-
-            // Close button
-            if (ControlBox)
-            {
-                graphics.DrawLine(
-                    closePen,
-                    _xButtonBounds.X + (int)(_xButtonBounds.Width * 0.33),
-                    _xButtonBounds.Y + (int)(_xButtonBounds.Height * 0.33),
-                    _xButtonBounds.X + (int)(_xButtonBounds.Width * 0.66),
-                    _xButtonBounds.Y + (int)(_xButtonBounds.Height * 0.66));
-
-                graphics.DrawLine(
-                    closePen,
-                    _xButtonBounds.X + (int)(_xButtonBounds.Width * 0.66),
-                    _xButtonBounds.Y + (int)(_xButtonBounds.Height * 0.33),
-                    _xButtonBounds.X + (int)(_xButtonBounds.Width * 0.33),
-                    _xButtonBounds.Y + (int)(_xButtonBounds.Height * 0.66));
-            }
-        }
-
         private void DrawImageIcon(Graphics graphics)
         {
             VisualBitmap.DrawImage(graphics, _vsImage.Border, _vsImage.Point, _vsImage.Image, _vsImage.Size, _vsImage.Visible);
-        }
-
-        private void DrawMinimizeOverMaximizeButton(Graphics graphics, bool showMin, bool showMax, SolidBrush hoverBrush, SolidBrush downBrush)
-        {
-            if ((_buttonState == ButtonState.MinOver) && showMin)
-            {
-                graphics.FillRectangle(hoverBrush, showMax ? _minButtonBounds : _maxButtonBounds);
-            }
-
-            if ((_buttonState == ButtonState.MinDown) && showMin)
-            {
-                graphics.FillRectangle(downBrush, showMax ? _minButtonBounds : _maxButtonBounds);
-            }
-
-            if ((_buttonState == ButtonState.MaxOver) && showMax)
-            {
-                graphics.FillRectangle(hoverBrush, _maxButtonBounds);
-            }
-
-            if ((_buttonState == ButtonState.MaxDown) && showMax)
-            {
-                graphics.FillRectangle(downBrush, _maxButtonBounds);
-            }
-
-            if ((_buttonState == ButtonState.XOver) && ControlBox)
-            {
-                graphics.FillRectangle(hoverBrush, _xButtonBounds);
-            }
-
-            if ((_buttonState == ButtonState.XDown) && ControlBox)
-            {
-                graphics.FillRectangle(downBrush, _xButtonBounds);
-            }
         }
 
         private void DrawTitle(Graphics graphics)
@@ -974,7 +729,7 @@
 
                 case Alignment.TextAlignment.Right:
                     {
-                        titlePoint = new Point(_minButtonBounds.X - _titleTextSize.Width, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
+                        titlePoint = new Point(Width - _border.Thickness - _titleTextSize.Width, (_windowBarHeight / 2) - (_titleTextSize.Height / 2));
                         break;
                     }
 
@@ -986,32 +741,6 @@
 
             Rectangle textRectangle = new Rectangle(titlePoint.X, titlePoint.Y, Width, _titleTextSize.Height);
             graphics.DrawString(Text, Font, new SolidBrush(ForeColor), textRectangle);
-        }
-
-        private void MaximizeWindow(bool maximize)
-        {
-            if (!MaximizeBox || !ControlBox)
-            {
-                return;
-            }
-
-            _maximized = maximize;
-
-            if (maximize)
-            {
-                IntPtr _monitorHandle = User32.MonitorFromWindow(Handle, MONITOR_DEFAULTTONEAREST);
-                MonitorManager _monitorInfo = new MonitorManager();
-                User32.GetMonitorInfo(new HandleRef(null, _monitorHandle), _monitorInfo);
-                _previousSize = Size;
-                _previousLocation = Location;
-                Size = new Size(_monitorInfo.WorkingArea.Width, _monitorInfo.WorkingArea.Height);
-                Location = new Point(_monitorInfo.WorkingArea.Left, _monitorInfo.WorkingArea.Top);
-            }
-            else
-            {
-                Size = _previousSize;
-                Location = _previousLocation;
-            }
         }
 
         private void OnGlobalMouseMove(object sender, MouseEventArgs e)
@@ -1077,92 +806,6 @@
             if (_dir != -1)
             {
                 User32.SendMessage(Handle, WM_NCLBUTTONDOWN, _dir, 0);
-            }
-        }
-
-        private void UpdateButtons(MouseEventArgs e, bool up = false)
-        {
-            if (DesignMode)
-            {
-                return;
-            }
-
-            ButtonState oldState = _buttonState;
-            bool showMin = MinimizeBox && ControlBox;
-            bool showMax = MaximizeBox && ControlBox;
-
-            if ((e.Button == MouseButtons.Left) && !up)
-            {
-                if (showMin && !showMax && _maxButtonBounds.Contains(e.Location))
-                {
-                    _buttonState = ButtonState.MinDown;
-                }
-                else if (showMin && showMax && _minButtonBounds.Contains(e.Location))
-                {
-                    _buttonState = ButtonState.MinDown;
-                }
-                else if (showMax && _maxButtonBounds.Contains(e.Location))
-                {
-                    _buttonState = ButtonState.MaxDown;
-                }
-                else if (ControlBox && _xButtonBounds.Contains(e.Location))
-                {
-                    _buttonState = ButtonState.XDown;
-                }
-                else
-                {
-                    _buttonState = ButtonState.None;
-                }
-            }
-            else
-            {
-                if (showMin && !showMax && _maxButtonBounds.Contains(e.Location))
-                {
-                    _buttonState = ButtonState.MinOver;
-
-                    if ((oldState == ButtonState.MinDown) && up)
-                    {
-                        WindowState = FormWindowState.Minimized;
-                    }
-                }
-                else if (showMin && showMax && _minButtonBounds.Contains(e.Location))
-                {
-                    _buttonState = ButtonState.MinOver;
-
-                    if ((oldState == ButtonState.MinDown) && up)
-                    {
-                        WindowState = FormWindowState.Minimized;
-                    }
-                }
-                else if (MaximizeBox && ControlBox && _maxButtonBounds.Contains(e.Location))
-                {
-                    _buttonState = ButtonState.MaxOver;
-
-                    if ((oldState == ButtonState.MaxDown) && up)
-                    {
-                        MaximizeWindow(!_maximized);
-                    }
-                }
-                else if (ControlBox && _xButtonBounds.Contains(e.Location))
-                {
-                    _buttonState = ButtonState.XOver;
-
-                    if ((oldState == ButtonState.XDown) && up)
-                    {
-                        Close();
-                    }
-                }
-                else
-                {
-                    _buttonState = ButtonState.None;
-                }
-            }
-
-            if (oldState != _buttonState)
-            {
-                Invalidate(_maxButtonBounds);
-                Invalidate(_minButtonBounds);
-                Invalidate(_xButtonBounds);
             }
         }
 

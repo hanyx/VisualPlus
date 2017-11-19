@@ -570,9 +570,17 @@
             _minimizeRectangle = new Rectangle(5, 5, 27, Height);
             _minimizeMovedRectangle = new Rectangle(38, 5, 24, Height);
 
-            DrawCloseButton(_graphics, _closeRectangle);
-            DrawMaximizeButton(_graphics, _maximizeRectangle);
-            DrawMinimizeButton(_graphics, _minimizeRectangle, _minimizeMovedRectangle);
+            try
+            {
+                DrawCloseButton(_graphics, _closeRectangle);
+                DrawMaximizeButton(_graphics, _maximizeRectangle);
+                DrawMinimizeButton(_graphics, _minimizeRectangle, _minimizeMovedRectangle);
+            }
+            catch (Exception exception)
+            {
+                // Throws unhandled exception: Doesn't allow 'Parent.FindForm()' on a 'UserControl' during first run.
+                Console.WriteLine(exception);
+            }
         }
 
         protected override void OnResize(EventArgs e)

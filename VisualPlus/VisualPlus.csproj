@@ -155,7 +155,6 @@
     <Compile Include="Delegates\ControlDragDelegate.cs" />
     <Compile Include="EventArgs\DragControlEventArgs.cs" />
     <Compile Include="Designer\VisualRadialProgressDesigner.cs" />
-    <Compile Include="Designer\VisualContextMenuDesigner.cs" />
     <Compile Include="Designer\VisualLabelDesigner.cs" />
     <Compile Include="Designer\VisualRatingDesigner.cs" />
     <Compile Include="Designer\VisualListBoxDesigner.cs" />

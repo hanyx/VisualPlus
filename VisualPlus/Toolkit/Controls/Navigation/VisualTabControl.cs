@@ -895,8 +895,6 @@
 
                     if ((State == MouseStates.Hover) && _tabPageRectangle.Contains(_mouseLocation))
                     {
-                        Cursor = Cursors.Hand;
-
                         // Draw hover background
                         e.Graphics.FillRectangle(new SolidBrush(_tabHover), _tabPageRectangle);
 

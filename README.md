@@ -1,18 +1,18 @@
 <p align="center">
-<a href="https://github.com/DarkByte7/VisualPlus">
-    <img alt="VisualPlus" width="100" heigth="100" src="http://i.imgur.com/KwWQDQZ.png">
-  </a>
+<a href="https://github.com/DarkByte7/VisualPlus"><img alt="VisualPlus" width="100" heigth="100" src="http://i.imgur.com/KwWQDQZ.png"></a>
 </p >
 
 <h1  align="center">VisualPlus</h1>
 
-[![NuGet](https://img.shields.io/nuget/v/VisualPlus.svg?style=flat)](https://www.nuget.org/packages/VisualPlus/)
-[![NuGetPre](https://img.shields.io/nuget/vpre/VisualPlus.svg?style=flat)](https://www.nuget.org/packages/VisualPlus/)
-[![Issues](https://img.shields.io/github/issues/DarkByte7/VisualPlus.svg?style=flat)](https://github.com/DarkByte7/VisualPlus/issues)
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/VisualPlusUI/General)
-[![Forks](https://img.shields.io/github/forks/DarkByte7/VisualPlus.svg?style=flat)](https://github.com/DarkByte7/VisualPlus/Forks)
-[![Stars](https://img.shields.io/github/stars/DarkByte7/VisualPlus.svg?style=flat)](https://github.com/DarkByte7/VisualPlus/stargazers)
-[![Licence](https://img.shields.io/badge/GPL-3.0-blue.svg?style=flat)](https://raw.githubusercontent.com/DarkByte7/VisualPlus/master/LICENSE.md)
+<p align="center">
+<a href="https://www.nuget.org/packages/VisualPlus/"><img alt="NuGet" src="https://img.shields.io/nuget/v/VisualPlus.svg?style=flat"></a>
+    <a href="https://www.nuget.org/packages/VisualPlus/"><img alt="NuGetPre" src="https://img.shields.io/nuget/vpre/VisualPlus.svg?style=flat"></a>
+    <a href="https://github.com/DarkByte7/VisualPlus/issues/"><img alt="Issues" src="https://img.shields.io/github/issues/DarkByte7/VisualPlus.svg?style=flat"></a>
+    <a href="https://gitter.im/VisualPlusUI/General"><img alt="Gitter" src="https://img.shields.io/gitter/room/nwjs/nw.js.svg"></a>
+    <a href="https://github.com/DarkByte7/VisualPlus/Forks"><img alt="Forks" src="https://img.shields.io/github/forks/DarkByte7/VisualPlus.svg?style=flat"></a>
+    <a href="https://github.com/DarkByte7/VisualPlus/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/DarkByte7/VisualPlus.svg?style=flat"></a>
+    <a href="https://github.com/DarkByte7/VisualPlus/blob/master/License.md"><img alt="Licence" src="https://img.shields.io/badge/GPL-3.0-blue.svg?style=flat"></a>
+</p >
  
 The VisualPlus Framework (VPF), VisualPlus UI for WinForms allows you to rapidly deploy professional .NET applications with customizable controls.
 
@@ -61,12 +61,5 @@ BitCoin donations are also welcome: `1KKghRonJu6orcu7rf4r1wSnsnAPbnC8B7`
 ## Tutorial
 [![](http://youronline.biz/wp-content/uploads/2012/08/Play-Video-Now.jpg)](https://youtu.be/QulNVudD9o8)
 
-## Projects that use VisualPlus
-Send me a message to add a project to this list:
-- [VisualPlus](https://github.com/DarkByte7/VisualPlus)
-
 ## Screenshots
 ![ToolBox](https://i.imgur.com/vhY2yfU.jpg)
-
-## License
-This repository is licensed with the [GPLv3](LICENSE) license.

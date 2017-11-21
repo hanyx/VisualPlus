@@ -458,6 +458,21 @@
             }
         }
 
+        [Category(Propertys.Appearance)]
+        [Description("Gets or sets the ImageList to use when displaying items as small icons in the control.")]
+        public virtual ImageList LargeImageList
+        {
+            get
+            {
+                return _listView.LargeImageList;
+            }
+
+            set
+            {
+                _listView.LargeImageList = value;
+            }
+        }
+
         [Category("Behaviour")]
         [Description("Gets or sets a value indicating whether multiple items can be selected.")]
         [DefaultValue(false)]
@@ -508,6 +523,21 @@
             set
             {
                 _listView.ShowGroups = value;
+            }
+        }
+
+        [Category(Propertys.Appearance)]
+        [Description("Gets or sets the ImageList to use when displaying items as small icons in the control.")]
+        public virtual ImageList SmallImageList
+        {
+            get
+            {
+                return _listView.SmallImageList;
+            }
+
+            set
+            {
+                _listView.SmallImageList = value;
             }
         }
 

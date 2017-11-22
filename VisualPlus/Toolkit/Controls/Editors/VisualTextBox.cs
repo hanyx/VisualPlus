@@ -39,7 +39,6 @@
         private BorderEdge _borderButton;
         private BorderEdge _borderImage;
         private Border _buttonBorder;
-        private Color _buttonColor;
         private ControlColorState _buttonColorState;
         private Font _buttonFont;
         private int _buttonIndent;
@@ -80,6 +79,7 @@
             _border = new Border();
 
             StyleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+
             _backColorState = new ColorState
                 {
                     Enabled = StyleManager.ControlStyle.Background(3)
@@ -757,6 +757,8 @@
             ForeColor = StyleManager.FontStyle.ForeColor;
             ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
 
+            _buttonColorState = new ControlColorState();
+
             _backColorState = new ColorState
                 {
                     Enabled = StyleManager.ControlStyle.Background(3),
@@ -997,7 +999,7 @@
 
         private void DrawButton(Graphics graphics)
         {
-            _buttonColor = new Color();
+            Color _buttonColor;
 
             if (Enabled)
             {

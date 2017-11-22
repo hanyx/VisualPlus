@@ -15,7 +15,6 @@
     using VisualPlus.Delegates;
     using VisualPlus.Designer;
     using VisualPlus.Enumerators;
-    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
@@ -24,7 +23,6 @@
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
-    using VisualPlus.Toolkit.Controls.Interactivity;
 
     #endregion
 
@@ -190,7 +188,6 @@
             set
             {
                 _background = value;
-                OnBackgroundChanged(new ColorEventArgs(_background));
                 Invalidate();
             }
         }
@@ -373,25 +370,6 @@
         #endregion
 
         #region Events
-
-        protected virtual void OnBackgroundChanged(ColorEventArgs e)
-        {
-            GraphicsManager.ApplyContainerBackColorChange(this, Background);
-            BackgroundChanged?.Invoke(e);
-        }
-
-        protected override void OnControlAdded(ControlEventArgs e)
-        {
-            if (!(e.Control is VisualControlBox))
-            {
-                GraphicsManager.SetControlBackColor(e.Control, Background, false);
-            }
-        }
-
-        protected override void OnControlRemoved(ControlEventArgs e)
-        {
-            GraphicsManager.SetControlBackColor(e.Control, Background, true);
-        }
 
         protected override void OnEnter(EventArgs e)
         {

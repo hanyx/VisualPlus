@@ -47,6 +47,7 @@
         private bool _buttonVisible;
         private Image _image;
         private Rectangle _imageRectangle;
+        private Size _imageSize;
         private bool _imageVisible;
         private int _imageWidth;
         private TextBox _textBox;
@@ -104,6 +105,7 @@
             _buttontext = "visualButton";
 
             _image = null;
+            _imageSize = new Size(16, 16);
 
             _watermark = new Watermark();
             _buttonBorder = new Border();
@@ -397,6 +399,22 @@
             set
             {
                 _image = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Propertys.Appearance)]
+        [Description(Property.Size)]
+        public Size ImageSize
+        {
+            get
+            {
+                return _imageSize;
+            }
+
+            set
+            {
+                _imageSize = value;
                 Invalidate();
             }
         }
@@ -1049,24 +1067,33 @@
             graphics.ResetClip();
         }
 
+        /// <summary>Draws the image.</summary>
+        /// <param name="graphics">The specified graphics to draw on.</param>
         private void DrawImage(Graphics graphics)
         {
-            if (_borderImage.Visible)
+            if (!_borderImage.Visible)
             {
-                _borderImage.Location = new Point(_imageRectangle.Right, _border.Thickness);
-                _borderImage.Size = new Size(1, Height - _border.Thickness - 1);
-
-                GraphicsPath _imagePath = new GraphicsPath();
-                _imagePath.AddRectangle(_imageRectangle);
-                graphics.SetClip(_imagePath);
-
-                if (_image != null)
-                {
-                    graphics.DrawImage(_image, new Point((_imageRectangle.X + (_imageRectangle.Width / 2)) - (_image.Width / 2), (_imageRectangle.Y + (_imageRectangle.Height / 2)) - (_image.Height / 2)));
-                }
-
-                graphics.ResetClip();
+                return;
             }
+
+            _borderImage.Location = new Point(_imageRectangle.Right, _border.Thickness);
+            _borderImage.Size = new Size(1, Height - _border.Thickness - 1);
+
+            GraphicsPath _imagePath = new GraphicsPath();
+            _imagePath.AddRectangle(_imageRectangle);
+            graphics.SetClip(_imagePath);
+
+            if (_image != null)
+            {
+                int _xLocation = (_imageRectangle.X + (_imageRectangle.Width / 2)) - (_imageSize.Width / 2);
+                int _yLocation = (_imageRectangle.Y + (_imageRectangle.Height / 2)) - (_imageSize.Height / 2);
+
+                Rectangle _imageFinalRectangle = new Rectangle(_xLocation, _yLocation, _imageSize.Width, _imageSize.Height);
+
+                graphics.DrawImage(_image, _imageFinalRectangle);
+            }
+
+            graphics.ResetClip();
         }
 
         private void DrawWaterMark()

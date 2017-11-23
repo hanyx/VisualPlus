@@ -79,13 +79,13 @@
 
             _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
             _textImageRelation = TextImageRelation.ImageBeforeText;
+            _textAlignment = StringAlignment.Center;
             _textLineAlignment = StringAlignment.Center;
             _itemImageVisible = true;
             _imageVisible = false;
             _buttonWidth = 30;
             _buttonStyle = ButtonStyles.Arrow;
             _buttonVisible = Settings.DefaultValue.TextVisible;
-            _textAlignment = StringAlignment.Center;
             _watermark = new Watermark();
             _mouseState = MouseStates.Normal;
 
@@ -804,7 +804,8 @@
 
             StringFormat _stringFormat = new StringFormat
                 {
-                    Alignment = _textAlignment
+                    Alignment = _textAlignment,
+                    LineAlignment = _textLineAlignment
                 };
 
             Watermark.DrawWatermark(graphics, rectangle, _stringFormat, _watermark);

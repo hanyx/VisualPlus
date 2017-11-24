@@ -33,6 +33,8 @@
     {
         #region Variables
 
+        private StringAlignment _alignment;
+        private StringAlignment _lineAlignment;
         private Orientation _orientation;
         private bool _outline;
         private Color _outlineColor;
@@ -63,6 +65,8 @@
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
 
             UpdateStyles();
+            _alignment = StringAlignment.Near;
+            _lineAlignment = StringAlignment.Center;
             _orientation = Orientation.Horizontal;
             _outlineColor = Color.Red;
             _outlineLocation = new Point(0, 0);
@@ -296,6 +300,38 @@
             }
         }
 
+        [Category(Propertys.Appearance)]
+        [Description(Property.TextAlign)]
+        public StringAlignment TextAlignment
+        {
+            get
+            {
+                return _alignment;
+            }
+
+            set
+            {
+                _alignment = value;
+                Invalidate();
+            }
+        }
+
+        [Category(Propertys.Appearance)]
+        [Description(Property.TextAlign)]
+        public StringAlignment TextLineAlignment
+        {
+            get
+            {
+                return _lineAlignment;
+            }
+
+            set
+            {
+                _lineAlignment = value;
+                Invalidate();
+            }
+        }
+
         #endregion
 
         #region Events
@@ -382,6 +418,9 @@
 
                         break;
                     }
+
+                default:
+                    break;
             }
 
             graphics.DrawPath(new Pen(OutlineColor), outlinePath);
@@ -414,6 +453,9 @@
                         reflectionLocation = new Point((textBoxRectangle.X - (GraphicsManager.MeasureText(graphics, Text, Font).Width / 2)) + _reflectionSpacing, 0);
                         break;
                     }
+
+                default:
+                    break;
             }
 
             // Draw reflected string
@@ -453,6 +495,9 @@
                         imageGraphics.DrawString(Text, Font, new SolidBrush(Color.FromArgb(shadowOpacity, _shadowColor)), _shadowLocation, new StringFormat(StringFormatFlags.DirectionVertical));
                         break;
                     }
+
+                default:
+                    break;
             }
 
             graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -460,26 +505,35 @@
             graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
         }
 
+        /// <summary>Retrieves the appropriate string format.</summary>
+        /// <returns><see cref="StringFormat"/></returns>
         private StringFormat GetStringFormat()
         {
-            StringFormat stringFormat = new StringFormat();
+            StringFormat _stringFormat;
 
             switch (_orientation)
             {
                 case Orientation.Horizontal:
                     {
-                        stringFormat = new StringFormat();
+                        _stringFormat = new StringFormat
+                            {
+                                Alignment = _alignment,
+                                LineAlignment = _lineAlignment
+                            };
                         break;
                     }
 
                 case Orientation.Vertical:
                     {
-                        stringFormat = new StringFormat(StringFormatFlags.DirectionVertical);
+                        _stringFormat = new StringFormat(StringFormatFlags.DirectionVertical);
                         break;
                     }
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
-            return stringFormat;
+            return _stringFormat;
         }
 
         #endregion

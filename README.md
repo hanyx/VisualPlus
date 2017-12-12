@@ -38,7 +38,7 @@ The [`VisualPlus`](https://github.com/DarkByte7/VisualPlus) repository is where 
 - Review the [documentation](https://github.com/DarkByte7/VisualPlus/wiki) and make pull requests for anything from typos to new content
 
 ## Build requirements
-- [.NET Framework 4.6.1](https://www.microsoft.com/en-us/download/details.aspx?id=49981)
+- [.NET Framework 4.0](https://www.microsoft.com/en-ca/download/details.aspx?id=17851)
 - [Visual Studio 2017](https://www.visualstudio.com/downloads/)
 
 ## Contributing

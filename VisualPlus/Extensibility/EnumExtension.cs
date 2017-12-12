@@ -4,9 +4,7 @@ namespace VisualPlus.Extensibility
 
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.Linq;
-    using System.Reflection;
 
     #endregion
 
@@ -88,22 +86,6 @@ namespace VisualPlus.Extensibility
         {
             Type type = typeof(T);
             return !type.IsEnum ? null : Enum.GetValues(type).Cast<T>().ToList();
-        }
-
-        /// <summary>Returns the value.</summary>
-        /// <param name="enumerator">The enumerator.</param>
-        /// <returns>The <see cref="string" />.</returns>
-        public static string Value(this Enum enumerator)
-        {
-            try
-            {
-                DescriptionAttribute attribute = enumerator.GetType().GetField(enumerator.ToString()).GetCustomAttribute<DescriptionAttribute>(false);
-                return attribute != null ? attribute.Description : enumerator.ToString();
-            }
-            catch
-            {
-                return string.Empty;
-            }
         }
 
         #endregion

@@ -15,6 +15,7 @@
     using VisualPlus.Delegates;
     using VisualPlus.Designer;
     using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
@@ -187,8 +188,14 @@
 
             set
             {
+                if (_background == value)
+                {
+                    return;
+                }
+
                 _background = value;
                 Invalidate();
+                BackgroundChanged?.Invoke(new ColorEventArgs(_background));
             }
         }
 

@@ -1,4 +1,4 @@
 @echo off
-Title Comet Nuget Builder
+Title VisualPlus Nuget Builder
 nuget pack nuget.nuspec
 pause

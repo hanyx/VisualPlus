@@ -245,6 +245,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include=".nuget\" />
     <Folder Include="Toolkit\Dialogs\" />
   </ItemGroup>
   <ItemGroup>

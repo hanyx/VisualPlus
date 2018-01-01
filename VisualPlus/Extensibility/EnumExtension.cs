@@ -4,7 +4,9 @@ namespace VisualPlus.Extensibility
 
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Linq;
+    using System.Reflection;
 
     #endregion
 
@@ -18,6 +20,31 @@ namespace VisualPlus.Extensibility
         public static int Count(this Enum enumerator)
         {
             return Enum.GetNames(enumerator.GetType()).Length;
+        }
+
+        /// <summary>Returns the <see cref="Enum" /> attribute description.</summary>
+        /// <param name="enumerator">The enumerator.</param>
+        /// <returns>The <see cref="string" />.</returns>
+        public static string GetDescription(this Enum enumerator)
+        {
+            FieldInfo _fieldInfo = enumerator.GetType().GetField(enumerator.ToString());
+
+            if (_fieldInfo == null)
+            {
+                return enumerator.ToString();
+            }
+
+            var _attributes = (DescriptionAttribute[])_fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
+            return _attributes.Length > 0 ? _attributes[0].Description : enumerator.ToString();
+        }
+
+        /// <summary>Returns the index value of the <see cref="Enum" />.</summary>
+        /// <param name="enumerator">The enumerator.</param>
+        /// <returns>The <see cref="int" />.</returns>
+        public static int GetIndex(this Enum enumerator)
+        {
+            Array _values = Enum.GetValues(enumerator.GetType());
+            return Array.IndexOf(_values, enumerator);
         }
 
         /// <summary>Gets the enumerator index from the value.</summary>

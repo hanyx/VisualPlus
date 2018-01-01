@@ -22,6 +22,14 @@
             return ColorTranslator.FromHtml("#" + withoutHash);
         }
 
+        /// <summary>Returns the text as a <see cref="string" /><see cref="Array" />.</summary>
+        /// <param name="text">The text.</param>
+        /// <returns>The <see cref="string" />.</returns>
+        public static string[] Lines(this string text)
+        {
+            return text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+        }
+
         /// <summary>Provides the size, in pixels, of the specified text when drawn with the specified font.</summary>
         /// <param name="text">The text to measure.</param>
         /// <param name="font">The font to apply to the measured text.</param>

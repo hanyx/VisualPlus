@@ -72,6 +72,7 @@
     <Compile Include="Managers\FontManager.cs" />
     <Compile Include="Managers\ImageManager.cs" />
     <Compile Include="Managers\MonitorManager.cs" />
+    <Compile Include="Managers\TextManager.cs" />
     <Compile Include="Managers\TickManager.cs" />
     <Compile Include="PInvoke\Gdi32.cs" />
     <Compile Include="PInvoke\Shlwapi.cs" />

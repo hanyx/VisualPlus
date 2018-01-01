@@ -4,6 +4,7 @@
 
     using System;
     using System.ComponentModel;
+    using System.Drawing;
     using System.Linq;
     using System.Windows.Forms;
 
@@ -15,6 +16,28 @@
     public sealed class ControlManager
     {
         #region Events
+
+        /// <summary>Centers the control inside the parent control.</summary>
+        /// <param name="control">The control to center.</param>
+        /// <param name="parent">The parent control.</param>
+        /// <param name="centerX">Center X coordinate.</param>
+        /// <param name="centerY">Center Y coordinate.</param>
+        public static void CenterControl(Control control, Control parent, bool centerX, bool centerY)
+        {
+            Point _controlLocation = control.Location;
+
+            if (centerX)
+            {
+                _controlLocation.X = (parent.Width - control.Width) / 2;
+            }
+
+            if (centerY)
+            {
+                _controlLocation.Y = (parent.Height - control.Height) / 2;
+            }
+
+            control.Location = _controlLocation;
+        }
 
         /// <summary>Gets the checked VisualRadioButton.</summary>
         /// <param name="control">The container control.</param>

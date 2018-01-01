@@ -38,10 +38,12 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\VisualTabPageCollectionEditor.cs" />
@@ -59,6 +61,7 @@
     <Compile Include="EventArgs\ColorEventArgs.cs" />
     <Compile Include="EventArgs\ToggleEventArgs.cs" />
     <Compile Include="Extensibility\ColorExtension.cs" />
+    <Compile Include="Extensibility\ControlExtension.cs" />
     <Compile Include="Extensibility\StringExtension.cs" />
     <Compile Include="Localization\Category\Events.cs" />
     <Compile Include="Localization\Descriptions\Event.cs" />

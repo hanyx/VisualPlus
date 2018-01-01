@@ -62,6 +62,7 @@
     <Compile Include="EventArgs\ToggleEventArgs.cs" />
     <Compile Include="Extensibility\ColorExtension.cs" />
     <Compile Include="Extensibility\ControlExtension.cs" />
+    <Compile Include="Extensibility\ImageExtensions.cs" />
     <Compile Include="Extensibility\StringExtension.cs" />
     <Compile Include="Localization\Category\Events.cs" />
     <Compile Include="Localization\Descriptions\Event.cs" />

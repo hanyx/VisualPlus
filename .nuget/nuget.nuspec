@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The VisualPlus Framework (VPF), VisualPlus UI for WinForms allows you to rapidly deploy professional .NET applications with customizable controls.</description>
     <releaseNotes>Initial release.</releaseNotes>
-    <copyright>Copyright 2016-2017</copyright>
+    <copyright>Copyright 2016-2018</copyright>
     <tags>UI Framework Development Toolbox Windows Forms VisualStudio Visual-Studio .NET Metro ModernUI MetroFramework MetroUI WinForms Controls Graphics Rendering Library Components Visual Plus Visual-Plus VB VB.NET User Interface User-Interface VPF</tags>
   </metadata>
   <files>

@@ -14,7 +14,7 @@
     <a href="https://github.com/DarkByte7/VisualPlus/blob/master/License.md"><img alt="Licence" src="https://img.shields.io/badge/GPL-3.0-blue.svg?style=flat"></a>
 </p >
  
-The VisualPlus Framework (VPF), VisualPlus UI for WinForms allows you to rapidly deploy professional .NET applications with customizable controls.
+The VisualPlus Framework (VPF), VisualPlus UI for WinForms allows you to rapidly deploy professional .NET applications with customizable components and controls.
 
 | Service | Stable | Beta |
 | :---- | :---- | :------ |

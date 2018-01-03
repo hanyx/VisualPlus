@@ -2,6 +2,7 @@
 {
     #region Namespace
 
+    using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
@@ -68,6 +69,7 @@
             }
         }
 
+        [Obsolete]
         public Color Color
         {
             get
@@ -156,6 +158,7 @@
             }
         }
 
+        [Obsolete]
         public Color ForeColor
         {
             get
@@ -164,6 +167,7 @@
             }
         }
 
+        [Obsolete]
         public Color ForeColorDisabled
         {
             get
@@ -172,6 +176,7 @@
             }
         }
 
+        [Obsolete]
         public Color ForeColorSelected
         {
             get
@@ -188,6 +193,7 @@
             }
         }
 
+        [Obsolete]
         public Color HoverColor
         {
             get
@@ -260,11 +266,11 @@
             }
         }
 
-        public Styles StyleManagement
+        public Themes StyleManagement
         {
             get
             {
-                return Styles.Visual;
+                return Themes.Visual;
             }
         }
 

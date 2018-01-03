@@ -11,11 +11,13 @@
 
     using VisualPlus.Designer;
     using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -28,7 +30,7 @@
     [Designer(typeof(VisualButtonDesigner))]
     [ToolboxBitmap(typeof(VisualButton), "Resources.ToolboxBitmaps.VisualButton.bmp")]
     [ToolboxItem(true)]
-    public class VisualButton : VisualControlBase, IAnimationSupport, IThemeSupport
+    public class VisualButton : VisualStyleBase, IAnimationSupport, IThemeSupport
     {
         #region Variables
 
@@ -46,21 +48,19 @@
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Interactivity.VisualButton" />
-        ///     class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualButton" /> class.</summary>
         public VisualButton()
         {
             Size = new Size(140, 45);
-            _animation = Settings.DefaultValue.Animation;
             _border = new Border();
+            _backColorState = new ControlColorState();
+            _animation = Settings.DefaultValue.Animation;
             _textImageRelation = TextImageRelation.Overlay;
             _textAlignment = StringAlignment.Center;
             _textLineAlignment = StringAlignment.Center;
             ConfigureAnimation(new[] { 0.03, 0.07 }, new[] { EffectType.EaseOut, EffectType.EaseInOut });
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
@@ -239,24 +239,31 @@
             graphics.SmoothingMode = SmoothingMode.None;
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager.Style = style;
-            _border.Color = StyleManager.ShapeStyle.Color;
-            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
-            Font = StyleManager.Font;
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            _backColorState = new ControlColorState
-                {
-                    Enabled = StyleManager.ControlStyle.Background(0),
-                    Disabled = Color.FromArgb(224, 224, 224),
-                    Hover = Color.FromArgb(224, 224, 224),
-                    Pressed = Color.Silver
-                };
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
+
+                Font = theme.TextSetting.Font;
+
+                _backColorState.Enabled = theme.ColorStateSettings.Enabled;
+                _backColorState.Disabled = theme.ColorStateSettings.Disabled;
+                _backColorState.Hover = theme.ColorStateSettings.Hover;
+                _backColorState.Pressed = theme.ColorStateSettings.Pressed;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnCreateControl()
@@ -320,33 +327,41 @@
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            Graphics _graphics = e.Graphics;
-            _graphics.Clear(Parent.BackColor);
-            _graphics.SmoothingMode = SmoothingMode.HighQuality;
-            _graphics.TextRenderingHint = TextRenderingHint;
-            Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
-            ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
-            _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
 
-            Color _backColor = ControlColorState.BackColorState(BackColorState, Enabled, MouseState);
-
-            e.Graphics.SetClip(ControlGraphicsPath);
-            VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, _border);
-
-            Color _textColor = Enabled ? ForeColor : ForeColorDisabled;
-
-            if (_image != null)
+            try
             {
-                VisualControlRenderer.DrawContent(e.Graphics, ClientRectangle, Text, Font, _textColor, _image, _image.Size, _textImageRelation);
-            }
-            else
-            {
-                VisualControlRenderer.DrawContentText(e.Graphics, ClientRectangle, Text, Font, _textColor, _textAlignment, _textLineAlignment);
-            }
+                Graphics _graphics = e.Graphics;
+                _graphics.Clear(Parent.BackColor);
+                _graphics.SmoothingMode = SmoothingMode.HighQuality;
+                _graphics.TextRenderingHint = TextStyle.TextRenderingHint;
+                Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+                ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
+                _graphics.FillRectangle(new SolidBrush(BackColor), new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 1, ClientRectangle.Height + 1));
 
-            VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
-            DrawAnimation(e.Graphics);
-            e.Graphics.ResetClip();
+                Color _backColor = ControlColorState.BackColorState(BackColorState, Enabled, MouseState);
+
+                e.Graphics.SetClip(ControlGraphicsPath);
+                VisualBackgroundRenderer.DrawBackground(e.Graphics, _backColor, BackgroundImage, MouseState, _clientRectangle, _border);
+
+                Color _textColor = Enabled ? ForeColor : TextStyle.Disabled;
+
+                if (_image != null)
+                {
+                    VisualControlRenderer.DrawContent(e.Graphics, ClientRectangle, Text, Font, _textColor, _image, _image.Size, _textImageRelation);
+                }
+                else
+                {
+                    VisualControlRenderer.DrawContentText(e.Graphics, ClientRectangle, Text, Font, _textColor, _textAlignment, _textLineAlignment);
+                }
+
+                VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
+                DrawAnimation(e.Graphics);
+                e.Graphics.ResetClip();
+            }
+            catch (Exception exception)
+            {
+                VisualExceptionDialog.Show(exception);
+            }
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)

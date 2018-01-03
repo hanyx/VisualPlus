@@ -53,7 +53,7 @@
         private Size _previousSize;
         private ResizeDirection _resizeDir;
         private Rectangle _statusBarBounds;
-        private VisualStyleManager _styleManager;
+        private StylesManager _styleManager;
         private Alignment.TextAlignment _titleAlignment;
         private Size _titleTextSize;
         private VisualBitmap _vsImage;
@@ -70,7 +70,7 @@
         {
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
             UpdateStyles();
-            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
             _resizeCursors = new[] { Cursors.SizeNESW, Cursors.SizeWE, Cursors.SizeNWSE, Cursors.SizeWE, Cursors.SizeNS };
 
             _resizedLocationsCommand = new Dictionary<int, int>
@@ -88,8 +88,8 @@
             _titleAlignment = Alignment.TextAlignment.Center;
             FormBorderStyle = FormBorderStyle.None;
             Sizable = true;
-            _windowBarColor = _styleManager.ControlStyle.Background(0);
-            _background = _styleManager.ControlStyle.Background(3);
+            _windowBarColor = _styleManager.Theme.BackgroundSettings.Type1;
+            _background = _styleManager.Theme.BackgroundSettings.Type2;
             _magneticRadius = 100;
             _magnetic = true;
             _windowBarHeight = 30;

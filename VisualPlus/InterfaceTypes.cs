@@ -8,33 +8,32 @@ namespace VisualPlus
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
 
     #endregion
 
-    public interface IThemeSupport
+    /// <summary>The IThemeManager.</summary>
+    public interface IThemeManager
     {
-        #region Events
+        #region Properties
 
-        /// <summary>Updates the control theme.</summary>
-        /// <param name="style">The style to update the control with.</param>
-        void UpdateTheme(Enumerators.Styles style);
+        /// <summary>The style manager.</summary>
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        StylesManager ThemeManager { get; set; }
 
         #endregion
     }
 
-    /// <summary>Exposes access to content values.</summary>
-    public interface IContentValues
+    /// <summary>The ITheme supported control.</summary>
+    public interface IThemeSupport
     {
         #region Events
 
-        /// <summary>Gets the content long text.</summary>
-        /// <returns>String value.</returns>
-        string GetLongText();
-
-        /// <summary>Gets the content short text.</summary>
-        /// <returns>String value.</returns>
-        string GetShortText();
+        /// <summary>Update the control theme.</summary>
+        /// <param name="theme">The theme to update with.</param>
+        void UpdateTheme(Theme theme);
 
         #endregion
     }
@@ -74,15 +73,6 @@ namespace VisualPlus
         void SelectAll();
 
         void Undo();
-
-        #endregion
-    }
-
-    public interface IControlStyle
-    {
-        #region Properties
-
-        VisualStyleManager StyleManager { get; set; }
 
         #endregion
     }

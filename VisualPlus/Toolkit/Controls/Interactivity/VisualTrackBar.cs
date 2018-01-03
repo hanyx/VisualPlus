@@ -10,14 +10,17 @@
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Delegates;
     using VisualPlus.Designer;
     using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
 
     #endregion
 
@@ -29,7 +32,7 @@
     [Designer(typeof(VisualTrackBarDesigner))]
     [ToolboxBitmap(typeof(VisualTrackBar), "Resources.ToolboxBitmaps.VisualTrackBar.bmp")]
     [ToolboxItem(true)]
-    public class VisualTrackBar : TrackBar
+    public class VisualTrackBar : TrackBar, IThemeSupport
     {
         #region Variables
 
@@ -59,12 +62,13 @@
         private bool _progressFilling;
         private bool _progressValueVisible;
         private bool _progressVisible;
-        private VisualStyleManager _styleManager;
+        private StylesManager _styleManager;
         private string _suffix;
         private Size _textAreaSize;
         private Color _textDisabledColor;
         private Font _textFont;
         private TextRenderingHint _textRendererHint;
+        private TextStyle _textStyle;
         private Color _tickColor;
         private int _tickHeight;
         private Border _trackBarBorder;
@@ -98,7 +102,7 @@
                 true);
 
             UpdateStyles();
-            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
             _trackerRectangle = Rectangle.Empty;
             _hatch = new Hatch();
             _orientation = Orientation.Horizontal;
@@ -122,14 +126,18 @@
             AutoSize = false;
             Size = new Size(200, 50);
             MinimumSize = new Size(0, 0);
-
+            _textStyle = new TextStyle();
             _trackBarBorder = new Border();
             _trackerBorder = new Border();
 
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(_styleManager.Theme);
         }
+
+        [Category(Localization.Category.Events.PropertyChanged)]
+        [Description("Occours when the theme of the control has changed.")]
+        public event ThemeChangedEventHandler ThemeChanged;
 
         public enum ValueDivisor
         {
@@ -479,6 +487,24 @@
             }
         }
 
+        /// <summary>Gets or sets the <see cref="TextStyle" />.</summary>
+        [Browsable(false)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.TextStyle)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public TextStyle TextStyle
+        {
+            get
+            {
+                return _textStyle;
+            }
+
+            set
+            {
+                _textStyle = value;
+            }
+        }
+
         [Category(Propertys.Appearance)]
         [Description(Property.Color)]
         public Color TickColor
@@ -747,45 +773,56 @@
             Invalidate();
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            VisualStyleManager _styleManager = new VisualStyleManager(style);
+            try
+            {
+                _trackerTextColor = theme.TextSetting.Enabled;
+                _textDisabledColor = theme.TextSetting.Disabled;
+                _progressColor = theme.OtherSettings.Progress;
 
-            ForeColor = _styleManager.FontStyle.ForeColor;
+                _buttonControlColorState = new ControlColorState
+                    {
+                        Enabled = theme.ColorStateSettings.Enabled,
+                        Disabled = theme.ColorStateSettings.Disabled,
+                        Hover = theme.ColorStateSettings.Hover,
+                        Pressed = theme.ColorStateSettings.Pressed
+                    };
 
-            Font = _styleManager.Font;
-            _textFont = Font;
-            _foreColor = _styleManager.FontStyle.ForeColor;
-            _trackerTextColor = ForeColor;
-            _textDisabledColor = _styleManager.FontStyle.ForeColorDisabled;
+                _trackBarColor = new ColorState
+                    {
+                        Enabled = theme.OtherSettings.ProgressBackground,
+                        Disabled = theme.OtherSettings.ProgressDisabled
+                    };
 
-            _progressColor = _styleManager.ProgressStyle.Progress;
+                _hatch.BackColor = theme.OtherSettings.HatchBackColor;
+                _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);
 
-            _buttonControlColorState = new ControlColorState
-                {
-                    Enabled = _styleManager.ControlStyle.Background(0),
-                    Disabled = Color.FromArgb(224, 224, 224),
-                    Hover = Color.FromArgb(224, 224, 224),
-                    Pressed = Color.Silver
-                };
+                _tickColor = theme.OtherSettings.Line;
 
-            _trackBarColor = new ColorState
-                {
-                    Enabled = _styleManager.ProgressStyle.BackProgress,
-                    Disabled = _styleManager.ProgressStyle.ProgressDisabled
-                };
+                _trackerBorder.Color = theme.BorderSettings.Normal;
+                _trackerBorder.HoverColor = theme.BorderSettings.Hover;
 
-            _hatch.BackColor = _styleManager.ProgressStyle.Hatch;
-            _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);
+                _trackBarBorder.Color = theme.BorderSettings.Normal;
+                _trackBarBorder.HoverColor = theme.BorderSettings.Hover;
 
-            _tickColor = _styleManager.ControlStyle.Line;
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            _trackerBorder.Color = _styleManager.ShapeStyle.Color;
-            _trackerBorder.HoverColor = _styleManager.BorderStyle.HoverColor;
+                Font = theme.TextSetting.Font;
+                _textFont = theme.TextSetting.Font;
 
-            _trackBarBorder.Color = _styleManager.ShapeStyle.Color;
-            _trackBarBorder.HoverColor = _styleManager.BorderStyle.HoverColor;
+                BackColorState.Enabled = theme.ColorStateSettings.Enabled;
+                BackColorState.Disabled = theme.ColorStateSettings.Disabled;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -1015,6 +1052,14 @@
         protected override void OnScroll(EventArgs e)
         {
             base.OnScroll(e);
+            Invalidate();
+        }
+
+        /// <summary>Invokes the theme changed event.</summary>
+        /// <param name="e">The event args.</param>
+        protected virtual void OnThemeChanged(ThemeEventArgs e)
+        {
+            ThemeChanged?.Invoke(e);
             Invalidate();
         }
 

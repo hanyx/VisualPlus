@@ -48,7 +48,7 @@
         private int _separatorSpacing;
         private float _separatorThickness;
         private bool _separatorVisible;
-        private VisualStyleManager _styleManager;
+        private StylesManager _styleManager;
         private Color _tabHover;
         private Color _tabMenu;
         private Color _tabNormal;
@@ -66,11 +66,7 @@
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Navigation.VisualTabControl" />
-        ///     class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualTabControl" /> class.</summary>
         public VisualTabControl()
         {
             SetStyle(
@@ -81,7 +77,7 @@
 
             UpdateStyles();
 
-            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
 
             _textLineAlignment = StringAlignment.Center;
             _border = new Border();
@@ -95,24 +91,24 @@
             _selectorThickness = 4;
             _separatorSpacing = 2;
             _separatorThickness = 2F;
-            _backgroundColor = _styleManager.ControlStyle.Background(3);
-            _separator = _styleManager.ControlStyle.Line;
+            _backgroundColor = _styleManager.Theme.BackgroundSettings.Type4;
+            _separator = _styleManager.Theme.OtherSettings.Line;
             _tabMenu = Color.FromArgb(55, 61, 73);
             _textAlignment = StringAlignment.Center;
             _tabSelector = Color.Green;
             _textNormal = Color.FromArgb(174, 181, 187);
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
             _textSelected = Color.FromArgb(217, 220, 227);
-            Font = _styleManager.Font;
+            Font = _styleManager.Theme.TextSetting.Font;
 
             Size = new Size(320, 160);
             MinimumSize = new Size(144, 85);
             ItemSize = _itemSize;
 
             _tabPageBorder = new Shape();
-            _tabNormal = _styleManager.TabStyle.TabEnabled;
-            _tabSelected = _styleManager.TabStyle.TabSelected;
-            _tabHover = _styleManager.TabStyle.TabHover;
+            _tabNormal = _styleManager.Theme.OtherSettings.TabPageEnabled;
+            _tabSelected = _styleManager.Theme.OtherSettings.TabPageSelected;
+            _tabHover = _styleManager.Theme.OtherSettings.TabPageHover;
 
             foreach (TabPage page in TabPages)
             {

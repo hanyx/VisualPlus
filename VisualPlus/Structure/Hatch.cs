@@ -37,12 +37,12 @@
         /// <summary>Initializes a new instance of the <see cref="Hatch" /> class.</summary>
         public Hatch()
         {
-            VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            StylesManager _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
             _visible = Settings.DefaultValue.HatchVisible;
             _size = Settings.DefaultValue.HatchSize;
             _style = Settings.DefaultValue.HatchStyle;
-            _backColor = _styleManager.ProgressStyle.Hatch;
-            _foreColor = Color.FromArgb(40, _styleManager.ProgressStyle.Hatch);
+            _backColor = _styleManager.Theme.OtherSettings.HatchBackColor;
+            _foreColor = Color.FromArgb(40, _styleManager.Theme.OtherSettings.HatchForeColor);
         }
 
         /// <summary>Initializes a new instance of the <see cref="Hatch" /> class.</summary>

@@ -40,13 +40,13 @@
         /// <param name="boundary">The boundary.</param>
         public CheckStyle(Rectangle boundary)
         {
-            VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            StylesManager _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
 
-            _color = _styleManager.CheckmarkStyle.CheckColor;
+            _color = _styleManager.Theme.OtherSettings.Progress;
 
             _autoSize = true;
             _character = '✔';
-            _characterFont = _styleManager.Font;
+            _characterFont = _styleManager.Theme.TextSetting.Font;
             _checkType = CheckType.Character;
 
             _shapeRounding = Settings.DefaultValue.Rounding.BoxRounding;

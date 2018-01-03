@@ -44,7 +44,6 @@
         public const string Rectangle = "Gets or set the rectangle.";
         public const string Rotation = "Applies the specified rotation to the transformation matrix of this Graphics.";
         public const string Rounding = "Gets or sets the rounding of the border in pixels.";
-
         public const string ScrollBars = "Gets or sets the type of scroll bars to display in the control";
         public const string Shape = "Gets or sets the shape of the border.";
         public const string ShortcutsEnabled = "Gets or sets a value indicating whether the defined shortcuts are enabled.";
@@ -57,6 +56,7 @@
         public const string TextAlign = "Gets or sets how text is aligned in a TextBox control.";
         public const string TextImageRelation = "Specifies the position of the text and image relative to each other on a control.";
         public const string TextRenderingHint = "Gets or sets the rendering mode for text associated with this graphics.";
+        public const string TextStyle = "Gets or sets the text style.";
         public const string Thickness = "Gets or sets the pixel thickness for the border.";
         public const string Toggle = "Toggles the behaviour.";
         public const string Type = "Gets or sets the controls type.";

@@ -11,13 +11,14 @@
     using System.Windows.Forms;
 
     using VisualPlus.Designer;
-    using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -36,11 +37,11 @@
         #region Variables
 
         private bool _alternateColors;
+        private ColorState _backColorState;
         private Border _border;
         private Size _box;
         private int _boxSpacing;
         private CheckedListBox _checkedListBox;
-        private ColorState _colorState;
         private Color _itemAlternate;
         private Color _itemNormal;
         private Color _itemSelected;
@@ -67,8 +68,11 @@
             _box = new Size(25, 25);
             _boxSpacing = 5;
 
-            StyleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
-            _colorState = new ColorState { Enabled = StyleManager.ControlStyle.Background(3) };
+            ThemeManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            _backColorState = new ColorState
+                {
+                    Enabled = ThemeManager.Theme.BackgroundSettings.Type4
+                };
 
             _checkedListBox = new CheckedListBox
                 {
@@ -77,7 +81,7 @@
                     BorderStyle = BorderStyle.None,
                     Font = Font,
                     ForeColor = ForeColor,
-                    BackColor = _colorState.Enabled
+                    BackColor = _backColorState.Enabled
                 };
 
             Size = new Size(150, 100);
@@ -86,7 +90,7 @@
             // _checkedListBox.MeasureItem += CheckedListBox_MeasureItem;
             Controls.Add(_checkedListBox);
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
@@ -116,12 +120,12 @@
         {
             get
             {
-                return _colorState;
+                return _backColorState;
             }
 
             set
             {
-                _colorState = value;
+                _backColorState = value;
                 Invalidate();
             }
         }
@@ -336,27 +340,36 @@
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            _colorState = new ColorState
-                {
-                    Enabled = StyleManager.ControlStyle.Background(3),
-                    Disabled = StyleManager.ControlStyle.Background(0)
-                };
+                Font = theme.TextSetting.Font;
 
-            _border.Color = StyleManager.ShapeStyle.Color;
-            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+                _itemNormal = theme.ListItemSettings.Item;
+                _itemAlternate = theme.ListItemSettings.ItemAlternate;
+                _itemSelected = theme.ListItemSettings.ItemSelected;
 
-            _itemAlternate = Color.Gray;
-            _itemNormal = StyleManager.ControlStyle.ItemEnabled;
-            _itemSelected = StyleManager.BorderStyle.HoverColor;
+                _backColorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type4,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -365,7 +378,7 @@
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
 
-            Color _backColor = Enabled ? _colorState.Enabled : _colorState.Disabled;
+            Color _backColor = Enabled ? _backColorState.Enabled : _backColorState.Disabled;
 
             if (_checkedListBox.BackColor != _backColor)
             {
@@ -401,7 +414,7 @@
 
             Graphics graphics = e.Graphics;
             graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.TextRenderingHint = TextRenderingHint;
+            graphics.TextRenderingHint = TextStyle.TextRenderingHint;
 
             // Draw the background of the ListBox control for each item.
             e.DrawBackground();

@@ -15,7 +15,7 @@
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
-    public abstract class ToggleBase : VisualControlBase
+    public abstract class ToggleBase : VisualStyleBase
     {
         #region Constructors
 

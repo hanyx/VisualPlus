@@ -55,6 +55,16 @@
             return controlName.GetType().Namespace;
         }
 
+        /// <summary>Determines whether the object has the method.</summary>
+        /// <param name="objectToCheck">The object.</param>
+        /// <param name="methodName">The method name.</param>
+        /// <returns>The <see cref="bool" />.</returns>
+        public static bool HasMethod(object objectToCheck, string methodName)
+        {
+            Type _methodType = objectToCheck.GetType();
+            return _methodType.GetMethod(methodName) != null;
+        }
+
         /// <summary>Gets the control type.</summary>
         /// <typeparam name="T">The type.</typeparam>
         /// <param name="controlName">The control name.</param>

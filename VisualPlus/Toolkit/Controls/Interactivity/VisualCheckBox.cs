@@ -2,15 +2,16 @@
 {
     #region Namespace
 
+    using System;
     using System.ComponentModel;
     using System.Drawing;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
     using VisualPlus.Designer;
-    using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -40,31 +41,40 @@
                     Style = CheckStyle.CheckType.Character
                 };
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                Border.Color = theme.BorderSettings.Normal;
+                Border.HoverColor = theme.BorderSettings.Hover;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
-            Font = StyleManager.Font;
+                CheckStyle.CheckColor = theme.OtherSettings.Progress;
 
-            BoxColorState.Enabled = StyleManager.ControlStyle.Background(0);
-            BoxColorState.Disabled = Color.FromArgb(224, 224, 224);
-            BoxColorState.Hover = Color.FromArgb(224, 224, 224);
-            BoxColorState.Pressed = Color.Silver;
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            CheckStyle.CheckColor = StyleManager.CheckmarkStyle.CheckColor;
+                Font = theme.TextSetting.Font;
 
-            Border.Color = StyleManager.ShapeStyle.Color;
-            Border.HoverColor = StyleManager.BorderStyle.HoverColor;
+                BoxColorState.Enabled = theme.ColorStateSettings.Enabled;
+                BoxColorState.Disabled = theme.ColorStateSettings.Disabled;
+                BoxColorState.Hover = theme.ColorStateSettings.Hover;
+                BoxColorState.Pressed = theme.ColorStateSettings.Pressed;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         #endregion

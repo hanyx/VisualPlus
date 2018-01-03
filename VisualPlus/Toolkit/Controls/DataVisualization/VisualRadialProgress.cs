@@ -10,12 +10,12 @@
     using System.Windows.Forms;
 
     using VisualPlus.Designer;
-    using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -57,7 +57,6 @@
 
         #region Constructors
 
-        /// <inheritdoc />
         /// <summary>Initializes a new instance of the <see cref="VisualRadialProgress" /> class.</summary>
         public VisualRadialProgress()
         {
@@ -76,7 +75,7 @@
             MinimumSize = Size;
             Maximum = 100;
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
@@ -418,32 +417,38 @@
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
-            Font = new Font(StyleManager.FontStyle.FontFamily, 16F, FontStyle.Bold);
+                Font = theme.TextSetting.Font; // TODO: 16F - Bold
+                _subscriptFont = theme.TextSetting.Font; // TODO: - Bold
+                _superscriptFont = theme.TextSetting.Font; // TODO: - Bold
 
-            _subscriptFont = new Font(StyleManager.FontStyle.FontFamily, 8.25F, FontStyle.Bold);
-            _superscriptFont = new Font(StyleManager.FontStyle.FontFamily, 8.25F, FontStyle.Bold);
+                _superscriptColor = theme.TextSetting.Enabled;
+                _subscriptColor = theme.TextSetting.Enabled;
 
-            _superscriptColor = StyleManager.FontStyle.ForeColor;
-            _subscriptColor = StyleManager.FontStyle.ForeColor;
+                _colorState = new ControlColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type1,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
 
-            _colorState = new ControlColorState
-                {
-                    Enabled = StyleManager.ControlStyle.Background(0),
-                    Disabled = StyleManager.ControlStyle.Background(0)
-                };
-
-            _backCircleColor = StyleManager.ProgressStyle.BackCircle;
-            _foreCircleColor = StyleManager.ProgressStyle.ForeCircle;
-
-            _progressColor = StyleManager.ProgressStyle.Progress;
+                _backCircleColor = theme.OtherSettings.BackCircle;
+                _foreCircleColor = theme.OtherSettings.ForeCircle;
+                _progressColor = theme.OtherSettings.Progress;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected void DrawCircles(Graphics graphics)

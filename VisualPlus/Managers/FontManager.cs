@@ -3,9 +3,11 @@
     #region Namespace
 
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Drawing.Text;
     using System.IO;
+    using System.Linq;
     using System.Runtime.InteropServices;
 
     #endregion
@@ -48,6 +50,26 @@
                 _privateFontCollection.AddMemoryFont(_buffer, _font.Length);
                 return new Font(_privateFontCollection.Families[0].Name, size, fontStyle);
             }
+        }
+
+        /// <summary>Determines whether the font is installed on the system.</summary>
+        /// <param name="fontName">The font name.</param>
+        /// <returns>The <see cref="bool" />.</returns>
+        public static bool FontInstalled(string fontName)
+        {
+            if (string.IsNullOrEmpty(fontName))
+            {
+                throw new ArgumentNullException(ExceptionMessenger.IsNullOrEmpty(fontName));
+            }
+
+            return InstalledFonts().Any(_fontFamily => _fontFamily.Name == fontName);
+        }
+
+        /// <summary>Retrieves the installed font families.</summary>
+        /// <returns>The <see cref="FontFamily" />.</returns>
+        public static List<FontFamily> InstalledFonts()
+        {
+            return new InstalledFontCollection().Families.ToList();
         }
 
         #endregion

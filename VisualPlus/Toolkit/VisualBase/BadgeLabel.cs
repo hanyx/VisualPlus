@@ -30,17 +30,16 @@
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.VisualBase.BadgeLabel" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="BadgeLabel" /> class.</summary>
         public BadgeLabel()
         {
-            VisualStyleManager _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            StylesManager _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
 
             Background = Color.FromArgb(120, 183, 230);
             ForeColor = Color.White;
             Shape = new Shape();
             Text = "0";
-            Font = _styleManager.Font;
+            Font = _styleManager.Theme.TextSetting.Font;
             Location = new Point(0, 0);
             BackColor = Color.Transparent;
             Size = new Size(25, 20);

@@ -12,12 +12,14 @@
 
     using VisualPlus.Designer;
     using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -30,7 +32,7 @@
     [Designer(typeof(VisualTextBoxDesigner))]
     [ToolboxBitmap(typeof(TextBox), "Resources.ToolboxBitmaps.VisualTextBox.bmp")]
     [ToolboxItem(true)]
-    public class VisualTextBox : ContainedControlBase, IInputMethods
+    public class VisualTextBox : ContainedControlBase, IInputMethods, IThemeSupport
     {
         #region Variables
 
@@ -79,11 +81,10 @@
             _textWidth = 125;
             _border = new Border();
 
-            StyleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
-
+            ThemeManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
             _backColorState = new ColorState
                 {
-                    Enabled = StyleManager.ControlStyle.Background(3)
+                    Enabled = ThemeManager.Theme.BackgroundSettings.Type4
                 };
 
             _textBox = new TextBox
@@ -133,7 +134,7 @@
                 DrawWaterMark();
             }
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         public delegate void ButtonClickedEventHandler();
@@ -768,28 +769,36 @@
             _textBox.Undo();
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            _buttonColorState = new ControlColorState();
+                Font = theme.TextSetting.Font;
 
-            _backColorState = new ColorState
-                {
-                    Enabled = StyleManager.ControlStyle.Background(3),
-                    Disabled = StyleManager.ControlStyle.Background(0)
-                };
+                _buttonColorState = new ControlColorState();
+                _backColorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type4,
+                        Disabled = theme.BackgroundSettings.Type2
+                    };
 
-            _border.Color = StyleManager.ShapeStyle.Color;
-            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
-
-            _borderButton.BackColor = StyleManager.ControlStyle.Line;
-            _borderImage.BackColor = StyleManager.ControlStyle.Line;
+                _borderButton.BackColor = theme.OtherSettings.Line;
+                _borderImage.BackColor = theme.OtherSettings.Line;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnEnter(EventArgs e)

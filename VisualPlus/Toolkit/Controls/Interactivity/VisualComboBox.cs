@@ -11,13 +11,16 @@
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
+    using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
 
     #endregion
 
@@ -28,7 +31,7 @@
     [Description("The Visual ComboBox")]
     [ToolboxBitmap(typeof(ComboBox), "Resources.ToolboxBitmaps.VisualComboBox.bmp")]
     [ToolboxItem(true)]
-    public class VisualComboBox : ComboBox
+    public class VisualComboBox : ComboBox, IThemeSupport
     {
         #region Variables
 
@@ -50,23 +53,21 @@
         private Color _menuItemNormal;
         private Color _menuTextColor;
         private MouseStates _mouseState;
-        private VisualStyleManager _styleManager;
+        private StylesManager _styleManager;
         private StringAlignment _textAlignment;
         private Color _textDisabledColor;
         private TextImageRelation _textImageRelation;
         private StringAlignment _textLineAlignment;
         private TextRenderingHint _textRendererHint;
+
+        private TextStyle _textStyle;
         private Watermark _watermark;
 
         #endregion
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Interactivity.VisualComboBox" />
-        ///     class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualComboBox" /> class.</summary>
         public VisualComboBox()
         {
             SetStyle(
@@ -77,7 +78,7 @@
             SetStyle((ControlStyles)139286, true);
             SetStyle(ControlStyles.Selectable, false);
 
-            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
             _textImageRelation = TextImageRelation.ImageBeforeText;
             _textAlignment = StringAlignment.Center;
             _textLineAlignment = StringAlignment.Center;
@@ -88,7 +89,7 @@
             _buttonVisible = Settings.DefaultValue.TextVisible;
             _watermark = new Watermark();
             _mouseState = MouseStates.Normal;
-
+            _textStyle = new TextStyle();
             DrawMode = DrawMode.OwnerDrawVariable;
             DropDownStyle = ComboBoxStyle.DropDownList;
 
@@ -105,8 +106,12 @@
             _textRendererHint = Settings.DefaultValue.TextRenderingHint;
 
             Controls.Add(_borderEdge);
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(_styleManager.Theme);
         }
+
+        [Category(Localization.Category.Events.PropertyChanged)]
+        [Description("Occours when the theme of the control has changed.")]
+        public event ThemeChangedEventHandler ThemeChanged;
 
         public enum ButtonStyles
         {
@@ -523,6 +528,24 @@
             }
         }
 
+        /// <summary>Gets or sets the <see cref="TextStyle" />.</summary>
+        [Browsable(false)]
+        [Category(Propertys.Appearance)]
+        [Description(Property.TextStyle)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public TextStyle TextStyle
+        {
+            get
+            {
+                return _textStyle;
+            }
+
+            set
+            {
+                _textStyle = value;
+            }
+        }
+
         [TypeConverter(typeof(WatermarkConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Category(Propertys.Behavior)]
@@ -544,34 +567,40 @@
 
         #region Events
 
-        /// <summary>Update the style of the control.</summary>
-        /// <param name="style">The visual style.</param>
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            _styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            _border.Color = _styleManager.ShapeStyle.Color;
-            _border.HoverColor = _styleManager.BorderStyle.HoverColor;
+                ForeColor = theme.TextSetting.Enabled;
+                _textStyle.Enabled = theme.TextSetting.Enabled;
+                _textStyle.Disabled = theme.TextSetting.Disabled;
 
-            Font = _styleManager.Font;
-            _foreColor = _styleManager.FontStyle.ForeColor;
-            _textDisabledColor = _styleManager.FontStyle.ForeColorDisabled;
+                Font = theme.TextSetting.Font;
 
-            _backColorState = new ColorState
-                {
-                    Enabled = _styleManager.ControlStyle.BoxEnabled,
-                    Disabled = _styleManager.ControlStyle.BoxDisabled
-                };
+                _borderEdge.BackColor = theme.OtherSettings.Line;
 
-            _buttonColor = _styleManager.ControlStyle.FlatButtonEnabled;
-            _menuTextColor = _styleManager.FontStyle.ForeColor;
+                _backColorState = new ColorState
+                    {
+                        Enabled = theme.OtherSettings.BoxEnabled,
+                        Disabled = theme.OtherSettings.BoxDisabled
+                    };
 
-            _menuItemNormal = _styleManager.ControlStyle.ItemEnabled;
-            _menuItemHover = _styleManager.ControlStyle.ItemHover;
+                _buttonColor = theme.OtherSettings.FlatControlEnabled;
 
-            _borderEdge.BackColor = _styleManager.ControlStyle.Line;
+                _menuTextColor = theme.TextSetting.Enabled;
+                _menuItemNormal = theme.ListItemSettings.Item;
+                _menuItemHover = theme.ListItemSettings.ItemHover;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnDrawItem(DrawItemEventArgs e)
@@ -711,6 +740,14 @@
         protected override void OnSelectionChangeCommitted(EventArgs e)
         {
             OnLostFocus(e);
+        }
+
+        /// <summary>Invokes the theme changed event.</summary>
+        /// <param name="e">The event args.</param>
+        protected virtual void OnThemeChanged(ThemeEventArgs e)
+        {
+            ThemeChanged?.Invoke(e);
+            Invalidate();
         }
 
         private void ConfigureSeparator(Rectangle rectangle)

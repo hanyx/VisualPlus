@@ -17,7 +17,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -30,7 +30,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
     [Designer(typeof(VisualToggleDesigner))]
     [ToolboxBitmap(typeof(VisualToggle), "Resources.ToolboxBitmaps.VisualToggle.bmp")]
     [ToolboxItem(true)]
-    public class VisualToggle : ToggleBase
+    public class VisualToggle : ToggleBase, IThemeSupport
     {
         #region Variables
 
@@ -54,7 +54,6 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         public VisualToggle()
         {
             Size = new Size(50, 25);
-            Font = StyleManager.Font;
 
             _animationTimer = new Timer
                 {
@@ -75,7 +74,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                     Rounding = Settings.DefaultValue.Rounding.ToggleButton
                 };
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         public enum ToggleTypes
@@ -242,32 +241,43 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+                _buttonBorder.Color = theme.BorderSettings.Normal;
+                _buttonBorder.HoverColor = theme.BorderSettings.Hover;
 
-            _controlColorState = new ColorState
-                {
-                    Enabled = StyleManager.ControlStyle.Background(3),
-                    Disabled = StyleManager.ControlStyle.Background(0)
-                };
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            _buttonColorState = new ControlColorState
-                {
-                    Enabled = StyleManager.ControlStyle.Background(0),
-                    Disabled = Color.FromArgb(224, 224, 224),
-                    Hover = Color.FromArgb(224, 224, 224),
-                    Pressed = Color.Silver
-                };
+                Font = theme.TextSetting.Font;
 
-            _border.Color = StyleManager.ShapeStyle.Color;
-            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
-            _buttonBorder.Color = StyleManager.ShapeStyle.Color;
-            _buttonBorder.HoverColor = StyleManager.BorderStyle.HoverColor;
+                _controlColorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type2,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+
+                _buttonColorState = new ControlColorState
+                    {
+                        Enabled = theme.ColorStateSettings.Enabled,
+                        Disabled = theme.ColorStateSettings.Disabled,
+                        Hover = theme.ColorStateSettings.Hover,
+                        Pressed = theme.ColorStateSettings.Pressed
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnHandleCreated(EventArgs e)
@@ -310,7 +320,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             Graphics _graphics = e.Graphics;
             _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
-            _graphics.TextRenderingHint = TextRenderingHint;
+            _graphics.TextRenderingHint = TextStyle.TextRenderingHint;
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
             Color _backColor = Enabled ? _controlColorState.Enabled : _controlColorState.Disabled;
@@ -411,7 +421,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
                     LineAlignment = StringAlignment.Center
                 };
 
-            Color _foreColor = Enabled ? ForeColor : ForeColorDisabled;
+            Color _foreColor = Enabled ? ForeColor : TextStyle.Disabled;
 
             graphics.DrawString(
                 _textProcessor,

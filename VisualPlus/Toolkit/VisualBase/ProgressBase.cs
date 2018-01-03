@@ -15,7 +15,7 @@
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    public abstract class ProgressBase : VisualControlBase
+    public abstract class ProgressBase : VisualStyleBase
     {
         #region Variables
 
@@ -62,7 +62,7 @@
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("LargeChange", @"LargeChange cannot be less than zero.");
+                    throw new ArgumentOutOfRangeException(LargeChange.ToString(), @"LargeChange cannot be less than zero.");
                 }
 
                 _largeChange = value;
@@ -131,7 +131,7 @@
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("SmallChange", "SmallChange cannot be less than zero.");
+                    throw new ArgumentOutOfRangeException(SmallChange.ToString(), "SmallChange cannot be less than zero.");
                 }
 
                 _smallChange = value;

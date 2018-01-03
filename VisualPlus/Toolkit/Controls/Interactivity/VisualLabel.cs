@@ -12,11 +12,12 @@
     using System.Windows.Forms;
 
     using VisualPlus.Designer;
-    using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
-    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Structure;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -29,7 +30,7 @@
     [Designer(typeof(VisualLabelDesigner))]
     [ToolboxBitmap(typeof(VisualLabel), "Resources.ToolboxBitmaps.VisualLabel.bmp")]
     [ToolboxItem(true)]
-    public class VisualLabel : VisualControlBase
+    public class VisualLabel : VisualStyleBase, IThemeSupport
     {
         #region Variables
 
@@ -78,7 +79,7 @@
             shadowOpacity = 100;
             _shadowSmooth = 1.5f;
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
@@ -336,15 +337,23 @@
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
-            Font = StyleManager.Font;
+                Font = theme.TextSetting.Font;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -355,7 +364,7 @@
             graphics.Clear(Parent.BackColor);
             graphics.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
 
-            Color _foreColor = Enabled ? ForeColor : ForeColorDisabled;
+            Color _foreColor = Enabled ? ForeColor : TextStyle.Disabled;
 
             if (_reflection && (_orientation == Orientation.Vertical))
             {
@@ -506,7 +515,9 @@
         }
 
         /// <summary>Retrieves the appropriate string format.</summary>
-        /// <returns><see cref="StringFormat"/></returns>
+        /// <returns>
+        ///     <see cref="StringFormat" />
+        /// </returns>
         private StringFormat GetStringFormat()
         {
             StringFormat _stringFormat;

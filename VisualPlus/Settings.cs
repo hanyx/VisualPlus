@@ -2,6 +2,7 @@ namespace VisualPlus
 {
     #region Namespace
 
+    using System;
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Drawing.Text;
@@ -25,6 +26,8 @@ namespace VisualPlus
         public static readonly int MinimumCheckBoxSize = 3;
         public static readonly int MinimumRounding = 1;
 
+        public static readonly string TemplatesFolder = Environment.GetFolderPath(Environment.SpecialFolder.Templates) + @"\VisualPlus Themes\";
+
         #endregion
 
         #region Methods
@@ -41,7 +44,7 @@ namespace VisualPlus
             public const bool TitleBoxVisible = true;
             public const bool HatchVisible = true;
             public const int BarAmount = 5;
-            public const Enumerators.Styles DefaultStyle = Enumerators.Styles.Visual;
+            public const Themes DefaultStyle = Themes.Visual;
             public static readonly Size HatchSize = new Size(2, 2);
             public const HatchStyle HatchStyle = System.Drawing.Drawing2D.HatchStyle.DarkDownwardDiagonal;
             public const bool Moveable = false;

@@ -260,11 +260,11 @@
             }
         }
 
-        public Styles StyleManagement
+        public Themes StyleManagement
         {
             get
             {
-                return Styles.Enigma;
+                return Themes.Enigma;
             }
         }
 

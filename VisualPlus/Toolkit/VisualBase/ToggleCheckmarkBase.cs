@@ -362,7 +362,7 @@ namespace VisualPlus.Toolkit.VisualBase
             Graphics _graphics = e.Graphics;
             _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
-            _graphics.TextRenderingHint = TextRenderingHint;
+            _graphics.TextRenderingHint = TextStyle.TextRenderingHint;
 
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X - 1, ClientRectangle.Y - 1, ClientRectangle.Width + 2, ClientRectangle.Height + 2);
             Shape _clientShape = new Shape(ShapeType.Rectangle, _backColor, 0);
@@ -376,7 +376,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
             _textSize = GraphicsManager.MeasureText(_graphics, Text, Font);
             Point _textLocation = new Point(_box.Right + _boxSpacing, (ClientRectangle.Height / 2) - (_textSize.Height / 2));
-            Color _textColor = Enabled ? ForeColor : ForeColorDisabled;
+            Color _textColor = Enabled ? ForeColor : TextStyle.Disabled;
 
             VisualToggleRenderer.DrawCheckBox(_graphics, Border, _checkStyle, _box, Checked, Enabled, _backColor, BackgroundImage, MouseState, Text, Font, _textColor, _textLocation);
             DrawAnimation(_graphics);

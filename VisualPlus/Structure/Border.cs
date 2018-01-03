@@ -52,8 +52,8 @@
         /// <summary>Initializes a new instance of the <see cref="Border" /> class.</summary>
         public Border()
         {
-            VisualStyleManager styleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
-            ConstructBorder(styleManager.BorderStyle.HoverColor, true);
+            StylesManager styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            ConstructBorder(styleManager.Theme.BorderSettings.Hover, true);
         }
 
         [Category(Events.PropertyChanged)]

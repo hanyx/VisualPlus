@@ -18,7 +18,7 @@
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -31,13 +31,12 @@
     [Designer(typeof(VisualNumericUpDownDesigner))]
     [ToolboxBitmap(typeof(VisualNumericUpDown), "Resources.ToolboxBitmaps.VisualNumericUpDown.bmp")]
     [ToolboxItem(true)]
-    public class VisualNumericUpDown : VisualControlBase
+    public class VisualNumericUpDown : VisualStyleBase, IThemeSupport
     {
         #region Variables
 
         private Border _border;
         private BorderEdge _borderButtons;
-
         private BorderEdge _borderEdge;
         private Color _buttonColor;
         private Font _buttonFont;
@@ -85,7 +84,7 @@
             Controls.Add(_borderEdge);
             Controls.Add(_borderButtons);
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         [Category(Localization.Category.Events.PropertyChanged)]
@@ -319,30 +318,39 @@
             Invalidate();
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            _buttonForeColor = Color.Gray;
-            _buttonFont = new Font(StyleManager.Font.FontFamily, 14, FontStyle.Bold);
-            _buttonColor = StyleManager.ControlStyle.Background(3);
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+                Font = theme.TextSetting.Font;
 
-            _colorState = new ColorState
-                {
-                    Enabled = StyleManager.ControlStyle.Background(3),
-                    Disabled = StyleManager.ControlStyle.Background(0)
-                };
+                _borderEdge.BackColor = theme.OtherSettings.Line;
+                _borderButtons.BackColor = theme.OtherSettings.Line;
 
-            _borderButtons.BackColor = StyleManager.ControlStyle.Line;
-            _borderEdge.BackColor = StyleManager.ControlStyle.Line;
+                _buttonForeColor = theme.OtherSettings.LightText;
+                _buttonFont = new Font(theme.TextSetting.Font.FontFamily, 14, FontStyle.Bold);
+                _buttonColor = theme.BackgroundSettings.Type2;
 
-            _border.Color = StyleManager.ShapeStyle.Color;
-            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+                _colorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type2,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnKeyPress(KeyPressEventArgs e)
@@ -530,7 +538,7 @@
             Graphics _graphics = e.Graphics;
             _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
-            _graphics.TextRenderingHint = TextRenderingHint;
+            _graphics.TextRenderingHint = TextStyle.TextRenderingHint;
 
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);

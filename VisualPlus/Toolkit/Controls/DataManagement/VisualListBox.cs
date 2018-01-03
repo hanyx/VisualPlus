@@ -11,13 +11,14 @@
     using System.Windows.Forms;
 
     using VisualPlus.Designer;
-    using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -30,14 +31,13 @@
     [Designer(typeof(VisualListBoxDesigner))]
     [ToolboxBitmap(typeof(ListBox), "Resources.ToolboxBitmaps.VisualListBox.bmp")]
     [ToolboxItem(true)]
-    public class VisualListBox : ContainedControlBase
+    public class VisualListBox : ContainedControlBase, IThemeSupport
     {
         #region Variables
 
         private bool _alternateColors;
         private Border _border;
         private ColorState _colorState;
-        private FixedContentValue _contentValues = new FixedContentValue();
         private ImageList _imageList;
         private Color _itemAlternate;
         private StringAlignment _itemLineAlignment;
@@ -62,10 +62,11 @@
 
             _border = new Border();
 
-            StyleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            ThemeManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+
             _colorState = new ColorState
                 {
-                    Enabled = StyleManager.ControlStyle.Background(3)
+                    Enabled = ThemeManager.Theme.BackgroundSettings.Type4
                 };
 
             _listBox = new ListBox
@@ -106,7 +107,7 @@
 
             Controls.Add(_listBox);
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         [Description("Occurs when the value of the DataSource property changes.")]
@@ -752,25 +753,36 @@
             _listBox.SetSelected(index, value);
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
-            _border.Color = StyleManager.ShapeStyle.Color;
-            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            _colorState = new ColorState
-                {
-                    Enabled = StyleManager.ControlStyle.Background(3),
-                    Disabled = StyleManager.ControlStyle.Background(0)
-                };
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            _itemNormal = BackColorState.Enabled;
-            _itemAlternate = StyleManager.ShapeStyle.Color;
-            _itemSelected = StyleManager.BorderStyle.HoverColor;
+                Font = theme.TextSetting.Font;
+
+                _itemNormal = theme.ListItemSettings.Item;
+                _itemAlternate = theme.ListItemSettings.ItemAlternate;
+                _itemSelected = theme.ListItemSettings.ItemSelected;
+
+                _colorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type4,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnClick(EventArgs e)
@@ -882,7 +894,7 @@
 
             Graphics graphics = e.Graphics;
             graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.TextRenderingHint = TextRenderingHint;
+            graphics.TextRenderingHint = TextStyle.TextRenderingHint;
 
             // Draw the background of the ListBox control for each item.
             e.DrawBackground();
@@ -955,9 +967,6 @@
                 backgroundBrush.Dispose();
                 textBrush.Dispose();
             }
-
-            // Update our content object with values from the list item
-            UpdateContentFromItemIndex(e.Index);
         }
 
         private void ListBox_Format(object sender, ListControlConvertEventArgs e)
@@ -1057,30 +1066,6 @@
         private void ListBox_ValueMemberChanged(object sender, EventArgs e)
         {
             OnValueMemberChanged(e);
-        }
-
-        private void UpdateContentFromItemIndex(int index)
-        {
-            IContentValues itemValues = Items[index] as IContentValues;
-
-            // If the object exposes the rich interface then use is...
-            if (itemValues != null)
-            {
-                _contentValues.ShortText = itemValues.GetShortText();
-                _contentValues.LongText = itemValues.GetLongText();
-
-                // _contentValues.Image = itemValues.GetImage(PaletteState.Normal);
-                // _contentValues.ImageTransparentColor = itemValues.GetImageTransparentColor(PaletteState.Normal);
-            }
-            else
-            {
-                // Get the text string for the item
-                _contentValues.ShortText = _listBox.GetItemText(Items[index]);
-                _contentValues.LongText = null;
-
-                // _contentValues.Image = null;
-                // _contentValues.ImageTransparentColor = Color.Empty;
-            }
         }
 
         #endregion

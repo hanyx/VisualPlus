@@ -10,12 +10,12 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
     using System.Windows.Forms;
 
     using VisualPlus.Designer;
-    using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -51,10 +51,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         #region Constructors
 
-        /// <summary>
-        ///     Initializes a new instance of the
-        ///     <see cref="T:VisualPlus.Toolkit.Controls.DataVisualization.VisualProgressBar" /> class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualProgressBar" /> class.</summary>
         public VisualProgressBar()
         {
             Maximum = 100;
@@ -66,7 +63,8 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             _border = new Border();
             _progressBarStyle = ProgressBarStyle.Blocks;
             _valueAlignment = StringAlignment.Center;
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
@@ -271,28 +269,40 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                _colorState = new ColorState
+                    {
+                        Enabled = theme.OtherSettings.ProgressBackground,
+                        Disabled = theme.OtherSettings.ProgressDisabled
+                    };
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+                _hatch.BackColor = Color.FromArgb(0, theme.OtherSettings.HatchBackColor);
+                _hatch.ForeColor = Color.FromArgb(20, theme.OtherSettings.HatchForeColor);
 
-            _colorState = new ColorState
-                {
-                    Enabled = StyleManager.ProgressStyle.BackProgress,
-                    Disabled = StyleManager.ProgressStyle.ProgressDisabled
-                };
+                _progressColor = theme.OtherSettings.Progress;
 
-            _hatch.BackColor = StyleManager.ProgressStyle.Hatch;
-            _hatch.ForeColor = Color.FromArgb(40, _hatch.BackColor);
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            _progressColor = StyleManager.ProgressStyle.Progress;
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            _border.Color = StyleManager.ShapeStyle.Color;
-            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+                Font = theme.TextSetting.Font;
+
+                BackColorState.Enabled = theme.ColorStateSettings.Enabled;
+                BackColorState.Disabled = theme.ColorStateSettings.Disabled;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -302,7 +312,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             _graphics.Clear(Parent.BackColor);
             _graphics.SmoothingMode = SmoothingMode.HighQuality;
             _graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            _graphics.TextRenderingHint = TextRenderingHint;
+            _graphics.TextRenderingHint = TextStyle.TextRenderingHint;
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
 
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);

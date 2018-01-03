@@ -4,7 +4,7 @@
 
     using System;
 
-    using VisualPlus.Enumerators;
+    using VisualPlus.Structure;
 
     #endregion
 
@@ -12,31 +12,31 @@
     {
         #region Variables
 
-        private Styles _style;
+        private Theme _theme;
 
         #endregion
 
         #region Constructors
 
-        public ThemeEventArgs(Styles style)
+        public ThemeEventArgs(Theme theme)
         {
-            _style = style;
+            _theme = theme;
         }
 
         #endregion
 
         #region Properties
 
-        public Styles Style
+        public Theme Theme
         {
             get
             {
-                return _style;
+                return _theme;
             }
 
             set
             {
-                _style = value;
+                _theme = value;
             }
         }
 

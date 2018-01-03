@@ -8,12 +8,12 @@
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
-    using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Structure;
-    using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -23,7 +23,7 @@
     [DefaultEvent("Click")]
     [DefaultProperty("Value")]
     [Description("The Visual Gauge")]
-    public class VisualGauge : ProgressBase
+    public class VisualGauge : ProgressBase, IThemeSupport
     {
         #region Variables
 
@@ -41,8 +41,7 @@
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Layout.VisualGauge" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualGauge" /> class.</summary>
         public VisualGauge()
         {
             _thickness = 25;
@@ -56,7 +55,7 @@
             Margin = new Padding(6);
             Size = new Size(174, 117);
 
-            UpdateTheme(StyleManager.Style);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
@@ -133,22 +132,31 @@
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+                Font = theme.TextSetting.Font;
 
-            _colorState = new ColorState
-                {
-                    Enabled = StyleManager.ControlStyle.Background(3),
-                    Disabled = StyleManager.ColorStateStyle.ControlDisabled
-                };
+                _colorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type3,
+                        Disabled = theme.OtherSettings.ControlDisabled
+                    };
 
-            _progress = StyleManager.ProgressStyle.Progress;
+                _progress = theme.OtherSettings.Progress;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnPaint(PaintEventArgs e)

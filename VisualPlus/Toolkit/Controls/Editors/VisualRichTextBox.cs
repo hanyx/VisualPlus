@@ -11,12 +11,13 @@
     using System.Windows.Forms;
 
     using VisualPlus.Designer;
-    using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -29,12 +30,13 @@
     [Designer(typeof(VisualRichTextBoxDesigner))]
     [ToolboxBitmap(typeof(RichTextBox), "Resources.ToolboxBitmaps.VisualRichTextBox.bmp")]
     [ToolboxItem(true)]
-    public class VisualRichTextBox : ContainedControlBase, IInputMethods
+    public class VisualRichTextBox : ContainedControlBase, IInputMethods, IThemeSupport
     {
         #region Variables
 
+        private ColorState _backColorState;
+
         private Border _border;
-        private ColorState _colorState;
         private RichTextBox _richTextBox;
 
         #endregion
@@ -54,10 +56,10 @@
 
             _border = new Border();
 
-            StyleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
-            _colorState = new ColorState
+            ThemeManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            _backColorState = new ColorState
                 {
-                    Enabled = StyleManager.ControlStyle.Background(3)
+                    Enabled = ThemeManager.Theme.BackgroundSettings.Type4
                 };
 
             _richTextBox = new RichTextBox
@@ -68,7 +70,7 @@
                     BorderStyle = BorderStyle.None,
                     Font = Font,
                     ForeColor = ForeColor,
-                    BackColor = _colorState.Enabled,
+                    BackColor = _backColorState.Enabled,
                     Multiline = true
                 };
 
@@ -76,7 +78,7 @@
 
             Controls.Add(_richTextBox);
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
@@ -90,12 +92,12 @@
         {
             get
             {
-                return _colorState;
+                return _backColorState;
             }
 
             set
             {
-                _colorState = value;
+                _backColorState = value;
                 Invalidate();
             }
         }
@@ -552,23 +554,32 @@
             _richTextBox.Undo();
         }
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            _colorState = new ColorState
-                {
-                    Enabled = StyleManager.ControlStyle.Background(3),
-                    Disabled = StyleManager.ControlStyle.Background(0)
-                };
+                Font = theme.TextSetting.Font;
 
-            _border.Color = StyleManager.ShapeStyle.Color;
-            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
+                _backColorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type4,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -576,7 +587,7 @@
             base.OnPaint(e);
             Rectangle _clientRectangle = new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 1, ClientRectangle.Height - 1);
             ControlGraphicsPath = VisualBorderRenderer.CreateBorderTypePath(_clientRectangle, _border);
-            Color _backColor = Enabled ? _colorState.Enabled : _colorState.Disabled;
+            Color _backColor = Enabled ? _backColorState.Enabled : _backColorState.Disabled;
 
             if (_richTextBox.BackColor != _backColor)
             {

@@ -43,7 +43,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Workflow.ComponentModel" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\VisualTabPageCollectionEditor.cs" />
@@ -64,15 +66,18 @@
     <Compile Include="Extensibility\ControlExtension.cs" />
     <Compile Include="Extensibility\ImageExtensions.cs" />
     <Compile Include="Extensibility\StringExtension.cs" />
+    <Compile Include="Extensibility\XmlExtension.cs" />
     <Compile Include="Localization\Category\Events.cs" />
     <Compile Include="Localization\Descriptions\Event.cs" />
     <Compile Include="Localization\Descriptions\Property.cs" />
     <Compile Include="Localization\GlobalStrings.cs" />
     <Compile Include="Localization\Category\Propertys.cs" />
     <Compile Include="Managers\BrushManager.cs" />
+    <Compile Include="Managers\ExceptionMessenger.cs" />
     <Compile Include="Managers\FontManager.cs" />
     <Compile Include="Managers\ImageManager.cs" />
     <Compile Include="Managers\MonitorManager.cs" />
+    <Compile Include="Managers\ResourceManager.cs" />
     <Compile Include="Managers\TextManager.cs" />
     <Compile Include="Managers\TickManager.cs" />
     <Compile Include="PInvoke\Gdi32.cs" />
@@ -88,25 +93,33 @@
     <Compile Include="Renders\VisualBorderRenderer.cs" />
     <Compile Include="Renders\VisualToggleRenderer.cs" />
     <Compile Include="Renders\VisualControlRenderer.cs" />
+    <Compile Include="Structure\OtherSettings.cs" />
+    <Compile Include="Structure\BackgroundSettings.cs" />
     <Compile Include="Structure\BorderEdge.cs" />
+    <Compile Include="Structure\ListItemSettings.cs" />
+    <Compile Include="Structure\ControlColorStateSettings.cs" />
+    <Compile Include="Structure\ThemeInformation.cs" />
+    <Compile Include="Structure\TextSettings.cs" />
+    <Compile Include="Structure\BorderSettings.cs" />
     <Compile Include="Structure\HoverColorState.cs" />
     <Compile Include="Structure\ControlColorState.cs" />
     <Compile Include="Structure\ColorState.cs" />
     <Compile Include="Structure\Hatch.cs" />
-    <Compile Include="Structure\TextState.cs" />
+    <Compile Include="Structure\TextStyle.cs" />
     <Compile Include="Designer\ActionList\VisualCheckedListBoxActionList.cs" />
     <Compile Include="Designer\VisualCheckedListBoxDesigner.cs" />
     <Compile Include="Designer\ActionList\VisualRichBoxActionList.cs" />
     <Compile Include="Designer\ActionList\VisualTextBoxActionList.cs" />
     <Compile Include="Designer\ActionList\VisualListViewActionList.cs" />
     <Compile Include="Designer\ActionList\VisuaListBoxActionList.cs" />
+    <Compile Include="Structure\Theme.cs" />
     <Compile Include="Toolkit\Child\VisualTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Toolkit\Components\VisualGradient.cs">
+    <Compile Include="Toolkit\Components\StylesManager.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Toolkit\Components\VisualStyleManager.cs">
+    <Compile Include="Toolkit\Components\VisualGradient.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Toolkit\Controls\DataManagement\VisualCheckedListBox.cs" />
@@ -117,6 +130,10 @@
     <Compile Include="Designer\VisualComboBoxDesigner.cs" />
     <Compile Include="Toolkit\Controls\Interactivity\VisualControlBox.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Toolkit\Dialogs\ThemesEditor.cs" />
+    <Compile Include="Toolkit\Dialogs\VisualExceptionDialog.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Toolkit\VisualBase\BadgeLabel.cs" />
     <Compile Include="Toolkit\Components\Expander.cs">
@@ -142,7 +159,6 @@
     <Compile Include="Toolkit\Controls\DataManagement\VisualListBox.cs" />
     <Compile Include="Toolkit\Controls\DataManagement\VisualListView.cs" />
     <Compile Include="Toolkit\Controls\Layout\VisualScrollBar.cs" />
-    <Compile Include="Toolkit\VisualBase\FixedContentValues.cs" />
     <Compile Include="Toolkit\VisualBase\ToggleBase.cs" />
     <Compile Include="Toolkit\VisualBase\NestedControlsBase.cs" />
     <Compile Include="Toolkit\VisualBase\CheckBoxBase.cs" />
@@ -206,7 +222,7 @@
     <Compile Include="Structure\Gradient.cs" />
     <Compile Include="Managers\VFXManager.cs" />
     <Compile Include="Managers\MathManager.cs" />
-    <Compile Include="Enumerators\Styles.cs" />
+    <Compile Include="Enumerators\Themes.cs" />
     <Compile Include="Structure\VisualBitmap.cs" />
     <Compile Include="Structure\Watermark.cs" />
     <Compile Include="Styles\Enigma.cs" />
@@ -242,6 +258,9 @@
     <Compile Include="Toolkit\Child\VisualToolStripMenuItem.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Toolkit\VisualBase\VisualStyleBase.cs" />
+    <Compile Include="TypeConverters\BasicSettingsTypeConverter.cs" />
+    <Compile Include="TypeConverters\ThemeTypeConverter.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -253,7 +272,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".nuget\" />
-    <Folder Include="Toolkit\Dialogs\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Icon.ico" />
@@ -261,6 +279,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\VisualPlus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Themes\Visual.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Themes\Enigma.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

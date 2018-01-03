@@ -16,7 +16,7 @@
     [DesignerCategory("code")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    public abstract class ContainedControlBase : VisualControlBase
+    public abstract class ContainedControlBase : VisualStyleBase
     {
         #region Events
 

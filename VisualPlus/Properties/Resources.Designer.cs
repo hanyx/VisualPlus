@@ -61,6 +61,44 @@ namespace VisualPlus.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///
+        ///&lt;VisualPlus-Theme&gt;
+        ///    &lt;Information&gt;
+        ///        &lt;Name&gt;Enigma&lt;/Name&gt;
+        ///        &lt;Author&gt;DarkByte7&lt;/Author&gt;
+        ///    &lt;/Information&gt;
+        ///    &lt;StyleTable&gt;
+        ///        &lt;MainColor&gt;#ffc40d&lt;/MainColor&gt;
+        ///    &lt;/StyleTable&gt;
+        ///&lt;/VisualPlus-Theme&gt;.
+        /// </summary>
+        internal static string Enigma {
+            get {
+                return ResourceManager.GetString("Enigma", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///
+        ///&lt;VisualPlus-Theme&gt;
+        ///    &lt;Information&gt;
+        ///        &lt;Name&gt;Visual&lt;/Name&gt;
+        ///        &lt;Author&gt;DarkByte7&lt;/Author&gt;
+        ///    &lt;/Information&gt;
+        ///    &lt;StyleTable&gt;
+        ///        &lt;MainColor&gt;#ffc40d&lt;/MainColor&gt;
+        ///    &lt;/StyleTable&gt;
+        ///&lt;/VisualPlus-Theme&gt;.
+        /// </summary>
+        internal static string Visual {
+            get {
+                return ResourceManager.GetString("Visual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap VisualLabel {

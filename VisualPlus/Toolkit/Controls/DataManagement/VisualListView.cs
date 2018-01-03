@@ -12,12 +12,13 @@
     using System.Windows.Forms;
 
     using VisualPlus.Designer;
-    using VisualPlus.Enumerators;
+    using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -30,20 +31,19 @@
     [Designer(typeof(VisualListViewDesigner))]
     [ToolboxBitmap(typeof(ListView), "Resources.ToolboxBitmaps.VisualListView.bmp")]
     [ToolboxItem(true)]
-    public class VisualListView : ContainedControlBase
+    public class VisualListView : ContainedControlBase, IThemeSupport
     {
         #region Variables
 
         private Border _border;
-
         private ColorState _colorState;
         private Color _columnHeaderColor;
+        private Color _itemEnabled;
         private Color _itemSelected;
         private ListView _listView;
         private bool _standardHeader;
         private Font headerFont;
         private Color headerText;
-        private Color itemBackground;
         private int itemPadding = 12;
 
         #endregion
@@ -59,13 +59,13 @@
             // Cannot select this control, only the child ListView and does not generate a click event
             SetStyle(ControlStyles.Selectable | ControlStyles.StandardClick, false);
 
-            headerFont = StyleManager.Font;
             _border = new Border();
 
-            StyleManager = new VisualStyleManager(Settings.DefaultValue.DefaultStyle);
+            ThemeManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+            headerFont = ThemeManager.Theme.TextSetting.Font;
             _colorState = new ColorState
                 {
-                    Enabled = StyleManager.ControlStyle.Background(3)
+                    Enabled = ThemeManager.Theme.BackgroundSettings.Type4
                 };
 
             _listView = new ListView
@@ -96,7 +96,7 @@
 
             Controls.Add(_listView);
 
-            UpdateTheme(Settings.DefaultValue.DefaultStyle);
+            UpdateTheme(ThemeManager.Theme);
         }
 
         #endregion
@@ -371,12 +371,12 @@
         {
             get
             {
-                return itemBackground;
+                return _itemEnabled;
             }
 
             set
             {
-                itemBackground = value;
+                _itemEnabled = value;
                 Invalidate();
             }
         }
@@ -622,30 +622,46 @@
             }
         }
 
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        internal Point LastPosition { get; set; }
+
         #endregion
 
         #region Events
 
-        public void UpdateTheme(Styles style)
+        public void UpdateTheme(Theme theme)
         {
-            StyleManager = new VisualStyleManager(style);
-            _border.Color = StyleManager.ShapeStyle.Color;
-            _border.HoverColor = StyleManager.BorderStyle.HoverColor;
-            ForeColor = StyleManager.FontStyle.ForeColor;
-            ForeColorDisabled = StyleManager.FontStyle.ForeColorDisabled;
+            try
+            {
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
 
-            _colorState = new ColorState
-                {
-                    Enabled = StyleManager.ControlStyle.Background(3),
-                    Disabled = StyleManager.ControlStyle.Background(0)
-                };
+                ForeColor = theme.TextSetting.Enabled;
+                TextStyle.Enabled = theme.TextSetting.Enabled;
+                TextStyle.Disabled = theme.TextSetting.Disabled;
 
-            _columnHeaderColor = StyleManager.ControlStyle.FlatButtonDisabled;
-            headerText = StyleManager.FontStyle.ForeColor;
-            itemBackground = StyleManager.ControlStyle.ItemEnabled;
-            _itemSelected = StyleManager.BorderStyle.HoverColor;
+                Font = theme.TextSetting.Font;
+
+                _itemEnabled = theme.ListItemSettings.Item;
+                _itemSelected = theme.ListItemSettings.ItemSelected;
+
+                _columnHeaderColor = theme.OtherSettings.ColumnHeader;
+                headerText = theme.OtherSettings.ColumnText;
+
+                _colorState = new ColorState
+                    {
+                        Enabled = theme.BackgroundSettings.Type4,
+                        Disabled = theme.BackgroundSettings.Type1
+                    };
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
 
             Invalidate();
+            OnThemeChanged(new ThemeEventArgs(theme));
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -702,7 +718,7 @@
         {
             Graphics graphics = e.Graphics;
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            graphics.TextRenderingHint = TextRenderingHint;
+            graphics.TextRenderingHint = TextStyle.TextRenderingHint;
 
             Rectangle _columnHeaderRectangle = new Rectangle(e.Bounds.X, e.Bounds.Y, Width - 1, e.Bounds.Height - 1);
 

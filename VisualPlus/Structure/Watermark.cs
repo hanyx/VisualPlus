@@ -10,14 +10,13 @@
     using VisualPlus.Delegates;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
-    using VisualPlus.Styles;
     using VisualPlus.Toolkit.Components;
 
     #endregion
 
     [Description("The watermark")]
     [TypeConverter(typeof(WatermarkConverter))]
-    public class Watermark : IWatermark
+    public class Watermark
     {
         #region Variables
 

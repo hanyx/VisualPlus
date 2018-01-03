@@ -11,14 +11,13 @@
     using VisualPlus.Enumerators;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Renders;
-    using VisualPlus.Styles;
     using VisualPlus.Toolkit.Components;
 
     #endregion
 
     [Description("The check style structure.")]
     [TypeConverter(typeof(CheckStyleConverter))]
-    public class CheckStyle : ICheckmark
+    public class CheckStyle
     {
         #region Variables
 

@@ -225,10 +225,7 @@
     <Compile Include="Enumerators\Themes.cs" />
     <Compile Include="Structure\VisualBitmap.cs" />
     <Compile Include="Structure\Watermark.cs" />
-    <Compile Include="Styles\Enigma.cs" />
-    <Compile Include="Styles\IStyle.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Styles\Visual.cs" />
     <Compile Include="Enumerators\Animation.cs" />
     <Compile Include="Toolkit\Controls\Interactivity\VisualComboBox.cs">
       <SubType>Component</SubType>

@@ -14,7 +14,6 @@
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
-    using VisualPlus.Styles;
     using VisualPlus.Toolkit.Components;
 
     #endregion
@@ -25,7 +24,7 @@
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [Description("The shape.")]
-    public class Shape : IShape
+    public class Shape
     {
         #region Variables
 

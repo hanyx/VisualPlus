@@ -12,7 +12,6 @@
     using VisualPlus.EventArgs;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
-    using VisualPlus.Styles;
     using VisualPlus.Toolkit.Components;
 
     #endregion
@@ -23,7 +22,7 @@
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [Description("The border.")]
-    public class Border : Shape, IBorder
+    public class Border : Shape
     {
         #region Variables
 

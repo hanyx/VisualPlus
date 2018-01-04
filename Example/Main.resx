@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <metadata name="stylesManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="theme1.RawTheme" xml:space="preserve">
+    <value>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+
+&lt;VisualPlus-Theme&gt;
+    &lt;Information&gt;
+        &lt;Name&gt;Visual&lt;/Name&gt;
+        &lt;Author&gt;DarkByte7&lt;/Author&gt;
+    &lt;/Information&gt;
+    &lt;StyleTable&gt;
+        &lt;Shared&gt;
+            &lt;MainColor&gt;#FFC40D&lt;/MainColor&gt;
+            &lt;LightText&gt;#FF808080&lt;/LightText&gt;
+            &lt;Line&gt;#FFE0DEDC&lt;/Line&gt;
+            &lt;Shadow&gt;#FFFAF9F9&lt;/Shadow&gt;
+            &lt;Background&gt;
+                &lt;Type1&gt;#FFDCDCDC&lt;/Type1&gt;
+                &lt;Type2&gt;#FFDCDCDC&lt;/Type2&gt;
+                &lt;Type3&gt;#FF424041&lt;/Type3&gt;
+                &lt;Type4&gt;#FFF1F4F9&lt;/Type4&gt;
+            &lt;/Background&gt;
+            &lt;Border&gt;
+                &lt;Normal&gt;#FFB4B4B4&lt;/Normal&gt;
+                &lt;Hover&gt;#FF78B7E6&lt;/Hover&gt;
+            &lt;/Border&gt;
+            &lt;Box&gt;
+                &lt;Enabled&gt;#FFE2E2E2&lt;/Enabled&gt;
+                &lt;Disabled&gt;#FFF3F3F3&lt;/Disabled&gt;
+            &lt;/Box&gt;
+            &lt;ColumnHeader&gt;
+                &lt;Header&gt;#FFF3F3F3&lt;/Header&gt;
+                &lt;Text&gt;#FF000000&lt;/Text&gt;
+            &lt;/ColumnHeader&gt;
+            &lt;Control&gt;
+                &lt;Enabled&gt;#FFE2E2E2&lt;/Enabled&gt;
+                &lt;Disabled&gt;#FFF3F3F3&lt;/Disabled&gt;
+            &lt;/Control&gt;
+            &lt;FlatControl&gt;
+                &lt;Enabled&gt;#FF777776&lt;/Enabled&gt;
+                &lt;Disabled&gt;#FFF3F3F3&lt;/Disabled&gt;
+            &lt;/FlatControl&gt;
+            &lt;Font&gt;
+                &lt;FontFamily&gt;Segoe UI&lt;/FontFamily&gt;
+                &lt;Enabled&gt;#FF000000&lt;/Enabled&gt;
+                &lt;Disabled&gt;#FF838181&lt;/Disabled&gt;
+                &lt;Selected&gt;#FFD9DCE3&lt;/Selected&gt;
+            &lt;/Font&gt;
+            &lt;ListItem&gt;
+                &lt;Normal&gt;#FFDCDCDC&lt;/Normal&gt;
+                &lt;Hover&gt;#FF78B7E6&lt;/Hover&gt;
+                &lt;Selected&gt;#FF78B7E6&lt;/Selected&gt;
+                &lt;Alternate&gt;#FFC40D&lt;/Alternate&gt;
+            &lt;/ListItem&gt;
+            &lt;Hatch&gt;
+                &lt;BackColor&gt;#FF000000&lt;/BackColor&gt;
+                &lt;ForeColor&gt;#FF000000&lt;/ForeColor&gt;
+            &lt;/Hatch&gt;
+            &lt;ProgressBar&gt;
+                &lt;Background&gt;#FFE0DEDC&lt;/Background&gt;
+                &lt;Working&gt;#2D882D&lt;/Working&gt;
+                &lt;Disabled&gt;#FF838181&lt;/Disabled&gt;
+            &lt;/ProgressBar&gt;
+            &lt;TabPage&gt;
+                &lt;Enabled&gt;#FF373D49&lt;/Enabled&gt;
+                &lt;Disabled&gt;#FF373D49&lt;/Disabled&gt;
+                &lt;Selected&gt;#FF464C58&lt;/Selected&gt;
+                &lt;Hover&gt;#FF232426&lt;/Hover&gt;
+            &lt;/TabPage&gt;
+        &lt;/Shared&gt;
+        &lt;Toolkit&gt;
+            &lt;VisualButton&gt;
+                &lt;Enabled&gt;#FFDCDCDC&lt;/Enabled&gt;
+                &lt;Disabled&gt;#FFE0E0E0&lt;/Disabled&gt;
+                &lt;Hover&gt;#FFE0E0E0&lt;/Hover&gt;
+                &lt;Pressed&gt;#FFC0C0C0&lt;/Pressed&gt;
+            &lt;/VisualButton&gt;
+            &lt;VisualRadialProgress&gt;
+                &lt;ForeCircle&gt;#FFDCDCDC&lt;/ForeCircle&gt;
+                &lt;BackCircle&gt;#FFDCDCDC&lt;/BackCircle&gt;
+            &lt;/VisualRadialProgress&gt;
+        &lt;/Toolkit&gt;
+    &lt;/StyleTable&gt;
+&lt;/VisualPlus-Theme&gt;</value>
+  </data>
+</root>

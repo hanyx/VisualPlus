@@ -17,7 +17,7 @@
     [Description("The Visual RangeBar")]
 
     // [Designer(ControlManager.FilterProperties.VisualProgressBar)]
-    public class VisualRangeBar : VisualControlBase
+    public class VisualRangeBar : VisualStyleBase
     {
     }
 }

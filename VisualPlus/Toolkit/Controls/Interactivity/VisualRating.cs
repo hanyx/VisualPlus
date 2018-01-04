@@ -23,7 +23,7 @@
     [Designer(typeof(VisualRatingDesigner))]
     [ToolboxBitmap(typeof(VisualRating), "Resources.ToolboxBitmaps.VisualRating.bmp")]
     [ToolboxItem(true)]
-    public class VisualRating : VisualControlBase
+    public class VisualRating : VisualStyleBase
     {
         #region Variables
 

@@ -17,6 +17,7 @@
     using VisualPlus.Localization;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Structure;
+    using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
@@ -29,7 +30,7 @@
     [ToolboxBitmap(typeof(VisualControlBox), "Resources.ToolboxBitmaps.VisualControlBox.bmp")]
     [ToolboxItem(true)]
     [TypeConverter(typeof(VisualControlBoxConverter))]
-    public class VisualControlBox : Control
+    public class VisualControlBox : VisualControlBase
     {
         #region Variables
 

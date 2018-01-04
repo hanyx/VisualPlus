@@ -29,7 +29,7 @@
     [Description("The Visual Color Picker")]
     [ToolboxBitmap(typeof(VisualColorPicker), "Resources.ToolboxBitmaps.VisualColorPicker.bmp")]
     [ToolboxItem(true)]
-    public class VisualColorPicker : VisualControlBase
+    public class VisualColorPicker : VisualStyleBase
     {
         #region Variables
 

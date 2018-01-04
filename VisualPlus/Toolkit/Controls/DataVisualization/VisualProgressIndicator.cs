@@ -24,7 +24,7 @@
     [Designer(typeof(VisualProgressIndicatorDesigner))]
     [ToolboxBitmap(typeof(VisualProgressIndicator), "Resources.ToolboxBitmaps.VisualProgressIndicator.bmp")]
     [ToolboxItem(true)]
-    public class VisualProgressIndicator : VisualControlBase
+    public class VisualProgressIndicator : VisualStyleBase
     {
         #region Variables
 

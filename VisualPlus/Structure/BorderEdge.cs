@@ -19,7 +19,7 @@
     [Description("Displays a vertical or horizontal border edge.")]
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
-    public class BorderEdge : VisualControlBase
+    public class BorderEdge : VisualStyleBase
     {
         #region Variables
 

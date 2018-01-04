@@ -23,6 +23,7 @@
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.VisualBase;
 
     #endregion
 
@@ -376,6 +377,25 @@
         #endregion
 
         #region Events
+
+        /// <summary>Raises the <see cref="OnControlAdded" /> event.</summary>
+        /// <param name="e">The event args.</param>
+        protected override void OnControlAdded(ControlEventArgs e)
+        {
+            base.OnControlAdded(e);
+
+            VisualControlBase _control = (VisualControlBase)e.Control;
+
+            if (_control != null)
+            {
+                // Successfully cast.
+                _control.BackColor = Background;
+            }
+            else
+            {
+                // Cast failed - Unsupported control.
+            }
+        }
 
         protected override void OnEnter(EventArgs e)
         {

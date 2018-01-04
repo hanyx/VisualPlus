@@ -209,7 +209,7 @@
 
                 _theme = value;
                 _theme = new Theme(_themeType);
-                OnThemeChanged(new ThemeEventArgs(_theme));
+                Update();
             }
         }
 
@@ -231,7 +231,7 @@
 
                 _themeType = value;
                 _theme = new Theme(_themeType);
-                OnThemeChanged(new ThemeEventArgs(_theme));
+                Update();
             }
         }
 
@@ -271,7 +271,7 @@
                 _formCollection.Add(form);
             }
 
-            UpdateCollectionStyle();
+            Update();
         }
 
         /// <summary>Creates a copy of the current object.</summary>
@@ -325,37 +325,8 @@
             return _stringBuilder.ToString();
         }
 
-        /// <summary>The theme changed event.</summary>
-        /// <param name="e">The event args.</param>
-        protected virtual void OnThemeChanged(ThemeEventArgs e)
-        {
-            UpdateCollectionStyle();
-            ThemeChanged?.Invoke(e);
-        }
-
-        /// <summary>Creates a default theme file in the templates folder.</summary>
-        private void ConstructDefaultThemeFile()
-        {
-            string _defaultThemePath = Settings.TemplatesFolder + @"DefaultTheme.xml";
-
-            if (File.Exists(_defaultThemePath))
-            {
-                return;
-            }
-
-            Theme _defaultTheme = new Theme(Themes.Visual);
-            string _text = _defaultTheme.RawTheme;
-
-            if (!Directory.Exists(Settings.TemplatesFolder))
-            {
-                Directory.CreateDirectory(Settings.TemplatesFolder);
-            }
-
-            File.WriteAllText(_defaultThemePath, _text);
-        }
-
-        /// <summary>Update the form collection controls style.</summary>
-        private void UpdateCollectionStyle()
+        /// <summary>Updates all the <see cref="Control" />/s in the <see cref="Form" />.</summary>
+        public void Update()
         {
             if (_formCollection.Count == 0)
             {
@@ -382,6 +353,36 @@
                     }
                 }
             }
+
+            OnThemeChanged(new ThemeEventArgs(_theme));
+        }
+
+        /// <summary>The theme changed event.</summary>
+        /// <param name="e">The event args.</param>
+        protected virtual void OnThemeChanged(ThemeEventArgs e)
+        {
+            ThemeChanged?.Invoke(e);
+        }
+
+        /// <summary>Creates a default theme file in the templates folder.</summary>
+        private void ConstructDefaultThemeFile()
+        {
+            string _defaultThemePath = Settings.TemplatesFolder + @"DefaultTheme.xml";
+
+            if (File.Exists(_defaultThemePath))
+            {
+                return;
+            }
+
+            Theme _defaultTheme = new Theme(Themes.Visual);
+            string _text = _defaultTheme.RawTheme;
+
+            if (!Directory.Exists(Settings.TemplatesFolder))
+            {
+                Directory.CreateDirectory(Settings.TemplatesFolder);
+            }
+
+            File.WriteAllText(_defaultThemePath, _text);
         }
 
         /// <summary>Updates the supported controls style.</summary>

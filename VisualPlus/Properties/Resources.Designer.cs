@@ -69,9 +69,15 @@ namespace VisualPlus.Properties {
         ///        &lt;Author&gt;DarkByte7&lt;/Author&gt;
         ///    &lt;/Information&gt;
         ///    &lt;StyleTable&gt;
-        ///        &lt;MainColor&gt;#ffc40d&lt;/MainColor&gt;
-        ///    &lt;/StyleTable&gt;
-        ///&lt;/VisualPlus-Theme&gt;.
+        ///        &lt;Shared&gt;
+        ///            &lt;MainColor&gt;#ffC40D&lt;/MainColor&gt;
+        ///            &lt;LightText&gt;#FF808080&lt;/LightText&gt;
+        ///            &lt;Line&gt;#FFE0DEDC&lt;/Line&gt;
+        ///            &lt;Shadow&gt;#FFFAF9F9&lt;/Shadow&gt;
+        ///            &lt;Background&gt;
+        ///                &lt;Type1&gt;#FFDCDCDC&lt;/Type1&gt;
+        ///                &lt;Type2&gt;#FFDCDCDC&lt;/Type2&gt;
+        ///                &lt;Type3&gt;#FF424041&lt;/ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Enigma {
             get {
@@ -88,9 +94,15 @@ namespace VisualPlus.Properties {
         ///        &lt;Author&gt;DarkByte7&lt;/Author&gt;
         ///    &lt;/Information&gt;
         ///    &lt;StyleTable&gt;
-        ///        &lt;MainColor&gt;#ffc40d&lt;/MainColor&gt;
-        ///    &lt;/StyleTable&gt;
-        ///&lt;/VisualPlus-Theme&gt;.
+        ///        &lt;Shared&gt;
+        ///            &lt;MainColor&gt;#FFC40D&lt;/MainColor&gt;
+        ///            &lt;LightText&gt;#FF808080&lt;/LightText&gt;
+        ///            &lt;Line&gt;#FFE0DEDC&lt;/Line&gt;
+        ///            &lt;Shadow&gt;#FFFAF9F9&lt;/Shadow&gt;
+        ///            &lt;Background&gt;
+        ///                &lt;Type1&gt;#FFDCDCDC&lt;/Type1&gt;
+        ///                &lt;Type2&gt;#FFDCDCDC&lt;/Type2&gt;
+        ///                &lt;Type3&gt;#FF424041&lt;/ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Visual {
             get {

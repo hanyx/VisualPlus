@@ -88,8 +88,8 @@
             _titleAlignment = Alignment.TextAlignment.Center;
             FormBorderStyle = FormBorderStyle.None;
             Sizable = true;
-            _windowBarColor = _styleManager.Theme.BackgroundSettings.Type1;
-            _background = _styleManager.Theme.BackgroundSettings.Type2;
+            _windowBarColor = _styleManager.Theme.BackgroundSettings.Type2;
+            _background = _styleManager.Theme.BackgroundSettings.Type4;
             _magneticRadius = 100;
             _magnetic = true;
             _windowBarHeight = 30;

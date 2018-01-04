@@ -326,6 +326,9 @@
                 _otherSettings.BoxDisabled = themeContainer.GetValue(Shared + "Box/Disabled").ToColor();
                 _otherSettings.BoxEnabled = themeContainer.GetValue(Shared + "Box/Enabled").ToColor();
 
+                _otherSettings.WatermarkActive = themeContainer.GetValue(Shared + "Watermark/Active").ToColor();
+                _otherSettings.WatermarkInactive = themeContainer.GetValue(Shared + "Watermark/Inactive").ToColor();
+
                 _otherSettings.TabPageEnabled = themeContainer.GetValue(Shared + "TabPage/Enabled").ToColor();
                 _otherSettings.TabPageDisabled = themeContainer.GetValue(Shared + "TabPage/Disabled").ToColor();
                 _otherSettings.TabPageHover = themeContainer.GetValue(Shared + "TabPage/Hover").ToColor();

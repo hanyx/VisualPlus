@@ -64,6 +64,10 @@
                 <Selected>#FF464C58</Selected>
                 <Hover>#FF232426</Hover>
             </TabPage>
+            <Watermark>
+                <Active>#FF808080</Active>
+                <Inactive>#FFD3D3D3</Inactive>
+            </Watermark>
         </Shared>
         <Toolkit>
             <VisualButton>

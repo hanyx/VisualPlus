@@ -14,8 +14,7 @@
     using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -131,7 +130,7 @@
 
         [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
         {
             get
@@ -147,12 +146,12 @@
         }
 
         [Browsable(true)]
-        [Description(Property.Image)]
+        [Description(PropertyDescription.Image)]
         public new Image BackgroundImage { get; set; }
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -167,8 +166,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ButtonColor
         {
             get
@@ -183,8 +182,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Image)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
         public Image ButtonImage
         {
             get
@@ -199,8 +198,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Type)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Type)]
         public ButtonStyles ButtonStyle
         {
             get
@@ -216,8 +215,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
         public bool ButtonVisible
         {
             get
@@ -232,8 +231,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Size)]
         public int ButtonWidth
         {
             get
@@ -263,8 +262,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Image)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
         public ImageList ImageList
         {
             get
@@ -279,8 +278,8 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
         public bool ImageVisible
         {
             get
@@ -295,8 +294,8 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.StartIndex)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.StartIndex)]
         public int Index
         {
             get
@@ -320,8 +319,8 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
         public bool ItemImageVisible
         {
             get
@@ -335,8 +334,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color MenuItemHover
         {
             get
@@ -351,8 +350,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color MenuItemNormal
         {
             get
@@ -367,8 +366,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color MenuTextColor
         {
             get
@@ -383,8 +382,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.MouseState)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.MouseState)]
         public MouseStates MouseState
         {
             get
@@ -399,8 +398,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color SeparatorColor
         {
             get
@@ -416,8 +415,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
         public bool SeparatorVisible
         {
             get
@@ -432,8 +431,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.MouseState)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.MouseState)]
         public MouseStates State
         {
             get
@@ -448,8 +447,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Alignment)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
         public StringAlignment TextAlignment
         {
             get
@@ -464,8 +463,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TextDisabledColor
         {
             get
@@ -480,8 +479,8 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.TextImageRelation)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.TextImageRelation)]
         public TextImageRelation TextImageRelation
         {
             get
@@ -496,8 +495,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Alignment)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
         public StringAlignment TextLineAlignment
         {
             get
@@ -512,8 +511,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.TextRenderingHint)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
             get
@@ -530,8 +529,8 @@
 
         /// <summary>Gets or sets the <see cref="TextStyle" />.</summary>
         [Browsable(false)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.TextStyle)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.TextStyle)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextStyle TextStyle
         {
@@ -548,7 +547,7 @@
 
         [TypeConverter(typeof(WatermarkConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public Watermark Watermark
         {
             get

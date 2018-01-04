@@ -12,8 +12,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
     using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -95,7 +94,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
         {
             get
@@ -117,7 +116,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -134,7 +133,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border ButtonBorder
         {
             get
@@ -151,7 +150,7 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
 
         [TypeConverter(typeof(ControlColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ControlColorState ButtonColorState
         {
             get
@@ -171,8 +170,8 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public Size ButtonSize
         {
             get
@@ -187,8 +186,8 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Image)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
         public Image ProgressImage
         {
             get
@@ -204,8 +203,8 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
         }
 
         [DefaultValue(false)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Toggle)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
         public bool Toggled
         {
             get
@@ -221,8 +220,8 @@ namespace VisualPlus.Toolkit.Controls.Interactivity
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Type)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Type)]
         public ToggleTypes Type
         {
             get

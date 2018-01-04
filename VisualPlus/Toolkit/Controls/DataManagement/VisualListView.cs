@@ -13,8 +13,7 @@
 
     using VisualPlus.Designer;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
@@ -121,7 +120,7 @@
 
         [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
         {
             get
@@ -144,7 +143,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -181,8 +180,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ColumnHeaderColor
         {
             get
@@ -269,8 +268,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Font)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Font)]
         public Font HeaderFont
         {
             get
@@ -301,8 +300,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color HeaderText
         {
             get
@@ -365,8 +364,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ItemBackground
         {
             get
@@ -381,7 +380,7 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public int ItemPadding
         {
             get
@@ -410,8 +409,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ItemSelectedColor
         {
             get
@@ -458,7 +457,7 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         [Description("Gets or sets the ImageList to use when displaying items as small icons in the control.")]
         public virtual ImageList LargeImageList
         {
@@ -526,7 +525,7 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         [Description("Gets or sets the ImageList to use when displaying items as small icons in the control.")]
         public virtual ImageList SmallImageList
         {
@@ -558,7 +557,7 @@
         }
 
         [DefaultValue(false)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("Draws the background of the column header.")]
         public bool StandardHeader
         {

@@ -9,7 +9,7 @@
     using System.Globalization;
     using System.Runtime.InteropServices;
 
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Toolkit.Components;
 
     #endregion
@@ -66,7 +66,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Color)]
+        [Description(PropertyDescription.Color)]
         public Color BackColor
         {
             get
@@ -82,7 +82,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Color)]
+        [Description(PropertyDescription.Color)]
         public Color ForeColor
         {
             get
@@ -98,7 +98,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Size)]
+        [Description(PropertyDescription.Size)]
         public Size Size
         {
             get
@@ -114,7 +114,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.HatchStyle)]
+        [Description(PropertyDescription.HatchStyle)]
         public HatchStyle Style
         {
             get
@@ -130,7 +130,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Visible)]
+        [Description(PropertyDescription.Visible)]
         public bool Visible
         {
             get

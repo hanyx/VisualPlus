@@ -8,7 +8,7 @@
     using System.Drawing;
     using System.Windows.Forms;
 
-    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
 
     #endregion
@@ -20,19 +20,19 @@
         #region Properties
 
         [DefaultValue(typeof(Color), "Black")]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Color Color { get; set; }
 
         [DefaultValue(typeof(int), "0")]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public int ContractedHeight { get; set; }
 
         [DefaultValue(typeof(Size), "0, 0")]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Size Original { get; set; }
 
         [DefaultValue(typeof(bool), "true")]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public bool State { get; set; }
 
         #endregion

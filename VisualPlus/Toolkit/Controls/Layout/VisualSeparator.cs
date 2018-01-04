@@ -11,8 +11,7 @@
 
     using VisualPlus.Designer;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
@@ -51,8 +50,8 @@
 
         #region Properties
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color Line
         {
             get
@@ -72,8 +71,8 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.Orientation)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Orientation)]
         public Orientation Orientation
         {
             get
@@ -109,8 +108,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color Shadow
         {
             get
@@ -130,8 +129,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool ShadowVisible
         {
             get

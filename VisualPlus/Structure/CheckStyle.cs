@@ -9,7 +9,7 @@
     using System.IO;
 
     using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Renders;
     using VisualPlus.Toolkit.Components;
 
@@ -74,7 +74,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.AutoSize)]
+        [Description(PropertyDescription.AutoSize)]
         public bool AutoSize
         {
             get
@@ -90,7 +90,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Size)]
+        [Description(PropertyDescription.Size)]
         public Rectangle Bounds
         {
             get
@@ -106,7 +106,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Character)]
+        [Description(PropertyDescription.Character)]
         public char Character
         {
             get
@@ -122,7 +122,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Color)]
+        [Description(PropertyDescription.Color)]
         public Color CheckColor
         {
             get
@@ -138,7 +138,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Font)]
+        [Description(PropertyDescription.Font)]
         public Font Font
         {
             get
@@ -154,7 +154,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Image)]
+        [Description(PropertyDescription.Image)]
         public Image Image
         {
             get
@@ -170,7 +170,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Rounding)]
+        [Description(PropertyDescription.Rounding)]
         public int ShapeRounding
         {
             get
@@ -186,7 +186,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Type)]
+        [Description(PropertyDescription.Type)]
         public ShapeType ShapeType
         {
             get
@@ -202,7 +202,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.CheckType)]
+        [Description(PropertyDescription.CheckType)]
         public CheckType Style
         {
             get

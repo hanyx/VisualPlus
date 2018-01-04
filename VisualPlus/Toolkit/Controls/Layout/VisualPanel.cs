@@ -9,7 +9,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Dialogs;
@@ -49,7 +49,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get

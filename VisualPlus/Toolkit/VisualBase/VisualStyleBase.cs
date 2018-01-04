@@ -10,8 +10,7 @@
     using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
 
@@ -63,8 +62,8 @@
         #region Properties
 
         /// <summary>Gets or sets the <see cref="MouseState" />.</summary>
-        [Category(Propertys.Appearance)]
-        [Description(Property.MouseState)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.MouseState)]
         public MouseStates MouseState
         {
             get
@@ -86,8 +85,8 @@
 
         /// <summary>Gets or sets the <see cref="TextStyle" />.</summary>
         [Browsable(false)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.TextStyle)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.TextStyle)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextStyle TextStyle
         {
@@ -104,7 +103,7 @@
 
         /// <summary>Gets or sets the <see cref="StylesManager" />.</summary>
         [Browsable(false)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public StylesManager ThemeManager
         {

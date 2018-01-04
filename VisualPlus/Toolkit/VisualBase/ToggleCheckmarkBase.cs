@@ -12,8 +12,7 @@ namespace VisualPlus.Toolkit.VisualBase
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
     using VisualPlus.Extensibility;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -59,8 +58,8 @@ namespace VisualPlus.Toolkit.VisualBase
         #region Properties
 
         [DefaultValue(Settings.DefaultValue.Animation)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Animation)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Animation)]
         public bool Animation
         {
             get
@@ -86,7 +85,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -101,8 +100,8 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [Description(Property.Size)]
-        [Category(Propertys.Layout)]
+        [Description(PropertyDescription.Size)]
+        [Category(PropertyCategory.Layout)]
         public Size Box
         {
             get
@@ -138,8 +137,8 @@ namespace VisualPlus.Toolkit.VisualBase
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Spacing)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Spacing)]
         public int BoxSpacing
         {
             get
@@ -155,8 +154,8 @@ namespace VisualPlus.Toolkit.VisualBase
         }
 
         [DefaultValue(false)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Checked)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Checked)]
         public bool Checked
         {
             get
@@ -182,7 +181,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         [TypeConverter(typeof(CheckStyleConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public CheckStyle CheckStyle
         {
             get
@@ -199,7 +198,7 @@ namespace VisualPlus.Toolkit.VisualBase
 
         /// <summary>Gets the <see cref="GlyphSize" /> of the control.</summary>
         [Browsable(false)]
-        [Description(Property.Size)]
+        [Description(PropertyDescription.Size)]
         public Size GlyphSize
         {
             get

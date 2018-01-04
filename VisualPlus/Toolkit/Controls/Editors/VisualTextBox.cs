@@ -13,8 +13,7 @@
     using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -150,8 +149,8 @@
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Localizable(true)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.AutoCompleteCustomSource)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.AutoCompleteCustomSource)]
         public AutoCompleteStringCollection AutoCompleteCustomSource
         {
             get
@@ -168,8 +167,8 @@
         [DefaultValue(typeof(AutoCompleteMode), "None")]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.AutoCompleteMode)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.AutoCompleteMode)]
         public AutoCompleteMode AutoCompleteMode
         {
             get
@@ -186,8 +185,8 @@
         [DefaultValue(typeof(AutoCompleteSource), "None")]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.AutoCompleteSource)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.AutoCompleteSource)]
         public AutoCompleteSource AutoCompleteSource
         {
             get
@@ -203,7 +202,7 @@
 
         [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
         {
             get
@@ -225,7 +224,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -242,7 +241,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border ButtonBorder
         {
             get
@@ -259,7 +258,7 @@
 
         [TypeConverter(typeof(ControlColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ControlColorState ButtonColor
         {
             get
@@ -274,8 +273,8 @@
             }
         }
 
-        [Description(Property.Font)]
-        [Category(Propertys.Appearance)]
+        [Description(PropertyDescription.Font)]
+        [Category(PropertyCategory.Appearance)]
         public Font ButtonFont
         {
             get
@@ -290,8 +289,8 @@
             }
         }
 
-        [Description(Property.Size)]
-        [Category(Propertys.Layout)]
+        [Description(PropertyDescription.Size)]
+        [Category(PropertyCategory.Layout)]
         public int ButtonIndent
         {
             get
@@ -306,8 +305,8 @@
             }
         }
 
-        [Description(Property.Text)]
-        [Category(Propertys.Appearance)]
+        [Description(PropertyDescription.Text)]
+        [Category(PropertyCategory.Appearance)]
         public string ButtonText
         {
             get
@@ -322,8 +321,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool ButtonVisible
         {
             get
@@ -388,8 +387,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Image)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
         public Image Image
         {
             get
@@ -404,8 +403,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Size)]
         public Size ImageSize
         {
             get
@@ -420,8 +419,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Image)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
         public bool ImageVisible
         {
             get
@@ -446,8 +445,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int ImageWidth
         {
             get
@@ -465,8 +464,8 @@
         [DefaultValue(32767)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.MaxLength)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.MaxLength)]
         public int MaxLength
         {
             get
@@ -485,8 +484,8 @@
         [Description("Gets whether the mouse is on the button.")]
         public bool MouseOnButton { get; private set; }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.MultiLine)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.MultiLine)]
         [DefaultValue(false)]
         public virtual bool MultiLine
         {
@@ -505,8 +504,8 @@
         [DefaultValue('*')]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.PasswordChar)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.PasswordChar)]
         public char PasswordChar
         {
             get
@@ -520,8 +519,8 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.ReadOnly)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.ReadOnly)]
         public bool ReadOnly
         {
             get
@@ -578,8 +577,8 @@
         [DefaultValue(typeof(HorizontalAlignment), "Left")]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.TextAlign)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.TextAlign)]
         public HorizontalAlignment TextAlign
         {
             get
@@ -594,8 +593,8 @@
         }
 
         [DefaultValue(125)]
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int TextBoxWidth
         {
             get
@@ -614,8 +613,8 @@
         [DefaultValue(false)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.UseSystemPasswordChar)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.UseSystemPasswordChar)]
         public bool UseSystemPasswordChar
         {
             get
@@ -631,7 +630,7 @@
 
         [TypeConverter(typeof(WatermarkConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public Watermark Watermark
         {
             get

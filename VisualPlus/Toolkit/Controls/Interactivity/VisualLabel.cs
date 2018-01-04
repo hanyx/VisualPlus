@@ -13,8 +13,7 @@
 
     using VisualPlus.Designer;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Dialogs;
@@ -86,8 +85,8 @@
 
         #region Properties
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Orientation)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Orientation)]
         public Orientation Orientation
         {
             get
@@ -103,8 +102,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Outline)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Outline)]
         public bool Outline
         {
             get
@@ -119,8 +118,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color OutlineColor
         {
             get
@@ -135,8 +134,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Point)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Point)]
         public Point OutlineLocation
         {
             get
@@ -152,8 +151,8 @@
         }
 
         [DefaultValue(false)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Toggle)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
         public bool Reflection
         {
             get
@@ -168,8 +167,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ReflectionColor
         {
             get
@@ -184,8 +183,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Spacing)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Spacing)]
         public int ReflectionSpacing
         {
             get
@@ -201,8 +200,8 @@
         }
 
         [DefaultValue(false)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Toggle)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Toggle)]
         public bool Shadow
         {
             get
@@ -217,8 +216,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ShadowColor
         {
             get
@@ -233,8 +232,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Direction)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Direction)]
         public int ShadowDirection
         {
             get
@@ -249,8 +248,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Point)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Point)]
         public Point ShadowLocation
         {
             get
@@ -265,8 +264,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Opacity)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Opacity)]
         public int ShadowOpacity
         {
             get
@@ -301,8 +300,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.TextAlign)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.TextAlign)]
         public StringAlignment TextAlignment
         {
             get
@@ -317,8 +316,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.TextAlign)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.TextAlign)]
         public StringAlignment TextLineAlignment
         {
             get

@@ -69,9 +69,9 @@
     <Compile Include="Extensibility\XmlExtension.cs" />
     <Compile Include="Localization\Category\Events.cs" />
     <Compile Include="Localization\Descriptions\Event.cs" />
-    <Compile Include="Localization\Descriptions\Property.cs" />
     <Compile Include="Localization\GlobalStrings.cs" />
-    <Compile Include="Localization\Category\Propertys.cs" />
+    <Compile Include="Localization\PropertyCategory.cs" />
+    <Compile Include="Localization\PropertyDescription.cs" />
     <Compile Include="Managers\BrushManager.cs" />
     <Compile Include="Managers\ExceptionMessenger.cs" />
     <Compile Include="Managers\FontManager.cs" />

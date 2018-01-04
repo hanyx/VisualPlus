@@ -13,7 +13,7 @@
     using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
@@ -118,7 +118,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -133,8 +133,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ButtonColor
         {
             get
@@ -149,8 +149,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Font)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Font)]
         public Font ButtonFont
         {
             get
@@ -165,8 +165,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ButtonForeColor
         {
             get
@@ -181,8 +181,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Alignment)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
         public Orientation ButtonOrientation
         {
             get
@@ -197,8 +197,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int ButtonWidth
         {
             get
@@ -213,7 +213,7 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public long MaximumValue
         {
             get
@@ -238,7 +238,7 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public long MinimumValue
         {
             get
@@ -263,8 +263,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color Separator
         {
             get
@@ -280,7 +280,7 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public long Value
         {
             get

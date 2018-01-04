@@ -11,8 +11,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
     using VisualPlus.Designer;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Dialogs;
@@ -73,7 +72,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
         {
             get
@@ -95,7 +94,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -112,7 +111,7 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
 
         [TypeConverter(typeof(HatchConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public Hatch Hatch
         {
             get
@@ -127,8 +126,8 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int MarqueeWidth
         {
             get
@@ -143,8 +142,8 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.Orientation)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Orientation)]
         public Orientation Orientation
         {
             get
@@ -184,8 +183,8 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool PercentageVisible
         {
             get
@@ -200,8 +199,8 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ProgressColor
         {
             get
@@ -216,8 +215,8 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Image)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
         public Image ProgressImage
         {
             get
@@ -233,8 +232,8 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
         }
 
         [DefaultValue(typeof(ProgressBarStyle))]
-        [Category(Propertys.Behavior)]
-        [Description(Property.ProgressBarStyle)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.ProgressBarStyle)]
         public ProgressBarStyle Style
         {
             get
@@ -249,8 +248,8 @@ namespace VisualPlus.Toolkit.Controls.DataVisualization
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Alignment)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Alignment)]
         public StringAlignment ValueAlignment
         {
             get

@@ -6,8 +6,7 @@
     using System.Drawing;
     using System.Windows.Forms;
 
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -44,8 +43,8 @@
 
         #region Properties
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Orientation)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Orientation)]
         public Orientation Orientation
         {
             get

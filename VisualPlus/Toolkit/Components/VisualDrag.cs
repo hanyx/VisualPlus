@@ -10,7 +10,7 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization;
     using VisualPlus.Localization.Descriptions;
 
     #endregion
@@ -104,7 +104,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("The control to attach this component.")]
         public Control Control
         {
@@ -121,8 +121,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Cursor)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Cursor)]
         public Cursor CursorMove
         {
             get
@@ -144,8 +144,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Toggle)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
         public bool Enabled
         {
             get
@@ -175,8 +175,8 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Toggle)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
         public bool Horizontal
         {
             get
@@ -191,15 +191,15 @@
         }
 
         [Browsable(false)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.IsDragging)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.IsDragging)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public bool IsDragging { get; private set; }
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Toggle)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
         public bool Vertical
         {
             get

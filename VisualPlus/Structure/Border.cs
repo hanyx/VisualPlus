@@ -10,6 +10,7 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.EventArgs;
+    using VisualPlus.Localization;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Toolkit.Components;
@@ -69,7 +70,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Color)]
+        [Description(PropertyDescription.Color)]
         public Color HoverColor
         {
             get
@@ -86,7 +87,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Visible)]
+        [Description(PropertyDescription.Visible)]
         public bool HoverVisible
         {
             get

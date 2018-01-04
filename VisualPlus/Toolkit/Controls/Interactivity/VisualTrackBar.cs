@@ -14,8 +14,7 @@
     using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -160,7 +159,7 @@
 
         [TypeConverter(typeof(ControlColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ControlColorState BackColorState
         {
             get
@@ -180,8 +179,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int BarThickness
         {
             get
@@ -196,8 +195,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int BarTickSpacing
         {
             get
@@ -212,7 +211,7 @@
             }
         }
 
-        [Category(Propertys.Data)]
+        [Category(PropertyCategory.Data)]
         [Description("Experiemental: Filling Value.")]
         public int FillingValue
         {
@@ -260,7 +259,7 @@
 
         [TypeConverter(typeof(HatchConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Hatch Hatch
         {
             get
@@ -275,8 +274,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int IndentHeight
         {
             get
@@ -291,8 +290,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int IndentWidth
         {
             get
@@ -308,8 +307,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool LineTicksVisible
         {
             get
@@ -324,8 +323,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.MouseState)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.MouseState)]
         public MouseStates MouseState
         {
             get
@@ -340,8 +339,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Orientation)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Orientation)]
         public new Orientation Orientation
         {
             get
@@ -357,8 +356,8 @@
             }
         }
 
-        [Category(Propertys.Data)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Data)]
+        [Description(PropertyDescription.Visible)]
         public string Prefix
         {
             get
@@ -373,8 +372,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ProgressColor
         {
             get
@@ -389,8 +388,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool ProgressFilling
         {
             get
@@ -406,8 +405,8 @@
         }
 
         [DefaultValue(false)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
         public bool ProgressValueVisible
         {
             get
@@ -423,8 +422,8 @@
         }
 
         [DefaultValue(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
         public bool ProgressVisible
         {
             get
@@ -439,8 +438,8 @@
             }
         }
 
-        [Category(Propertys.Data)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Data)]
+        [Description(PropertyDescription.Visible)]
         public string Suffix
         {
             get
@@ -455,8 +454,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TextDisabledColor
         {
             get
@@ -471,8 +470,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.TextRenderingHint)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
             get
@@ -489,8 +488,8 @@
 
         /// <summary>Gets or sets the <see cref="TextStyle" />.</summary>
         [Browsable(false)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.TextStyle)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.TextStyle)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TextStyle TextStyle
         {
@@ -505,8 +504,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TickColor
         {
             get
@@ -521,8 +520,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int TickHeight
         {
             get
@@ -539,7 +538,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border TrackBar
         {
             get
@@ -556,7 +555,7 @@
 
         [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ColorState TrackBarState
         {
             get
@@ -577,8 +576,8 @@
         }
 
         [DefaultValue(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.AutoSize)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.AutoSize)]
         public bool TrackerAutoSize
         {
             get
@@ -595,7 +594,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border TrackerBorder
         {
             get
@@ -610,8 +609,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public Size TrackerSize
         {
             get
@@ -626,8 +625,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TrackerTextColor
         {
             get
@@ -643,8 +642,8 @@
         }
 
         [DefaultValue(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Visible)]
         public bool TrackerVisible
         {
             get
@@ -659,8 +658,8 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.ValueDivisor)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.ValueDivisor)]
         public ValueDivisor ValueDivision
         {
             get
@@ -676,8 +675,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.TextVisible)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool ValueTicksVisible
         {
             get

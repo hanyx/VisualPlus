@@ -12,6 +12,7 @@ namespace VisualPlus.Structure
     using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
+    using VisualPlus.Localization;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
 
@@ -23,7 +24,7 @@ namespace VisualPlus.Structure
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [Description("The control color state of a component.")]
-    [Category(Propertys.Appearance)]
+    [Category(PropertyCategory.Appearance)]
     public class ControlColorState : HoverColorState
     {
         #region Variables
@@ -72,7 +73,7 @@ namespace VisualPlus.Structure
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Color)]
+        [Description(PropertyDescription.Color)]
         public Color Pressed
         {
             get

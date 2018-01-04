@@ -8,8 +8,8 @@
     using System.Globalization;
 
     using VisualPlus.Delegates;
+    using VisualPlus.Localization;
     using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
     using VisualPlus.Toolkit.Components;
 
     #endregion
@@ -77,7 +77,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Color)]
+        [Description(PropertyDescription.Color)]
         public Color ActiveColor
         {
             get
@@ -94,7 +94,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Font)]
+        [Description(PropertyDescription.Font)]
         public Font Font
         {
             get
@@ -111,7 +111,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Color)]
+        [Description(PropertyDescription.Color)]
         public Color InactiveColor
         {
             get
@@ -128,7 +128,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Text)]
+        [Description(PropertyDescription.Text)]
         public string Text
         {
             get
@@ -145,7 +145,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Visible)]
+        [Description(PropertyDescription.Visible)]
         public bool Visible
         {
             get

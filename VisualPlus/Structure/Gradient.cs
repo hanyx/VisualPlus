@@ -12,6 +12,7 @@
 
     using VisualPlus.Delegates;
     using VisualPlus.Extensibility;
+    using VisualPlus.Localization;
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
@@ -90,7 +91,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Angle)]
+        [Description(PropertyDescription.Angle)]
         public float Angle
         {
             get
@@ -112,7 +113,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Colors)]
+        [Description(PropertyDescription.Colors)]
         public Color[] Colors
         {
             get
@@ -134,7 +135,7 @@
 
         /// <summary>Gets the <see cref="Gradient" /> as an image.</summary>
         [Browsable(true)]
-        [Description(Property.Image)]
+        [Description(PropertyDescription.Image)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         public Image Image
         {
@@ -154,7 +155,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Positions)]
+        [Description(PropertyDescription.Positions)]
         public float[] Locations
         {
             get
@@ -171,7 +172,7 @@
 
         [NotifyParentProperty(true)]
         [RefreshProperties(RefreshProperties.Repaint)]
-        [Description(Property.Rectangle)]
+        [Description(PropertyDescription.Rectangle)]
         public Rectangle Rectangle
         {
             get

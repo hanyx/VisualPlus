@@ -11,8 +11,7 @@
 
     using VisualPlus.Designer;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Dialogs;
@@ -82,8 +81,8 @@
 
         #region Properties
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color BackCircleColor
         {
             get
@@ -99,8 +98,8 @@
         }
 
         [DefaultValue(true)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool BackCircleVisible
         {
             get
@@ -136,8 +135,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ForeCircle
         {
             get
@@ -153,8 +152,8 @@
         }
 
         [DefaultValue(true)]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool ForeCircleVisible
         {
             get
@@ -169,8 +168,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Image)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
         public Image Image
         {
             get
@@ -185,8 +184,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Image)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
         public Point ImageLocation
         {
             get
@@ -201,8 +200,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public Size ImageSize
         {
             get
@@ -217,8 +216,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Type)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Type)]
         public LineCap LineCap
         {
             get
@@ -234,8 +233,8 @@
         }
 
         [DefaultValue(typeof(Color), "Green")]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ProgressColor
         {
             get
@@ -251,8 +250,8 @@
         }
 
         [DefaultValue(Settings.DefaultValue.ProgressSize)]
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public float ProgressSize
         {
             get
@@ -268,8 +267,8 @@
         }
 
         [DefaultValue(typeof(Color), "Black")]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color SubscriptColor
         {
             get
@@ -284,8 +283,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Font)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Font)]
         public Font SubscriptFont
         {
             get
@@ -300,8 +299,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Point)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Point)]
         public Point SubscriptLocation
         {
             get
@@ -316,8 +315,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Text)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Text)]
         public string SubscriptText
         {
             get
@@ -333,8 +332,8 @@
         }
 
         [DefaultValue(typeof(Color), "Black")]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color SuperscriptColor
         {
             get
@@ -349,8 +348,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Font)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Font)]
         public Font SuperscriptFont
         {
             get
@@ -365,8 +364,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Point)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Point)]
         public Point SuperscriptLocation
         {
             get
@@ -381,8 +380,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Text)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Text)]
         public string SuperscriptText
         {
             get
@@ -397,8 +396,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool TextVisible
         {
             get

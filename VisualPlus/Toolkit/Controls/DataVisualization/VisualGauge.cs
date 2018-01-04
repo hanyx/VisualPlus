@@ -9,8 +9,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Dialogs;
@@ -79,8 +78,8 @@
         }
 
         [DefaultValue(typeof(Color), "Green")]
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color Progress
         {
             get
@@ -96,8 +95,8 @@
         }
 
         [DefaultValue(30)]
-        [Category(Propertys.Layout)]
-        [Description(Property.Thickness)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Thickness)]
         public int Thickness
         {
             get
@@ -113,7 +112,7 @@
         }
 
         [DefaultValue(0)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         public new int Value
         {
             get

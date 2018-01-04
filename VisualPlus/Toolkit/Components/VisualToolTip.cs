@@ -10,8 +10,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.Designer;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Properties;
     using VisualPlus.Structure;
 
@@ -110,8 +109,8 @@
 
         #region Properties
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.AutoSize)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.AutoSize)]
         public bool AutoSize
         {
             get
@@ -125,8 +124,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color Background
         {
             get
@@ -142,7 +141,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -156,8 +155,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Font)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Font)]
         public Font Font
         {
             get
@@ -185,8 +184,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Image)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Image)]
         public Image Icon
         {
             get
@@ -200,8 +199,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool IconBorder
         {
             get
@@ -215,8 +214,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public Size IconSize
         {
             get
@@ -230,8 +229,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color LineColor
         {
             get
@@ -245,8 +244,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Padding)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Padding)]
         public Padding Padding
         {
             get
@@ -260,8 +259,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Size)]
         public int SeparatorThickness
         {
             get
@@ -275,8 +274,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Spacing)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Spacing)]
         public int Spacing
         {
             get
@@ -290,8 +289,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Text)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Text)]
         public string Text
         {
             get
@@ -305,8 +304,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.TextRenderingHint)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.TextRenderingHint)]
         public TextRenderingHint TextRendering
         {
             get
@@ -320,8 +319,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Visible)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Visible)]
         public bool TextShadow
         {
             get
@@ -335,8 +334,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Type)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Type)]
         public ToolTipType TipType
         {
             get
@@ -350,8 +349,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Text)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Text)]
         public string Title
         {
             get
@@ -365,8 +364,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color TitleColor
         {
             get
@@ -380,8 +379,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Font)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Font)]
         public Font TitleFont
         {
             get
@@ -395,8 +394,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Size)]
         public Size ToolTipSize
         {
             get

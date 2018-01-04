@@ -8,8 +8,7 @@
     using System.Windows.Forms;
 
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
 
     #endregion
 
@@ -29,7 +28,7 @@
         #region Constructors
 
         [Category(Localization.Category.Events.PropertyChanged)]
-        [Description(Property.Checked)]
+        [Description(PropertyDescription.Checked)]
         public event EventHandler CheckStateChanged;
 
         #endregion
@@ -37,8 +36,8 @@
         #region Properties
 
         [DefaultValue(typeof(CheckState), "Unchecked")]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Checked)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Checked)]
         public CheckState CheckState
         {
             get
@@ -70,8 +69,8 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.Toggle)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
         [DefaultValue(false)]
         public bool ThreeState
         {

@@ -12,8 +12,7 @@
 
     using VisualPlus.Designer;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
@@ -87,7 +86,7 @@
 
         [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
         {
             get
@@ -104,7 +103,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -125,8 +124,8 @@
         [Description("Gets access to the contained control.")]
         public RichTextBox ContainedControl => _richTextBox;
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Font)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Font)]
         public new Font Font
         {
             get
@@ -141,8 +140,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public new Color ForeColor
         {
             get
@@ -160,8 +159,8 @@
         [DefaultValue(32767)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.MaxLength)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.MaxLength)]
         public int MaxLength
         {
             get
@@ -175,8 +174,8 @@
             }
         }
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.ReadOnly)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.ReadOnly)]
         public bool ReadOnly
         {
             get
@@ -192,8 +191,8 @@
 
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.ScrollBars)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.ScrollBars)]
         public RichTextBoxScrollBars ScrollBars
         {
             get
@@ -210,8 +209,8 @@
         [DefaultValue(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.ShortcutsEnabled)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.ShortcutsEnabled)]
         public bool ShortcutsEnabled
         {
             get
@@ -228,8 +227,8 @@
         [DefaultValue(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.ShowSelectionMargin)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.ShowSelectionMargin)]
         public bool ShowSelectionMargin
         {
             get
@@ -243,7 +242,7 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [Localizable(false)]
         public new string Text
@@ -263,8 +262,8 @@
         [DefaultValue(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.WordWrap)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.WordWrap)]
         public bool WordWrap
         {
             get

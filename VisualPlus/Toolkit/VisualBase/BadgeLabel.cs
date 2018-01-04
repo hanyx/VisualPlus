@@ -8,7 +8,7 @@
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
-    using VisualPlus.Localization.Category;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -50,12 +50,12 @@
         #region Properties
 
         [DefaultValue(typeof(Color), "Blue")]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Color Background { get; set; }
 
         [TypeConverter(typeof(ShapeConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Shape Shape { get; set; }
 
         #endregion

@@ -11,8 +11,7 @@
     using VisualPlus.Delegates;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
 
     #endregion
 
@@ -53,7 +52,7 @@
         }
 
         [Category(Localization.Category.Events.Appearance)]
-        [Description(Property.Color)]
+        [Description(PropertyDescription.Color)]
         public event BackgroundChangedEventHandler BackgroundDisabledChanged;
 
         [Category(Localization.Category.Events.Mouse)]
@@ -64,8 +63,8 @@
 
         #region Properties
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.MouseState)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.MouseState)]
         public MouseStates MouseState
         {
             get

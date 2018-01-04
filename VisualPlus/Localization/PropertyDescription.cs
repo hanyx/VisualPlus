@@ -1,6 +1,6 @@
-﻿namespace VisualPlus.Localization.Descriptions
+﻿namespace VisualPlus.Localization
 {
-    public sealed class Property
+    public sealed class PropertyDescription
     {
         #region Events
 

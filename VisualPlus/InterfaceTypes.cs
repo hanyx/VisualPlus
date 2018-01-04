@@ -6,8 +6,7 @@ namespace VisualPlus
     using System.Drawing;
 
     using VisualPlus.Enumerators;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
 
@@ -82,8 +81,8 @@ namespace VisualPlus
         #region Properties
 
         [DefaultValue(Settings.DefaultValue.Animation)]
-        [Category(Propertys.Behavior)]
-        [Description(Property.Animation)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Animation)]
         bool Animation { get; set; }
 
         #endregion

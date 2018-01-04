@@ -16,8 +16,7 @@
     using VisualPlus.Designer;
     using VisualPlus.Enumerators;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Native;
     using VisualPlus.Properties;
@@ -113,7 +112,7 @@
         }
 
         [Category(Localization.Category.Events.Appearance)]
-        [Description(Property.Color)]
+        [Description(PropertyDescription.Color)]
         public event BackgroundChangedEventHandler BackgroundChanged;
 
         public enum ButtonState
@@ -177,8 +176,8 @@
 
         #region Properties
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color Background
         {
             get
@@ -201,7 +200,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -233,7 +232,7 @@
 
         [TypeConverter(typeof(VisualBitmapConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public VisualBitmap Image
         {
             get
@@ -249,7 +248,7 @@
         }
 
         [DefaultValue(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("Snap window snaps toggles snapping to screen edges.")]
         public bool Magnetic
         {
@@ -265,7 +264,7 @@
         }
 
         [DefaultValue(100)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("The snap radius determines the distance to trigger the snap.")]
         public int MagneticRadius
         {
@@ -280,8 +279,8 @@
             }
         }
 
-        [Category(Propertys.WindowStyle)]
-        [Description(Property.ShowIcon)]
+        [Category(PropertyCategory.WindowStyle)]
+        [Description(PropertyDescription.ShowIcon)]
         public new bool ShowIcon
         {
             get
@@ -297,8 +296,8 @@
 
         public bool Sizable { get; set; }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.MouseState)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.MouseState)]
         public MouseStates State
         {
             get
@@ -313,8 +312,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Alignment)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Alignment)]
         public Alignment.TextAlignment TitleAlignment
         {
             get
@@ -329,8 +328,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color WindowBarColor
         {
             get
@@ -345,8 +344,8 @@
             }
         }
 
-        [Category(Propertys.Layout)]
-        [Description(Property.Size)]
+        [Category(PropertyCategory.Layout)]
+        [Description(PropertyDescription.Size)]
         public int WindowBarHeight
         {
             get

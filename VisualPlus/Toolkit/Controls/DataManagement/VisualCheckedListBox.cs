@@ -12,8 +12,7 @@
 
     using VisualPlus.Designer;
     using VisualPlus.EventArgs;
-    using VisualPlus.Localization.Category;
-    using VisualPlus.Localization.Descriptions;
+    using VisualPlus.Localization;
     using VisualPlus.Managers;
     using VisualPlus.Renders;
     using VisualPlus.Structure;
@@ -97,8 +96,8 @@
 
         #region Properties
 
-        [Category(Propertys.Behavior)]
-        [Description(Property.Toggle)]
+        [Category(PropertyCategory.Behavior)]
+        [Description(PropertyDescription.Toggle)]
         public bool AlternateColors
         {
             get
@@ -115,7 +114,7 @@
 
         [TypeConverter(typeof(ColorStateConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public ColorState BackColorState
         {
             get
@@ -132,7 +131,7 @@
 
         [TypeConverter(typeof(BorderConverter))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        [Category(Propertys.Appearance)]
+        [Category(PropertyCategory.Appearance)]
         public Border Border
         {
             get
@@ -153,8 +152,8 @@
         [Description("Gets access to the contained control.")]
         public CheckedListBox ContainedControl => _checkedListBox;
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Font)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Font)]
         public new Font Font
         {
             get
@@ -169,8 +168,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public new Color ForeColor
         {
             get
@@ -188,7 +187,7 @@
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Editor("System.Windows.Forms.Design.FormatStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [Browsable(true)]
-        [Category(Propertys.Data)]
+        [Category(PropertyCategory.Data)]
         [Description("Gets or sets the format-specifier characters that indicate how the value is to be displayed.")]
         public string FormatString
         {
@@ -206,7 +205,7 @@
         [DefaultValue(false)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("Gets or sets a value indicating whether the formatting is applied to the DisplayMember propery of the ListControl.")]
         public bool FormattingEnabled
         {
@@ -223,7 +222,7 @@
 
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("Gets or sets the width by which the horizontal scroll bar of a ListBox can scroll.")]
         public int HorizontalExtent
         {
@@ -240,7 +239,7 @@
 
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("Gets or sets a value indicating whether a horizontal scroll bar is displayed in the control.")]
         public bool HorizontalScrollbar
         {
@@ -255,8 +254,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ItemNormal
         {
             get
@@ -271,7 +270,7 @@
             }
         }
 
-        [Category(Propertys.Data)]
+        [Category(PropertyCategory.Data)]
         [Editor("System.Windows.Forms.Design.ListControlStringCollectionEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [MergableProperty(false)]
@@ -284,8 +283,8 @@
             }
         }
 
-        [Category(Propertys.Appearance)]
-        [Description(Property.Color)]
+        [Category(PropertyCategory.Appearance)]
+        [Description(PropertyDescription.Color)]
         public Color ItemSelected
         {
             get
@@ -303,7 +302,7 @@
         [DefaultValue(false)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("Gets or sets a value specifying the selection mode.")]
         public SelectionMode SelectionMode
         {
@@ -321,7 +320,7 @@
         [DefaultValue(false)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Browsable(true)]
-        [Category(Propertys.Behavior)]
+        [Category(PropertyCategory.Behavior)]
         [Description("Gets or sets a value indicating whether the items in the ListBox are sorted alphabetically.")]
         public bool Sorted
         {

@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.Native
+namespace VisualPlus.Native
 {
     #region Namespace
 

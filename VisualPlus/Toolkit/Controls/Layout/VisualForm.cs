@@ -19,7 +19,7 @@
     using VisualPlus.Localization.Category;
     using VisualPlus.Localization.Descriptions;
     using VisualPlus.Managers;
-    using VisualPlus.PInvoke;
+    using VisualPlus.Native;
     using VisualPlus.Properties;
     using VisualPlus.Renders;
     using VisualPlus.Structure;

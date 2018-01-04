@@ -9,7 +9,7 @@
     using System.Globalization;
 
     using VisualPlus.Enumerators;
-    using VisualPlus.PInvoke;
+    using VisualPlus.Native;
 
     #endregion
 

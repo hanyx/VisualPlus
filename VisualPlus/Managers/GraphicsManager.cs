@@ -8,7 +8,7 @@
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
-    using VisualPlus.PInvoke;
+    using VisualPlus.Native;
     using VisualPlus.Toolkit.Controls.DataVisualization;
 
     #endregion

@@ -80,9 +80,9 @@
     <Compile Include="Managers\ResourceManager.cs" />
     <Compile Include="Managers\TextManager.cs" />
     <Compile Include="Managers\TickManager.cs" />
-    <Compile Include="PInvoke\Gdi32.cs" />
-    <Compile Include="PInvoke\Shlwapi.cs" />
-    <Compile Include="PInvoke\User32.cs" />
+    <Compile Include="Native\Gdi32.cs" />
+    <Compile Include="Native\Shlwapi.cs" />
+    <Compile Include="Native\User32.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

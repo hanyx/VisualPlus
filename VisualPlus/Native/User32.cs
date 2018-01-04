@@ -1,4 +1,4 @@
-﻿namespace VisualPlus.PInvoke
+﻿namespace VisualPlus.Native
 {
     #region Namespace
 

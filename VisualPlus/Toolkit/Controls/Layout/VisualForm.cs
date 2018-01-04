@@ -23,6 +23,7 @@
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
     #endregion
@@ -37,7 +38,7 @@
     [InitializationEvent("Load")]
     [ToolboxBitmap(typeof(VisualForm), "Resources.ToolboxBitmaps.VisualForm.bmp")]
     [ToolboxItem(false)]
-    public class VisualForm : Form
+    public class VisualForm : Form, IThemeSupport
     {
         #region Variables
 
@@ -64,13 +65,13 @@
 
         #region Constructors
 
-        /// <inheritdoc />
-        /// <summary>Initializes a new instance of the <see cref="T:VisualPlus.Toolkit.Controls.Layout.VisualForm" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="VisualForm" /> class.</summary>
         public VisualForm()
         {
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
+
             UpdateStyles();
-            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
+
             _resizeCursors = new[] { Cursors.SizeNESW, Cursors.SizeWE, Cursors.SizeNWSE, Cursors.SizeWE, Cursors.SizeNS };
 
             _resizedLocationsCommand = new Dictionary<int, int>
@@ -85,27 +86,11 @@
                     { HTBOTTOMRIGHT, WMSZ_BOTTOMRIGHT }
                 };
 
-            _titleAlignment = Alignment.TextAlignment.Center;
-            FormBorderStyle = FormBorderStyle.None;
-            Sizable = true;
-            _windowBarColor = _styleManager.Theme.BackgroundSettings.Type2;
-            _background = _styleManager.Theme.BackgroundSettings.Type4;
-            _magneticRadius = 100;
-            _magnetic = true;
-            _windowBarHeight = 30;
-            TransparencyKey = Color.Fuchsia;
-            DoubleBuffered = true;
+            _styleManager = new StylesManager(Settings.DefaultValue.DefaultStyle);
 
-            Padding = new Padding(0, 0, 0, 0);
+            InitializeVisualForm();
 
-            _border = new Border
-                {
-                    Thickness = 3,
-                    Type = ShapeType.Rectangle
-                };
-
-            _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16)) { Visible = true };
-            _vsImage.Point = new Point(5, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
+            UpdateTheme(_styleManager.Theme);
 
             // This enables the form to trigger the MouseMove event even when mouse is over another control
             Application.AddMessageFilter(new MouseMessageFilter());
@@ -115,6 +100,10 @@
         [Category(Localization.Category.Events.Appearance)]
         [Description(PropertyDescription.Color)]
         public event BackgroundChangedEventHandler BackgroundChanged;
+
+        [Category(Localization.Category.Events.PropertyChanged)]
+        [Description("Occours when the theme of the control has changed.")]
+        public event ThemeChangedEventHandler ThemeChanged;
 
         public enum ButtonState
         {
@@ -313,6 +302,23 @@
             }
         }
 
+        /// <summary>Gets or sets the <see cref="StylesManager" />.</summary>
+        [Browsable(false)]
+        [Category(PropertyCategory.Appearance)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public StylesManager StyleManager
+        {
+            get
+            {
+                return _styleManager;
+            }
+
+            set
+            {
+                _styleManager = value;
+            }
+        }
+
         [Category(PropertyCategory.Appearance)]
         [Description(PropertyDescription.Alignment)]
         public Alignment.TextAlignment TitleAlignment
@@ -377,6 +383,27 @@
         #endregion
 
         #region Events
+
+        public void UpdateTheme(Theme theme)
+        {
+            try
+            {
+                _styleManager = new StylesManager(theme);
+
+                _background = theme.OtherSettings.FormBackground;
+                _border.Color = theme.BorderSettings.Normal;
+                _border.HoverColor = theme.BorderSettings.Hover;
+                ForeColor = theme.TextSetting.Enabled;
+                Font = theme.TextSetting.Font;
+                _windowBarColor = theme.OtherSettings.FormWindowBar;
+            }
+            catch (Exception e)
+            {
+                VisualExceptionDialog.Show(e);
+            }
+
+            OnThemeChanged(new ThemeEventArgs(theme));
+        }
 
         /// <summary>Raises the <see cref="OnControlAdded" /> event.</summary>
         /// <param name="e">The event args.</param>
@@ -585,6 +612,14 @@
             }
         }
 
+        /// <summary>Invokes the theme changed event.</summary>
+        /// <param name="e">The event args.</param>
+        protected virtual void OnThemeChanged(ThemeEventArgs e)
+        {
+            Invalidate();
+            ThemeChanged?.Invoke(e);
+        }
+
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
@@ -745,6 +780,29 @@
 
             Rectangle textRectangle = new Rectangle(titlePoint.X, titlePoint.Y, Width, _titleTextSize.Height);
             graphics.DrawString(Text, Font, new SolidBrush(ForeColor), textRectangle);
+        }
+
+        /// <summary>Initializes the <see cref="VisualForm" />.</summary>
+        private void InitializeVisualForm()
+        {
+            _border = new Border
+                {
+                    Thickness = 3,
+                    Type = ShapeType.Rectangle
+                };
+
+            DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.None;
+            _magnetic = true;
+            _magneticRadius = 100;
+            Padding = new Padding(0, 0, 0, 0);
+            Sizable = true;
+            _titleAlignment = Alignment.TextAlignment.Center;
+            TransparencyKey = Color.Fuchsia;
+            _windowBarHeight = 30;
+
+            _vsImage = new VisualBitmap(Resources.VisualPlus, new Size(16, 16)) { Visible = true };
+            _vsImage.Point = new Point(5, (_windowBarHeight / 2) - (_vsImage.Size.Height / 2));
         }
 
         private void OnGlobalMouseMove(object sender, MouseEventArgs e)

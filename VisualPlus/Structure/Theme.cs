@@ -287,6 +287,9 @@
                 _controlColorStateSettings.Hover = themeContainer.GetValue(Toolkit + "VisualButton/Hover").ToColor();
                 _controlColorStateSettings.Pressed = themeContainer.GetValue(Toolkit + "VisualButton/Pressed").ToColor();
 
+                _otherSettings.FormBackground = themeContainer.GetValue(Toolkit + "VisualForm/Background").ToColor();
+                _otherSettings.FormWindowBar = themeContainer.GetValue(Toolkit + "VisualForm/WindowBar").ToColor();
+
                 _listItemSettings.Item = themeContainer.GetValue(Shared + "ListItem/Normal").ToColor();
                 _listItemSettings.ItemHover = themeContainer.GetValue(Shared + "ListItem/Hover").ToColor();
                 _listItemSettings.ItemSelected = themeContainer.GetValue(Shared + "ListItem/Selected").ToColor();

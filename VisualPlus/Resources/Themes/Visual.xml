@@ -72,6 +72,10 @@
                 <Hover>#FFE0E0E0</Hover>
                 <Pressed>#FFC0C0C0</Pressed>
             </VisualButton>
+            <VisualForm>
+                <Background>#FFF1F4F9</Background>
+                <WindowBar>#FFDCDCDC</WindowBar>
+            </VisualForm>
             <VisualRadialProgress>
                 <ForeCircle>#FFDCDCDC</ForeCircle>
                 <BackCircle>#FFDCDCDC</BackCircle>

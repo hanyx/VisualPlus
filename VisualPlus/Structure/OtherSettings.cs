@@ -10,6 +10,10 @@ namespace VisualPlus.Structure
     {
         #region Properties
 
+        public Color FormWindowBar { get; set; }
+
+        public Color FormBackground { get; set; }
+
         public Color BackCircle { get; set; }
 
         public Color BoxDisabled { get; set; }

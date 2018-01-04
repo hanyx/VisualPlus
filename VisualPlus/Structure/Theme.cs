@@ -280,6 +280,8 @@
                 _textSettings.Enabled = themeContainer.GetValue(Shared + "Font/Enabled").ToColor();
                 _textSettings.Disabled = themeContainer.GetValue(Shared + "Font/Disabled").ToColor();
                 _textSettings.Selected = themeContainer.GetValue(Shared + "Font/Selected").ToColor();
+                _textSettings.SubscriptColor = themeContainer.GetValue(Shared + "Font/Subscript").ToColor();
+                _textSettings.SuperscriptColor = themeContainer.GetValue(Shared + "Font/Superscript").ToColor();
                 _textSettings.Font = ResolveFontFamily(themeContainer.GetValue(Shared + "Font/FontFamily"));
 
                 _controlColorStateSettings.Enabled = themeContainer.GetValue(Toolkit + "VisualButton/Enabled").ToColor();

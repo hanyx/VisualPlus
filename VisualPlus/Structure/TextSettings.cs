@@ -20,6 +20,10 @@
 
         public Color Selected { get; set; }
 
+        public Color SubscriptColor { get; set; }
+
+        public Color SuperscriptColor { get; set; }
+
         #endregion
     }
 }

@@ -428,8 +428,8 @@
                 _subscriptFont = theme.TextSetting.Font; // TODO: - Bold
                 _superscriptFont = theme.TextSetting.Font; // TODO: - Bold
 
-                _superscriptColor = theme.TextSetting.Enabled;
-                _subscriptColor = theme.TextSetting.Enabled;
+                _superscriptColor = theme.TextSetting.SuperscriptColor;
+                _subscriptColor = theme.TextSetting.SubscriptColor;
 
                 _colorState = new ControlColorState
                     {

@@ -42,6 +42,8 @@
                 <Enabled>#FF000000</Enabled>
                 <Disabled>#FF838181</Disabled>
                 <Selected>#FFD9DCE3</Selected>
+                <Subscript>#BC1708</Subscript>
+                <Superscript>#0924BC</Superscript>
             </Font>
             <ListItem>
                 <Normal>#FFDCDCDC</Normal>

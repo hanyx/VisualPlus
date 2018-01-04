@@ -10,10 +10,6 @@ namespace VisualPlus.Structure
     {
         #region Properties
 
-        public Color FormWindowBar { get; set; }
-
-        public Color FormBackground { get; set; }
-
         public Color BackCircle { get; set; }
 
         public Color BoxDisabled { get; set; }
@@ -33,6 +29,10 @@ namespace VisualPlus.Structure
         public Color FlatControlEnabled { get; set; }
 
         public Color ForeCircle { get; set; }
+
+        public Color FormBackground { get; set; }
+
+        public Color FormWindowBar { get; set; }
 
         public Color HatchBackColor { get; set; }
 

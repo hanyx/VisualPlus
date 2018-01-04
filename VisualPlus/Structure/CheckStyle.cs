@@ -30,6 +30,7 @@
         private Image _image;
         private int _shapeRounding;
         private ShapeType _shapeType;
+        private float _thickness;
 
         #endregion
 
@@ -50,6 +51,7 @@
 
             _shapeRounding = Settings.DefaultValue.Rounding.BoxRounding;
             _shapeType = Settings.DefaultValue.BorderType;
+            _thickness = 2.0F;
 
             Bitmap _bitmap = new Bitmap(Image.FromStream(new MemoryStream(Convert.FromBase64String(VisualToggleRenderer.GetBase64CheckImage()))));
             _image = _bitmap;
@@ -60,6 +62,9 @@
         {
             /// <summary>The character.</summary>
             Character,
+
+            /// <summary>The checkmark.</summary>
+            Checkmark,
 
             /// <summary>The image.</summary>
             Image,
@@ -213,6 +218,22 @@
             set
             {
                 _checkType = value;
+            }
+        }
+
+        [NotifyParentProperty(true)]
+        [RefreshProperties(RefreshProperties.Repaint)]
+        [Description(PropertyDescription.Thickness)]
+        public float Thickness
+        {
+            get
+            {
+                return _thickness;
+            }
+
+            set
+            {
+                _thickness = value;
             }
         }
 

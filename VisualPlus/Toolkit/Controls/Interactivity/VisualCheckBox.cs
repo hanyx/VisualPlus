@@ -38,7 +38,7 @@
 
             CheckStyle = new CheckStyle(ClientRectangle)
                 {
-                    Style = CheckStyle.CheckType.Character
+                    Style = CheckStyle.CheckType.Checkmark
                 };
 
             UpdateTheme(ThemeManager.Theme);

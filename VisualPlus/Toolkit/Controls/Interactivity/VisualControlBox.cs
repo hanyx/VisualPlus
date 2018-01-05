@@ -560,7 +560,6 @@
             _maximizeRectangle = new Rectangle(38, 5, 24, Height);
             _minimizeRectangle = new Rectangle(5, 5, 27, Height);
 
-            // _minimizeMovedRectangle = new Rectangle(38, 5, 24, Height);
             try
             {
                 DrawCloseButton(_graphics, _closeRectangle);

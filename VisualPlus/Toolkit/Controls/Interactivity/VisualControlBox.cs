@@ -6,7 +6,6 @@
     using System.ComponentModel;
     using System.Drawing;
     using System.Drawing.Text;
-    using System.Globalization;
     using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
@@ -29,7 +28,6 @@
     [Designer(typeof(VisualControlBoxDesigner))]
     [ToolboxBitmap(typeof(VisualControlBox), "Resources.ToolboxBitmaps.VisualControlBox.bmp")]
     [ToolboxItem(true)]
-    [TypeConverter(typeof(VisualControlBoxConverter))]
     public class VisualControlBox : VisualControlBase
     {
         #region Variables
@@ -48,7 +46,6 @@
         private ControlColorState _minimizeBack;
         private ControlColorState _minimizeFore;
         private MouseStates _minimizeMouseState;
-        private Rectangle _minimizeMovedRectangle;
         private Rectangle _minimizeRectangle;
         private bool _minimizeVisible;
 
@@ -508,7 +505,7 @@
             {
                 if (_minimizeVisible)
                 {
-                    if (_minimizeMovedRectangle.Contains(e.Location))
+                    if (_maximizeRectangle.Contains(e.Location))
                     {
                         if (_minimize)
                         {
@@ -569,13 +566,13 @@
             _closeRectangle = new Rectangle(70, 5, 27, Height);
             _maximizeRectangle = new Rectangle(38, 5, 24, Height);
             _minimizeRectangle = new Rectangle(5, 5, 27, Height);
-            _minimizeMovedRectangle = new Rectangle(38, 5, 24, Height);
 
+            // _minimizeMovedRectangle = new Rectangle(38, 5, 24, Height);
             try
             {
                 DrawCloseButton(_graphics, _closeRectangle);
                 DrawMaximizeButton(_graphics, _maximizeRectangle);
-                DrawMinimizeButton(_graphics, _minimizeRectangle, _minimizeMovedRectangle);
+                DrawMinimizeButton(_graphics, _minimizeRectangle, _maximizeRectangle);
             }
             catch (Exception exception)
             {
@@ -698,70 +695,6 @@
                 DrawButton(ControlBoxButtons.Minimize, graphics, _rectangle, _backColor, _foreColor, _point);
             }
         }
-
-        #endregion
-    }
-
-    public class VisualControlBoxConverter : ExpandableObjectConverter
-    {
-        #region Events
-
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
-        }
-
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            var stringValue = value as string;
-
-            if (stringValue != null)
-            {
-                return new ObjectControlColorStateWrapper(stringValue);
-            }
-
-            return base.ConvertFrom(context, culture, value);
-        }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            VisualControlBox _controlBox;
-            object result;
-
-            result = null;
-            _controlBox = value as VisualControlBox;
-
-            if ((_controlBox != null) && (destinationType == typeof(string)))
-            {
-                // result = borderStyle.ToString();
-                result = "Control Box Settings";
-            }
-
-            return result ?? base.ConvertTo(context, culture, value, destinationType);
-        }
-
-        #endregion
-    }
-
-    [TypeConverter(typeof(VisualControlBoxConverter))]
-    public class ObjectVisualControlBoxWrapper
-    {
-        #region Constructors
-
-        public ObjectVisualControlBoxWrapper()
-        {
-        }
-
-        public ObjectVisualControlBoxWrapper(string value)
-        {
-            Value = value;
-        }
-
-        #endregion
-
-        #region Properties
-
-        public object Value { get; set; }
 
         #endregion
     }

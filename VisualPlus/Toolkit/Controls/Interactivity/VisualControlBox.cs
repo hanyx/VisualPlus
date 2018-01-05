@@ -32,7 +32,6 @@
         #region Variables
 
         private Size _buttonSize;
-
         private ControlBoxButton _closeButton;
         private ControlBoxButton _helpButton;
         private bool _initialized;
@@ -370,6 +369,12 @@
             }
         }
 
+        /// <summary>Automatically places the <see cref="VisualControlBox"/> on the <see cref="Form"/> corner location.</summary>
+        public void AutoPlaceOnForm()
+        {
+            Location = new Point(ParentForm.Width - Width, 0);
+        }
+
         /// <summary>Initializes the <see cref="VisualControlBox" />.</summary>
         private void InitializeControlBox()
         {
@@ -390,7 +395,8 @@
                     Location = new Point(0, 0),
                     Size = _buttonSize,
                     Text = @"s",
-                    OffsetLocation = new Point(0, 1)
+                    OffsetLocation = new Point(0, 1),
+                    Visible = false
                 };
 
             _helpButton.Click += OnHelpClick;
@@ -435,8 +441,6 @@
             Controls.Add(_minimizeButton);
             Controls.Add(_maximizeButton);
             Controls.Add(_closeButton);
-
-            OnResize(new EventArgs());
         }
 
         #endregion

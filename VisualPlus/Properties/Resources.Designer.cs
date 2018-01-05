@@ -61,56 +61,6 @@ namespace VisualPlus.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        ///
-        ///&lt;VisualPlus-Theme&gt;
-        ///    &lt;Information&gt;
-        ///        &lt;Name&gt;Enigma&lt;/Name&gt;
-        ///        &lt;Author&gt;DarkByte7&lt;/Author&gt;
-        ///    &lt;/Information&gt;
-        ///    &lt;StyleTable&gt;
-        ///        &lt;Shared&gt;
-        ///            &lt;MainColor&gt;#ffC40D&lt;/MainColor&gt;
-        ///            &lt;LightText&gt;#FF808080&lt;/LightText&gt;
-        ///            &lt;Line&gt;#FFE0DEDC&lt;/Line&gt;
-        ///            &lt;Shadow&gt;#FFFAF9F9&lt;/Shadow&gt;
-        ///            &lt;Background&gt;
-        ///                &lt;Type1&gt;#FFDCDCDC&lt;/Type1&gt;
-        ///                &lt;Type2&gt;#FFDCDCDC&lt;/Type2&gt;
-        ///                &lt;Type3&gt;#FF424041&lt;/ [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string Enigma {
-            get {
-                return ResourceManager.GetString("Enigma", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        ///
-        ///&lt;VisualPlus-Theme&gt;
-        ///    &lt;Information&gt;
-        ///        &lt;Name&gt;Visual&lt;/Name&gt;
-        ///        &lt;Author&gt;DarkByte7&lt;/Author&gt;
-        ///    &lt;/Information&gt;
-        ///    &lt;StyleTable&gt;
-        ///        &lt;Shared&gt;
-        ///            &lt;MainColor&gt;#FFC40D&lt;/MainColor&gt;
-        ///            &lt;LightText&gt;#FF808080&lt;/LightText&gt;
-        ///            &lt;Line&gt;#FFE0DEDC&lt;/Line&gt;
-        ///            &lt;Shadow&gt;#FFFAF9F9&lt;/Shadow&gt;
-        ///            &lt;Background&gt;
-        ///                &lt;Type1&gt;#FFDCDCDC&lt;/Type1&gt;
-        ///                &lt;Type2&gt;#FFDCDCDC&lt;/Type2&gt;
-        ///                &lt;Type3&gt;#FF424041&lt;/ [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string Visual {
-            get {
-                return ResourceManager.GetString("Visual", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap VisualLabel {

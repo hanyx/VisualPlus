@@ -23,6 +23,7 @@
     using VisualPlus.Renders;
     using VisualPlus.Structure;
     using VisualPlus.Toolkit.Components;
+    using VisualPlus.Toolkit.Controls.Interactivity;
     using VisualPlus.Toolkit.Dialogs;
     using VisualPlus.Toolkit.VisualBase;
 
@@ -416,7 +417,14 @@
             if (_control != null)
             {
                 // Successfully cast.
-                _control.BackColor = Background;
+                if (_control is VisualControlBox)
+                {
+                    _control.BackColor = _windowBarColor;
+                }
+                else
+                {
+                    _control.BackColor = _background;
+                }
             }
             else
             {

@@ -21,7 +21,7 @@
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     [ComVisible(true)]
     [EditorBrowsable(EditorBrowsableState.Advanced)]
-    public class VisualStyleBase : Control, IThemeManager
+    public class VisualStyleBase : VisualControlBase, IThemeManager
     {
         #region Variables
 

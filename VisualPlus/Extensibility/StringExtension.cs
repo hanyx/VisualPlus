@@ -342,7 +342,14 @@
         /// <returns>The <see cref="Color" />.</returns>
         public static Color ToColor(this string htmlColor, int alpha = 255)
         {
-            return Color.FromArgb(alpha > 255 ? 255 : alpha, ColorTranslator.FromHtml(htmlColor));
+            if (htmlColor == "#00FFFFFF")
+            {
+                return Color.Transparent;
+            }
+            else
+            {
+                return Color.FromArgb(alpha > 255 ? 255 : alpha, ColorTranslator.FromHtml(htmlColor));
+            }
         }
 
         /// <summary>Converts the <see cref="string" /> to a <see cref="Font" />.</summary>

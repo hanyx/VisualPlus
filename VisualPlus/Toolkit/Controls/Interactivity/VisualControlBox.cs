@@ -162,66 +162,66 @@
             {
                 _closeButton.BackColorState = new ControlColorState
                     {
-                        Disabled = Color.Transparent,
-                        Enabled = Color.Transparent,
-                        Hover = Color.FromArgb(232, 17, 35),
-                        Pressed = Color.FromArgb(241, 112, 122)
+                        Disabled = theme.OtherSettings.CloseButtonBack.Disabled,
+                        Enabled = theme.OtherSettings.CloseButtonBack.Enabled,
+                        Hover = theme.OtherSettings.CloseButtonBack.Hover,
+                        Pressed = theme.OtherSettings.CloseButtonBack.Pressed
                     };
 
                 _closeButton.ForeColorState = new ControlColorState
                     {
-                        Disabled = Color.DimGray,
-                        Enabled = Color.Gray,
-                        Hover = Color.White,
-                        Pressed = Color.White
+                        Disabled = theme.OtherSettings.CloseButtonFore.Disabled,
+                        Enabled = theme.OtherSettings.CloseButtonFore.Enabled,
+                        Hover = theme.OtherSettings.CloseButtonFore.Hover,
+                        Pressed = theme.OtherSettings.CloseButtonFore.Pressed
                     };
 
                 _maximizeButton.BackColorState = new ControlColorState
                     {
-                        Disabled = Color.Transparent,
-                        Enabled = Color.Transparent,
-                        Hover = Color.FromArgb(190, 186, 186),
-                        Pressed = Color.DimGray
+                        Disabled = theme.OtherSettings.MaximizeButtonBack.Disabled,
+                        Enabled = theme.OtherSettings.MaximizeButtonBack.Enabled,
+                        Hover = theme.OtherSettings.MaximizeButtonBack.Hover,
+                        Pressed = theme.OtherSettings.MaximizeButtonBack.Pressed
                     };
 
                 _maximizeButton.ForeColorState = new ControlColorState
                     {
-                        Disabled = Color.DimGray,
-                        Enabled = Color.Gray,
-                        Hover = Color.Gray,
-                        Pressed = Color.Gray
+                        Disabled = theme.OtherSettings.MaximizeButtonFore.Disabled,
+                        Enabled = theme.OtherSettings.MaximizeButtonFore.Enabled,
+                        Hover = theme.OtherSettings.MaximizeButtonFore.Hover,
+                        Pressed = theme.OtherSettings.MaximizeButtonFore.Pressed
                     };
 
                 _minimizeButton.BackColorState = new ControlColorState
                     {
-                        Disabled = Color.Transparent,
-                        Enabled = Color.Transparent,
-                        Hover = Color.FromArgb(190, 186, 186),
-                        Pressed = Color.DimGray
+                        Disabled = theme.OtherSettings.MinimizeButtonBack.Disabled,
+                        Enabled = theme.OtherSettings.MinimizeButtonBack.Enabled,
+                        Hover = theme.OtherSettings.MinimizeButtonBack.Hover,
+                        Pressed = theme.OtherSettings.MinimizeButtonBack.Pressed
                     };
 
                 _minimizeButton.ForeColorState = new ControlColorState
                     {
-                        Disabled = Color.DimGray,
-                        Enabled = Color.Gray,
-                        Hover = Color.Gray,
-                        Pressed = Color.Gray
+                        Disabled = theme.OtherSettings.MinimizeButtonFore.Disabled,
+                        Enabled = theme.OtherSettings.MinimizeButtonFore.Enabled,
+                        Hover = theme.OtherSettings.MinimizeButtonFore.Hover,
+                        Pressed = theme.OtherSettings.MinimizeButtonFore.Pressed
                     };
 
                 _helpButton.BackColorState = new ControlColorState
                     {
-                        Disabled = Color.Transparent,
-                        Enabled = Color.Transparent,
-                        Hover = Color.FromArgb(190, 186, 186),
-                        Pressed = Color.DimGray
+                        Disabled = theme.OtherSettings.HelpButtonBack.Disabled,
+                        Enabled = theme.OtherSettings.HelpButtonBack.Enabled,
+                        Hover = theme.OtherSettings.HelpButtonBack.Hover,
+                        Pressed = theme.OtherSettings.HelpButtonBack.Pressed
                     };
 
                 _helpButton.ForeColorState = new ControlColorState
                     {
-                        Disabled = Color.DimGray,
-                        Enabled = Color.Gray,
-                        Hover = Color.Gray,
-                        Pressed = Color.Gray
+                        Disabled = theme.OtherSettings.HelpButtonFore.Disabled,
+                        Enabled = theme.OtherSettings.HelpButtonFore.Enabled,
+                        Hover = theme.OtherSettings.HelpButtonFore.Hover,
+                        Pressed = theme.OtherSettings.HelpButtonFore.Pressed
                     };
             }
             catch (Exception e)

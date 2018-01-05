@@ -16,6 +16,10 @@ namespace VisualPlus.Structure
 
         public Color BoxEnabled { get; set; }
 
+        public ControlColorState CloseButtonBack { get; set; }
+
+        public ControlColorState CloseButtonFore { get; set; }
+
         public Color ColumnHeader { get; set; }
 
         public Color ColumnText { get; set; }
@@ -38,9 +42,21 @@ namespace VisualPlus.Structure
 
         public Color HatchForeColor { get; set; }
 
+        public ControlColorState HelpButtonBack { get; set; }
+
+        public ControlColorState HelpButtonFore { get; set; }
+
         public Color LightText { get; set; }
 
         public Color Line { get; set; }
+
+        public ControlColorState MaximizeButtonBack { get; set; }
+
+        public ControlColorState MaximizeButtonFore { get; set; }
+
+        public ControlColorState MinimizeButtonBack { get; set; }
+
+        public ControlColorState MinimizeButtonFore { get; set; }
 
         public Color Progress { get; set; }
 

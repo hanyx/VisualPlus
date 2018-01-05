@@ -79,7 +79,18 @@
             _textSettings = new TextSettings();
             _informationSettings = new ThemeInformation();
             _listItemSettings = new ListItemSettings();
-            _otherSettings = new OtherSettings();
+            _otherSettings = new OtherSettings
+                {
+                    HelpButtonBack = new ControlColorState(),
+                    HelpButtonFore = new ControlColorState(),
+                    MinimizeButtonBack = new ControlColorState(),
+                    MinimizeButtonFore = new ControlColorState(),
+                    MaximizeButtonBack = new ControlColorState(),
+                    MaximizeButtonFore = new ControlColorState(),
+                    CloseButtonBack = new ControlColorState(),
+                    CloseButtonFore = new ControlColorState()
+                };
+
             LoadThemeFromResources(Themes.Visual);
         }
 
@@ -335,6 +346,51 @@
                 _otherSettings.TabPageDisabled = themeContainer.GetValue(Shared + "TabPage/Disabled").ToColor();
                 _otherSettings.TabPageHover = themeContainer.GetValue(Shared + "TabPage/Hover").ToColor();
                 _otherSettings.TabPageSelected = themeContainer.GetValue(Shared + "TabPage/Selected").ToColor();
+
+                _otherSettings.HelpButtonBack.Disabled = themeContainer.GetValue(Toolkit + "VisualControlBox/HelpButton/BackColorState/Disabled").ToColor();
+                _otherSettings.HelpButtonBack.Enabled = themeContainer.GetValue(Toolkit + "VisualControlBox/HelpButton/BackColorState/Enabled").ToColor();
+                _otherSettings.HelpButtonBack.Hover = themeContainer.GetValue(Toolkit + "VisualControlBox/HelpButton/BackColorState/Hover").ToColor();
+                _otherSettings.HelpButtonBack.Pressed = themeContainer.GetValue(Toolkit + "VisualControlBox/HelpButton/BackColorState/Pressed").ToColor();
+
+
+                Console.WriteLine(_otherSettings.HelpButtonBack.Disabled);
+
+                _otherSettings.HelpButtonFore.Disabled = themeContainer.GetValue(Toolkit + "VisualControlBox/HelpButton/ForeColorState/Disabled").ToColor();
+                _otherSettings.HelpButtonFore.Enabled = themeContainer.GetValue(Toolkit + "VisualControlBox/HelpButton/ForeColorState/Enabled").ToColor();
+                _otherSettings.HelpButtonFore.Hover = themeContainer.GetValue(Toolkit + "VisualControlBox/HelpButton/ForeColorState/Hover").ToColor();
+                _otherSettings.HelpButtonFore.Pressed = themeContainer.GetValue(Toolkit + "VisualControlBox/HelpButton/ForeColorState/Pressed").ToColor();
+
+                _otherSettings.MinimizeButtonBack.Disabled = themeContainer.GetValue(Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Disabled").ToColor();
+                _otherSettings.MinimizeButtonBack.Enabled = themeContainer.GetValue(Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Enabled").ToColor();
+                _otherSettings.MinimizeButtonBack.Hover = themeContainer.GetValue(Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Hover").ToColor();
+                _otherSettings.MinimizeButtonBack.Pressed = themeContainer.GetValue(Toolkit + "VisualControlBox/MinimizeButton/BackColorState/Pressed").ToColor();
+
+                _otherSettings.MinimizeButtonFore.Disabled = themeContainer.GetValue(Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Disabled").ToColor();
+                _otherSettings.MinimizeButtonFore.Enabled = themeContainer.GetValue(Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Enabled").ToColor();
+                _otherSettings.MinimizeButtonFore.Hover = themeContainer.GetValue(Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Hover").ToColor();
+                _otherSettings.MinimizeButtonFore.Pressed = themeContainer.GetValue(Toolkit + "VisualControlBox/MinimizeButton/ForeColorState/Pressed").ToColor();
+
+                _otherSettings.MaximizeButtonBack.Disabled = themeContainer.GetValue(Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Disabled").ToColor();
+                _otherSettings.MaximizeButtonBack.Enabled = themeContainer.GetValue(Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Enabled").ToColor();
+                _otherSettings.MaximizeButtonBack.Hover = themeContainer.GetValue(Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Hover").ToColor();
+                _otherSettings.MaximizeButtonBack.Pressed = themeContainer.GetValue(Toolkit + "VisualControlBox/MaximizeButton/BackColorState/Pressed").ToColor();
+
+                _otherSettings.MaximizeButtonFore.Disabled = themeContainer.GetValue(Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Disabled").ToColor();
+                _otherSettings.MaximizeButtonFore.Enabled = themeContainer.GetValue(Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Enabled").ToColor();
+                _otherSettings.MaximizeButtonFore.Hover = themeContainer.GetValue(Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Hover").ToColor();
+                _otherSettings.MaximizeButtonFore.Pressed = themeContainer.GetValue(Toolkit + "VisualControlBox/MaximizeButton/ForeColorState/Pressed").ToColor();
+
+                _otherSettings.CloseButtonBack.Disabled = themeContainer.GetValue(Toolkit + "VisualControlBox/CloseButton/BackColorState/Disabled").ToColor();
+                _otherSettings.CloseButtonBack.Enabled = themeContainer.GetValue(Toolkit + "VisualControlBox/CloseButton/BackColorState/Enabled").ToColor();
+                _otherSettings.CloseButtonBack.Hover = themeContainer.GetValue(Toolkit + "VisualControlBox/CloseButton/BackColorState/Hover").ToColor();
+                _otherSettings.CloseButtonBack.Pressed = themeContainer.GetValue(Toolkit + "VisualControlBox/CloseButton/BackColorState/Pressed").ToColor();
+
+                _otherSettings.CloseButtonFore.Disabled = themeContainer.GetValue(Toolkit + "VisualControlBox/CloseButton/ForeColorState/Disabled").ToColor();
+                _otherSettings.CloseButtonFore.Enabled = themeContainer.GetValue(Toolkit + "VisualControlBox/CloseButton/ForeColorState/Enabled").ToColor();
+                _otherSettings.CloseButtonFore.Hover = themeContainer.GetValue(Toolkit + "VisualControlBox/CloseButton/ForeColorState/Hover").ToColor();
+                _otherSettings.CloseButtonFore.Pressed = themeContainer.GetValue(Toolkit + "VisualControlBox/CloseButton/ForeColorState/Pressed").ToColor();
+                
+
             }
             catch (Exception e)
             {

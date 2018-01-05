@@ -78,6 +78,64 @@
                 <Hover>#FFE0E0E0</Hover>
                 <Pressed>#FFC0C0C0</Pressed>
             </VisualButton>
+            <VisualControlBox>
+                <HelpButton>
+                    <BackColorState>
+                        <Disabled>#00FFFFFF</Disabled>
+                        <Enabled>#00FFFFFF</Enabled>
+                        <Hover>#FFBEBABA</Hover>
+                        <Pressed>#FF696969</Pressed>
+                    </BackColorState>
+                    <ForeColorState>
+                        <Disabled>#FF696969</Disabled>
+                        <Enabled>#FF808080</Enabled>
+                        <Hover>#FF808080</Hover>
+                        <Pressed>#FF808080</Pressed>
+                    </ForeColorState>
+                </HelpButton>
+                <MinimizeButton>
+                    <BackColorState>
+                        <Disabled>#00FFFFFF</Disabled>
+                        <Enabled>#00FFFFFF</Enabled>
+                        <Hover>#FFBEBABA</Hover>
+                        <Pressed>#FF696969</Pressed>
+                    </BackColorState>
+                    <ForeColorState>
+                        <Disabled>#FF696969</Disabled>
+                        <Enabled>#FF808080</Enabled>
+                        <Hover>#FF808080</Hover>
+                        <Pressed>#FF808080</Pressed>
+                    </ForeColorState>
+                </MinimizeButton>
+                <MaximizeButton>
+                    <BackColorState>
+                        <Disabled>#00FFFFFF</Disabled>
+                        <Enabled>#00FFFFFF</Enabled>
+                        <Hover>#FFBEBABA</Hover>
+                        <Pressed>#FF696969</Pressed>
+                    </BackColorState>
+                    <ForeColorState>
+                        <Disabled>#FF696969</Disabled>
+                        <Enabled>#FF808080</Enabled>
+                        <Hover>#FF808080</Hover>
+                        <Pressed>#FF808080</Pressed>
+                    </ForeColorState>
+                </MaximizeButton>
+                <CloseButton>
+                    <BackColorState>
+                        <Disabled>#00FFFFFF</Disabled>
+                        <Enabled>#00FFFFFF</Enabled>
+                        <Hover>#FFE81123</Hover>
+                        <Pressed>#FFF1707A</Pressed>
+                    </BackColorState>
+                    <ForeColorState>
+                        <Disabled>#FF696969</Disabled>
+                        <Enabled>#FF696969</Enabled>
+                        <Hover>#FFFFFFFF</Hover>
+                        <Pressed>#FFFFFFFF</Pressed>
+                    </ForeColorState>
+                </CloseButton>
+            </VisualControlBox>
             <VisualForm>
                 <Background>#FFF1F4F9</Background>
                 <WindowBar>#FFDCDCDC</WindowBar>

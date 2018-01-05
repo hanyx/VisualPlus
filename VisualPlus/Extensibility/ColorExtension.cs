@@ -51,7 +51,14 @@
         /// <returns>The <see cref="string" />.</returns>
         public static string ToHTML(this Color color)
         {
-            return ColorTranslator.ToHtml(color);
+            if (color == Color.Transparent)
+            {
+                return "#00FFFFFF";
+            }
+            else
+            {
+                return ColorTranslator.ToHtml(color);
+            }
         }
 
         /// <summary>Converts the <see cref="Color" /> to a <see cref="Pen" />.</summary>

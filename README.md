@@ -9,7 +9,7 @@
     <a href="https://www.nuget.org/packages/VisualPlus/"><img alt="NuGetPre" src="https://img.shields.io/nuget/vpre/VisualPlus.svg?style=flat"></a>
     <a href="https://github.com/DarkByte7/VisualPlus/issues/"><img alt="Issues" src="https://img.shields.io/github/issues/DarkByte7/VisualPlus.svg?style=flat"></a>
     <a href="https://gitter.im/VisualPlusUI/General"><img alt="Gitter" src="https://img.shields.io/gitter/room/nwjs/nw.js.svg"></a>
-    <a href="https://github.com/DarkByte7/VisualPlus/network"><img alt="Forks" src="https://img.shields.io/github/forks/DarkByte7/VisualPlus.svg?style=flat"></a>
+    <a href="https://github.com/DarkByte7/VisualPlus/network/members"><img alt="Forks" src="https://img.shields.io/github/forks/DarkByte7/VisualPlus.svg?style=flat"></a>
     <a href="https://github.com/DarkByte7/VisualPlus/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/DarkByte7/VisualPlus.svg?style=flat"></a>
     <a href="https://github.com/DarkByte7/VisualPlus/blob/master/License.md"><img alt="Licence" src="https://img.shields.io/badge/GPL-3.0-blue.svg?style=flat"></a>
 </p >

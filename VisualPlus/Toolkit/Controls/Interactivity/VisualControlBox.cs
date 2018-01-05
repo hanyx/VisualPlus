@@ -62,22 +62,9 @@
                 ControlStyles.SupportsTransparentBackColor,
                 true);
 
-            DoubleBuffered = true;
-            UpdateStyles();
+            InitializeControlBox();
 
-            Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            BackColor = Color.Transparent;
-            Size = new Size(100, 25);
-
-            _minimizeVisible = true;
-            _maximizeVisible = true;
-            _maximize = true;
-            _minimize = true;
-
-            _closeMouseState = MouseStates.Normal;
-            _maximizeMouseState = MouseStates.Normal;
-            _minimizeMouseState = MouseStates.Normal;
-
+            // TODO: Add ThemeSupport
             _closeBack = new ControlColorState
                 {
                     Disabled = Color.Transparent,
@@ -85,7 +72,6 @@
                     Hover = Color.FromArgb(183, 40, 40),
                     Pressed = Color.FromArgb(183, 40, 40)
                 };
-
             _closeFore = new ControlColorState
                 {
                     Disabled = Color.DimGray,
@@ -93,7 +79,6 @@
                     Hover = Color.White,
                     Pressed = Color.White
                 };
-
             _maximizeBack = new ControlColorState
                 {
                     Disabled = Color.Transparent,
@@ -101,7 +86,6 @@
                     Hover = Color.FromArgb(238, 238, 238),
                     Pressed = Color.FromArgb(238, 238, 238)
                 };
-
             _maximizeFore = new ControlColorState
                 {
                     Disabled = Color.DimGray,
@@ -109,7 +93,6 @@
                     Hover = Color.Gray,
                     Pressed = Color.Gray
                 };
-
             _minimizeBack = new ControlColorState
                 {
                     Disabled = Color.Transparent,
@@ -117,7 +100,6 @@
                     Hover = Color.FromArgb(238, 238, 238),
                     Pressed = Color.FromArgb(238, 238, 238)
                 };
-
             _minimizeFore = new ControlColorState
                 {
                     Disabled = Color.DimGray,
@@ -397,6 +379,17 @@
             }
         }
 
+        /// <summary>Gets the parent form.</summary>
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public Form ParentForm
+        {
+            get
+            {
+                return Parent.FindForm();
+            }
+        }
+
         #endregion
 
         #region Events
@@ -406,14 +399,14 @@
         protected virtual void OnCloseClick(ControlBoxEventArgs e)
         {
             CloseClick?.Invoke(e);
-            Parent.FindForm().Close();
+            ParentForm.Close();
         }
 
         /// <summary>The OnMaximizeClick.</summary>
         /// <param name="e">The event args.</param>
         protected virtual void OnMaximizeClick(ControlBoxEventArgs e)
         {
-            Parent.FindForm().WindowState = FormWindowState.Maximized;
+            ParentForm.WindowState = FormWindowState.Maximized;
             MaximizeClick?.Invoke(e);
         }
 
@@ -421,7 +414,7 @@
         /// <param name="e">The event args.</param>
         protected virtual void OnMinimizeClick(ControlBoxEventArgs e)
         {
-            Parent.FindForm().WindowState = FormWindowState.Minimized;
+            ParentForm.WindowState = FormWindowState.Minimized;
             MinimizeClick?.Invoke(e);
         }
 
@@ -546,7 +539,7 @@
             {
                 if (_maximize && _maximizeVisible)
                 {
-                    if (Parent.FindForm().WindowState == FormWindowState.Normal)
+                    if (ParentForm.WindowState == FormWindowState.Normal)
                     {
                         OnMaximizeClick(new ControlBoxEventArgs(Parent.FindForm()));
                     }
@@ -591,7 +584,7 @@
         /// <param name="e">The event args.</param>
         protected virtual void OnRestoredFormWindow(ControlBoxEventArgs e)
         {
-            Parent.FindForm().WindowState = FormWindowState.Normal;
+            ParentForm.WindowState = FormWindowState.Normal;
             RestoredFormWindow?.Invoke(e);
         }
 
@@ -615,7 +608,7 @@
 
                 case ControlBoxButtons.Maximize:
                     {
-                        _text = Parent.FindForm().WindowState == FormWindowState.Maximized ? "2" : "1";
+                        _text = ParentForm.WindowState == FormWindowState.Maximized ? "2" : "1";
                         break;
                     }
 
@@ -694,6 +687,26 @@
 
                 DrawButton(ControlBoxButtons.Minimize, graphics, _rectangle, _backColor, _foreColor, _point);
             }
+        }
+
+        /// <summary>Initializes the <see cref="VisualControlBox" />.</summary>
+        private void InitializeControlBox()
+        {
+            DoubleBuffered = true;
+            UpdateStyles();
+
+            Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            BackColor = Color.Transparent;
+            Size = new Size(100, 25);
+
+            _minimizeVisible = true;
+            _maximizeVisible = true;
+            _maximize = true;
+            _minimize = true;
+
+            _closeMouseState = MouseStates.Normal;
+            _maximizeMouseState = MouseStates.Normal;
+            _minimizeMouseState = MouseStates.Normal;
         }
 
         #endregion

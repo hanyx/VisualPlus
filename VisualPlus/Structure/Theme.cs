@@ -352,9 +352,6 @@
                 _otherSettings.HelpButtonBack.Hover = themeContainer.GetValue(Toolkit + "VisualControlBox/HelpButton/BackColorState/Hover").ToColor();
                 _otherSettings.HelpButtonBack.Pressed = themeContainer.GetValue(Toolkit + "VisualControlBox/HelpButton/BackColorState/Pressed").ToColor();
 
-
-                Console.WriteLine(_otherSettings.HelpButtonBack.Disabled);
-
                 _otherSettings.HelpButtonFore.Disabled = themeContainer.GetValue(Toolkit + "VisualControlBox/HelpButton/ForeColorState/Disabled").ToColor();
                 _otherSettings.HelpButtonFore.Enabled = themeContainer.GetValue(Toolkit + "VisualControlBox/HelpButton/ForeColorState/Enabled").ToColor();
                 _otherSettings.HelpButtonFore.Hover = themeContainer.GetValue(Toolkit + "VisualControlBox/HelpButton/ForeColorState/Hover").ToColor();

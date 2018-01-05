@@ -51,6 +51,7 @@
     <Compile Include="Collections\VisualTabPageCollectionEditor.cs" />
     <Compile Include="Delegates\ControlBoxDelegate.cs" />
     <Compile Include="Delegates\StyleManagerDelegate.cs" />
+    <Compile Include="Designer\VisualControlBoxButtonDesigner.cs" />
     <Compile Include="Designer\VisualControlBoxDesigner.cs" />
     <Compile Include="Designer\VisualTabPageDesigner.cs" />
     <Compile Include="Enumerators\Brightness.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Renders\VisualBorderRenderer.cs" />
     <Compile Include="Renders\VisualToggleRenderer.cs" />
     <Compile Include="Renders\VisualControlRenderer.cs" />
+    <Compile Include="Structure\ControlBoxButton.cs" />
     <Compile Include="Structure\OtherSettings.cs" />
     <Compile Include="Structure\BackgroundSettings.cs" />
     <Compile Include="Structure\BorderEdge.cs" />

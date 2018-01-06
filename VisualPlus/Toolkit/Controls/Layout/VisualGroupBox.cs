@@ -55,7 +55,6 @@
             Size = new Size(220, 180);
             _border = new Border();
             Padding = new Padding(5, _titleBoxHeight + _border.Thickness, 5, 5);
-
             Controls.Add(_borderEdge);
 
             UpdateTheme(ThemeManager.Theme);
@@ -264,6 +263,8 @@
         {
             base.OnPaint(e);
 
+            try
+            {
             Graphics graphics = e.Graphics;
             graphics.SmoothingMode = SmoothingMode.HighQuality;
             graphics.CompositingQuality = CompositingQuality.GammaCorrected;
@@ -289,19 +290,35 @@
 
             VisualBorderRenderer.DrawBorderStyle(e.Graphics, _border, ControlGraphicsPath, MouseState);
 
-            if (_boxStyle == GroupBoxStyle.Classic)
-            {
-                Point _titleBoxBackground = GraphicsManager.GetTextImageRelationLocation(e.Graphics, _textImageRelation, new Rectangle(new Point(), _image.Size), Text, Font, _titleBoxRectangle, false);
-                graphics.FillRectangle(new SolidBrush(BackColorState.Enabled), new Rectangle(new Point(_titleBoxBackground.X, _titleBoxBackground.Y), new Size(_titleBoxRectangle.Width, _titleBoxRectangle.Height)));
-            }
+                if (_boxStyle == GroupBoxStyle.Classic)
+                {
+                    Size _newSize;
+                    if (_image != null)
+                    {
+                        _newSize = _image.Size;
+                    }
+                    else
+                    {
+                        _newSize = new Size(0, 0);
+                    }
 
-            if (_image != null)
-            {
-                VisualControlRenderer.DrawContent(e.Graphics, _titleBoxRectangle, Text, Font, ForeColor, _image, _image.Size, _textImageRelation);
+                    Point _titleBoxBackground = GraphicsManager.GetTextImageRelationLocation(graphics, _textImageRelation, new Rectangle(new Point(0, 0), _newSize), Text, Font, _titleBoxRectangle, false);
+                    graphics.FillRectangle(new SolidBrush(BackColorState.Enabled), new Rectangle(new Point(_titleBoxBackground.X, _titleBoxBackground.Y), new Size(_titleBoxRectangle.Width, _titleBoxRectangle.Height)));
+                }
+
+                if (_image != null)
+                {
+                    VisualControlRenderer.DrawContent(e.Graphics, _titleBoxRectangle, Text, Font, ForeColor, _image, _image.Size, _textImageRelation);
+                }
+                else
+                {
+                    VisualControlRenderer.DrawContentText(e.Graphics, _titleBoxRectangle, Text, Font, ForeColor, _textAlignment, _textLineAlignment);
+                }
             }
-            else
+            catch (Exception exception)
             {
-                VisualControlRenderer.DrawContentText(e.Graphics, _titleBoxRectangle, Text, Font, ForeColor, _textAlignment, _textLineAlignment);
+                VisualExceptionDialog.Show(exception);
+                throw;
             }
         }
 
